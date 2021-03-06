@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="最优配对问题描术有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。 解法我们可以假定一个集合S，假设d[S]表示集合S内部的点两两配对得到的距离之和最小值。那么有： d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S) 那么，我们怎么来表示这样一个集合呢？ 集合的表示可以使用二进制，每个元素占一位，如果集合包含该元素，那么表示该集合的数字对应位就是1，否则就是0">
+<meta name="description" content="最优配对问题描述有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。 解法我们可以假定一个集合S，假设d[S]表示集合S内部的点两两配对得到的距离之和最小值。那么有： d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S) 那么，我们怎么来表示这样一个集合呢？ 集合的表示可以使用二进制，每个元素占一位，如果集合包含该元素，那么表示该集合的数字对应位就是1，否则就是0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="几种复杂状态的动态规划">
 <meta property="og:url" content="http://yoursite.com/2021/02/15/几种复杂状态的动态规划/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
-<meta property="og:description" content="最优配对问题描术有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。 解法我们可以假定一个集合S，假设d[S]表示集合S内部的点两两配对得到的距离之和最小值。那么有： d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S) 那么，我们怎么来表示这样一个集合呢？ 集合的表示可以使用二进制，每个元素占一位，如果集合包含该元素，那么表示该集合的数字对应位就是1，否则就是0">
+<meta property="og:description" content="最优配对问题描述有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。 解法我们可以假定一个集合S，假设d[S]表示集合S内部的点两两配对得到的距离之和最小值。那么有： d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S) 那么，我们怎么来表示这样一个集合呢？ 集合的表示可以使用二进制，每个元素占一位，如果集合包含该元素，那么表示该集合的数字对应位就是1，否则就是0">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-06T15:11:58.844Z">
+<meta property="og:updated_time" content="2021-03-06T15:27:49.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="几种复杂状态的动态规划">
-<meta name="twitter:description" content="最优配对问题描术有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。 解法我们可以假定一个集合S，假设d[S]表示集合S内部的点两两配对得到的距离之和最小值。那么有： d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S) 那么，我们怎么来表示这样一个集合呢？ 集合的表示可以使用二进制，每个元素占一位，如果集合包含该元素，那么表示该集合的数字对应位就是1，否则就是0">
+<meta name="twitter:description" content="最优配对问题描述有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。 解法我们可以假定一个集合S，假设d[S]表示集合S内部的点两两配对得到的距离之和最小值。那么有： d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S) 那么，我们怎么来表示这样一个集合呢？ 集合的表示可以使用二进制，每个元素占一位，如果集合包含该元素，那么表示该集合的数字对应位就是1，否则就是0">
 
 
 
@@ -341,7 +341,7 @@
       
 
       
-        <h1 id="最优配对问题"><a href="#最优配对问题" class="headerlink" title="最优配对问题"></a>最优配对问题</h1><h2 id="描术"><a href="#描术" class="headerlink" title="描术"></a>描术</h2><p>有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。</p>
+        <h1 id="最优配对问题"><a href="#最优配对问题" class="headerlink" title="最优配对问题"></a>最优配对问题</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>有20个点，欲使之两两配对，从而每一对点之间的距离之和最小。</p>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>我们可以假定一个集合S，假设<code>d[S]</code>表示集合S内部的点两两配对得到的距离之和最小值。那么有：</p>
 <p><code>d[S] = min(d[S-{i,j}]+dist(i,j))|i,j∈S)</code></p>
 <p>那么，我们怎么来表示这样一个集合呢？</p>
@@ -354,10 +354,10 @@
 <p>假设S={1,2,3,4,5}，那么按照上面的方法，S的前身可以是：</p>
 <p>{1,2,3},{1,2,4},{1,2,5},{1,3,4},{1,3,5},{1,4,5},{2,3,4},{2,3,5},{2,4,5},{3,4,5}。</p>
 <p>但实际上，我们观察一种情况，从S转化成{1,2,3}和从S转化成{1,4,5}，这两种情况再向前一步，又都可以转化为{1}，所以我们发现，在这个计算过程中有一部分是重复计算。而把集合S的前身考虑为是所有去掉最小元素i和任意元素j的子集，就避免了这种重复计算，可以把时间复杂度进一步降低到O(n* 2^n)。</p>
-<h1 id="货郎担问题"><a href="#货郎担问题" class="headerlink" title="货郎担问题"></a>货郎担问题</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>有n个城市两两之间有一条公路相连，每条公路的长度为Lij，n&lt;16，求出一条经过每个城市一次并回到起点的最短路。</p>
+<h1 id="货郎担问题"><a href="#货郎担问题" class="headerlink" title="货郎担问题"></a>货郎担问题</h1><h2 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h2><p>有n个城市两两之间有一条公路相连，每条公路的长度为Lij，n&lt;16，求出一条经过每个城市一次并回到起点的最短路。</p>
 <h2 id="解法-1"><a href="#解法-1" class="headerlink" title="解法"></a>解法</h2><p>可以直接规定从城市0出发，设状态<code>dp[i][S]</code>为当前在城市i，还没去过的城市集合是S，这种状态下所走过的最短路径。</p>
 <p>时间复杂度为(n<em> n</em> 2^n)。</p>
-<h1 id="图的点色数"><a href="#图的点色数" class="headerlink" title="图的点色数"></a>图的点色数</h1><h2 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h2><p>给无向图G中的点染色，求出所需颜色数的最小值，使得任何两个相邻的顶点颜色都不相同。</p>
+<h1 id="图的点色数"><a href="#图的点色数" class="headerlink" title="图的点色数"></a>图的点色数</h1><h2 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h2><p>给无向图G中的点染色，求出所需颜色数的最小值，使得任何两个相邻的顶点颜色都不相同。</p>
 <h2 id="解法-2"><a href="#解法-2" class="headerlink" title="解法"></a>解法</h2><p>设<code>dp[S]</code>为给集合S内的点染色所需颜色数，那么假设S的一个子集是S’，S’中所有的点两两不相邻，那么</p>
 <p><code>dp[S] = min(dp[S-S&#39;]+1)</code></p>
 <p>怎么枚举集合的子集呢，以s为例。</p>
@@ -520,7 +520,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最优配对问题"><span class="nav-number">1.</span> <span class="nav-text">最优配对问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描术"><span class="nav-number">1.1.</span> <span class="nav-text">描术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">1.3.</span> <span class="nav-text">改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#货郎担问题"><span class="nav-number">2.</span> <span class="nav-text">货郎担问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法-1"><span class="nav-number">2.2.</span> <span class="nav-text">解法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的点色数"><span class="nav-number">3.</span> <span class="nav-text">图的点色数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-1"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法-2"><span class="nav-number">3.2.</span> <span class="nav-text">解法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最优配对问题"><span class="nav-number">1.</span> <span class="nav-text">最优配对问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">1.2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">1.3.</span> <span class="nav-text">改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#货郎担问题"><span class="nav-number">2.</span> <span class="nav-text">货郎担问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法-1"><span class="nav-number">2.2.</span> <span class="nav-text">解法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的点色数"><span class="nav-number">3.</span> <span class="nav-text">图的点色数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法-2"><span class="nav-number">3.2.</span> <span class="nav-text">解法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
