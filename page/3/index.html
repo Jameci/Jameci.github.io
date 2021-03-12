@@ -1592,6 +1592,354 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/06/计算机网络-实验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/06/计算机网络-实验/" itemprop="url">计算机网络-实验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-06T20:22:00+08:00">
+                2021-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="实验介绍"><a href="#实验介绍" class="headerlink" title="实验介绍"></a>实验介绍</h1><p>本实验是中国海洋大学本科计算机网络课的课堂作业。</p>
+<p>实验内容是，使用java，实现一个TCP协议端到端的可靠传输，包括对各种差错的确认，重传，以及进阶的选择响应，拥塞控制。</p>
+<p>实验假设有一个发送端在给接收端发送数据，由于实际的信道总会出现各种各样的错误，需要采取一定的方法来保证数据的可靠传输。</p>
+<p>在发送时，使用eflag变量来模拟实际信道可能出现的错误，eflag变量的值和错误的对应关系如下：</p>
+<p>0：信道无错误。</p>
+<p>1：只出现位错。</p>
+<p>2：只出现丢包。</p>
+<p>3：只出现延迟。</p>
+<p>4：出错+丢包。</p>
+<p>5：出错+延迟。</p>
+<p>6：丢包+延迟。</p>
+<p>7：出错+丢包+延迟。</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><h2 id="安装jdk1-6-0-45"><a href="#安装jdk1-6-0-45" class="headerlink" title="安装jdk1.6.0_45"></a>安装jdk1.6.0_45</h2><p>下载地址：<a href="https://www.oracle.com/java/technologies/javase-java-archive-javase6-downloads.html" target="_blank" rel="noopener">https://www.oracle.com/java/technologies/javase-java-archive-javase6-downloads.html</a></p>
+<p><img src="/images/计算机网络-实验/pasted-0.png" alt></p>
+<p>下载，安装，安装成功后，如下图。</p>
+<p><img src="/images/计算机网络-实验/pasted-1.png" alt></p>
+<p>笔者是按照实验要求配置的，其他版本的jdk应该也可以。</p>
+<h2 id="配置windows环境变量"><a href="#配置windows环境变量" class="headerlink" title="配置windows环境变量"></a>配置windows环境变量</h2><p>右键点击我的电脑，属性-&gt;高级系统设置-&gt;环境变量。在系统变量里，点击新建，变量名为JAVA_HOME，变量值为刚刚安装jdk的路径。</p>
+<p><img src="/images/计算机网络-实验/pasted-2.png" alt></p>
+<p>点击Path，编辑，添加“jdk的安装目录\bin;jdk的安装目录\jre\bin”（添加双引号里面的，不包括引号，jdk的安装目录替换成自己的）。</p>
+<p><img src="/images/计算机网络-实验/pasted-3.png" alt></p>
+<p>继续新建，变量名为CLASSPATH，变量值是“.;jdk的安装目录\lib;jdk的安装目录\lib\dt.jar;jdk的安装目录\lib\tools.jar”（值是双引号里面的，不包括引号，jdk的安装目录替换成自己的）。</p>
+<p><img src="/images/计算机网络-实验/pasted-4.png" alt></p>
+<p>注意这里有四个，一定不要忘记第一个是一个点，即.</p>
+<p>配置完之后，点确定，并退出。</p>
+<p>打开cmd，输入java：</p>
+<p><img src="/images/计算机网络-实验/pasted-5.png" alt></p>
+<p>输入javac：</p>
+<p><img src="/images/计算机网络-实验/pasted-6.png" alt></p>
+<p>输入java -version：</p>
+<p><img src="/images/计算机网络-实验/pasted-7.png" alt></p>
+<p>之前跟着某个教程去配置环境变量，CLASSPATH和PATH里面用的是%JAVA_HOME%/bin这样的写法，结果输入javac时出现’javac’ 不是内部或外部命令，也不是可运行的程序或批处理文件，可能因为教程是win7，而我使用的是win10吧，把%JAVA_HOME%改成绝对路径就好了。</p>
+<h2 id="安装IDEA"><a href="#安装IDEA" class="headerlink" title="安装IDEA"></a>安装IDEA</h2><p>下载：<a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener">https://www.jetbrains.com/idea/</a></p>
+<p>安装后启动。</p>
+<p><img src="/images/计算机网络-实验/pasted-8.png" alt></p>
+<p>解压实验文件中的TCP_Test_2020，这里有两个，一个_MACOSX可能是MAC系统上的，TCP_Test是Linux上的。</p>
+<p><img src="/images/计算机网络-实验/pasted-9.png" alt></p>
+<p>由于笔者有两个版本的JDK，需要先设置一下，改成本次实验要求的1.6，具体方法是：先用IDEA打开TCP_Test，点右上角的Project Structure按钮。</p>
+<p><img src="/images/计算机网络-实验/pasted-10.png" alt></p>
+<p>在Modules里面，选择Module，右边的Sources选6。</p>
+<p><img src="/images/计算机网络-实验/pasted-11.png" alt></p>
+<p>Dependencies里的SDK为1.6.0_45。点击Apply。</p>
+<p><img src="/images/计算机网络-实验/pasted-12.png" alt></p>
+<p>在Project里面，选择Project SDK和Project language level为1.6。</p>
+<p><img src="/images/计算机网络-实验/pasted-13.png" alt></p>
+<p>file-&gt;settings–&gt;Build,Execution,Deployment–&gt;java Compiler里面，点击Module里的+，选择项目，加后面的版本设置为6。点击Apply。</p>
+<p><img src="/images/计算机网络-实验/pasted-14.png" alt></p>
+<p>这时候点右上角的锤子，应该能编译成功了。由于笔者是Windows系统，所以多了一步，先把实验文件中的TCP_WIN_TestSys.jar放进项目的lib里。</p>
+<p><img src="/images/计算机网络-实验/pasted-15.png" alt></p>
+<p>在刚刚的Project Structure窗口的Dependencies选项中，有一个TCP_TestSys_Linux.jar。选择它，点-把它去掉，然后点击+，把TCP_WIN_TestSys.jar加入后整个代码里，使整个代码不显示错误符号。</p>
+<p>运行TestRun.java检验是否配置成功。如果成功运行，将会出现如下的输出。</p>
+<p><img src="/images/计算机网络-实验/pasted-16.png" alt></p>
+<p>敲两下回车键，TCP包开始发送。</p>
+<p><img src="/images/计算机网络-实验/pasted-17.png" alt></p>
+<p>至此，整个实验的准备部分就完成了。</p>
+<h1 id="1-0版本"><a href="#1-0版本" class="headerlink" title="1.0版本"></a>1.0版本</h1><h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>整个项目似乎有很多东西，但是做出这个实验实际上所需要了解的很少。在开始做实验的时候，笔者曾经想要看懂全部的代码之后再动手，但碍于并没有学过JAVA，耽误了很多时间。实际上，并不需要完全了解项目内容，我们能修改的只有四个文件：</p>
+<p><img src="/images/计算机网络-实验/pasted-18.png" alt></p>
+<p>位于src里面的四个文件，分别是：</p>
+<p>CheckSum，添加校验字段。</p>
+<p>TCP_Receiver，负责处理接收。</p>
+<p>TCP_Sender，负责处理发送。</p>
+<p>TestRun，主函数。</p>
+<p>其他文件大多都是只读的。</p>
+<p>而且，本实验主要使用的是迭代开发，一个版本一个版本地循序渐进，在最初的版本只用到很少的功能，本篇文章的思路是每个版本，只简单介绍用到的代码，这样可以便于理解。</p>
+<h2 id="基本运行流程"><a href="#基本运行流程" class="headerlink" title="基本运行流程"></a>基本运行流程</h2><p>当程序运行起来，会有一个发送端和一个接收端，发送端会从应用层接收到数据并打包成tcp包发送给接收端，接收端接收到tcp包，会回复一个确认（ack）。</p>
+<p>发送端收到ack，知道自己上一个包已经被成功接收，就会继续发送下一个包。</p>
+<p>1.0的假设是信道完全不会出现任何错误，这样，程序运行时，发送端会发送包，接收端一定能接收到这个包并确认，发送端也一定接收到前面发送的包的确认，并发送下一个包，循环往复直到发送完所有的数据。</p>
+<h2 id="几个类的介绍"><a href="#几个类的介绍" class="headerlink" title="几个类的介绍"></a>几个类的介绍</h2><h3 id="TCP-PACKET"><a href="#TCP-PACKET" class="headerlink" title="TCP_PACKET"></a>TCP_PACKET</h3><p>TCP_PACKET类，顾名思义，它是模拟的一个TCP包，在实验中我们主要关心的是它的TCP_HEADER和TCP_SEGMENT，即TCP头和TCP段。</p>
+<h3 id="TCP-Sender"><a href="#TCP-Sender" class="headerlink" title="TCP_Sender"></a>TCP_Sender</h3><p>TCP_Sender类继承自TCP_Sender_ADT，在这里，我们暂时只需要关注它的tcpPack属性，即需要发送的TCP报文。为什么要有一个属性存需要发送的报文呢，因为发送后，因为种种原因，可能要重发，所以发送端要有一个备份在，以便重发。</p>
+<p>flag属性用于同步TCP_Sender的几个方法，下面会讲。</p>
+<p>TCP_Sender里面有四个方法，下面我们分别介绍一下。</p>
+<h4 id="rdt-send"><a href="#rdt-send" class="headerlink" title="rdt_send"></a>rdt_send</h4><p>可靠传输函数，它会被应用层调用，然后将接收到的应用层数据打包，并传输出去。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//可靠发送（应用层调用）：封装应用层数据，产生TCP数据报；需要修改</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_send</span><span class="params">(<span class="keyword">int</span> dataIndex, <span class="keyword">int</span>[] appData)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//通过rdt_send的参数接收应用层数据</span></span><br><span class="line">		<span class="comment">//本实验中，appIndex从0到99递增，appDate是长度100的int数组</span></span><br><span class="line">		<span class="comment">//类似于把应用层数据分成100段，每段100个int，依次给rdt_send发送</span></span><br><span class="line">		</span><br><span class="line">        <span class="comment">//生成TCP数据报（设置序号和数据字段/校验和),注意打包的顺序</span></span><br><span class="line">		tcpH.setTh_seq(dataIndex * appData.length + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//包序号设置为字节流号：</span></span><br><span class="line">		tcpS.setData(appData);</span><br><span class="line">		tcpPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, destinAddr);		</span><br><span class="line">				</span><br><span class="line">		tcpH.setTh_sum(CheckSum.computeChkSum(tcpPack));</span><br><span class="line">		<span class="comment">//由于此时校验和计算函数CheckSum.computeChkSum是空的</span></span><br><span class="line">        <span class="comment">//直接return 0，所以实际上现在是对包不进行校验的。</span></span><br><span class="line">		tcpPack.setTcpH(tcpH);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//发送TCP数据报</span></span><br><span class="line">		udt_send(tcpPack);</span><br><span class="line">		flag = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//每当发送端发送一个包，flag就会置0，</span></span><br><span class="line">        <span class="comment">//当发送端接收到接收端发回来的确认，flag就会置1。</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//等待ACK报文</span></span><br><span class="line">		<span class="comment">//waitACK();</span></span><br><span class="line">		<span class="keyword">while</span> (flag==<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//上一个包的确认没有被接收到时，while会一直等。</span></span><br><span class="line">        <span class="comment">//接收到确认flag才会被置1，否则下一个包不会发出去。</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="udt-send"><a href="#udt-send" class="headerlink" title="udt_send"></a>udt_send</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//不可靠发送：将打包好的TCP数据报通过不可靠传输信道发送；</span></span><br><span class="line">    <span class="comment">//仅需修改错误标志</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">udt_send</span><span class="params">(TCP_PACKET stcpPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//设置错误控制标志</span></span><br><span class="line">		tcpH.setTh_eflag((<span class="keyword">byte</span>)<span class="number">1</span>);		</span><br><span class="line">		<span class="comment">//System.out.println("to send: "+stcpPack.getTcpH().getTh_seq());				</span></span><br><span class="line">		<span class="comment">//发送数据报</span></span><br><span class="line">		client.send(stcpPack);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>udt_send提供的是不可靠的发送，可以将它理解为实际的在信道发送数据。</p>
+<p>setTh_eflag函数是控制出错类型的，它表示发送端到接收端传数据的时候可能在途中出现的错误。</p>
+<h4 id="waitACK"><a href="#waitACK" class="headerlink" title="waitACK"></a>waitACK</h4><p>waitACK是对确认号的处理，注意是确认号，即确认包的ack字段，不是确认包。ackQueue是TCP_Sender的一个属性，是一个存int型的队列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//需要修改</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">waitACK</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//循环检查ackQueue</span></span><br><span class="line">		<span class="comment">//循环检查确认号对列中是否有新收到的ACK		</span></span><br><span class="line">		<span class="keyword">if</span>(!ackQueue.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">int</span> currentAck=ackQueue.poll();</span><br><span class="line">			<span class="comment">// System.out.println("CurrentAck: "+currentAck);</span></span><br><span class="line">			<span class="keyword">if</span> (currentAck == tcpPack.getTcpH().getTh_seq())&#123;</span><br><span class="line">				System.out.println(<span class="string">"Clear: "</span>+tcpPack.getTcpH().getTh_seq());</span><br><span class="line">				flag = <span class="number">1</span>;</span><br><span class="line">				<span class="comment">//break;</span></span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"Retransmit: "</span>+tcpPack.getTcpH().getTh_seq());</span><br><span class="line">				udt_send(tcpPack);</span><br><span class="line">				flag = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里已经写好了的功能是：如果确认队列里面有确认号，就取出，比较确认号是不是对刚刚发出去的包的确认，如果是，flag置为1，表示确认收到，可以发下一个包了。如果不是，则重发刚刚的包。</p>
+<h4 id="recv"><a href="#recv" class="headerlink" title="recv"></a>recv</h4><p>recv是接收确认号的函数，接到一个确认包，就把它的确认号添加到ackQueue队列里并让waitACK去处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//接收到ACK报文：检查校验和，将确认号插入ack队列;NACK的确认号为－1；不需要修改</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Receive ACK Number： "</span>+ recvPack.getTcpH().getTh_ack());</span><br><span class="line">		ackQueue.add(recvPack.getTcpH().getTh_ack());</span><br><span class="line">	    System.out.println();	</span><br><span class="line">	   </span><br><span class="line">	    <span class="comment">//处理ACK报文</span></span><br><span class="line">	    waitACK();</span><br><span class="line">	   </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="TCP-Receiver"><a href="#TCP-Receiver" class="headerlink" title="TCP_Receiver"></a>TCP_Receiver</h3><p>TCP_Receiver和TCP_Sender差不多，有一个ackPack属性以备重发，之后是sequence，它表示当前待接收的包序号。</p>
+<h4 id="rdt-recv"><a href="#rdt-recv" class="headerlink" title="rdt_recv"></a>rdt_recv</h4><p>接收端接收到数据报对其进行的一些处理，这个函数比较长，但其实逻辑很简单，收到包之后，检查这个包带来的校验字段和现场计算出来的校验字段一不一致。</p>
+<p>如果一致，收下数据包到dataQueue，设置待接收的数据包为下一个的序号，之后生成一个ack包，确认号等于包序号，来回复刚刚收到的包。</p>
+<p>不一致则生成一个报错的ack包，来通知发送端上一个包错了。</p>
+<p>最后的交付数据是将dataQueue里面的数据交给上层，不用管它。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="comment">//接收到数据报：检查校验和，设置回复的ACK报文段</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//检查校验码，生成ACK</span></span><br><span class="line">		<span class="keyword">if</span>(CheckSum.computeChkSum(recvPack) == recvPack.getTcpH().getTh_sum()) &#123;</span><br><span class="line">			<span class="comment">//生成ACK报文段（设置确认号）</span></span><br><span class="line">			tcpH.setTh_ack(recvPack.getTcpH().getTh_seq());</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			<span class="comment">//回复ACK报文段</span></span><br><span class="line">			reply(ackPack);			</span><br><span class="line">			<span class="comment">//将接收到的正确有序的数据插入data队列，准备交付</span></span><br><span class="line">			dataQueue.add(recvPack.getTcpS().getData());				</span><br><span class="line">			sequence++;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			System.out.println(<span class="string">"Recieve Computed: "</span>+CheckSum.computeChkSum(recvPack));</span><br><span class="line">			System.out.println(<span class="string">"Recieved Packet"</span>+recvPack.getTcpH().getTh_sum());</span><br><span class="line">			System.out.println(<span class="string">"Problem: Packet Number: "</span>+recvPack.getTcpH().getTh_seq()+<span class="string">" + InnerSeq:  "</span>+sequence);</span><br><span class="line">			tcpH.setTh_ack(-<span class="number">1</span>);</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			<span class="comment">//回复ACK报文段</span></span><br><span class="line">			reply(ackPack);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//交付数据（每20组数据交付一次）</span></span><br><span class="line">		<span class="keyword">if</span>(dataQueue.size() == <span class="number">20</span>) </span><br><span class="line">			deliver_data();	</span><br><span class="line">	&#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="deliver-data和reply"><a href="#deliver-data和reply" class="headerlink" title="deliver_data和reply"></a>deliver_data和reply</h4><p>交付数据和回复报文的函数。</p>
+<h3 id="CheckSum"><a href="#CheckSum" class="headerlink" title="CheckSum"></a>CheckSum</h3><p>里面只有一个空函数，直接return 0，也就意味着现在的校验和永远是0。后面我们会自己实现校验和的算法。</p>
+<h2 id="1-0的假设"><a href="#1-0的假设" class="headerlink" title="1.0的假设"></a>1.0的假设</h2><p>1.0没有任何错误，即信道完全可靠，无论是发送到接收，还是接收到发送，传进去什么，传出来就是什么，非常nice。</p>
+<h2 id="1-0要做到"><a href="#1-0要做到" class="headerlink" title="1.0要做到"></a>1.0要做到</h2><p>发送端能够发送给接收端数据，接收端能全部接到并回复。</p>
+<h2 id="1-0所做的更改"><a href="#1-0所做的更改" class="headerlink" title="1.0所做的更改"></a>1.0所做的更改</h2><p>首先，把发送端的udt_send里面的setTh_eflag改成0，保证发送数据不会出错。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//不可靠发送：将打包好的TCP数据报通过不可靠传输信道发送；仅需修改错误标志</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">udt_send</span><span class="params">(TCP_PACKET stcpPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//设置错误控制标志</span></span><br><span class="line">		tcpH.setTh_eflag((<span class="keyword">byte</span>)<span class="number">0</span>);		</span><br><span class="line">		<span class="comment">//System.out.println("to send: "+stcpPack.getTcpH().getTh_seq());				</span></span><br><span class="line">		<span class="comment">//发送数据报</span></span><br><span class="line">		client.send(stcpPack);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>接收端的reply函数也要把setTh_eflag改为0，保证接收端发送确认的时候不会中途出错。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//回复ACK报文段</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reply</span><span class="params">(TCP_PACKET replyPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//设置错误控制标志</span></span><br><span class="line">		tcpH.setTh_eflag((<span class="keyword">byte</span>)<span class="number">0</span>);	<span class="comment">//eFlag=0，信道无错误</span></span><br><span class="line">				</span><br><span class="line">		<span class="comment">//发送数据报</span></span><br><span class="line">		client.send(replyPack);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>理论上，修改完两个eflag，1.0就已经完成了，但是笔者很不幸，可能是因为笔记本性能的问题，踩了一个坑。</p>
+<p>我们知道，运行的时候，发送端的发送函数rdt_send，接收确认包的函数recv，以及接收端的接收函数rdt_recv三个函数是并发的，也就意味着同一时间内，他们三个是都在运行着的，那么可能会出现下面这种情况：</p>
+<p>rdt_send的这一块：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送TCP数据报</span></span><br><span class="line">		udt_send(tcpPack);</span><br><span class="line">		flag = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>执行到udt_send，即刚刚发完包，rdt_send没来得及执行flag=0的时候，另一边的rdt_recv就接收到了这个包，抢先一步把flag置1了（虽然可能本来就是1）。</p>
+<p>然后才轮到本来应该接着执行的flag=0，把flag=0了。</p>
+<p>while循环开始等待flag变回1，可是这时候，能让flag=1的语句早已执行完成了，while等不到flag，就会一直等下去，下一个包永远不会发送。</p>
+<p>笔者不是很懂Java的并发，只能按照自己的分析和理解来做，解决方法是，把这一块换成：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送TCP数据报</span></span><br><span class="line">		flag = <span class="number">0</span>;</span><br><span class="line">        udt_send(tcpPack);</span><br></pre></td></tr></table></figure>
+<p>先把flag置0，再发送包，这样就不会被抢先一步修改flag了。</p>
+<p>修改完，1.0版本就完整的运行出来了。</p>
+<p>这个问题很玄学，因为最开始运行的时候总是卡在某处，程序很少能跑完，笔者分析了很久，觉得进程同步有问题，遂修改了。去找朋友吐槽老师故意挖坑，朋友却说，他从来没有遇到过这种问题。</p>
+<p>笔者跟朋友讲了自己的思路，他也觉得很有道理，但奈何人家就是正常的，也没改过。所以真的很玄学。笔者只得猜测或许是处理机速度的问题什么的。</p>
+<h2 id="1-0的结果分析"><a href="#1-0的结果分析" class="headerlink" title="1.0的结果分析"></a>1.0的结果分析</h2><p>运行TestRun，在控制台打印出提示信息之后，敲两下空格，一大堆包就会呼啸而过。</p>
+<p><img src="/images/计算机网络-实验/pasted-19.png" alt></p>
+<p>等到包发送完（最后一个包的编号是99901），控制台打印出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**************** TCP_Sender: Data sending ends. ****************</span><br></pre></td></tr></table></figure>
+<p>停止程序，打开Log.txt文件。可以看到一张表格。</p>
+<p><img src="/images/计算机网络-实验/pasted-20.png" alt></p>
+<p>第一行，可以看到ip地址和端口号，然后看到发送端总共发送了1000个包，有1000个正常（因为1.0信道无错），正常包占的比例是100%，WRONG，LOSS，DELAY都是0。</p>
+<p>再往下，可以看到每个包的情况，有发送时间，序号，是否收到回复。</p>
+<p>翻到表的中部，可以看到接收端的情况，接收端共发送1000个包，1000个正常，WRONG，LOSS，DELAY都是0。后面有每个包的ACK号。</p>
+<p><img src="/images/计算机网络-实验/pasted-21.png" alt></p>
+<p>鉴于1.0的假设，发送端发送了1000个包，全部正常到达，接收端接收后，发送了1000个确认包，也都正常到达，我们有理由说，两端都在正常的工作。</p>
+<h1 id="2-0版本"><a href="#2-0版本" class="headerlink" title="2.0版本"></a>2.0版本</h1><h2 id="2-0的假设"><a href="#2-0的假设" class="headerlink" title="2.0的假设"></a>2.0的假设</h2><p>假设发送端信道会出现位错，接收端不会出现信道异常。</p>
+<p>这样，接收端可能会接收到错误的包。</p>
+<h2 id="2-0的实现方法"><a href="#2-0的实现方法" class="headerlink" title="2.0的实现方法"></a>2.0的实现方法</h2><p>接收端接收到错误的包，可以要求重发。</p>
+<p>这就引出了两个问题，一是接收端如何知道这是错误的包。二是接收端怎么让发送端重发。</p>
+<p>要检测包是否错误，就要启用校验和了，可以采取一种校验算法来实现。</p>
+<p>如何让发送端重发呢？接收端可以把ack包的ack号设置成-1发给发送端，这样，发送端就知道，上一个包出了问题，应该重新发送。</p>
+<h2 id="2-0的改动"><a href="#2-0的改动" class="headerlink" title="2.0的改动"></a>2.0的改动</h2><h3 id="校验和"><a href="#校验和" class="headerlink" title="校验和"></a>校验和</h3><p>笔者的校验和算法采用类似于UDP和TCP的算法，即把整个数据包看成是一串16位的反码数，对它们进行求和，得出的结果按位取反来作为校验和。</p>
+<p>由于本实验只要求对首部的序号seq，校验和sum，回复号ack进行校验，所以实际的算法如下：</p>
+<p>1.checksum初值为0。</p>
+<p>2.将sum，seq和ack的高16位，seq和ack的低16位加到checksum里（反码加法）。</p>
+<p>3.数据部分，每个int分成高低16位，按反码加法加到checksum里。</p>
+<p>4.对checksum按位取反，返回checksum。</p>
+<p>下面我们进行一个简单的推理：</p>
+<p>假设sum字段一开始是0，我们需要校验的部分被我们分成了若干个16位的反码数xi（i=0,1,2，···），那么checksum会先等于它们的和，再按位取反。</p>
+<p>对于一个反码数，按位取反意味着取倒数，所以发送时，sum字段被设置成了这些反码数和的倒数。</p>
+<p>接收端接到了包，使用同样的算法去算，checksum还会等于xi的和，但不一样的是，由于sum不再是0了，所以checksum还会加上sum，sum又等于xi和的倒数，因此checksum此时必定是0。</p>
+<p>所以接收端计算checksum为0，说明包无误，否则，有误。</p>
+<p>校验和代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckSum</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*计算TCP报文段校验和：只需校验TCP首部中的seq、ack和sum，以及TCP数据字段*/</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">short</span> <span class="title">computeChkSum</span><span class="params">(TCP_PACKET tcpPack)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> checkSum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> lower_mask = <span class="number">0xffff</span>;<span class="comment">//取低位</span></span><br><span class="line">		<span class="keyword">int</span> upper_mask = <span class="number">0xffff0000</span>;<span class="comment">//取高位</span></span><br><span class="line">		<span class="keyword">int</span> sum = tcpPack.getTcpH().getTh_sum();</span><br><span class="line">		<span class="keyword">int</span> seq = tcpPack.getTcpH().getTh_seq();</span><br><span class="line">		<span class="keyword">int</span> ack = tcpPack.getTcpH().getTh_ack();</span><br><span class="line">		checkSum += sum;<span class="comment">//sum是short型，可以直接加</span></span><br><span class="line">		checkSum += (seq &amp; lower_mask);</span><br><span class="line">		checkSum += (((seq &amp; upper_mask) &gt;&gt; <span class="number">32</span>) &amp; lower_mask);</span><br><span class="line">		checkSum += (ack &amp; lower_mask);</span><br><span class="line">		checkSum += (((ack &amp; upper_mask) &gt;&gt; <span class="number">32</span>) &amp; lower_mask);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; tcpPack.getTcpS().getData().length;++i)&#123;</span><br><span class="line">			checkSum += (tcpPack.getTcpS().getData()[i] &amp; lower_mask);</span><br><span class="line">			checkSum += (((tcpPack.getTcpS().getData()[i] &amp; upper_mask) &gt;&gt; <span class="number">32</span>) &amp; lower_mask);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//为了省事，最后再计算一共有多少进位，每加一次就检测一次是否进位然后再做处理也是一样的。</span></span><br><span class="line">		<span class="keyword">while</span>(checkSum &gt; lower_mask)&#123;</span><br><span class="line">			<span class="keyword">int</span> temp = (((checkSum &amp; upper_mask) &gt;&gt; <span class="number">32</span>) &amp; lower_mask);</span><br><span class="line">			checkSum = (checkSum &amp; lower_mask) + temp;</span><br><span class="line">		&#125;</span><br><span class="line">		checkSum = ~checkSum;</span><br><span class="line">		<span class="keyword">return</span> (<span class="keyword">short</span>) checkSum;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，rdt_send并没有在每次发送的时候把包的sum置零，因此在发送前，需要手动加上。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//可靠发送（应用层调用）：封装应用层数据，产生TCP数据报；需要修改</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_send</span><span class="params">(<span class="keyword">int</span> dataIndex, <span class="keyword">int</span>[] appData)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//通过rdt_send的参数接收应用层数据</span></span><br><span class="line">		<span class="comment">//本实验中，appIndex从0到99递增，appDate是长度100的int数组</span></span><br><span class="line">		<span class="comment">//类似于把应用层数据分成100段，每段100个int，依次给rdt_send发送</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//生成TCP数据报（设置序号和数据字段/校验和),注意打包的顺序</span></span><br><span class="line">		tcpH.setTh_seq(dataIndex * appData.length + <span class="number">1</span>);</span><br><span class="line">		<span class="comment">//包序号设置为字节流号：</span></span><br><span class="line">		tcpS.setData(appData);</span><br><span class="line">		tcpPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, destinAddr);</span><br><span class="line">		tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">		tcpH.setTh_sum(CheckSum.computeChkSum(tcpPack));</span><br><span class="line">		tcpPack.setTcpH(tcpH);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//发送TCP数据报</span></span><br><span class="line">		flag = <span class="number">0</span>;</span><br><span class="line">		udt_send(tcpPack);</span><br><span class="line">		<span class="comment">//每当发送端发送一个包，flag就会置0，</span></span><br><span class="line">		<span class="comment">//当发送端接收到接收端发回来的确认，flag就会置1。</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//等待ACK报文</span></span><br><span class="line">		<span class="comment">//waitACK();</span></span><br><span class="line">		<span class="keyword">while</span> (flag==<span class="number">0</span>);</span><br><span class="line">		<span class="comment">//上一个包的确认没有被接收到时，while会一直等。</span></span><br><span class="line">		<span class="comment">//接收到确认flag才会被置1，否则下一个包不会发出去。</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>Receiver的检验条件也要变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//接收到数据报：检查校验和，设置回复的ACK报文段</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//检查校验码，生成ACK</span></span><br><span class="line">		<span class="comment">//if(CheckSum.computeChkSum(recvPack) == recvPack.getTcpH().getTh_sum()) &#123;</span></span><br><span class="line">		<span class="keyword">if</span>(CheckSum.computeChkSum(recvPack) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">//生成ACK报文段（设置确认号）</span></span><br><span class="line">			tcpH.setTh_ack(recvPack.getTcpH().getTh_seq());</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			<span class="comment">//回复ACK报文段</span></span><br><span class="line">			reply(ackPack);			</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//将接收到的正确有序的数据插入data队列，准备交付</span></span><br><span class="line">			dataQueue.add(recvPack.getTcpS().getData());				</span><br><span class="line">			sequence++;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			System.out.println(<span class="string">"Recieve Computed: "</span>+CheckSum.computeChkSum(recvPack));</span><br><span class="line">			System.out.println(<span class="string">"Recieved Packet"</span>+recvPack.getTcpH().getTh_sum());</span><br><span class="line">			System.out.println(<span class="string">"Problem: Packet Number: "</span>+recvPack.getTcpH().getTh_seq()+<span class="string">" + InnerSeq:  "</span>+sequence);</span><br><span class="line">			tcpH.setTh_ack(-<span class="number">1</span>);</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			<span class="comment">//回复ACK报文段</span></span><br><span class="line">			reply(ackPack);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重发，ack号的处理"><a href="#重发，ack号的处理" class="headerlink" title="重发，ack号的处理"></a>重发，ack号的处理</h3><p>这些在1.0已经写好了（老师可能给错了版本），现在运行2.0只需要把发送端的eflag设为1。</p>
+<h2 id="2-0的结果分析"><a href="#2-0的结果分析" class="headerlink" title="2.0的结果分析"></a>2.0的结果分析</h2><p><img src="/images/计算机网络-实验/pasted-22.png" alt></p>
+<p>可以看得到，发送端发送的包已经不是100%正确了，有6个发生了错误（也就是WRONG下面统计的6个）。</p>
+<p><img src="/images/计算机网络-实验/pasted-23.png" alt></p>
+<p>图中，16001号包发送后出现错误，可以看到发送端接着重传了它。</p>
+<p><img src="/images/计算机网络-实验/pasted-24.png" alt></p>
+<p>再看接收端，因为接收端不会发生错误，所以依然是100%，总共发送了1006个包，都是正确的。</p>
+<p>至于多发的6个，当然是要求发送端错误的那6个包的重传。</p>
+<p>可以看到对于16001号包，接收端的处理：</p>
+<p><img src="/images/计算机网络-实验/pasted-25.png" alt></p>
+<p>接收端发现不对，立马回复了个ack号为-1的包，意思是错了，重传，于是发送端重传了，接收端这次接到了正确的包，所以发了一个ack号是16001的确认。</p>
+<p>通过分析，我们有理由认为，发送端和接收端都在正常地工作。</p>
+<h1 id="2-1版本"><a href="#2-1版本" class="headerlink" title="2.1版本"></a>2.1版本</h1><h2 id="2-1版本的假设"><a href="#2-1版本的假设" class="headerlink" title="2.1版本的假设"></a>2.1版本的假设</h2><p>2.1版本假设接收端发回发送端的确认包也可能有问题，对吧，凭什么你发送端可以有问题，我接收端就不能有问题呢。</p>
+<h2 id="2-1版本的实现方法"><a href="#2-1版本的实现方法" class="headerlink" title="2.1版本的实现方法"></a>2.1版本的实现方法</h2><p>既然发送会出问题，确认也会出同样的问题，这听上去很合理，但这会让事情变得很麻烦，因为接收端一旦发回的确认有问题，发送端怎么知道接收端是否正确的接收了数据呢。</p>
+<p>这时候，可能我们会想当然地想到，那就让发送端再发一个对确认的确认，不就好了。可是在信道上，对确认的确认，也有可能有问题，那就要发送对确认的确认的确认，究极套娃，最终变成发送一个包，我们都要来来回回确认，最终也确认不了是不是有问题。</p>
+<p>所以，另一种想法出现了，但凡我发送端接到了有问题的包，直接重发，管你确认没确认，我只要没法确认你确认了，我就重发一份。</p>
+<p>这会引起新的问题，假设接收端接到了正确的包，发送的确认却出错了，发送端说好，确认错了，我重发，导致接收端又接到了同样的包。</p>
+<p>接收端接过来一看，还是刚刚的包，就知道发送端没收到正确的确认，赶紧重新确认一下。但包重复了，接收端会把包给丢掉。</p>
+<p>最后一个未了解的小问题：接收端怎么知道发送端发的是重复的包呢？要知道，接收端可能这时候已经把刚刚收到的包交给应用层了，根本就没存。为了让接收端知道接到的包是不是重复的，接收端的sequence属性会发生作用（sequence：接收端期望收到的包序号），每次收到正确的包，就更新。</p>
+<h2 id="2-1版本的改动"><a href="#2-1版本的改动" class="headerlink" title="2.1版本的改动"></a>2.1版本的改动</h2><p>把接收端的eflag也改成1。</p>
+<h3 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h3><p>收到接收端的ack包，先计算一下校验和，看看对不对。如果对，和2.0一样，不对的话，重发，注意重发的话就不要把错包交给waitACK处理了，因为waitACK只能拿到ack号，不知道这个包正不正常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Receive ACK Number： "</span>+ recvPack.getTcpH().getTh_ack());</span><br><span class="line">		<span class="keyword">if</span>(CheckSum.computeChkSum(recvPack) != <span class="number">0</span>)&#123;</span><br><span class="line">			udt_send(tcpPack);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		ackQueue.add(recvPack.getTcpH().getTh_ack());</span><br><span class="line">	    System.out.println();</span><br><span class="line">		waitACK();</span><br><span class="line">	    <span class="comment">//处理ACK报文</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接收端"><a href="#接收端" class="headerlink" title="接收端"></a>接收端</h3><p>接收端这边，需要把包重发的情况写出来，并且，sum记得一开始置零。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//接收到数据报：检查校验和，设置回复的ACK报文段</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//检查校验码，生成ACK</span></span><br><span class="line">		<span class="keyword">if</span>(CheckSum.computeChkSum(recvPack) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">//生成ACK报文段（设置确认号）</span></span><br><span class="line">			<span class="keyword">if</span>(sequence * <span class="number">100</span> - <span class="number">99</span> == recvPack.getTcpH().getTh_seq())&#123;</span><br><span class="line">				tcpH.setTh_ack(recvPack.getTcpH().getTh_seq());</span><br><span class="line">				ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">				tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">				tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">				<span class="comment">//回复ACK报文段</span></span><br><span class="line">				reply(ackPack);</span><br><span class="line"></span><br><span class="line">				<span class="comment">//将接收到的正确有序的数据插入data队列，准备交付</span></span><br><span class="line">				dataQueue.add(recvPack.getTcpS().getData());</span><br><span class="line">				sequence++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				tcpH.setTh_ack(recvPack.getTcpH().getTh_seq());</span><br><span class="line">				ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">				tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">				tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">				<span class="comment">//回复ACK报文段</span></span><br><span class="line">				reply(ackPack);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			System.out.println(<span class="string">"Recieve Computed: "</span>+CheckSum.computeChkSum(recvPack));</span><br><span class="line">			System.out.println(<span class="string">"Recieved Packet"</span>+recvPack.getTcpH().getTh_sum());</span><br><span class="line">			System.out.println(<span class="string">"Problem: Packet Number: "</span>+recvPack.getTcpH().getTh_seq()+<span class="string">" + InnerSeq:  "</span>+sequence);</span><br><span class="line">			tcpH.setTh_ack(-<span class="number">1</span>);</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			<span class="comment">//回复ACK报文段</span></span><br><span class="line">			reply(ackPack);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//交付数据（每20组数据交付一次）</span></span><br><span class="line">		<span class="keyword">if</span>(dataQueue.size() == <span class="number">20</span>) </span><br><span class="line">			deliver_data();	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-1的结果分析"><a href="#2-1的结果分析" class="headerlink" title="2.1的结果分析"></a>2.1的结果分析</h2><p><img src="/images/计算机网络-实验/pasted-26.png" alt></p>
+<p>对于发送端，共发送了1017个包，错误8个，每一个错误的包都会引起一次重发，导致一次多余的ack，因此，正常的ack包有1008个。</p>
+<p><img src="/images/计算机网络-实验/pasted-27.png" alt></p>
+<p>ack包正是1008个，因此，符合我们的分析。同样，ack包的每一次错误，会引起一次重发，导致一个额外的正常包传递，因此发送端发送了1009个正常的包，符合。</p>
+<p>我们有理由说，发送端和接收端都是正常工作的。</p>
+<h1 id="2-2版本"><a href="#2-2版本" class="headerlink" title="2.2版本"></a>2.2版本</h1><h2 id="2-2版本的假设"><a href="#2-2版本的假设" class="headerlink" title="2.2版本的假设"></a>2.2版本的假设</h2><p>2.2版本的外界条件和2.1版本完全一致，只不过，2.2版本取消了nack包，而是使用对之前一个数据包的确认来告诉发送端，你发的数据出错了。</p>
+<h2 id="2-2版本的改动"><a href="#2-2版本的改动" class="headerlink" title="2.2版本的改动"></a>2.2版本的改动</h2><p>接收端把原来产生ack号为-1的代码改成产生ack号是sequence-1。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//接收到数据报：检查校验和，设置回复的ACK报文段</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//检查校验码，生成ACK</span></span><br><span class="line">		<span class="keyword">if</span>(CheckSum.computeChkSum(recvPack) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">//略</span></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="comment">//略</span></span><br><span class="line">			tcpH.setTh_ack(sequence-<span class="number">1</span>);</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			reply(ackPack);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//略</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-2的结果分析"><a href="#2-2的结果分析" class="headerlink" title="2.2的结果分析"></a>2.2的结果分析</h2><p>和2.1一样，发送端发送的正常数据包数目=1000+接收端发送的错误数据包数目。</p>
+<p>接收端发送的正常数据包数目=1000+发送端发送的错误数据包数目。</p>
+<p><img src="/images/计算机网络-实验/pasted-28.png" alt></p>
+<p><img src="/images/计算机网络-实验/pasted-29.png" alt></p>
+<p>证明双方在正常工作。</p>
+<h1 id="2-2版本-1"><a href="#2-2版本-1" class="headerlink" title="2.2版本"></a>2.2版本</h1><h2 id="2-2版本的假设-1"><a href="#2-2版本的假设-1" class="headerlink" title="2.2版本的假设"></a>2.2版本的假设</h2><p>2.2版本的外界条件和2.1版本完全一致，只不过，2.2版本取消了nack包，而是使用对之前一个数据包的确认来告诉发送端，你发的数据出错了。</p>
+<h2 id="2-2版本的改动-1"><a href="#2-2版本的改动-1" class="headerlink" title="2.2版本的改动"></a>2.2版本的改动</h2><p>接收端把原来产生ack号为-1的代码改成产生ack号是sequence-1。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//接收到数据报：检查校验和，设置回复的ACK报文段</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_recv</span><span class="params">(TCP_PACKET recvPack)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//检查校验码，生成ACK</span></span><br><span class="line">		<span class="keyword">if</span>(CheckSum.computeChkSum(recvPack) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">//略</span></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="comment">//略</span></span><br><span class="line">			tcpH.setTh_ack(sequence-<span class="number">1</span>);</span><br><span class="line">			ackPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, recvPack.getSourceAddr());</span><br><span class="line">			tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">			tcpH.setTh_sum(CheckSum.computeChkSum(ackPack));</span><br><span class="line">			reply(ackPack);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//略</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-2的结果分析-1"><a href="#2-2的结果分析-1" class="headerlink" title="2.2的结果分析"></a>2.2的结果分析</h2><p>和2.1一样，发送端发送的正常数据包数目=1000+接收端发送的错误数据包数目。</p>
+<p>接收端发送的正常数据包数目=1000+发送端发送的错误数据包数目。</p>
+<p><img src="/images/计算机网络-实验/pasted-28.png" alt></p>
+<p><img src="/images/计算机网络-实验/pasted-29.png" alt></p>
+<p>证明双方在正常工作。</p>
+<h1 id="3-0版本"><a href="#3-0版本" class="headerlink" title="3.0版本"></a>3.0版本</h1><h2 id="3-0版本的假设"><a href="#3-0版本的假设" class="headerlink" title="3.0版本的假设"></a>3.0版本的假设</h2><p>包不仅会出错，还会丢失。</p>
+<h2 id="3-0版本的实现"><a href="#3-0版本的实现" class="headerlink" title="3.0版本的实现"></a>3.0版本的实现</h2><p>出错重传机制我们在2.x版本已经解决，问题在于包丢失了怎么办。</p>
+<p>包丢失了，肯定要重发。那么发送端怎么知道包丢失了呢。</p>
+<p>能不能让接收端发送给一个信号，说包丢失了，你重发吧。</p>
+<p>显然不能，因为包丢失了，包就在半路上没了，接收端啥也没收到，怎么可能会知道呢。</p>
+<p>所以，这件事只能靠发送端自己察觉。如果超过一定时间，还没有收到接收端的确认，发送端有理由说，发的包丢了。</p>
+<p>具体方法是，设置一个计时器，如果超过一定的时间，就重传。</p>
+<h2 id="3-0的改动"><a href="#3-0的改动" class="headerlink" title="3.0的改动"></a>3.0的改动</h2><p>3.0的改动很小，但同步问题真的能恶心死。</p>
+<p>关于timer的位置，我一开始把timer设置成了TCP_Sender的属性，每次调用一个rdt_send就新建一个让timer等于一个new出来的新对象，timer的cancel写在waitACK里面，我觉得，先收到一个正确的回复，我再取消重发线程。</p>
+<p>但是send和recv是不同步的，这样做甚至会让新的timer没出生可能就被消灭了。</p>
+<p>最终的版本只改了rdt_send</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="comment">//可靠发送（应用层调用）：封装应用层数据，产生TCP数据报；需要修改</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rdt_send</span><span class="params">(<span class="keyword">int</span> dataIndex, <span class="keyword">int</span>[] appData)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//通过rdt_send的参数接收应用层数据</span></span><br><span class="line">		<span class="comment">//本实验中，appIndex从0到99递增，appDate是长度100的int数组</span></span><br><span class="line">		<span class="comment">//类似于把应用层数据分成100段，每段100个int，依次给rdt_send发送</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">//生成TCP数据报（设置序号和数据字段/校验和),注意打包的顺序</span></span><br><span class="line">		tcpH.setTh_seq(dataIndex * appData.length + <span class="number">1</span>);</span><br><span class="line">		<span class="comment">//包序号设置为字节流号：</span></span><br><span class="line">		tcpS.setData(appData);</span><br><span class="line">		tcpPack = <span class="keyword">new</span> TCP_PACKET(tcpH, tcpS, destinAddr);</span><br><span class="line">		tcpH.setTh_sum((<span class="keyword">short</span>) <span class="number">0</span>);</span><br><span class="line">		tcpH.setTh_sum(CheckSum.computeChkSum(tcpPack));</span><br><span class="line">		tcpPack.setTcpH(tcpH);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//发送TCP数据报</span></span><br><span class="line">		flag = <span class="number">0</span>;</span><br><span class="line">		udt_send(tcpPack);</span><br><span class="line">		<span class="comment">//每当发送端发送一个包，flag就会置0，</span></span><br><span class="line">		<span class="comment">//当发送端接收到接收端发回来的确认，flag就会置1。</span></span><br><span class="line">		UDT_Timer timer = <span class="keyword">new</span> UDT_Timer();</span><br><span class="line">		UDT_RetransTask task = <span class="keyword">new</span> UDT_RetransTask(client,tcpPack);</span><br><span class="line">		timer.schedule(task,<span class="number">3000</span>,<span class="number">3000</span>);</span><br><span class="line">		<span class="comment">//等待ACK报文</span></span><br><span class="line">		<span class="comment">//waitACK();</span></span><br><span class="line">		<span class="keyword">while</span> (flag==<span class="number">0</span>);</span><br><span class="line">		timer.cancel();</span><br><span class="line">		<span class="comment">//上一个包的确认没有被接收到时，while会一直等。</span></span><br><span class="line">		<span class="comment">//接收到确认flag才会被置1，否则下一个包不会发出去。</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-0版本"><a href="#4-0版本" class="headerlink" title="4.0版本"></a>4.0版本</h1><h2 id="4-0的假设"><a href="#4-0的假设" class="headerlink" title="4.0的假设"></a>4.0的假设</h2><p>4.0不再使用停止等待协议，而是双方维护发送窗口。</p>
+<p>假设甲向乙单向发送数据，设置窗口的大小为10。甲有三个指针，base，sequence，end。</p>
+<p>假设刚开始，窗口的范围是0-9号包，甲一个包都没发。</p>
+<p>base指向窗口的第一个包，即0号包，sequence指向甲要发送的下一个包，即0号包。而end指向窗口的最后一个包，9号包。</p>
+<p>甲要发包，发送sequence指向的包，同时为sequence指向的包创建一个重传线程。发送之后，sequence会指向下一个包。甲可以继续发，不必等前面的包收到回复，只要sequence没有指向end后面的包。</p>
+<p>甲接收到乙回复说x号包已收到，如果正确，取消x的重传线程并记下x已经收到，如果x等于base，base和end会后移，一直移动到base第一次碰到没有收到正确回复的包为止。</p>
+<p>乙如果接到错和无效包，乙可以不回复，但如果接到过期包，乙必须回复。</p>
+<h2 id="4-0的改动"><a href="#4-0的改动" class="headerlink" title="4.0的改动"></a>4.0的改动</h2><p>首先，为了简便以后的开发，我们创建窗口基类Window。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1642,7 +1990,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
