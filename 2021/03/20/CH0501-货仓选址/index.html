@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="描述数字三角形指的是这样的图形：第一行只有一个数字，从第一行开始，每个数字的左下和右下方各有一个数字。  现在有一个非负数组成的数字三角形，我们希望能够找到这样一条从上向下的路径：它从第一行开始，每次只能向左下或者右下，直到最后一行，并且经过的数字之和最大。 记第i行的第j个数为a[i][j]。 递归方法不妨把我们需要解决的问题记做solve(1,1)，如果去掉第一行，可以把下面的部分看做是两个重">
+<meta name="description" content="描述给定一维数轴上的n个地址，每一个地址上都有一个商店，求出一个位置修建一个货仓，要求这个货仓到每个商店的距离之和最小。 求出这个距离之和，并输出。 数据范围1 &amp;lt;= N &amp;lt;= 100000 思路本题说的是中位数的性质。 我们不妨假设有x个商店在货仓的左边，那么有y个商店在货仓的右边，假设货仓向右移动一格，那么货仓到各个商店的距离之和增加了x-y个单位，显然x-y或正或负时，都不是我们">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数字三角形">
-<meta property="og:url" content="http://yoursite.com/2021/01/26/数字三角形/index.html">
+<meta property="og:title" content="CH0501_货仓选址">
+<meta property="og:url" content="http://yoursite.com/2021/03/20/CH0501-货仓选址/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
-<meta property="og:description" content="描述数字三角形指的是这样的图形：第一行只有一个数字，从第一行开始，每个数字的左下和右下方各有一个数字。  现在有一个非负数组成的数字三角形，我们希望能够找到这样一条从上向下的路径：它从第一行开始，每次只能向左下或者右下，直到最后一行，并且经过的数字之和最大。 记第i行的第j个数为a[i][j]。 递归方法不妨把我们需要解决的问题记做solve(1,1)，如果去掉第一行，可以把下面的部分看做是两个重">
+<meta property="og:description" content="描述给定一维数轴上的n个地址，每一个地址上都有一个商店，求出一个位置修建一个货仓，要求这个货仓到每个商店的距离之和最小。 求出这个距离之和，并输出。 数据范围1 &amp;lt;= N &amp;lt;= 100000 思路本题说的是中位数的性质。 我们不妨假设有x个商店在货仓的左边，那么有y个商店在货仓的右边，假设货仓向右移动一格，那么货仓到各个商店的距离之和增加了x-y个单位，显然x-y或正或负时，都不是我们">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/images/数字三角形/数字三角形.png">
-<meta property="og:updated_time" content="2021-01-26T08:49:14.000Z">
+<meta property="og:updated_time" content="2021-03-19T16:45:14.109Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数字三角形">
-<meta name="twitter:description" content="描述数字三角形指的是这样的图形：第一行只有一个数字，从第一行开始，每个数字的左下和右下方各有一个数字。  现在有一个非负数组成的数字三角形，我们希望能够找到这样一条从上向下的路径：它从第一行开始，每次只能向左下或者右下，直到最后一行，并且经过的数字之和最大。 记第i行的第j个数为a[i][j]。 递归方法不妨把我们需要解决的问题记做solve(1,1)，如果去掉第一行，可以把下面的部分看做是两个重">
-<meta name="twitter:image" content="http://yoursite.com/images/数字三角形/数字三角形.png">
+<meta name="twitter:title" content="CH0501_货仓选址">
+<meta name="twitter:description" content="描述给定一维数轴上的n个地址，每一个地址上都有一个商店，求出一个位置修建一个货仓，要求这个货仓到每个商店的距离之和最小。 求出这个距离之和，并输出。 数据范围1 &amp;lt;= N &amp;lt;= 100000 思路本题说的是中位数的性质。 我们不妨假设有x个商店在货仓的左边，那么有y个商店在货仓的右边，假设货仓向右移动一格，那么货仓到各个商店的距离之和增加了x-y个单位，显然x-y或正或负时，都不是我们">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/01/26/数字三角形/">
+  <link rel="canonical" href="http://yoursite.com/2021/03/20/CH0501-货仓选址/">
 
 
 
 
 
-  <title>数字三角形 | Jameci's Blog</title>
+  <title>CH0501_货仓选址 | Jameci's Blog</title>
   
 
 
@@ -254,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/26/数字三角形/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/CH0501-货仓选址/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -271,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数字三角形</h1>
+          <h1 class="post-title" itemprop="name headline">CH0501_货仓选址</h1>
         
 
         <div class="post-meta">
@@ -283,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-26T15:19:47+08:00">
-                2021-01-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-20T00:37:25+08:00">
+                2021-03-20
               </time>
             
 
@@ -306,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/动态规划/" itemprop="url" rel="index">
-                    <span itemprop="name">动态规划</span>
+                  <a href="/categories/排序/" itemprop="url" rel="index">
+                    <span itemprop="name">排序</span>
                   </a>
                 </span>
 
@@ -343,21 +341,13 @@
       
 
       
-        <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>数字三角形指的是这样的图形：第一行只有一个数字，从第一行开始，每个数字的左下和右下方各有一个数字。</p>
-<p><img src="/images/数字三角形/数字三角形.png" alt></p>
-<p>现在有一个非负数组成的数字三角形，我们希望能够找到这样一条从上向下的路径：它从第一行开始，每次只能向左下或者右下，直到最后一行，并且经过的数字之和最大。</p>
-<p>记第i行的第j个数为<code>a[i][j]</code>。</p>
-<h1 id="递归方法"><a href="#递归方法" class="headerlink" title="递归方法"></a>递归方法</h1><p>不妨把我们需要解决的问题记做solve(1,1)，如果去掉第一行，可以把下面的部分看做是两个重叠的数字三角形，如果我们能够解决solve(2,1)和solve(2,2)，那么有</p>
-<p><code>solve(1,1)=max(solve(2,1),solve(2,2))+a[1][1]</code></p>
-<p>对于n层的数字三角形，底层<code>solve(n,i)=a[n][i]</code>。</p>
-<h1 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h1><p>显然，这样做的时间复杂度是O(2^n)，这个算法是正确的，但它的问题在于重复计算，比如：在计算solve(2,1)时，需要计算solve(3,2)，而计算solve(2,2)时，solve(3,2)又被计算了一次。</p>
-<p>不妨另外设置一个数组ret，保存已经计算过的solve的值。因为这里的数字三角形是非负数，可以把ret的初值设置成0，表示该点还没有计算过。</p>
-<p>这样，计算solve(i,j)时，先判断solve(i+1,j),solve(i+1,j+1)是否计算过，若是，就直接去ret里面取出。</p>
-<p>对于每个结点只计算一次，记忆化搜索的复杂度是O(n^2)。</p>
-<h1 id="递推"><a href="#递推" class="headerlink" title="递推"></a>递推</h1><p>也可以从下向上推出最大值，我们仍然使用ret数组去存储已经计算得到的值，那么对于第n行，<code>ret[n][i]=a[n][i]</code>，继续向上的每一行，有</p>
-<p><code>ret[i][j]=a[i][j]+max(ret[i+1][j],ret[i+1][j+1]</code></p>
-<p>这样，对于每个结点，最多也只计算一次，复杂度仍为O(n^2)。</p>
-
+        <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>给定一维数轴上的n个地址，每一个地址上都有一个商店，求出一个位置修建一个货仓，要求这个货仓到每个商店的距离之和最小。</p>
+<p>求出这个距离之和，并输出。</p>
+<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>1 &lt;= N &lt;= 100000</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>本题说的是中位数的性质。</p>
+<p>我们不妨假设有x个商店在货仓的左边，那么有y个商店在货仓的右边，假设货仓向右移动一格，那么货仓到各个商店的距离之和增加了x-y个单位，显然x-y或正或负时，都不是我们想要的，因为这时我们都可以继续移动货仓的位置使得总距离变小。</p>
+<p>那么什么位置x-y为0呢，显然就是中位数的位置。如果商店有偶数个，那么两个中位数之间的所有位置都满足要求。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100000</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;p[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	sort(p, p + n);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> ret = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> mid = n / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mid; ++i)&#123;</span><br><span class="line">		ret += (p[n - i - <span class="number">1</span>] - p[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ret);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -381,8 +371,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/01/26/紫书刷题-UVa11988-Broken-Keyboard/" rel="next" title="UVa11988_Broken Keyboard">
-                <i class="fa fa-chevron-left"></i> UVa11988_Broken Keyboard
+              <a href="/2021/03/20/Codeforces670C-Cinema/" rel="next" title="Codeforces670C_Cinema">
+                <i class="fa fa-chevron-left"></i> Codeforces670C_Cinema
               </a>
             
           </div>
@@ -390,10 +380,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/01/26/DAG上的动态规划/" rel="prev" title="DAG上的动态规划">
-                DAG上的动态规划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -516,7 +502,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#描述"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归方法"><span class="nav-number">2.</span> <span class="nav-text">递归方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#记忆化搜索"><span class="nav-number">3.</span> <span class="nav-text">记忆化搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递推"><span class="nav-number">4.</span> <span class="nav-text">递推</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#描述"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据范围"><span class="nav-number">2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number">4.</span> <span class="nav-text">解决</span></a></li></ol></div>
             
 
           </div>
