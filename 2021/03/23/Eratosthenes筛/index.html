@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="描述Farmer John 有N头牛排列成一排，当两头牛i，j之间的牛身高都小于它们时，这两头牛可以看到对方。 现在，知道最高的牛的编号是I，身高为H，以及R对可以相互看到对方的牛的编号。 在让每头牛都尽可能高的情况下，求出所有牛的身高。 数据范围1 ≤ N ≤ 10,000 1 ≤ H ≤ 1,000,000 0 ≤ R ≤ 10,000 思路一开始，我们不妨让所有牛的身高都相等。 每当我们得知">
+<meta name="description" content="找出小于n的所有素数，方法是这样的： 首先，从2开始遍历每个小于n的数i，对于i的倍数，我们知道肯定不是素数，所以标记它为合数。 然后优化，假设j&amp;lt;i，那么i的j倍一定在遍历j的倍数的时候就已经标记过了，那么我们在遍历i的倍数的时候，直接从i的i倍开始。 一直遍历到i的j倍不再小于等于n结束。 时间复杂度为O(nloglogn)，结论怎么来的笔者不知道，猜测和自然数中素数的密度有关。 123">
 <meta property="og:type" content="article">
-<meta property="og:title" content="POJ3263_Tallest Cow">
-<meta property="og:url" content="http://yoursite.com/2021/03/12/POJ3263-Tallest-Cow/index.html">
+<meta property="og:title" content="Eratosthenes筛">
+<meta property="og:url" content="http://yoursite.com/2021/03/23/Eratosthenes筛/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
-<meta property="og:description" content="描述Farmer John 有N头牛排列成一排，当两头牛i，j之间的牛身高都小于它们时，这两头牛可以看到对方。 现在，知道最高的牛的编号是I，身高为H，以及R对可以相互看到对方的牛的编号。 在让每头牛都尽可能高的情况下，求出所有牛的身高。 数据范围1 ≤ N ≤ 10,000 1 ≤ H ≤ 1,000,000 0 ≤ R ≤ 10,000 思路一开始，我们不妨让所有牛的身高都相等。 每当我们得知">
+<meta property="og:description" content="找出小于n的所有素数，方法是这样的： 首先，从2开始遍历每个小于n的数i，对于i的倍数，我们知道肯定不是素数，所以标记它为合数。 然后优化，假设j&amp;lt;i，那么i的j倍一定在遍历j的倍数的时候就已经标记过了，那么我们在遍历i的倍数的时候，直接从i的i倍开始。 一直遍历到i的j倍不再小于等于n结束。 时间复杂度为O(nloglogn)，结论怎么来的笔者不知道，猜测和自然数中素数的密度有关。 123">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-12T03:24:09.459Z">
+<meta property="og:updated_time" content="2021-03-23T15:22:35.862Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="POJ3263_Tallest Cow">
-<meta name="twitter:description" content="描述Farmer John 有N头牛排列成一排，当两头牛i，j之间的牛身高都小于它们时，这两头牛可以看到对方。 现在，知道最高的牛的编号是I，身高为H，以及R对可以相互看到对方的牛的编号。 在让每头牛都尽可能高的情况下，求出所有牛的身高。 数据范围1 ≤ N ≤ 10,000 1 ≤ H ≤ 1,000,000 0 ≤ R ≤ 10,000 思路一开始，我们不妨让所有牛的身高都相等。 每当我们得知">
+<meta name="twitter:title" content="Eratosthenes筛">
+<meta name="twitter:description" content="找出小于n的所有素数，方法是这样的： 首先，从2开始遍历每个小于n的数i，对于i的倍数，我们知道肯定不是素数，所以标记它为合数。 然后优化，假设j&amp;lt;i，那么i的j倍一定在遍历j的倍数的时候就已经标记过了，那么我们在遍历i的倍数的时候，直接从i的i倍开始。 一直遍历到i的j倍不再小于等于n结束。 时间复杂度为O(nloglogn)，结论怎么来的笔者不知道，猜测和自然数中素数的密度有关。 123">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/03/12/POJ3263-Tallest-Cow/">
+  <link rel="canonical" href="http://yoursite.com/2021/03/23/Eratosthenes筛/">
 
 
 
 
 
-  <title>POJ3263_Tallest Cow | Jameci's Blog</title>
+  <title>Eratosthenes筛 | Jameci's Blog</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/POJ3263-Tallest-Cow/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/23/Eratosthenes筛/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">POJ3263_Tallest Cow</h1>
+          <h1 class="post-title" itemprop="name headline">Eratosthenes筛</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-12T10:30:07+08:00">
-                2021-03-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-23T23:15:46+08:00">
+                2021-03-23
               </time>
             
 
@@ -304,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/差分/" itemprop="url" rel="index">
-                    <span itemprop="name">差分</span>
+                  <a href="/categories/数论/" itemprop="url" rel="index">
+                    <span itemprop="name">数论</span>
                   </a>
                 </span>
 
@@ -346,17 +346,12 @@
       
 
       
-        <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>Farmer John 有N头牛排列成一排，当两头牛i，j之间的牛身高都小于它们时，这两头牛可以看到对方。</p>
-<p>现在，知道最高的牛的编号是I，身高为H，以及R对可以相互看到对方的牛的编号。</p>
-<p>在让每头牛都尽可能高的情况下，求出所有牛的身高。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>1 ≤ N ≤ 10,000</p>
-<p>1 ≤ H ≤ 1,000,000</p>
-<p>0 ≤ R ≤ 10,000</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>一开始，我们不妨让所有牛的身高都相等。</p>
-<p>每当我们得知，牛i可以看到牛j时，我们知道区间<code>[i+1,j-1]</code>之内的所有牛的身高都小于牛i，牛j的身高，为了让每头牛的身高都尽可能地大，我们不妨给这个区间内的所有牛的身高减1。</p>
-<p>先建立一个数组来存储身高的差分，这样每次知道i，j相互看见时，只需要执行两次就可以了。</p>
-<p>这道题的坑在于：相互看到的信息有可能是重复的。比如1能看到2，这条信息可能会被输入多次，而我们只需要减去一次1就可以了。由于数据规模较大，我们不能使用二维数组来存储某条信息是否已经处理过，而是使用map。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">1e4</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> d[M + <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> a[M + <span class="number">1</span>];</span><br><span class="line"><span class="built_in">map</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">bool</span>&gt; v;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> N, H, I, R;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d %d"</span>, &amp;N, &amp;I, &amp;H, &amp;R);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> l, r;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; R; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;l, &amp;r);</span><br><span class="line">		<span class="keyword">if</span>(l &gt; r)swap(l, r);</span><br><span class="line">		<span class="keyword">if</span>(v[make_pair(l, r)])<span class="keyword">continue</span>;</span><br><span class="line">		v[make_pair(l, r)] = <span class="number">1</span>;</span><br><span class="line">		--d[l];</span><br><span class="line">		++d[r - <span class="number">1</span>];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	a[<span class="number">0</span>] = d[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; ++i)&#123;</span><br><span class="line">		a[i] = a[i - <span class="number">1</span>] + d[i];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> dlt = H - a[I - <span class="number">1</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, a[i] + dlt);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>找出小于n的所有素数，方法是这样的：</p>
+<p>首先，从2开始遍历每个小于n的数i，对于i的倍数，我们知道肯定不是素数，所以标记它为合数。</p>
+<p>然后优化，假设j&lt;i，那么i的j倍一定在遍历j的倍数的时候就已经标记过了，那么我们在遍历i的倍数的时候，直接从i的i倍开始。</p>
+<p>一直遍历到i的j倍不再小于等于n结束。</p>
+<p>时间复杂度为O(nloglogn)，结论怎么来的笔者不知道，猜测和自然数中素数的密度有关。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e7</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">bool</span> vis[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">		<span class="keyword">if</span>(vis[i])<span class="keyword">continue</span>;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d is a prime.\n"</span>, i);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt;= n / i; ++j) vis[i * j] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -380,8 +375,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/03/11/POJ2018-Best-Cow-Fences/" rel="next" title="POJ2018_Best Cow Fences">
-                <i class="fa fa-chevron-left"></i> POJ2018_Best Cow Fences
+              <a href="/2021/03/23/POJ2299-Ultra-QuickSort/" rel="next" title="POJ2299_Ultra-QuickSort">
+                <i class="fa fa-chevron-left"></i> POJ2299_Ultra-QuickSort
               </a>
             
           </div>
@@ -389,10 +384,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/03/12/POJ2456-Agressive-Cows/" rel="prev" title="POJ2456_Agressive Cows">
-                POJ2456_Agressive Cows <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -444,17 +435,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -505,22 +487,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#描述"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据范围"><span class="nav-number">2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number">4.</span> <span class="nav-text">解决</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
