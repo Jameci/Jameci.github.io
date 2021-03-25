@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="题意给定编号为1~n的车厢入栈，判断它们能否按照一定的顺序出栈。 如给定n=5，那么出栈顺序54123是不可能的。 思路使用栈模拟即可。 设置con变量，初值为0，表示入栈时下一节车厢的编号。 遍历给定的出栈顺序，假设当前的编号是v，如果v&amp;gt;=con说明需要把con到v的车厢入栈，这样栈顶就是v，可以取出。如果v&amp;lt;con，说明v已经入栈了，而且只能在栈顶，如果不在栈顶则说明这种顺序是不">
+<meta name="description" content="引子有一个数组a，里面存有n个非负整数，现在定义一次查询：给出整数t，要求找出最大的数组下标k，使得数组a在k的前缀和小于等于t。 解法首先预处理a，计算出前缀和数组s，可以对每个查询进行二分查找，时间复杂度是O(logn)。 蓝书的作者指出二分思想虽然在平均情况下表现很好，但是面对大量查询结果非常小的情况下会进行很多次无用的查找，所以给出了倍增的思想： 1.令pos = 0，p = 1； 2.比">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UVa514_Rails">
-<meta property="og:url" content="http://yoursite.com/2021/01/25/紫书刷题-UVa514-Rails/index.html">
+<meta property="og:title" content="倍增思想">
+<meta property="og:url" content="http://yoursite.com/2021/03/25/倍增思想/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
-<meta property="og:description" content="题意给定编号为1~n的车厢入栈，判断它们能否按照一定的顺序出栈。 如给定n=5，那么出栈顺序54123是不可能的。 思路使用栈模拟即可。 设置con变量，初值为0，表示入栈时下一节车厢的编号。 遍历给定的出栈顺序，假设当前的编号是v，如果v&amp;gt;=con说明需要把con到v的车厢入栈，这样栈顶就是v，可以取出。如果v&amp;lt;con，说明v已经入栈了，而且只能在栈顶，如果不在栈顶则说明这种顺序是不">
+<meta property="og:description" content="引子有一个数组a，里面存有n个非负整数，现在定义一次查询：给出整数t，要求找出最大的数组下标k，使得数组a在k的前缀和小于等于t。 解法首先预处理a，计算出前缀和数组s，可以对每个查询进行二分查找，时间复杂度是O(logn)。 蓝书的作者指出二分思想虽然在平均情况下表现很好，但是面对大量查询结果非常小的情况下会进行很多次无用的查找，所以给出了倍增的思想： 1.令pos = 0，p = 1； 2.比">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-01-31T06:53:56.000Z">
+<meta property="og:updated_time" content="2021-03-25T07:07:55.908Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UVa514_Rails">
-<meta name="twitter:description" content="题意给定编号为1~n的车厢入栈，判断它们能否按照一定的顺序出栈。 如给定n=5，那么出栈顺序54123是不可能的。 思路使用栈模拟即可。 设置con变量，初值为0，表示入栈时下一节车厢的编号。 遍历给定的出栈顺序，假设当前的编号是v，如果v&amp;gt;=con说明需要把con到v的车厢入栈，这样栈顶就是v，可以取出。如果v&amp;lt;con，说明v已经入栈了，而且只能在栈顶，如果不在栈顶则说明这种顺序是不">
+<meta name="twitter:title" content="倍增思想">
+<meta name="twitter:description" content="引子有一个数组a，里面存有n个非负整数，现在定义一次查询：给出整数t，要求找出最大的数组下标k，使得数组a在k的前缀和小于等于t。 解法首先预处理a，计算出前缀和数组s，可以对每个查询进行二分查找，时间复杂度是O(logn)。 蓝书的作者指出二分思想虽然在平均情况下表现很好，但是面对大量查询结果非常小的情况下会进行很多次无用的查找，所以给出了倍增的思想： 1.令pos = 0，p = 1； 2.比">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/01/25/紫书刷题-UVa514-Rails/">
+  <link rel="canonical" href="http://yoursite.com/2021/03/25/倍增思想/">
 
 
 
 
 
-  <title>UVa514_Rails | Jameci's Blog</title>
+  <title>倍增思想 | Jameci's Blog</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/25/紫书刷题-UVa514-Rails/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/25/倍增思想/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">UVa514_Rails</h1>
+          <h1 class="post-title" itemprop="name headline">倍增思想</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-25T15:35:02+08:00">
-                2021-01-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-25T14:56:18+08:00">
+                2021-03-25
               </time>
             
 
@@ -304,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法竞赛入门经典-chapter-6/" itemprop="url" rel="index">
-                    <span itemprop="name">算法竞赛入门经典(chapter 6)</span>
+                  <a href="/categories/倍增/" itemprop="url" rel="index">
+                    <span itemprop="name">倍增</span>
                   </a>
                 </span>
 
@@ -346,12 +346,14 @@
       
 
       
-        <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给定编号为1~n的车厢入栈，判断它们能否按照一定的顺序出栈。</p>
-<p>如给定n=5，那么出栈顺序54123是不可能的。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>使用栈模拟即可。</p>
-<p>设置con变量，初值为0，表示入栈时下一节车厢的编号。</p>
-<p>遍历给定的出栈顺序，假设当前的编号是v，如果v&gt;=con说明需要把con到v的车厢入栈，这样栈顶就是v，可以取出。如果v&lt;con，说明v已经入栈了，而且只能在栈顶，如果不在栈顶则说明这种顺序是不可实现的。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> r[<span class="number">1005</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt;rails;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">while</span>(n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;r[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">while</span>(r[<span class="number">0</span>])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> con=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span>(con&lt;r[<span class="number">0</span>]<span class="number">-1</span>)rails.push(++con);</span><br><span class="line">			++con;</span><br><span class="line">			<span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;r[i]);	</span><br><span class="line">				<span class="keyword">while</span>(con&lt;r[i])rails.push(++con);</span><br><span class="line">				<span class="keyword">if</span>(con&gt;=r[i])</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span>(rails.top()==r[i])rails.pop();</span><br><span class="line">					<span class="keyword">else</span> flag=<span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(flag)<span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;r[<span class="number">0</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h1><p>有一个数组a，里面存有n个非负整数，现在定义一次查询：给出整数t，要求找出最大的数组下标k，使得数组a在k的前缀和小于等于t。</p>
+<h1 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h1><p>首先预处理a，计算出前缀和数组s，可以对每个查询进行二分查找，时间复杂度是O(logn)。</p>
+<p>蓝书的作者指出二分思想虽然在平均情况下表现很好，但是面对大量查询结果非常小的情况下会进行很多次无用的查找，所以给出了倍增的思想：</p>
+<p>1.令pos = 0，p = 1；</p>
+<p>2.比较<code>s[pos + p]</code>和t的大小，如果t大，那么<code>pos += p，p *= 2</code>；否则，<code>p /= 2</code>。</p>
+<p>3.重复2，直到p小于0。</p>
+<p>这个算法的时间复杂度是O(logk)，k是最终的答案。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"><span class="keyword">int</span> s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="keyword">sizeof</span>(s));</span><br><span class="line">	<span class="keyword">int</span> n, t;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;n, &amp;t);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[<span class="number">0</span>]);</span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]), s[i + <span class="number">1</span>] = s[i] + a[i];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> p = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(p)&#123;</span><br><span class="line">		<span class="keyword">if</span>(pos + p &gt;= n) p /= <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(sum + s[pos + p] - s[pos] &lt;= t) sum += (s[pos + p] - s[pos]), pos += p, p *= <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">else</span> p /= <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, pos);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -375,8 +377,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/01/25/紫书刷题-UVa210-Concurrency-Simulator/" rel="next" title="UVa210_Concurrency Simulator">
-                <i class="fa fa-chevron-left"></i> UVa210_Concurrency Simulator
+              <a href="/2021/03/23/Eratosthenes筛/" rel="next" title="Eratosthenes筛">
+                <i class="fa fa-chevron-left"></i> Eratosthenes筛
               </a>
             
           </div>
@@ -384,10 +386,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/01/26/紫书刷题-UVa442-Matrix-Chain-Multiplication/" rel="prev" title="UVa442_Matrix Chain Multiplication">
-                UVa442_Matrix Chain Multiplication <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -510,7 +508,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引子"><span class="nav-number">1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
             
 
           </div>
