@@ -249,6 +249,305 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/05/0-1背包问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/05/0-1背包问题/" itemprop="url">0-1背包问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-05T23:04:43+08:00">
+                2021-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/动态规划/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="引子——无限背包问题"><a href="#引子——无限背包问题" class="headerlink" title="引子——无限背包问题"></a>引子——无限背包问题</h1><p>有一个背包，可以容纳体积不超过C的物品，现在物品有n种，每种体积为Vi，价值为Wi，都有无限多个，问最多使用这个背包最多可以拿走价值为多少的物品。</p>
+<p>可以假设<code>dp[ci]</code>表示体积不超过ci的情况下可以拿走物品的最大总价值。那么：</p>
+<p><code>dp[ci] = max(w[i] + dp[ci - v[i]]|ci - v[i] &gt;= 0)</code></p>
+<p>如果已经找不到比剩余体积还要小的物品，则在计算时返回0。比如最小的物品体积为3，那么计算到<code>dp[2]</code>时应该直接得出为0。</p>
+<h1 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h1><p>背包同上，但是每种物品只有一个，这时，剩余体积已经不足以描述状态。假如物品A和B拥有同样的体积3，背包的初始容积是6，那么仅凭状态<code>dp[3]</code>无法得知我们现在拿走的是A还是B。</p>
+<p>为此，引入“层”的概念，我们以<code>dp[i][j]</code>表示对前面i-1个物品的决策已经完毕，背包的剩余体积为j，此时的最大收益。那么，接下来是第i个物品，我们可以选择要或者不要，有：</p>
+<p><code>dp[i][j] = max(dp[i + 1][j], dp[i + 1][j - v[i]] + w[i])</code></p>
+<p>当<code>j &lt; v[i]</code>时，自然没得选了，只能选择不拿。</p>
+<p>当i等于n-1时，说明已经到了最后一件物品，显然，如果能拿走是必拿走的，返回的是该物品的价值，如果拿不走，只能返回0了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/05/UVa116-单向TSP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/05/UVa116-单向TSP/" itemprop="url">UVa116_单向TSP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-05T22:32:24+08:00">
+                2021-02-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/动态规划/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给出m行n列的矩阵，从第一列的某一个数字开始走，每次只能向右，右上或者右下三个方向中的一个走，找到一条路径使得从第一列开始到最后一列结束，途经的数字之和最小。</p>
+<p>矩阵是环形的，最上方的数字和最最下方的数字是相邻的。</p>
+<p>m不超过10，n不超过100，要求输出路径。</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>设置<code>dp[i][j]</code>作为从矩阵i行j列这个数字开始走到最后一列的最小值。有</p>
+<p><code>dp[i][j] = mat[i][j] + min(dp[i][j + 1], dp[(i + 1) % m][j + 1], dp[(i - 1) % m][j + 1])</code></p>
+<p>并且有：</p>
+<p><code>dp[i][n - 1] = mat[i][n - 1]</code></p>
+<p>为了输出路径，在计算完dp数组之后，再从dp数组的第一列开始，依次取最小值即可。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">10</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> m,n;</span><br><span class="line"><span class="keyword">int</span> dp[maxm][maxn];</span><br><span class="line"><span class="keyword">int</span> mat[maxm][maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dp[i][j] != <span class="number">-1</span>)<span class="keyword">return</span> dp[i][j];</span><br><span class="line">	<span class="keyword">if</span>(j == n - <span class="number">1</span>)<span class="keyword">return</span> dp[i][j] = mat[i][j];</span><br><span class="line">	<span class="keyword">return</span> dp[i][j] = mat[i][j] + min(min(cal((i + <span class="number">1</span>) % m, j + <span class="number">1</span>), cal((i + m - <span class="number">1</span>) % m, j + <span class="number">1</span>)), cal(i, j + <span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;m, &amp;n) != EOF)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;++i)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n;++j)&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;mat[i][j]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> minn = <span class="number">0x7fffffff</span>;</span><br><span class="line">		<span class="keyword">int</span> s;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;++i)&#123;</span><br><span class="line">			<span class="keyword">int</span> temp = cal(i, <span class="number">0</span>);</span><br><span class="line">			<span class="keyword">if</span>(temp &lt; minn)&#123;</span><br><span class="line">				minn = temp;</span><br><span class="line">				s = i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,s + <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; n - <span class="number">1</span>;j++)&#123;</span><br><span class="line">			<span class="keyword">int</span> tempdp = dp[s][j + <span class="number">1</span>];</span><br><span class="line">			<span class="keyword">int</span> temps = s;</span><br><span class="line">			<span class="keyword">if</span>(tempdp &gt; dp[(s + <span class="number">1</span>) % m][j + <span class="number">1</span>])&#123;</span><br><span class="line">				tempdp = dp[(s + <span class="number">1</span>) % m][j + <span class="number">1</span>];</span><br><span class="line">				temps = (s + <span class="number">1</span>) % m;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(tempdp == dp[(s + <span class="number">1</span>) % m][j + <span class="number">1</span>])&#123;</span><br><span class="line">				<span class="keyword">if</span>((s + <span class="number">1</span>) % m &lt; temps)&#123;</span><br><span class="line">					temps = (s + <span class="number">1</span>) % m;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(tempdp &gt; dp[(s + m - <span class="number">1</span>) % m][j + <span class="number">1</span>])&#123;</span><br><span class="line">				tempdp = dp[(s + m - <span class="number">1</span>) % m][j + <span class="number">1</span>];</span><br><span class="line">				temps = (s + m - <span class="number">1</span>) % m;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(tempdp == dp[(s + m - <span class="number">1</span>) % m][j + <span class="number">1</span>])&#123;</span><br><span class="line">				<span class="keyword">if</span>((s + m - <span class="number">1</span>) % m &lt; temps)&#123;</span><br><span class="line">					temps = (s + m - <span class="number">1</span>) % m;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			s = temps;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">" %d"</span>,s + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n%d\n"</span>,minn);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/*for(int i = 0;i &lt; m;++i)&#123;</span></span><br><span class="line"><span class="comment">			for(int j = 0;j &lt; n;++j)&#123;</span></span><br><span class="line"><span class="comment">				printf("%d ", dp[i][j]);</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			printf("\n");</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/05/UVa1347-旅行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1441,312 +1740,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/25/紫书刷题-UVa514-Rails/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jameci">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jameci's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/01/25/紫书刷题-UVa514-Rails/" itemprop="url">UVa514_Rails</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-25T15:35:02+08:00">
-                2021-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/栈/" itemprop="url" rel="index">
-                    <span itemprop="name">栈</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给定编号为1~n的车厢入栈，判断它们能否按照一定的顺序出栈。</p>
-<p>如给定n=5，那么出栈顺序54123是不可能的。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>使用栈模拟即可。</p>
-<p>设置con变量，初值为0，表示入栈时下一节车厢的编号。</p>
-<p>遍历给定的出栈顺序，假设当前的编号是v，如果v&gt;=con说明需要把con到v的车厢入栈，这样栈顶就是v，可以取出。如果v&lt;con，说明v已经入栈了，而且只能在栈顶，如果不在栈顶则说明这种顺序是不可实现的。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> r[<span class="number">1005</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt;rails;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">while</span>(n)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;r[<span class="number">0</span>]);</span><br><span class="line">		<span class="keyword">while</span>(r[<span class="number">0</span>])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> con=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">while</span>(con&lt;r[<span class="number">0</span>]<span class="number">-1</span>)rails.push(++con);</span><br><span class="line">			++con;</span><br><span class="line">			<span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;r[i]);	</span><br><span class="line">				<span class="keyword">while</span>(con&lt;r[i])rails.push(++con);</span><br><span class="line">				<span class="keyword">if</span>(con&gt;=r[i])</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span>(rails.top()==r[i])rails.pop();</span><br><span class="line">					<span class="keyword">else</span> flag=<span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(flag)<span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;r[<span class="number">0</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/25/紫书刷题-UVa210-Concurrency-Simulator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jameci">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jameci's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/01/25/紫书刷题-UVa210-Concurrency-Simulator/" itemprop="url">UVa210_Concurrency Simulator</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-25T13:31:40+08:00">
-                2021-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/队列/" itemprop="url" rel="index">
-                    <span itemprop="name">队列</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>模拟n个程序的并行执行（按输入顺序编号为1~n），每个程序包含不超过25条语句，一共有五种，分别是</p>
-<p>var = constant（赋值）</p>
-<p>print var（打印）</p>
-<p>lock和unlock（锁定和解除）</p>
-<p>end（结束）</p>
-<p>变量都是用单个小写字母表示的，初始值均为0，为所有程序所公有，常数都是小于100的整数。</p>
-<p>每个时刻只能有一个程序处于运行态，其他程序处于等待态，位于等待队列中。以上的五种语句需要执行的时间分别为t1，t2，t3，t4，t5，但运行态的程序每次运行时间最多为Q（称之为配额），当一个程序的配额执行完毕之后，把它当前的语句（如果没执行完）执行完毕之后放入等待队列，然后处理机会从等待队列的队首取出一个程序继续执行。初始的等待队列包含按照输入顺序的n个程序。</p>
-<p>lock语句的作用是申请对变量的独占访问，如果一个程序执行了lock语句，其他程序一旦想要执行lock指令，就会马上被放入阻止队列的尾部（没有用完的配额就浪费掉了），等到最初执行lock的程序执行完unlock指令，处于阻止队列的队首的程序会被放入等待队列的队首。</p>
-<p>输入n，t1~t5，Q以及n个程序，按照时间顺序输出所有print语句的结果。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>需要解决的问题有：</p>
-<p>输入方面，需要存储t1~t5，Q，n的值，以及程序语句。笔者对于程序语句的存储方法是：把所有的程序语句按顺序存储在一个数组p里，一行一行地存，额外设置一个程序指针cur，对于i号程序，cur[i]就是其下一条语句的地址。</p>
-<p>调度时，采用循环数组模拟队列，waitq和stopq分别作为等待队列和阻止队列，设置两个指针，队列中的内容就是程序的编号。这样，调度时，先取被调度的程序编号，再根据编号去cur数组中取指令地址。调出程序时，需要保存现场，即更新cur数组中当前指令的地址。</p>
-<p>设置values数组，大小为26，haslocked表示是否已经有程序执行了lock指令。在指令执行时，根据不同的指令去进行不同的操作，如果是赋值指令，就去修改values数组的值，如果是输出，就输出相应的值，如果是lock，则去看haslocked变量是否为1，若为1，说明已经有程序执行了lock，则停止当前程序并且将其置入阻止队列，若没有则把它设置为1。对于unlock，把haslocked变量设置为0，并且若阻止队列里有程序，把它插入到等待队列的首部。并且每执行一条指令都要判断配额是否用完。</p>
-<p>由于本题是多组输入，所以要注意在每次测试完一组之后进行重新初始化，包含变量，程序，队列和其指针等等的初始化。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n=<span class="number">3</span>;</span><br><span class="line"><span class="keyword">int</span> t[<span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span> Q;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> values[<span class="number">26</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> haslocked;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> p[<span class="number">1005</span>][<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cur[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> waitq[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span> stopq[<span class="number">100</span>]; </span><br><span class="line"><span class="keyword">int</span> waitq_front;</span><br><span class="line"><span class="keyword">int</span> waitq_rear;</span><br><span class="line"><span class="keyword">int</span> stopq_front;</span><br><span class="line"><span class="keyword">int</span> stopq_rear;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">runprogram</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	haslocked=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">memset</span>(values,<span class="number">0</span>,<span class="keyword">sizeof</span>(values));</span><br><span class="line">	<span class="keyword">int</span> pro;</span><br><span class="line">	<span class="keyword">while</span>(waitq_front!=waitq_rear)</span><br><span class="line">	&#123;</span><br><span class="line">		pro=waitq[waitq_front];</span><br><span class="line">		waitq_front=(waitq_front+<span class="number">1</span>)%<span class="number">100</span>;</span><br><span class="line">		<span class="keyword">int</span> timelast=Q;</span><br><span class="line">		<span class="keyword">int</span> finish=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> c=cur[pro];</span><br><span class="line">		<span class="keyword">while</span>(timelast&gt;<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">char</span>* ins=p[c];</span><br><span class="line">			<span class="keyword">switch</span> (ins[<span class="number">2</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">'='</span>:</span><br><span class="line">					timelast-=t[<span class="number">0</span>];</span><br><span class="line">					values[ins[<span class="number">0</span>]-<span class="string">'a'</span>]=ins[<span class="number">5</span>]?ins[<span class="number">4</span>]*<span class="number">10</span>+ins[<span class="number">5</span>]-<span class="string">'0'</span>*<span class="number">11</span>:ins[<span class="number">4</span>]-<span class="string">'0'</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">'i'</span>:</span><br><span class="line">					timelast-=t[<span class="number">1</span>];</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d: %d\n"</span>,pro+<span class="number">1</span>,values[ins[<span class="number">6</span>]-<span class="string">'a'</span>]);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">'c'</span>:</span><br><span class="line">					timelast-=t[<span class="number">2</span>];</span><br><span class="line">					<span class="keyword">if</span>(haslocked)</span><br><span class="line">					&#123;</span><br><span class="line">						finish=<span class="number">1</span>;</span><br><span class="line">						stopq[stopq_rear]=pro;</span><br><span class="line">						stopq_rear=(stopq_rear+<span class="number">1</span>)%<span class="number">100</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">else</span> haslocked=<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">'l'</span>:</span><br><span class="line">					timelast-=t[<span class="number">3</span>];</span><br><span class="line">					haslocked=<span class="number">0</span>;</span><br><span class="line">					<span class="keyword">if</span>(stopq_rear!=stopq_front)</span><br><span class="line">					&#123;</span><br><span class="line">						waitq_front=(waitq_front<span class="number">-1</span>)%<span class="number">100</span>;</span><br><span class="line">						waitq[waitq_front]=stopq[stopq_front];</span><br><span class="line">						stopq_front=(stopq_front+<span class="number">1</span>)%<span class="number">100</span>;</span><br><span class="line">					&#125;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="string">'d'</span>:</span><br><span class="line">					finish=<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(finish)<span class="keyword">break</span>;</span><br><span class="line">			++c;</span><br><span class="line">		&#125;</span><br><span class="line">		cur[pro]=c;</span><br><span class="line">		<span class="keyword">if</span>(!finish)</span><br><span class="line">		&#123;</span><br><span class="line">			waitq[waitq_rear]=pro;</span><br><span class="line">			waitq_rear=(waitq_rear+<span class="number">1</span>)%<span class="number">100</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> N;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;N);</span><br><span class="line">	<span class="keyword">while</span>(N--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d %d %d %d %d %d\n"</span>,&amp;n,&amp;t[<span class="number">0</span>],&amp;t[<span class="number">1</span>],&amp;t[<span class="number">2</span>],&amp;t[<span class="number">3</span>],&amp;t[<span class="number">4</span>],&amp;Q);</span><br><span class="line">		waitq_front=<span class="number">0</span>;</span><br><span class="line">		waitq_rear=<span class="number">0</span>;</span><br><span class="line">		stopq_front=<span class="number">0</span>;</span><br><span class="line">		stopq_rear=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">		&#123;</span><br><span class="line">			cur[i]=j;</span><br><span class="line">			gets(p[j]);</span><br><span class="line">			<span class="keyword">while</span>(p[j++][<span class="number">2</span>]!=<span class="string">'d'</span>)gets(p[j]);</span><br><span class="line">			waitq[i]=i;</span><br><span class="line">		&#125;</span><br><span class="line">		waitq_rear=n;</span><br><span class="line">		runprogram();</span><br><span class="line">		<span class="keyword">if</span>(N)<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1792,7 +1790,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
