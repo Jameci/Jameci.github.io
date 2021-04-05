@@ -249,6 +249,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/15/UVa1218_完美的服务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/15/UVa1218_完美的服务/" itemprop="url">UVa1218_完美的服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-15T18:42:00+08:00">
+                2021-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/动态规划/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>有n(n&lt;10001)台机器组成一个树形结构，现在要求在一些机器上安置服务器，使得每一台普通机器都能恰好直接与一台服务器相邻，求服务器的最少数量。</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>任取一点作为树根，将该图转化为有根的树之后，设</p>
+<p><code>dp[i][0]</code>表示i点的父节点为普通机器，i点也是普通机器，以i点为根节点的子树上最少服务器数。</p>
+<p><code>dp[i][1]</code>表示i点为服务器，以i点为根节点的子树上最少服务器数。</p>
+<p><code>dp[i][2]</code>表示i点的父节点为服务器，i点也是普通机器，以i点为根节点的子树上最少服务器数。</p>
+<p>有：</p>
+<p><code>dp[i][0] = Σ(dp[j][0]) + min(dp[j][1] - dp[j][0])</code></p>
+<p><code>dp[i][1] = 1 + Σ(max(dp[j][1], dp[j][2]))</code></p>
+<p><code>dp[i][2] = Σ(dp[j][0])</code></p>
+<p>其中j是i的子节点。</p>
+<p>但是这样的问题是，对于有些靠着叶节点的子树来说，某些情况可能是不存在的。所以笔者采用了刷表法，从叶节点开始更新其父节点。</p>
+<p>用-1来表示某种情况不存在。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10000</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[N][<span class="number">3</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v[N];</span><br><span class="line"><span class="keyword">int</span> visit[N];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; leaf;</span><br><span class="line"><span class="keyword">int</span> con[N];</span><br><span class="line"><span class="keyword">int</span> minchild[N];</span><br><span class="line"><span class="keyword">int</span> hasinqueue[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initialization</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">	<span class="built_in">memset</span>(con, <span class="number">0</span>, <span class="keyword">sizeof</span>(con));</span><br><span class="line">	<span class="built_in">memset</span>(visit, <span class="number">0</span>, <span class="keyword">sizeof</span>(visit));</span><br><span class="line">	<span class="built_in">memset</span>(minchild, <span class="number">0x7f</span>, <span class="keyword">sizeof</span>(minchild));</span><br><span class="line">	<span class="built_in">memset</span>(hasinqueue, <span class="number">0</span>, <span class="keyword">sizeof</span>(hasinqueue));</span><br><span class="line">	fill(v, v + N, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;&#125;);</span><br><span class="line">	<span class="keyword">while</span>(!leaf.empty())leaf.pop();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findleaf</span><span class="params">(<span class="keyword">int</span> father)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator i = v[father].begin(); i != v[father].end(); ++i)&#123;</span><br><span class="line">		<span class="keyword">if</span>(visit[*i] == <span class="number">0</span>)&#123;</span><br><span class="line">			++hasinqueue[father];</span><br><span class="line">			visit[*i] = <span class="number">1</span>;</span><br><span class="line">			findleaf(*i);</span><br><span class="line">			flag = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(flag)&#123;</span><br><span class="line">		leaf.push(father);</span><br><span class="line">		dp[father][<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">		dp[father][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">		dp[father][<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">		con[father] = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line">	<span class="keyword">while</span>(!leaf.empty())&#123;</span><br><span class="line">		<span class="keyword">int</span> child = leaf.front();</span><br><span class="line">		<span class="comment">//printf("%d ", child);</span></span><br><span class="line">		leaf.pop();</span><br><span class="line">		++dp[child][<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">if</span>(con[child] == <span class="number">0</span>)&#123;</span><br><span class="line">			dp[child][<span class="number">0</span>] += minchild[child];</span><br><span class="line">		&#125;</span><br><span class="line">		visit[child] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator i = v[child].begin(); i != v[child].end(); ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(visit[*i] == <span class="number">0</span>)&#123;</span><br><span class="line">				--hasinqueue[*i];</span><br><span class="line">				<span class="keyword">if</span>(hasinqueue[*i] == <span class="number">0</span>)&#123;</span><br><span class="line">					leaf.push(*i);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(dp[*i][<span class="number">0</span>] != <span class="number">-1</span>)&#123;</span><br><span class="line">					<span class="keyword">if</span>(dp[child][<span class="number">0</span>] == <span class="number">-1</span>)&#123;</span><br><span class="line">						<span class="keyword">if</span>(con[*i])dp[*i][<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">						<span class="keyword">else</span>&#123;</span><br><span class="line">							++con[*i];</span><br><span class="line">							dp[*i][<span class="number">0</span>] += dp[child][<span class="number">1</span>];</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">						dp[*i][<span class="number">0</span>] += dp[child][<span class="number">0</span>];</span><br><span class="line">						<span class="keyword">if</span>(con[*i] == <span class="number">0</span>)&#123;</span><br><span class="line">							minchild[*i] = min(minchild[*i], dp[child][<span class="number">1</span>] - dp[child][<span class="number">0</span>]);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(dp[child][<span class="number">2</span>] == <span class="number">-1</span>)&#123;</span><br><span class="line">					dp[*i][<span class="number">1</span>] += dp[child][<span class="number">1</span>];</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					dp[*i][<span class="number">1</span>] += min(dp[child][<span class="number">1</span>], dp[child][<span class="number">2</span>]);</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(dp[*i][<span class="number">2</span>] != <span class="number">-1</span>)&#123;</span><br><span class="line">					<span class="keyword">if</span>(dp[child][<span class="number">0</span>] == <span class="number">-1</span>)dp[*i][<span class="number">2</span>] = <span class="number">-1</span>;</span><br><span class="line">					<span class="keyword">else</span>&#123;</span><br><span class="line">						dp[*i][<span class="number">2</span>] += dp[child][<span class="number">0</span>];</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(leaf.empty())&#123;</span><br><span class="line">			ret = child;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//printf("\n");</span></span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(flag != <span class="number">-1</span>)&#123;</span><br><span class="line">		initialization();</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">		<span class="keyword">int</span> father, child;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;father, &amp;child);</span><br><span class="line">			v[father].push_back(child);</span><br><span class="line">			v[child].push_back(father);</span><br><span class="line">		&#125;</span><br><span class="line">		visit[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">		findleaf(<span class="number">1</span>);</span><br><span class="line">		<span class="built_in">memset</span>(visit, <span class="number">0</span>, <span class="keyword">sizeof</span>(visit));</span><br><span class="line">		<span class="keyword">int</span> root = cal();</span><br><span class="line">		<span class="keyword">int</span> ret = <span class="number">0x7fffffff</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(dp[root][i] == <span class="number">-1</span>)<span class="keyword">continue</span>;</span><br><span class="line">			ret = min(ret, dp[root][i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ret);</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		printf("root = %d\n", root);</span></span><br><span class="line"><span class="comment">		for(int i = 0; i &lt; n; ++i)&#123;</span></span><br><span class="line"><span class="comment">			for(int j = 0; j &lt; 3; ++j)&#123;</span></span><br><span class="line"><span class="comment">				printf("%d ",dp[i + 1][j]);</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">			printf("\n");</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;flag);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/15/UVa1220-Hali-Bula的晚会/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1623,164 +1776,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/06/51Nod1134-最长递增子序列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jameci">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jameci's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/06/51Nod1134-最长递增子序列/" itemprop="url">51Nod1134_最长递增子序列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-06T13:56:46+08:00">
-                2021-02-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/动态规划/" itemprop="url" rel="index">
-                    <span itemprop="name">动态规划</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>给出一串整数数列，计算出其最长递增子序列的长度。</p>
-<p>如2,4,5,7,8,6,3,1,4,9的最长递增子序列为2,4,5,7,8,9。</p>
-<p>数列的长度不会超过50000。</p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>记录下从第一个数字开始，到第i个数字为结尾的最大递增子序列长度di。这样，计算以第i个数字为结尾的最大递增子序列长度时，假设第j个位置的数字为sj，记录为dj（j&lt;i），如果sj&lt;si，那么i就可以接在以j为结尾的子序列上，这时子序列的长度是sj+1，遍历所有i之前的数字，选出最大sj+1的作为si的值。</p>
-<p>如此这般，复杂度是O(n^2)的。会超时。</p>
-<p>我们可以看到，在计算每个数字的d值时，总是要遍历之前的所有数字，实际上，这里是可以简化的。</p>
-<p>我们举一个例子来说明，假设数列的前四个数是1，3，2，4，那么我们可以得到，在计算d3之前，有d0 = 1，d1 = 2，d2 = 2（如下图）</p>
-<p><img src="/images/最长递增子序列/0.png" alt></p>
-<p>那么，计算d3的时候，我们可以发现，我们只关注两件事，即前面的数字是不是比我小？如果小的话，它的d是多少。我们假设把已经计算了的数列部分重新排列，使其更加有序，如下图：</p>
-<p><img src="/images/最长递增子序列/1.png" alt></p>
-<p>需要注意的是，尽管重新排列了，di值仍然是原来的值，如图中的3对应di值并没有变成3。</p>
-<p>这样做的好处是什么，当我计算下一个数是si的di值，我需要找到小于si的数的d值，由于之前的数字已经是按序排好的，我可以更快的查找到小于si的数。</p>
-<p>但是仍然不够好，因为即使可以使用诸如二分查找来简化查找的过程，找到第一个小于si的数，我仍然需要遍历所有小于si的数来更新d值。</p>
-<p>那么，我们仔细观察一下，可以发现数字2和数字3的作用似乎区别不那么大，所有可以接在数字3之后的数字，同样可以接在数字2后面，结果是一样的，但由于数字2比数字3要小，如果在他们俩后面出现了一个3，就只能接在数字2后面了。</p>
-<p>这样一来，我们可以说，数字2的作用不会比数字3要差，所以，我们可以删掉数字3，用数字2来代替它。</p>
-<p>这样一来，我们要做的事情就变得简单了，我们可以维护一个类似于栈的结构，它是从小到大排列好的，当计算si的d值时，我们拿出这个栈，看其中有没有一个数，它恰好是第一个比si大的数，我们说，di的值就是这个数的d值，并且，我们用si来代替这个数在栈中的位置。如果没有这样的数怎么办，这就说明了si大于栈中所有数，可以直接将si压入栈顶。</p>
-<p>这样的时间复杂度是O(nlogn)</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">50000</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> str[maxn];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, maxx = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> h = v.size() - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> m = (h + l) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span>(h != l)&#123;</span><br><span class="line">		<span class="keyword">if</span>(v[m] &lt; x)&#123;</span><br><span class="line">			l = m + <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			h = m;</span><br><span class="line">		&#125;</span><br><span class="line">		m = (h + l) / <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cal</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(v.empty() || v.back() &lt; str[i])&#123;</span><br><span class="line">			v.push_back(str[i]);</span><br><span class="line">			ret = v.size();</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			ret = f(str[i]);</span><br><span class="line">			<span class="keyword">if</span>(v[ret] != str[i])&#123;</span><br><span class="line">				v[ret] = str[i];</span><br><span class="line">				++ret;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		maxx = maxx &lt; ret ? ret : maxx;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;str[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	cal();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, maxx);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1831,7 +1826,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
