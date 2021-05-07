@@ -249,6 +249,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/07/POJ3278-Catch-The-Cow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/07/POJ3278-Catch-The-Cow/" itemprop="url">POJ3278_Catch The Cow</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-07T16:35:44+08:00">
+                2021-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BFS/" itemprop="url" rel="index">
+                    <span itemprop="name">BFS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>Farmer John的一头牛逃跑了，现在FJ在位置N，牛在位置K，FJ可以花费一分钟做以下三种操作：（假设现在FJ的位置是cur）</p>
+<p>1 移动到cur + 1。</p>
+<p>2 移动到cur - 1。</p>
+<p>3 传送到cur × 2。</p>
+<p>求FJ到达K点的最短时间。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>经典中的经典，BFS，当前大一刚刚入队就做过这道题。之所以再做是因为算法课的作业。其实我一直搞不懂为什么算法课要分成回溯法、分支限界法。不都是搜索 + 剪枝么。</p>
+<p>好像回溯法是DFS，分支限界法是BFS来着？</p>
+<p>这题刚拿到的时候想用DP来做，错了。复盘之后才意识到，dp的顺序必须按BFS序来展开。其实也能做。我是直接按照端点从小到大做的，可能会重复更新。比如我拿着3去更新了2，4，和6，然后遇到4时，可能又会更新3，导致2，6，可能又有了更优的解，但我更新不到。</p>
+<p>所以，想用DP的话，其实还是要实现BFS，这题直接BFS的算法对一个节点也不会访问第二次，所以没必要。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> v[N];</span><br><span class="line"><span class="keyword">int</span> n, k, ret = <span class="number">0x7fffffff</span>;</span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> cur = q.front(); q.pop();</span><br><span class="line">	<span class="keyword">if</span>(cur &gt;= k) ret = min(ret, v[cur] + cur - k - <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>((cur &lt;&lt; <span class="number">1</span>) &lt; (k &lt;&lt; <span class="number">1</span>) &amp;&amp; v[cur &lt;&lt; <span class="number">1</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">			v[cur &lt;&lt; <span class="number">1</span>] = v[cur] + <span class="number">1</span>;</span><br><span class="line">			q.push(cur &lt;&lt; <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(v[cur + <span class="number">1</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">			v[cur + <span class="number">1</span>] = v[cur] + <span class="number">1</span>;</span><br><span class="line">			q.push(cur + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur &amp;&amp; v[cur - <span class="number">1</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">			v[cur - <span class="number">1</span>] = v[cur] + <span class="number">1</span>;</span><br><span class="line">			q.push(cur - <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(v, <span class="number">0</span>, <span class="keyword">sizeof</span>(v));</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;n, &amp;k);</span><br><span class="line">	v[n] = <span class="number">1</span>;</span><br><span class="line">	q.push(n);</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">		bfs();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ret);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/24/POJ1190-生日蛋糕/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1630,159 +1780,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/23/POJ1456-Supermarket/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jameci">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jameci's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/04/23/POJ1456-Supermarket/" itemprop="url">POJ1456_Supermarket</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-04-23T00:59:35+08:00">
-                2021-04-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/堆/" itemprop="url" rel="index">
-                    <span itemprop="name">堆</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>超市里的商品有两个属性，过期时间和利润值，现在规定过期商品只能丢掉，而且超市每天只能卖一件商品，求获利最大值。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>商品数目，过期时间和利润均为1e4之内的正整数。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>不妨先假设没有两件商品在同一天过期。</p>
-<p>显然到最后一件商品过期的那天，超市只剩下了这一种商品可以卖。</p>
-<p>那么，最好的方式就是在这一天卖掉它，因为不卖的话，这件商品要么卖不出去，要么在之前的一天卖掉。在之前的一天卖掉，就有可能抢掉另一件商品的销路。</p>
-<p>所以不如就在最后一天卖了。</p>
-<p>那么我们倒着考虑，最后一件商品过期的前一天呢？我们总能找到一件临过期的商品，然后卖掉。</p>
-<p>现在，有两件商品会在同天过期了。</p>
-<p>我们再从最后一天开始考虑，假设最后一天过期的商品有x件，显然我们会卖利润最高的。</p>
-<p>再考虑前一天，去掉最后一天卖掉的那件，剩下x-1件和前一天过期的y件该怎么选呢？显然这时候所有的商品依然等价——因为过了这一天就是最后一天，而最后一天卖的东西已经定了，所以这天对这些商品还是最后的机会，我们还是要选其中利润最高的。</p>
-<p>于是，我们维护一个利润优先大顶堆，逆序遍历过期时间，每天加入临过期的物品，然后取堆顶卖掉。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e4</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, len;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">good</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> p;</span><br><span class="line">	<span class="keyword">int</span> d;</span><br><span class="line">&#125;gds[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp1</span><span class="params">(good g1, good g2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(g1.d == g2.d) <span class="keyword">return</span> g1.p &gt; g2.p;</span><br><span class="line">	<span class="keyword">return</span> g1.d &gt; g2.d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(good g1, good g2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(g1.p == g2.p) <span class="keyword">return</span> g1.d &lt; g2.d;</span><br><span class="line">	<span class="keyword">return</span> g1.p &gt; g2.p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">good h[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(good g)</span></span>&#123;</span><br><span class="line">	h[++len] = g;</span><br><span class="line">	<span class="keyword">int</span> fa = len &gt;&gt; <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> cur = len;</span><br><span class="line">	<span class="keyword">while</span>(fa &amp;&amp; cmp2(h[cur], h[fa]))&#123;</span><br><span class="line">		swap(h[cur], h[fa]);</span><br><span class="line">		cur = fa;</span><br><span class="line">		fa &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">good <span class="title">Gettop</span><span class="params">()</span></span>&#123;</span><br><span class="line">	swap(h[len], h[<span class="number">1</span>]);</span><br><span class="line">	<span class="keyword">int</span> cur = <span class="number">1</span>, child = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">while</span>(child &lt; len)&#123;</span><br><span class="line">		<span class="keyword">if</span>(child != len - <span class="number">1</span> &amp;&amp; cmp2(h[child + <span class="number">1</span>], h[child])) ++child;</span><br><span class="line">		<span class="keyword">if</span>(cmp2(h[child], h[cur]))&#123;</span><br><span class="line">			swap(h[child], h[cur]);</span><br><span class="line">			cur = child;</span><br><span class="line">			child *= <span class="number">2</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> h[len--];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF)&#123;</span><br><span class="line">		len = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(h, <span class="number">0</span>, <span class="keyword">sizeof</span>(h));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;gds[i].p, &amp;gds[i].d);</span><br><span class="line">		&#125;</span><br><span class="line">		sort(gds, gds + n, cmp1);</span><br><span class="line">		<span class="keyword">int</span> ts = gds[<span class="number">0</span>].d;</span><br><span class="line">		<span class="keyword">int</span> tot = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = ts; i; --i)&#123;</span><br><span class="line">			<span class="keyword">while</span>(gds[tot].d == i)&#123;</span><br><span class="line">				Insert(gds[tot]);</span><br><span class="line">				++tot;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(len == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">else</span> ans += Gettop().p;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1833,7 +1830,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1844,7 +1841,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
