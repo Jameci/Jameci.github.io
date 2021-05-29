@@ -249,6 +249,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/09/UVa1626-括号序列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/09/UVa1626-括号序列/" itemprop="url">UVa1626_括号序列</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-09T22:27:34+08:00">
+                2021-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/动态规划/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>定义一种“常规”的序列：</p>
+<p>1.空字符串是常规序列</p>
+<p>2.如果S是常规序列，<code>[S],(S)</code>都是常规序列。</p>
+<p>3.如果A,B是常规序列，那么AB是常规序列。</p>
+<p>现在给定一组仅由<code>[</code> <code>]</code> <code>(</code> <code>)</code>组成的字符串A，找出这样一个常规序列B，使得它的子序列是A并且B的长度要尽可能小。</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>可以规定<code>dp[i][j]</code>为字符串A还需要添加几个字符才能成为B。</p>
+<p>那么有：</p>
+<p>i = j 时：</p>
+<p><code>dp[i][j] = 1</code></p>
+<p>i &lt; j 时：</p>
+<p><code>dp[i][j] = min(dp[i][k] + dp[k + 1][j])</code></p>
+<p>特殊地，当<code>A[i] = A[j]</code>时，若i = j - 1，直接有：</p>
+<p><code>dp[i][j] = 0</code></p>
+<p>否则，按照正常的i &lt; j计算完之后，还要加上：</p>
+<p><code>dp[i][j] = min(dp[i][j], dp[i + 1][j - 1]</code></p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x7fffffff</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> str[maxn];</span><br><span class="line"><span class="keyword">int</span> dp[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dp[i][j] != <span class="number">-1</span>)<span class="keyword">return</span> dp[i][j];</span><br><span class="line">	<span class="keyword">if</span>(i == j)<span class="keyword">return</span> dp[i][j] = <span class="number">1</span>;</span><br><span class="line">	dp[i][j] = inf;</span><br><span class="line">	<span class="keyword">if</span>(((str[i] == <span class="string">'['</span>) &amp;&amp; (str[j] == <span class="string">']'</span>)) || ((str[i] == <span class="string">'('</span>) &amp;&amp; (str[j] == <span class="string">')'</span>)))&#123;</span><br><span class="line">		<span class="keyword">if</span>(i == j - <span class="number">1</span>)dp[i][j] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span> dp[i][j] = cal(i + <span class="number">1</span>, j - <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = i; k &lt; j; ++k)&#123;</span><br><span class="line">		dp[i][j] = min(dp[i][j], cal(i, k) + cal(k + <span class="number">1</span>, j));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[i][j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(i == j)&#123;</span><br><span class="line">		<span class="keyword">if</span>((str[i] == <span class="string">'['</span>) || (str[i] == <span class="string">']'</span>))<span class="built_in">printf</span>(<span class="string">"[]"</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"()"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(((str[i] == <span class="string">'['</span>) &amp;&amp; (str[j] == <span class="string">']'</span>)) || ((str[i] == <span class="string">'('</span>) &amp;&amp; (str[j] == <span class="string">')'</span>)))&#123;</span><br><span class="line">		<span class="keyword">if</span>(i == j - <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(str[i] == <span class="string">'['</span>)<span class="built_in">printf</span>(<span class="string">"[]"</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"()"</span>);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(dp[i][j] == dp[i + <span class="number">1</span>][j - <span class="number">1</span>])&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%c"</span>, str[i]);</span><br><span class="line">			print(i + <span class="number">1</span>, j - <span class="number">1</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%c"</span>, str[j]);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> k = i; k &lt; j; ++k)&#123;</span><br><span class="line">		<span class="keyword">if</span>(dp[i][j] == dp[i][k] + dp[k + <span class="number">1</span>][j])&#123;</span><br><span class="line">			print(i, k);</span><br><span class="line">			print(k + <span class="number">1</span>, j);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen("output.txt", "w", stdout);</span></span><br><span class="line">	<span class="keyword">int</span> t;</span><br><span class="line">	fgets(str, maxn, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="built_in">sscanf</span>(str, <span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">while</span>(t)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		fgets(str, maxn, <span class="built_in">stdin</span>);</span><br><span class="line">		fgets(str, maxn, <span class="built_in">stdin</span>);</span><br><span class="line">		str[<span class="built_in">strlen</span>(str) - <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strlen</span>(str))&#123;</span><br><span class="line">			<span class="keyword">int</span> ret = cal(<span class="number">0</span>, <span class="built_in">strlen</span>(str) - <span class="number">1</span>);</span><br><span class="line">			<span class="comment">//printf("%d\n", ret);</span></span><br><span class="line">			print(<span class="number">0</span>, <span class="built_in">strlen</span>(str) - <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="keyword">if</span>(--t)<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>不要忘记空串的处理。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/09/UVa10003-切木棍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1592,158 +1750,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/31/UVa437-巴比伦塔/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jameci">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jameci's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/01/31/UVa437-巴比伦塔/" itemprop="url">UVa437_巴比伦塔</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-01-31T17:03:01+08:00">
-                2021-01-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/动态规划/" itemprop="url" rel="index">
-                    <span itemprop="name">动态规划</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给出n种长方体，每种长方体的数量无限，使用它们搭建巴比伦塔，规则是，将一个长方体搭建在另一个长方体的上面，下面的长方体的长必须严格大于上面长方体的长，下面长方体的宽必须严格大于上面长方体的宽。每种长方体都可以旋转，即使用任意一条边作为长宽高。</p>
-<p>要求得出所能搭建的巴比伦塔的最高高度。</p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>对于每种长方体，假设三条棱的长为x，y，z，我们都可以旋转出六种状态，对于底面，我们只取较长的棱为长，较短的棱为宽。这样每种长方体只有三种状态，即：</p>
-<p>取x为高。</p>
-<p>取y为高。</p>
-<p>取z为高。</p>
-<p>我们把这三种状态看成是三个端点，那么如果某个状态的长方体j可以堆在另一个状态的长方体i上，我们把这种关系看成是端点之间有一条有向边，记为<code>v[i][j]=1</code>。</p>
-<p>如此这般，可以建立一张有向无环图，问题也就转化为了有向无环图上的最大值问题。</p>
-<p>状态<code>dp[i]</code>表示以长方体i为底，最高的巴比伦塔的高度。</p>
-<p>那么有：</p>
-<p><code>dp[i]=height[i]+max(dp[j]|j可以放置在i上，即v[i][j]=1)</code></p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">30</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,pn;</span><br><span class="line"><span class="keyword">int</span> v[maxn * <span class="number">3</span>][maxn * <span class="number">3</span>];</span><br><span class="line"><span class="keyword">int</span> dp[maxn * <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">point</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> height;</span><br><span class="line">	<span class="keyword">int</span> width;</span><br><span class="line">	<span class="keyword">int</span> length;</span><br><span class="line">&#125;p[maxn * <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">input</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(p,<span class="number">0</span>,<span class="keyword">sizeof</span>(p));</span><br><span class="line">	<span class="built_in">memset</span>(dp,<span class="number">-1</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">if</span>(!n)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> x,y,z;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>,&amp;x,&amp;y,&amp;z);</span><br><span class="line">		p[i * <span class="number">3</span>].height = x;</span><br><span class="line">		p[i * <span class="number">3</span>].width = (y &gt; z ? z : y);</span><br><span class="line">		p[i * <span class="number">3</span>].length = (y &gt; z ? y : z);</span><br><span class="line">		p[i * <span class="number">3</span> + <span class="number">1</span>].height = y;</span><br><span class="line">		p[i * <span class="number">3</span> + <span class="number">1</span>].width = (x &gt; z ? z : x);</span><br><span class="line">		p[i * <span class="number">3</span> + <span class="number">1</span>].length = (x &gt; z ? x : z);</span><br><span class="line">		p[i * <span class="number">3</span> + <span class="number">2</span>].height = z;</span><br><span class="line">		p[i * <span class="number">3</span> + <span class="number">2</span>].width = (y &gt; x ? x : y);</span><br><span class="line">		p[i * <span class="number">3</span> + <span class="number">2</span>].length = (y &gt; x ? y : x);</span><br><span class="line">	&#125;</span><br><span class="line">	pn = n * <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(v,<span class="number">0</span>,<span class="keyword">sizeof</span>(v));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; pn;++i)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; pn;++j)&#123;</span><br><span class="line">			<span class="keyword">if</span>((p[i].width &gt; p[j].width) &amp;&amp; (p[i].length &gt; p[j].length))&#123;</span><br><span class="line">				v[i][j] = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dp[r] == <span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; pn;++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(v[r][i])&#123;</span><br><span class="line">				ret = max(ret,cal(i));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		dp[r] = ret + p[r].height;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dp[r];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> id = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//freopen("output.txt","w",stdout);</span></span><br><span class="line">	<span class="keyword">while</span>(input())&#123;</span><br><span class="line">		create();</span><br><span class="line">		<span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; pn;++i)&#123;</span><br><span class="line">			ret = max(ret,cal(i));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Case %d: maximum height = %d\n"</span>,++id,ret);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1794,7 +1800,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">89</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
