@@ -249,6 +249,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/21/map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/21/map/" itemprop="url">map</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-06-21T15:43:02+08:00">
+                2021-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>头文件：map</p>
+<p>声明：map&lt;string, int&gt; person</p>
+<p>功能：建立一个key-value二元组的映射集合，对于每个节点，可以修改value值，不能修改key值。</p>
+<p>查找某个key值对应的节点时，时间复杂度是O(logn)的。</p>
+<h1 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h1><h2 id="insert方法"><a href="#insert方法" class="headerlink" title="insert方法"></a>insert方法</h2><p>使用insert插入，传递的参数必须是对应数据类型的pair型数据，如对于上述的person，可以有：</p>
+<p>person.insert(make_pair(“张三”, 19))</p>
+<h2 id="插入value-type型数据"><a href="#插入value-type型数据" class="headerlink" title="插入value_type型数据"></a>插入value_type型数据</h2><p>类似于insert方法，但使用map类内部的value_type</p>
+<p>person.insert(map&lt;string, int&gt;::value_type(“张三”, 19))</p>
+<h2 id="数组方法插入"><a href="#数组方法插入" class="headerlink" title="数组方法插入"></a>数组方法插入</h2><p>person[“张三”] = 19</p>
+<p>三种方式都可以实现对一个已经存在的map型对象插入数据，但使用insert方法时，必须保证该map中对应key之前不存在，否则将无法插入，而使用数组方式时，若该key之前存在，则会覆盖原来的值。</p>
+<p>如果使用以下代码：</p>
+<p>person[“李四”]++</p>
+<p>而之前李四并不存在的话，则会自动创建一个李四，值会在0的基础上增加</p>
+<h1 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h1><p>遍历map类似于STL中其他容器的遍历。</p>
+<h2 id="正向遍历"><a href="#正向遍历" class="headerlink" title="正向遍历"></a>正向遍历</h2><p>使用正向迭代器</p>
+<p>for(map&lt;string, int&gt;::iterator i = person.begin(); i != person.end(); ++i)</p>
+<h2 id="反向遍历"><a href="#反向遍历" class="headerlink" title="反向遍历"></a>反向遍历</h2><p>使用反向迭代器</p>
+<p>for(map&lt;string, int&gt;::reverse_iterator i = person.rbegin(); i != person.rend(); ++i)</p>
+<p>注意迭代器的类型是一个指向对应类型pair的指针，需要取出key时，用i-&gt;first，取出value时，用i-&gt;second</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>find函数也是STL容器里常见的函数，用来查找容器中有没有对应的值，如果查找成功，返回对应元素的迭代器，如果查找失败，返回对应容器的end()函数值。</p>
+<p>对应map类型的对象进行查找时，find传递的是对应的key值</p>
+<h2 id="count"><a href="#count" class="headerlink" title="count"></a>count</h2><p>用来统计某个对象出现的次数，在map中，传进想要查找的key，因为最多出现一次，所以若返回1说明元素存在，0说明不存在</p>
+<h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><p>使用erase函数</p>
+<p>有三种方法：</p>
+<p>传递key值</p>
+<p>传递迭代器值</p>
+<p>传递迭代器范围，如person.erase(begin(),end())表示删除所有元素</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/29/夏令营/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1652,151 +1798,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/05/14/CH2601-电路维修/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jameci">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jameci's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/14/CH2601-电路维修/" itemprop="url">CH2601_电路维修</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-05-14T18:17:19+08:00">
-                2021-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/BFS/" itemprop="url" rel="index">
-                    <span itemprop="name">BFS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>Ha’nyu是来自异世界的魔女，她在漫无目的地四处漂流的时候，遇到了善良的少女Rika，从而被收留在地球上。Rika的家里有一辆飞行车。有一天飞行车的电路板突然出现了故障，导致无法启动。<br>电路板的整体结构是一个R行C列的网格（R,C≤500），如右图所示。每个格点都是电线的接点，每个格子都包含一个电子元件。电子元件的主要部分是一个可旋转的、连接一条对角线上的两个接点的短电缆。在旋转之后，它就可以连接另一条对角线的两个接点。电路板左上角的接点接入直流电源，右下角的接点接入飞行车的发动装置。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>从某个点到另一个点，如果电路联通，相当于有一条权值为0的路，不连通视为权值为1，在次基础上进行BFS找出最短路。权值为0的路的处理方法是：直接从队头入队。</p>
-<p>这样就需要一个双端队列。</p>
-<p>还需要考虑的问题是，我们需要维护某个点到起点的最小距离，因为一个点可能会被访问很多次。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> R = <span class="number">505</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> C = <span class="number">505</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> m[R][C];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> v[R][C];</span><br><span class="line"><span class="keyword">int</span> hasinqueue[R][C];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> <span class="built_in">exp</span>[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">int</span> exp2[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">-1</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t, r, c;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">while</span>(t--)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(v, <span class="number">0x7f</span>, <span class="keyword">sizeof</span>(v));</span><br><span class="line">		<span class="built_in">memset</span>(hasinqueue, <span class="number">0</span>, <span class="keyword">sizeof</span>(hasinqueue));</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;r, &amp;c);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r; ++i)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%s"</span>, m[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>((r + c) % <span class="number">2</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NO SOLUTION\n"</span>);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">		q.push_back(<span class="number">0</span>);</span><br><span class="line">		q.push_back(<span class="number">0</span>);</span><br><span class="line">		v[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> x;</span><br><span class="line">		<span class="keyword">int</span> y;</span><br><span class="line">		<span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">			x = q.front();</span><br><span class="line">			q.pop_front();</span><br><span class="line">			y = q.front();</span><br><span class="line">			q.pop_front();</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(x == r &amp;&amp; y == c) <span class="keyword">break</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(hasinqueue[x][y]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">else</span> hasinqueue[x][y] = <span class="number">1</span>;</span><br><span class="line">			<span class="comment">//printf("%d %d %d\n", x, y, v[x][y]);</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i)&#123;</span><br><span class="line">				<span class="keyword">int</span> nx = x + <span class="built_in">exp</span>[i][<span class="number">0</span>];</span><br><span class="line">				<span class="keyword">int</span> ny = y + <span class="built_in">exp</span>[i][<span class="number">1</span>];</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(nx &lt; <span class="number">0</span> || ny &lt; <span class="number">0</span> || nx &gt; r || ny &gt; c) <span class="keyword">continue</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(m[x + exp2[i][<span class="number">0</span>]][y + exp2[i][<span class="number">1</span>]] == <span class="string">'/'</span>)&#123;</span><br><span class="line">					<span class="keyword">if</span>(i == <span class="number">0</span> || i == <span class="number">3</span>)&#123;</span><br><span class="line">						<span class="keyword">if</span>(v[nx][ny] &gt; v[x][y] + <span class="number">1</span>)&#123;</span><br><span class="line">							v[nx][ny] = v[x][y] + <span class="number">1</span>;</span><br><span class="line">							q.push_back(nx);</span><br><span class="line">							q.push_back(ny);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">						<span class="keyword">if</span>(v[nx][ny] &gt; v[x][y])&#123;</span><br><span class="line">							v[nx][ny] = v[x][y];</span><br><span class="line">							q.push_front(ny);</span><br><span class="line">							q.push_front(nx);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					<span class="keyword">if</span>(i == <span class="number">2</span> || i == <span class="number">1</span>)&#123;</span><br><span class="line">						<span class="keyword">if</span>(v[nx][ny] &gt; v[x][y] + <span class="number">1</span>)&#123;</span><br><span class="line">							v[nx][ny] = v[x][y] + <span class="number">1</span>;</span><br><span class="line">							q.push_back(nx);</span><br><span class="line">							q.push_back(ny);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">						<span class="keyword">if</span>(v[nx][ny] &gt; v[x][y])&#123;</span><br><span class="line">							v[nx][ny] = v[x][y];</span><br><span class="line">							q.push_front(ny);</span><br><span class="line">							q.push_front(nx);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, v[r][c]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1847,7 +1848,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
