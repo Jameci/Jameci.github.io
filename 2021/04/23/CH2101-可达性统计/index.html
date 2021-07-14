@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="DFS,">
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="描述给定一张N个点M条边的有向无环图，分别统计从每个点出发能够到达的点的数量。N,M≤30000。 思路拓扑排序，然后按逆序走，记录每一个点能到达的节点。 为了使那么多点可以存得下，使用bitset 拓扑排序有向图的拓扑排序实在是太经典的算法了，而且似乎还挺常见。记得我最后一次CSP的C题就是拓扑排序，点亮数字人生。 做法是，统计每个点的入度di并维护一个栈，如果di是0，进栈。 栈不空时，取出栈">
+<meta name="keywords" content="DFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CH2101_可达性统计">
 <meta property="og:url" content="http://yoursite.com/2021/04/23/CH2101-可达性统计/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="描述给定一张N个点M条边的有向无环图，分别统计从每个点出发能够到达的点的数量。N,M≤30000。 思路拓扑排序，然后按逆序走，记录每一个点能到达的节点。 为了使那么多点可以存得下，使用bitset 拓扑排序有向图的拓扑排序实在是太经典的算法了，而且似乎还挺常见。记得我最后一次CSP的C题就是拓扑排序，点亮数字人生。 做法是，统计每个点的入度di并维护一个栈，如果di是0，进栈。 栈不空时，取出栈">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-22T18:37:43.837Z">
+<meta property="og:updated_time" content="2021-07-14T13:54:15.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CH2101_可达性统计">
 <meta name="twitter:description" content="描述给定一张N个点M条边的有向无环图，分别统计从每个点出发能够到达的点的数量。N,M≤30000。 思路拓扑排序，然后按逆序走，记录每一个点能到达的节点。 为了使那么多点可以存得下，使用bitset 拓扑排序有向图的拓扑排序实在是太经典的算法了，而且似乎还挺常见。记得我最后一次CSP的C题就是拓扑排序，点亮数字人生。 做法是，统计每个点的入度di并维护一个栈，如果di是0，进栈。 栈不空时，取出栈">
@@ -304,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DFS/" itemprop="url" rel="index">
-                    <span itemprop="name">DFS</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -375,6 +376,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
+        </div>
       
 
       
@@ -485,7 +492,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -496,7 +503,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

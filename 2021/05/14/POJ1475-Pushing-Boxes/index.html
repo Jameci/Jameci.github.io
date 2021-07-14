@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="BFS,">
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="描述求解推箱子游戏，要求求出箱子移动次数最少的解，并输出推箱子的路径。如果有多种方式可以让箱子移动最少，输出人物移动最少的那组。 数据范围地图不大于20 * 20 思路下意识的思路是箱子和人的位置设置成四元组，但蓝书说了会错。 照蓝书上写了一个双重BFS的做法：先外层以箱子的位置为状态进行第一层BFS，每次状态转移时，需要使用第二层BFS来搜索人物移动的最短路径。 这题麻烦的一点还在于要输出路径，">
+<meta name="keywords" content="BFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="POJ1475_Pushing Boxes">
 <meta property="og:url" content="http://yoursite.com/2021/05/14/POJ1475-Pushing-Boxes/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="描述求解推箱子游戏，要求求出箱子移动次数最少的解，并输出推箱子的路径。如果有多种方式可以让箱子移动最少，输出人物移动最少的那组。 数据范围地图不大于20 * 20 思路下意识的思路是箱子和人的位置设置成四元组，但蓝书说了会错。 照蓝书上写了一个双重BFS的做法：先外层以箱子的位置为状态进行第一层BFS，每次状态转移时，需要使用第二层BFS来搜索人物移动的最短路径。 这题麻烦的一点还在于要输出路径，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-05-14T10:21:44.126Z">
+<meta property="og:updated_time" content="2021-07-14T13:57:48.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="POJ1475_Pushing Boxes">
 <meta name="twitter:description" content="描述求解推箱子游戏，要求求出箱子移动次数最少的解，并输出推箱子的路径。如果有多种方式可以让箱子移动最少，输出人物移动最少的那组。 数据范围地图不大于20 * 20 思路下意识的思路是箱子和人的位置设置成四元组，但蓝书说了会错。 照蓝书上写了一个双重BFS的做法：先外层以箱子的位置为状态进行第一层BFS，每次状态转移时，需要使用第二层BFS来搜索人物移动的最短路径。 这题麻烦的一点还在于要输出路径，">
@@ -304,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/BFS/" itemprop="url" rel="index">
-                    <span itemprop="name">BFS</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -365,6 +366,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BFS/" rel="tag"># BFS</a>
+          
+        </div>
       
 
       
@@ -475,7 +482,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -486,7 +493,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

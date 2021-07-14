@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="堆,">
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="描述有m个长度为n的序列，每个序列取一个数求和，可以有m^n种取法，现在求其中最小的n种取法下的和。 思路对于两个序列，可以在n^2种取法中找到n种最小的取法，得到新序列。 用这个新序列和第三个序列去重复上面的取法，这就是m = 3时候的解决方法。 重复m次，算法的时间复杂度是O(mn²)。 考虑优化每次操作，我们给两个序列a，b排序，显然最小的取法是a0 + b0，我们把a0 + b0到a0 +">
+<meta name="keywords" content="堆">
 <meta property="og:type" content="article">
 <meta property="og:title" content="POJ2442_Sequence">
 <meta property="og:url" content="http://yoursite.com/2021/04/23/POJ2442-Sequence/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="描述有m个长度为n的序列，每个序列取一个数求和，可以有m^n种取法，现在求其中最小的n种取法下的和。 思路对于两个序列，可以在n^2种取法中找到n种最小的取法，得到新序列。 用这个新序列和第三个序列去重复上面的取法，这就是m = 3时候的解决方法。 重复m次，算法的时间复杂度是O(mn²)。 考虑优化每次操作，我们给两个序列a，b排序，显然最小的取法是a0 + b0，我们把a0 + b0到a0 +">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-22T18:38:59.110Z">
+<meta property="og:updated_time" content="2021-07-14T13:59:18.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="POJ2442_Sequence">
 <meta name="twitter:description" content="描述有m个长度为n的序列，每个序列取一个数求和，可以有m^n种取法，现在求其中最小的n种取法下的和。 思路对于两个序列，可以在n^2种取法中找到n种最小的取法，得到新序列。 用这个新序列和第三个序列去重复上面的取法，这就是m = 3时候的解决方法。 重复m次，算法的时间复杂度是O(mn²)。 考虑优化每次操作，我们给两个序列a，b排序，显然最小的取法是a0 + b0，我们把a0 + b0到a0 +">
@@ -304,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/堆/" itemprop="url" rel="index">
-                    <span itemprop="name">堆</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -366,6 +367,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/堆/" rel="tag"># 堆</a>
+          
+        </div>
       
 
       
@@ -476,7 +483,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -487,7 +494,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

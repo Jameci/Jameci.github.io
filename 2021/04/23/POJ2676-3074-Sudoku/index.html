@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="DFS,">
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="描述解数独 思路剪枝1：先搜可能性最小的。 剪枝2：有只有一种可能的格子，直接填上。 剪枝3：当前格局下，若某种情况以及回溯了，当前格子的可行域中去掉这个情况。 可行域，没错，可行域！ 对每个格子用一个整形记录1~9是否可以填入，一个二进制位代表一个数。 取出的方法可以用lowbit lowbit又是一个神奇的玩意： 对于一个数n，取出它的二进制最低位的方法可以是n &amp;amp; (~n + 1)，">
+<meta name="keywords" content="DFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="POJ2676&amp;3074_Sudoku">
 <meta property="og:url" content="http://yoursite.com/2021/04/23/POJ2676-3074-Sudoku/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="描述解数独 思路剪枝1：先搜可能性最小的。 剪枝2：有只有一种可能的格子，直接填上。 剪枝3：当前格局下，若某种情况以及回溯了，当前格子的可行域中去掉这个情况。 可行域，没错，可行域！ 对每个格子用一个整形记录1~9是否可以填入，一个二进制位代表一个数。 取出的方法可以用lowbit lowbit又是一个神奇的玩意： 对于一个数n，取出它的二进制最低位的方法可以是n &amp;amp; (~n + 1)，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-22T18:39:14.274Z">
+<meta property="og:updated_time" content="2021-07-14T14:02:09.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="POJ2676&amp;3074_Sudoku">
 <meta name="twitter:description" content="描述解数独 思路剪枝1：先搜可能性最小的。 剪枝2：有只有一种可能的格子，直接填上。 剪枝3：当前格局下，若某种情况以及回溯了，当前格子的可行域中去掉这个情况。 可行域，没错，可行域！ 对每个格子用一个整形记录1~9是否可以填入，一个二进制位代表一个数。 取出的方法可以用lowbit lowbit又是一个神奇的玩意： 对于一个数n，取出它的二进制最低位的方法可以是n &amp;amp; (~n + 1)，">
@@ -304,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DFS/" itemprop="url" rel="index">
-                    <span itemprop="name">DFS</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -375,6 +376,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
+        </div>
       
 
       
@@ -485,7 +492,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -496,7 +503,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
