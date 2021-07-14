@@ -342,16 +342,17 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>如果一个字符串S是由字符串T循环若干次组成的，那么T称为S的一个循环元，如果S没有比T更短的循环元，那么称T为S的最小循环元。</p>
-<p>现在给出一个字符串S，对于S的每个前缀，若存在循环次数大于1的最小循环元，则输出最小循环元的长度及其循环次数。</p>
-<h1 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h1><p>在做字符串的匹配时，我们有字符串S和T，现在想要从S中找到等于T的连续子串，一个朴素的想法是从S的每个字符开始，逐个和T的字符匹配，如果匹配不成功，再从S的下一个字符开始逐个匹配，这样的算法复杂度是O(NM)。</p>
-<p>为了优化算法，我们注意到一个事实，即当我们匹配失败时，前面一定有一部分字符是匹配成功了的。我们寄希望于前面已经匹配成功的字符可以为我们带来信息，使我们尽量减少重复适配的次数。</p>
-<p>例如T为abdcabc时，我们注意到如果匹配最后一位，即第二个c时，失败，那么我们至少知道前面的字符应该是abdcabx，x是和c匹配失败的字符，按朴素的算法思路，我们倒退回第一个a，然后前进到b，再开始新一轮的匹配，然后失败，前进到c……但仔细观察可以发现，倒退到b，d，c都是无意义的，我们必须倒退到某个地方，使得它是T的某个前缀才行，即倒退到第二个a，然后再将x与d比较。</p>
-<p>这样，我们就有了KMP算法，KMP算法的精髓是next数组，其含义是如果S的当前位置i和T的位置j匹配失败了，那么我们直接把j退回到nextj，而非重新匹配。</p>
-<p>求next数组的方法也很有意思，我们让T自身和自身匹配，如果匹配成功，后移，如果失败，那么其中一个退回到当前位置的next位置上继续匹配。</p>
-<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>让字符串自匹配得next数组，此时字符串某个位置的前缀长度和相应next位置长度的差值一定是循环元长度的倍数。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> input[N];</span><br><span class="line"><span class="keyword">int</span> nxt[N];</span><br><span class="line"><span class="keyword">int</span> unit[N];</span><br><span class="line"><span class="keyword">int</span> n, con = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n); </span><br><span class="line">	<span class="keyword">while</span>(n)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s"</span>, input + <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Test case #%d\n"</span>, ++con);</span><br><span class="line">		</span><br><span class="line">		nxt[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>, j = <span class="number">0</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">			<span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; input[j + <span class="number">1</span>] != input[i]) j = nxt[j];</span><br><span class="line">			<span class="keyword">if</span>(input[j + <span class="number">1</span>] == input[i]) ++j;</span><br><span class="line">			nxt[i] = j;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//for(int i = 1; i &lt;= n; ++i) printf("%d\n", nxt[i]);</span></span><br><span class="line">		</span><br><span class="line">		unit[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(nxt[i] * <span class="number">2</span> &lt; i) unit[i] = i;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">if</span>(i % unit[nxt[i]] == <span class="number">0</span>)&#123;</span><br><span class="line">					unit[i] = unit[nxt[i]];</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, i, i / unit[i]);</span><br><span class="line">				&#125;<span class="keyword">else</span> unit[i] = i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//for(int i = 1; i &lt;= n; ++i) printf("%d\n", unit[i]);</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          描述如果一个字符串S是由字符串T循环若干次组成的，那么T称为S的一个循环元，如果S没有比T更短的循环元，那么称T为S的最小循环元。
+现在给出一个字符串S，对于S的每个前缀，若存在循环次数大于1的最小循环元，则输出最小循环元的长度及其循环次数。
+KMP算法在做字符串的匹配时，我们有字符串S和T，现在想
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/22/POJ1961-Period/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -491,57 +492,19 @@
       
         
           
-            <blockquote>
-<p>下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……</p>
-</blockquote>
-<p>不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。</p>
-<p>A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每个数只能用一次，求0-9这10个数各2021个，最多能组到几。比如1-9各3个最多只能组到10，再往下的11又需要两个1，这样就用去了4个1，所以不够了。</p>
-<p>做这道题也是毫无技巧可言，模拟就好。稍微想一想的话可以知道1永远是最先用完的，所以也可以把结果改成统计还剩几个1，或者干脆推出计算1的公式，手算出最大值也行。</p>
-<p>B题让求出坐标从(0,0)开始到(19,20)围城的矩形内部的这20×21个整数坐标的点能确定多少直线。计数要不重不漏，这题卡了我很久。回过头来看就不应该思考怎么做最简便。那么小规模的数据直接暴力就好，方法是这样的：遍历每个点，对每个可能的方向(360度能连接到另外一个有效的点的方向，如果它和它的反方向同时没被标记过)，我们标记为1，意思是找到了一个新的直线，然后把所有其他在这条直线上的点标记为2，意思是虽然这个方向上有直线，但这条直线以及被计数了。最后再扫一遍数组，统计标为1的位置。</p>
-<p>需要注意的是，方向我们使用一对互质的“增量”来表示。比如数对(2,3)，(4,6)是同一组增量，进行去公因数处理之后，我们标记当前点(x,y)在增量(i,j)上有一条直线，用四维数组实现。</p>
-<p>这题就很经典，因为知道的多了，所以对暴力方法本能地感到“恐惧”，我想过各种计数方法，或者用容斥原理去重，都因为细节太过繁琐而放弃了。经过了一个小时的无用功之后才意识到暴力解法。实际上感觉原因还是不熟悉赛制，填空题这种唯结果论的东西，哪怕暴力它两个小时又怎么样呢。</p>
-<p>C题我做错了，具体是这样的：给出一个数2021041820210418作为长方体的体积，求出一共可以有多少种长宽高为整数的长方体。其实质就是把一个数分解为3个因子的乘积。这题错的原因也是对赛制的不适应——我思考的是如何尽快地分解一个大整数，而题目需要我分解具体的2021041820210418，换句话说我想找出“一类”问题的解法，而题目只要求“一个”具体的解。我不知道怎么把任意一个规模为1e17的大整数分解成3个数的乘积，但，我应该一眼就看出来，20210418×100000001=2021041820210418，然后去分解规模更小的100000001和20210418。</p>
-<p>我直到赛后听到一对男女讨论题，女生说到对分解因子才如梦方醒。</p>
-<p>D是一道动态规划，编号为1到2021的2021个点组成了一张图，其中任意的两个点i和j，如果它们的绝对值只差小于等于21，那么它们之间存在一条边权为它们编号最大公倍数的边，求出1到2021的最短路。</p>
-<p><code>dp[i] = min(dp[j] + i * j / gcd(i, j) | max(i - 21, 1) ≤ j &lt; i)</code></p>
-<p>gcd用经典欧几里得算法求。</p>
-<p>这题起码给了我一点点安慰，我还是有进步的。虽然这种dp简直是套公式烂大街。</p>
-<p>E的题意是这样的：有21个点，编号为1-21，如果两个点之间互质那么两个点之间直接相邻，问从1开始有多少种不同的欧拉回路。</p>
-<p>思路很清晰——不会做。</p>
-<p>F题：给n个砝码和它们各自的质量，求能称出几种质量。比如1,4,6三个砝码，可以称出1,2,3,4,5,6,7,9,10,11这10种。</p>
-<p>之所以可以有3是因为砝码可以放两个盘，这样物体的质量等于两盘砝码的差。</p>
-<p>这样的话，每个砝码相当于都可以看成既有正值又有负值。</p>
-<p>我们这样处理，初始时，只有质量0可以被称出来，所以给0处做标记，然后取一个质量为wi的砝码，显然原本就可以称出来的质量还是可以称出来，并且由于这个砝码的加入，原本可以称出来的质量±wi之后得到的新质量也能被称出来了。</p>
-<p>显然，我们需要维护长度为总质量和的两倍的数组，每次标记由于新增砝码而新增的可达质量，最后统计一下即可。</p>
-<p>G题：给出一个树，求出其通过“左孩子右兄弟”表示法转换成的最高的二叉树的高度。</p>
-<p>有一道dp题，有：</p>
-<p><code>dp[i] = child[i] + max(dp[j] | j是i的子节点)</code></p>
-<p>由于这题的树是用父节点来存储的，所以可以用刷表法，记录每个节点的度，维护一个栈，初始时里面是叶子节点，每次取出一个点并从图中去掉，如果产生了新的叶子，则把它入栈，如此反复去更新父节点的值。</p>
-<p>赛后我和隔壁嗯哥交流了一下，他说没做出来，只是用暴力做出了规模小的那30%的测试样例。</p>
-<p>嗯哥不会dp，所以拉开了差距。这是我第一次觉得自己学到的东西有用，真的。</p>
-<p>H题：Alice和Bod又在玩游戏，他们一开始各有一个数0，然后每次可以从一个数组里取出一个数，要么拿它异或自己的数，要么异或对方的，直到数组被取空之后，他们两个人会比较自己手上数的大小，大的一方胜利。</p>
-<p>现在，Alice先手的情况下，双方都采取最优策略，求最终谁会获胜。</p>
-<p>这题我猜的，因为实在不会，但输出又只有0，-1，和1，骗分也是容易的。我的思路也很简单：Alice的优势太大了，如果Bob有什么必赢策略，Alice总能抢先一步，而且如果数组里面是奇数个元素，Alice还能多操作一次来补刀。</p>
-<p>所以我最后写的思路是如果两两相等配对，则0，否则1。</p>
-<blockquote>
-<p>刚刚在食堂吃饭想明白了，Bob就是赢不了，推导过程如下：</p>
-</blockquote>
-<blockquote>
-<p>假设这些数的二进制最高位有奇数个1，偶数个0，那么Alice的这一位总能拿到一个1，而Bob只能是0，Alice必胜。若最高位有偶数个1，那么哪怕两人胡乱选，Alice和Bob最终数字的最高位一定相等，所以最高位作废，再比较此高位以此类推，直到有一位的1的数量为奇数个，Alice就赢了。</p>
-</blockquote>
-<blockquote>
-<p>换句话说可怜的Bob根本赢不了，唯一一个不输的机会就是全体数字异或为0的情况</p>
-</blockquote>
-<p>所以当时的猜测还是太保守了。不过好歹错误的概率算小，就看样例怎么给了。</p>
-<p>I题，给出一串不匹配的小括号序列，求出有多少种最小修补方案。一个最小修补方案指的是在恰当的位置填补小括号或者括回来使得括号序列匹配，并且填补的数量最小。</p>
-<p>不会做。</p>
-<p>J题，分果果，看都没看。</p>
-<p>总之，不出意外的话，应该是A,B两题拿到10分，D题拿到10分，F题15分，G题20分，H题有一部分分，保守估计10分吧。</p>
-<p>看网上的说法，应该很难再出线了，毕竟出线大概填空要全对，大题起码拿一半分才有机会。啊，又没能拿到出线机会。还有明年，明年最后一年了……</p>
-<p>感觉思路还是太窄了。思维题总是反应不过来，而且赛制是真的不舒服，我还是喜欢ACM赛制。喜欢过测试点而不是解具体某个数。但感觉总体来说还算不错，尤其是两个dp题和天平题的快速反应，确确实实感觉到学到东西了，最近一段时间的训练是有效的。其实这样已经可以了，之前的我总是觉得学了算法却看不出来，算法会了但智商不够，一直在做题却看不到进步，现在总算看到反馈了。其实进步一直都有，只是训练量还达不到。</p>
-<p>一个好的开端，我如是鼓励自己。</p>
-
           
+下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……
+
+不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。
+A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/18/2021-4-18-蓝桥杯省赛/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -681,13 +644,18 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>找出长度为N的字符串S的最长回文子串的长度。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>1 &lt; N &lt; 1e7</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>回文数组有两种，长度为奇数的和长度为偶数的，长度为奇数的回文数组是以某个位置为中心，向两侧延申时对应位置的字符相等，长度为偶数的回文数组则是以中间两个字符的间隔为中心的。</p>
-<p>可以通过遍历两次，第一次找出长度为奇数的最长回文数组，第二次找出长度为偶数的。</p>
-<p>为了支持正序的子序列和逆序的子序列比对，需要建立一个正序子序列哈希数组，一个逆序哈希数组。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000000</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> input[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> hash1[N];</span><br><span class="line"><span class="keyword">int</span> hash2[N];</span><br><span class="line"><span class="keyword">int</span> p[N];</span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> m1, <span class="keyword">int</span> m2, <span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l == r) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> ret1 = hash1[l - <span class="number">1</span>] * p[m1 - l + <span class="number">1</span>] - hash1[m1];</span><br><span class="line">	<span class="keyword">int</span> ret2 = hash2[len - r] * p[r - m2 + <span class="number">1</span>] - hash2[len - m2 + <span class="number">1</span>];</span><br><span class="line">	<span class="keyword">return</span> ret1 == ret2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> con = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, input + <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">while</span>(input[<span class="number">1</span>] != <span class="string">'E'</span>)&#123;</span><br><span class="line">		len = <span class="number">0</span>;</span><br><span class="line">		hash1[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">		p[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		++len;</span><br><span class="line">		<span class="keyword">for</span>(; input[len]; ++len)&#123;</span><br><span class="line">			hash1[len] = hash1[len - <span class="number">1</span>] * <span class="number">131</span> + input[len] - <span class="string">'a'</span>;</span><br><span class="line">			p[len] = p[len - <span class="number">1</span>] * <span class="number">131</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		hash2[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; ++i)&#123;</span><br><span class="line">			hash2[i] = hash2[i - <span class="number">1</span>] * <span class="number">131</span> + input[len - i + <span class="number">1</span>] - <span class="string">'a'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> ans1 = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; ++i)&#123;</span><br><span class="line">			<span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> r = min(len - i, i - <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">int</span> mid = (l + r + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>(l &lt; r)&#123;</span><br><span class="line">				<span class="keyword">if</span>(check(i - mid, i, i, i + mid)) l = mid;</span><br><span class="line">				<span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">				mid = (l + r + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			ans1 = max(ans1, l);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> ans2 = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; ++i)&#123;</span><br><span class="line">			<span class="keyword">int</span> l = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> r = min(len - i - <span class="number">1</span>, i - <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">int</span> mid = (l + r + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>(l &lt; r)&#123;</span><br><span class="line">				<span class="keyword">if</span>(check(i - mid, i, i + <span class="number">1</span>, i + mid + <span class="number">1</span>)) l = mid;</span><br><span class="line">				<span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">				mid = (l + r + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			ans2 = max(ans2, l);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> ans = max(ans1 * <span class="number">2</span> + <span class="number">1</span>, ans2 * <span class="number">2</span> + <span class="number">2</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Case %d: %d\n"</span>, ++con, ans);</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s"</span>, input + <span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          描述找出长度为N的字符串S的最长回文子串的长度。
+数据范围1 &lt; N &lt; 1e7
+思路回文数组有两种，长度为奇数的和长度为偶数的，长度为奇数的回文数组是以某个位置为中心，向两侧延申时对应位置的字符相等，长度为偶数的回文数组则是以中间两个字符的间隔为中心的。
+可以通过遍历两次，第一次找出长
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/16/POJ3974-Palindrome/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -827,17 +795,18 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>有一个长度为S的小写字符串序列，查询Q次，每次指出两个区间，询问这两个区间内的字符串是否相等。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>1 &lt;= S, Q &lt;= 1e6</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>朴素思想进行字符串比较的复杂度是O(QS)，使用字符串哈希的方法可以将复杂度降至大致为O(Q)。</p>
-<p>字符串哈希的做法是这样的，首先给定一个数p，一般为131或1331（并不知道由来，只知道有这个传统），然后将字符串看作p进制数。</p>
-<p>遍历字符串，每一位的哈希值等于上一位哈希值乘p加本位的字符值，再设置一个辅助数组，其第i位的值等于p的i次方。</p>
-<p>以上操作均不处理溢出问题，权当取模。</p>
-<p>这样，取出区间(l, r)哈希值的做法是：hashr - hashl-1 * pr-l+1</p>
-<p>如果字符串的哈希值相等，我们认为它们相等，这里为了保险，我加上了还需要判断两个字符串长度一致。</p>
-<p>据说实际上这种方法出现错误的概率还是很小的，如果担心出现问题，还可以设置多个p值，当多个p值下的哈希值都一致的情况下才认为相等。但对于这道题来说，p取131足够了。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e7</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> input[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> m, ll, lr, rl, rr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> hash[N];</span><br><span class="line"><span class="keyword">int</span> p[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, input + <span class="number">1</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);</span><br><span class="line">	<span class="built_in">memset</span>(hash, <span class="number">0</span>, <span class="keyword">sizeof</span>(hash));</span><br><span class="line">	<span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">	hash[len] = <span class="number">0</span>;</span><br><span class="line">	p[len] = <span class="number">1</span>;</span><br><span class="line">	++len;</span><br><span class="line">	<span class="keyword">for</span>(; input[len]; ++len)&#123;</span><br><span class="line">		hash[len] = hash[len - <span class="number">1</span>] * <span class="number">131</span>;</span><br><span class="line">		hash[len] += input[len] - <span class="string">'a'</span>;</span><br><span class="line">		p[len] = p[len - <span class="number">1</span>] * <span class="number">131</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*for(int i = 0; i &lt; len; ++i)&#123;</span></span><br><span class="line"><span class="comment">		printf("%d\n", hash[i]);</span></span><br><span class="line"><span class="comment">	&#125;*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d %d %d"</span>, &amp;ll, &amp;lr, &amp;rl, &amp;rr);</span><br><span class="line">		<span class="keyword">int</span> ret1 = hash[ll - <span class="number">1</span>] * p[lr - ll + <span class="number">1</span>] - hash[lr];</span><br><span class="line">		<span class="keyword">int</span> ret2 = hash[rl - <span class="number">1</span>] * p[rr - rl + <span class="number">1</span>] - hash[rr];</span><br><span class="line">		<span class="keyword">if</span>(ret1 == ret2 &amp;&amp; lr - ll == rr - rl) <span class="built_in">printf</span>(<span class="string">"Yes\n"</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"No\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          描述有一个长度为S的小写字符串序列，查询Q次，每次指出两个区间，询问这两个区间内的字符串是否相等。
+数据范围1 &lt;= S, Q &lt;= 1e6
+思路朴素思想进行字符串比较的复杂度是O(QS)，使用字符串哈希的方法可以将复杂度降至大致为O(Q)。
+字符串哈希的做法是这样的，首先给定一个数p，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/16/CH1401-兔子与兔子/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -977,21 +946,17 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>有n片雪花，每个雪花使用6个整数来描述其每个角。比如1，2，3，4，5，6，描述可以从任意一个角开始，比如上面的雪花也可以被描述为2，3，4，5，6，1，也可以是逆序的如3，2，1，6，5，4只要按一个圈来描述六个角就行。</p>
-<p>现在，需要判断给出的雪花描述里面有没有相同的。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>0 &lt; n ≤ 100000，雪花用正整数描述，小于10000000</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>哈希做法，由于雪花的描述和顺序无关，我们构造和顺序无关的哈希函数，蓝书上的构造方法是这样的：</p>
-<p><code>(∑ai + Πai) % P</code></p>
-<p>其中ai表示雪花各个角的数字描述，P是一个大质数。</p>
-<p>使用链表数组来存储雪花下标，以便于如果发现两片雪花的哈希值相等，我们可以进行进一步的比较。</p>
-<p>这里，我取的P = 100003，从期望上来说，可以把每片不同的雪花分开。</p>
-<p>比较使用的比较暴力的比较方法，轮转比较6次，再反向轮转比较6次，虽然很繁复，但考虑实际上比较的次数接近于常数次，所以比较的时间复杂度可以忽略。</p>
-<p>整个算法接近于O(n)。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e6</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> P = <span class="number">1e6</span> + <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[N][<span class="number">6</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; hash[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; <span class="number">6</span>; ++p)&#123;</span><br><span class="line">		flag = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">6</span>; ++k)&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i][k] != a[j][(k + p) % <span class="number">6</span>])&#123;</span><br><span class="line">				flag = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(flag) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; <span class="number">6</span>; ++p)&#123;</span><br><span class="line">		flag = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">6</span>; ++k)&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i][<span class="number">5</span> - k] != a[j][(k + p) % <span class="number">6</span>])&#123;</span><br><span class="line">				flag = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(flag) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	fill(hash, hash + N, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;&#125;);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d %d %d %d %d"</span>, &amp;a[i][<span class="number">0</span>], &amp;a[i][<span class="number">1</span>], &amp;a[i][<span class="number">2</span>], &amp;a[i][<span class="number">3</span>], &amp;a[i][<span class="number">4</span>], &amp;a[i][<span class="number">5</span>]);</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> mult = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> addt = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">6</span>; ++j)&#123;</span><br><span class="line">			mult *= a[i][j];</span><br><span class="line">			addt += a[i][j];</span><br><span class="line">			mult %= P;</span><br><span class="line">			addt %= P;</span><br><span class="line">			pos = (mult + addt) % P;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; hash[pos].size(); ++k)&#123;</span><br><span class="line">			<span class="comment">//printf("check(%d, %d)\n", i, hash[pos][k]);</span></span><br><span class="line">			<span class="keyword">if</span>(check(i, hash[pos][k]))&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"Twin snowflakes found.\n"</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		hash[pos].push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"No two snowflakes are alike.\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>在POJ上用C++提交会因为fill(hash, hash + N, vector &lt; int &gt; {})这句话报编译错误，可能不支持C++11，换成G++就好了。</p>
-<p>因为mult没开long long而wa了几发。</p>
-
-          
+          描述有n片雪花，每个雪花使用6个整数来描述其每个角。比如1，2，3，4，5，6，描述可以从任意一个角开始，比如上面的雪花也可以被描述为2，3，4，5，6，1，也可以是逆序的如3，2，1，6，5，4只要按一个圈来描述六个角就行。
+现在，需要判断给出的雪花描述里面有没有相同的。
+数据范围0 &lt; n
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/07/POJ3349-Snowflake-Snow-Snowflakes/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1131,24 +1096,18 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>输入一个长度为n的整数序列，从中找出一段长度不超过m的连续子序列，使得整个序列的和最大。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>1 &lt; n,m &lt; 3e6</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>首先求出前缀和数组，把<code>[i,j]</code>的子序列和转换为前缀和数组<code>a[j]-a[i]</code>的值。</p>
-<p>假设我们取了一个子序列，其终点为j，那么起点可以选择在j-m+1至j的任何位置。显然最好的位置是这些中前缀和最小的。</p>
-<p>我们能不能一直存储着某个点前m个位置中前缀和最小的位置呢？答案是否定的，因为我们会不停地向后更新，因为题目中限定了子序列的长度，在终点不断向后遍历的情况下，前缀和最小的位置很有可能会改变。</p>
-<p>那么，考虑前缀和最小的位置会怎么变。假设我们现在已知前缀和最小的位置是i，终点是j，j向后移动了一格变成j+1，那么j这个位置成为新的可选范围。如果j这个位置前缀和比i更小，显然我们会把i更新为j，j的位置前缀和如果比i大，似乎我们什么都不需要做。</p>
-<p>但考虑j一直在后移导致i可能会出界，假设j后移之后正好更新了i，显然我们不需要考虑i出界的问题，因为已经把i抛弃了。但如果j后移之后无法更新i，那么我们需要在i+1到 j这个范围内重新寻找最小值。</p>
-<p>换句话说，我们需要存储i之后稍微比i的前缀和大一点的数。而且需要保证在i+1到j这个区间里，没有一个数比它小。</p>
-<p>假设这个数是k1，那么显然i到k1之间的数字是不需要的。</p>
-<p>考虑到k1也有可能会出界，我们继续存储k1之后前缀和稍微比k1的前缀和大的数，假设这个位置是k2，那么k1到k2之间的数也是不需要的。</p>
-<p>所以我们的策略是维护数组前缀和的单调双端队列，如果后面来了一个比队尾小的数，就一直从队尾出队直到队伍里没有比它更大的。如果来了一个比队尾大的数，直接入队。</p>
-<p>同时记录队列里数的下标，以便于判断队列长度有没有出界。</p>
-<p>我们的策略是：</p>
-<p>判断是否出界，若是，队头出队。</p>
-<p>使用队头和接下来的元素计算出新的子序列和。</p>
-<p>把队尾大于等于接下来元素的都出队，然后把新元素入队。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">3e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, m;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> temp, ret = <span class="number">0x8000000000000000</span>;</span><br><span class="line">	<span class="built_in">deque</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; qv;</span><br><span class="line">	<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; qp;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;n, &amp;m);</span><br><span class="line">	a = <span class="number">0</span>;</span><br><span class="line">	qv.push_back(<span class="number">0</span>);</span><br><span class="line">	qp.push_back(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;temp);</span><br><span class="line">		<span class="comment">//printf("%lld\n", qv.front());</span></span><br><span class="line">		a += temp;</span><br><span class="line">		<span class="keyword">if</span>(i - qp.front() &gt; m)&#123;</span><br><span class="line">			qv.pop_front();</span><br><span class="line">			qp.pop_front();</span><br><span class="line">		&#125;</span><br><span class="line">		ret = ret &lt; a - qv.front() ? a - qv.front() : ret;</span><br><span class="line">		<span class="keyword">while</span>(!qv.empty() &amp;&amp; qv.back() &gt;= a)&#123;</span><br><span class="line">			qv.pop_back();</span><br><span class="line">			qp.pop_back();</span><br><span class="line">		&#125;</span><br><span class="line">		qv.push_back(a);</span><br><span class="line">		qp.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ret);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          描述输入一个长度为n的整数序列，从中找出一段长度不超过m的连续子序列，使得整个序列的和最大。
+数据范围1 &lt; n,m &lt; 3e6
+思路首先求出前缀和数组，把[i,j]的子序列和转换为前缀和数组a[j]-a[i]的值。
+假设我们取了一个子序列，其终点为j，那么起点可以选择在j-m+1至j的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/07/CH1201-最大子序和/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1288,21 +1247,20 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>Sherry现在碰到了一个棘手的问题，有Ｎ个整数需要排序。</p>
-<p>Sherry手头能用的工具就是若干个双端队列。</p>
-<p>她需要依次处理这N个数，对于每个数，Sherry能做以下两件事：</p>
-<p>1新建一个双端队列，并将当前数作为这个队列中的唯一的数；</p>
-<p>2将当前数放入已有的队列的头之前或者尾之后。</p>
-<p>对所有的数处理完成之后，Sherry将这些队列排序后就可以得到一个非降的序列。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>1 &lt; N &lt; 2e6</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这题是我看着题解做的。</p>
-<p>由于最后把队列排序之后可以得到一个非降的序列，说明这些队列把最终排序完成的数组分成了若干个连续的子序列，队列里面的内容就是子序列的内容。</p>
-<p>我们考虑某个队列q，其内部的元素为A1,A2,A3,…,An，显然它们是非降的，再考虑队列的形成过程：首先，必然有一个元素Ak先进入了队列q，然后，对于A1,A2,…,Ak-1，它们肯定是从Ak-1开始依次入队直到A1最后一个入队。同理，对于Ak+1,…,An，它们的入队顺序是Ak+1依次入队到An。</p>
-<p>那么，在未排序之前，A1到An在原数组里的下标肯定是这样的：从A1的下标开始，下标递减，直到Ak递减到最小值，再到An的下标递增。</p>
-<p>所以，我们对数组排序的同时保留它们在原数组中的下标，在新数组中用贪心的思路来尽可能地把新数组划分成原下标先增后减的子序列。</p>
-<p>那么，对于原数组中出现了好几次的元素，我们需要按情况进行分类讨论。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">2e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; a[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, ret;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	ret = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i].first);</span><br><span class="line">		a[i].second = i;</span><br><span class="line">	&#125;</span><br><span class="line">	sort(a, a + n);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*for(int i = 0; i &lt; n; ++i)&#123;</span></span><br><span class="line"><span class="comment">		printf("%d %d\n", a[i].first, a[i].second);</span></span><br><span class="line"><span class="comment">	&#125;*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> up = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> last = <span class="number">0x7fffffff</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n;)&#123;</span><br><span class="line">		<span class="keyword">int</span> j = i;</span><br><span class="line">		<span class="keyword">while</span>(a[j].first == a[i].first &amp;&amp; j &lt; n) ++j;</span><br><span class="line">		--j;</span><br><span class="line">		<span class="keyword">if</span>(up)&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i].second &gt; last)&#123;</span><br><span class="line">				last = a[j].second;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				up = <span class="number">0</span>;</span><br><span class="line">				++ret;</span><br><span class="line">				last = a[i].second;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[j].second &lt; last)&#123;</span><br><span class="line">				last = a[i].second;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				up = <span class="number">1</span>;</span><br><span class="line">				last = a[j].second;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		i = j + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ret);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          描述Sherry现在碰到了一个棘手的问题，有Ｎ个整数需要排序。
+Sherry手头能用的工具就是若干个双端队列。
+她需要依次处理这N个数，对于每个数，Sherry能做以下两件事：
+1新建一个双端队列，并将当前数作为这个队列中的唯一的数；
+2将当前数放入已有的队列的头之前或者尾之后。
+对所有的数处理完成
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/05/BZOJ2457-双端队列/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1442,17 +1400,17 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>这道题的描述感觉很像生活中排队的场景：</p>
-<p>假设食堂正在排队打饭，这时，一个学生来了，发现队伍里面有他认识的人，他选择插队可以打饭更快一点。如果没有，他就会排在队伍的最后面。</p>
-<p>本题的描述是这样的：把一些数字分成若干组，然后维护一个队列。对于每次入队操作ENQUEUE x，如果发现队伍里有和x同组的数，就把x放在这个数的后面（显然如果有多个同组的数，它们肯定都相邻，这时x就放在这一组的最后面）。如果没有，x排在队尾。</p>
-<p>对DEQUEUE操作，只需要弹出队头并输出即可。</p>
-<h1 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h1><p>分组数目 t &lt; 1000</p>
-<p>每组数字个数 n &lt; 1000</p>
-<p>数字大小在1 ~ 999999之间</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>首先，数字范围很小，我们直接使用一个数组来存储每个数属于哪个小组，这样查找效率是O(1)。</p>
-<p>可以用队列的数组来模拟一个队列的队列，每个小组的元素排在一起构成一个队列，然后队列之间又构成了新的队列。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e3</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> pos[N];</span><br><span class="line"><span class="keyword">int</span> belong[N * N];</span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q[N];</span><br><span class="line"><span class="keyword">int</span> strt;</span><br><span class="line"><span class="keyword">int</span> ed;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(t)&#123;</span><br><span class="line">		<span class="keyword">if</span>(k) <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Scenario #%d\n"</span>, ++k);</span><br><span class="line">		</span><br><span class="line">		<span class="built_in">memset</span>(belong, <span class="number">0</span>, <span class="keyword">sizeof</span>(belong));</span><br><span class="line">		<span class="built_in">memset</span>(pos, <span class="number">-1</span>, <span class="keyword">sizeof</span>(pos));</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)&#123;</span><br><span class="line">			<span class="keyword">while</span>(!q[i].empty()) q[i].pop();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		strt = <span class="number">0</span>;</span><br><span class="line">		ed = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; ++i)&#123;</span><br><span class="line">			<span class="keyword">int</span> n;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</span><br><span class="line">				<span class="keyword">int</span> elem;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;elem);</span><br><span class="line">				belong[elem] = i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">char</span> input[<span class="number">100</span>];</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s"</span>, input);</span><br><span class="line">		<span class="keyword">while</span>(input[<span class="number">0</span>] != <span class="string">'S'</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(input[<span class="number">0</span>] == <span class="string">'E'</span>)&#123;</span><br><span class="line">				<span class="keyword">int</span> elem;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;elem);</span><br><span class="line">				<span class="keyword">if</span>(pos[belong[elem]] != <span class="number">-1</span>)&#123;</span><br><span class="line">					q[pos[belong[elem]]].push(elem);</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					pos[belong[elem]] = ed;</span><br><span class="line">					q[pos[belong[elem]]].push(elem);</span><br><span class="line">					ed = (ed + <span class="number">1</span>) % N;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">int</span> elem = q[strt].front();</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, elem);</span><br><span class="line">				q[strt].pop();</span><br><span class="line">				<span class="keyword">if</span>(q[strt].empty())&#123;</span><br><span class="line">					pos[belong[elem]] = <span class="number">-1</span>;</span><br><span class="line">					strt = (strt + <span class="number">1</span>) % N;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%s"</span>, input);</span><br><span class="line">		&#125;</span><br><span class="line">		 </span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
+          描述这道题的描述感觉很像生活中排队的场景：
+假设食堂正在排队打饭，这时，一个学生来了，发现队伍里面有他认识的人，他选择插队可以打饭更快一点。如果没有，他就会排在队伍的最后面。
+本题的描述是这样的：把一些数字分成若干组，然后维护一个队列。对于每次入队操作ENQUEUE x，如果发现队伍里有和x同组的数
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/04/POJ2259-Team-Queue/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1592,29 +1550,16 @@
       
         
           
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>蛐蛐国里现在共有n(1 ≤ n ≤ 10^5 )只蚯蚓，第i只蚯蚓的长度为a_i(a_i ≤ 10^8)，所有蚯蚓的长度都是非负整数，即可能存在长度为0的蚯蚓。</p>
-<p>每一秒，神刀手会在所有的蚯蚓中，准确地找到最长的那一只，将其切成两段。若有多只最长的，则任选一只。神刀手切开蚯蚓的位置由有理数p(0 &lt; p &lt; 1) 决定。一只长度为x的蚯蚓会被切成两只长度分别为px和x - px的蚯蚓。</p>
-<p>特殊地，如果这两个数的其中一个等于0，则这个长度为0的蚯蚓也会被保留。此外，除了刚刚产生的两只新蚯蚓，其余蚯蚓的长度都会增加一个非负整数q(q ≤ 200)。</p>
-<p>蛐蛐国王知道这样不是长久之计，因为蚯蚓不仅会越来越多，还会越来越长。蛐蛐国王决定求助于一位有着洪荒之力的神秘人物，但是救兵还需要 m(m ≤ 7e6)秒才能到来。</p>
-<p>蛐蛐国王希望知道这m秒内的战况。具体来说，他希望知道：</p>
-<p>m秒内，每一秒被切断的蚯蚓被切断前的长度，共有m个数。</p>
-<p>m秒后，所有蚯蚓的长度，共有n + m个数。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>一上来做成了优先队列：</p>
-<p>取初始状态下所有蚯蚓的长度，建立优先队列。</p>
-<p>对于每一秒，取出堆顶，切断，放入两个新生蚯蚓。</p>
-<p>然而，没有被切到的蚯蚓会生长，我们不能逐个加q，只能这样处理：</p>
-<p>取出的堆顶元素len，先加上q * i - q才是真正的长度。</p>
-<p>切断后形成的两个新生蚯蚓，求出它们在初始状态下的等价长度，即减去q * i。</p>
-<p>最后输出所有蚯蚓的长度需要逐个出队。</p>
-<p>m次入队，每次复杂度是O(log(n + i))，i表示当前是第几次入队，总复杂度不大于mlogm，出队的复杂度则是m次logm。</p>
-<p>所以优先队列的复杂度是O(mlogm)。</p>
-<p>这题如果观察到位了，还有普通队列的做法：</p>
-<p>由于蚯蚓是从大到小等比例切断的，所以如果把最初的蚯蚓放在有序的队列，被切断的两个新生蚯蚓各自按顺序放入其他两个队列的话，我们能够得到3个有序队列，这样，每轮切蚯蚓，我们比较三个队列的队头找出最大的即可。</p>
-<p>所以只需要最初排个序，复杂度是O(nlogn)。</p>
-<p>这个题n的规模远比m小，所以第二种方法更好一些。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> n, m, q, u, v, t;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> firstcon, secondcon;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen("input", "r", stdin);</span></span><br><span class="line">	<span class="comment">//freopen("testoutput", "w", stdout);</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld %lld %lld %lld %lld %lld"</span>, &amp;n, &amp;m, &amp;q, &amp;u, &amp;v, &amp;t);</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; qu;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> temp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;temp);</span><br><span class="line">		qu.push_back(temp);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	firstcon = <span class="number">0</span>;</span><br><span class="line">	secondcon = <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; fq;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; sq;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; tq;</span><br><span class="line">	</span><br><span class="line">	sort(qu.begin(), qu.end());</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//for(int i = qu.size() - 1; i &gt;= 0; --i) printf("qu = %d\n", qu[i]);</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = qu.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) fq.push(qu[i]);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">long</span> i = <span class="number">1</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">		<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> len = <span class="number">0x8000000000000000</span>;</span><br><span class="line">		<span class="keyword">if</span>(!fq.empty() &amp;&amp; len &lt; fq.front()) len = fq.front(), flag = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(!sq.empty() &amp;&amp; len &lt; sq.front()) len = sq.front(), flag = <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(!tq.empty() &amp;&amp; len &lt; tq.front()) len = tq.front(), flag = <span class="number">3</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//printf("fq %d\n", fq.front());</span></span><br><span class="line">		</span><br><span class="line">		len += q * (i - <span class="number">1</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//printf("len = %d\n", len);</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">1</span>) fq.pop();</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">2</span>) sq.pop();</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">3</span>) tq.pop();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(i % t == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(firstcon) <span class="built_in">printf</span>(<span class="string">" %lld"</span>, len);</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%lld"</span>, len);</span><br><span class="line">				firstcon = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		sq.push(len * u / v - q * i);</span><br><span class="line">		tq.push(len - len * u / v - q * i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(!fq.empty() || !sq.empty() || !tq.empty())&#123;</span><br><span class="line">		<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> len = <span class="number">0x8000000000000000</span>;</span><br><span class="line">		<span class="keyword">if</span>(!fq.empty() &amp;&amp; len &lt; fq.front()) len = fq.front(), flag = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(!sq.empty() &amp;&amp; len &lt; sq.front()) len = sq.front(), flag = <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(!tq.empty() &amp;&amp; len &lt; tq.front()) len = tq.front(), flag = <span class="number">3</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">1</span>) fq.pop();</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">2</span>) sq.pop();</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">3</span>) tq.pop();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(secondcon % t == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(secondcon &gt; t) <span class="built_in">printf</span>(<span class="string">" %lld"</span>, len + m * q);</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%lld"</span>, len + m * q);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		++secondcon;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
+          描述蛐蛐国里现在共有n(1 ≤ n ≤ 10^5 )只蚯蚓，第i只蚯蚓的长度为a_i(a_i ≤ 10^8)，所有蚯蚓的长度都是非负整数，即可能存在长度为0的蚯蚓。
+每一秒，神刀手会在所有的蚯蚓中，准确地找到最长的那一只，将其切成两段。若有多只最长的，则任选一只。神刀手切开蚯蚓的位置由有理数p(0 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/04/CH1202-蚯蚓/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1754,31 +1699,18 @@
       
         
           
-            <p>ICPC昆明站，应该是退役之前的最后一场ICPC了。</p>
-<p>回想起报名那时还是寒假，看到队里的通知，我就出动了。队长还特地嘱咐我：“这是你们最后一场ICPC了，好好训练。”</p>
-<p>当时的我天天看紫书做dp，觉得虽然不知道队友怎么样，至少自己已经今非昔比了。</p>
-<p>再加上之前的南京站拿到了铜牌，所以我觉得这次努力一下，拿个银牌不成问题。</p>
-<p>在热身赛结束回到宿舍楼的晚上，我兴奋地对另一个队友说：“这次保铜争银。”</p>
-<p>结果第二天，我们用实力证明了，南京站的铜牌，可能真的是我们的运气。</p>
-<p>做出签到题之后，L题我们花了三个小时。先猜测是图论，后来改成了最长递减子序列，因为我类比到了完全图。等到我们打算用单调栈来解决这个问题的时候，一个半小时已经过去了。</p>
-<p>然后用我的QQ号做了个样例，把单调栈给否了，东拼西凑写了个我也不知道什么东西的单调数组算法？总之过了。两道题，三个小时。</p>
-<p>事后看知乎上某rank7的队伍回顾比赛过程：“签到完发现L题有人过，我边读边猜了个最大递减前缀和加1，就过了。”</p>
-<p>我操啊，最大递减前缀和，还他妈一眼看出来，人家下意识的思路都比我们的最终方案好，我们三个小时的苦苦挣扎在人家眼里就那么微不足道吗，接受不了。</p>
-<p>然后是排序题和风车题。我们风车题是会做的，但我一直担心写不出来，公式推的磨磨蹭蹭的，又要排序又要求交线。。。我越看越恶心，排序题推的倒很快，思路也出来了，结果到比赛的最后一分钟还是实现错误，我们已经举不出反例了，但还是死活过不了。</p>
-<p>最后比赛完，两题。</p>
-<p>网上对风车题的评价是：“一个极角排序，很简单”。</p>
-<p>对排序题的回忆是：”队友不知道环怎么换，我随口说了个对称交换的方法发现可行，很快就1A了。“</p>
-<p>好家伙，当时我们推理了一个小时才意识到环不环的问题，人家起步就在终点线旁边了。</p>
-<p>兴致勃勃参加的退役赛打的窝窝囊囊的，好让人难受啊。</p>
-<p>想起《日常》里的一个情节，一位后辈球员想拿走刚刚退役的老球员的球衣，老球员说自己退役赛上一球没进，死活不给，结果被强行扒下来，发现里面的衣服上写着：“这就是本大爷的生存方式”。</p>
-<p><img src="/images/ICPC,鲜花饼,清明时节雨/1.jpg" alt></p>
-<p>清明时节雨纷纷，烟雨中的樱花别有一番意境，昆明的组委会寄来了鲜花饼和衬衫，开幕式时各大高校的弹幕在疯狂玩各种梗，有那么多有意思的事情，本来想好好地记录下来，结果比赛爆零了，接着一切都变得乏味了。</p>
-<p>谁不想在退役的时候潇洒地进球，然后脱下球衣，在观众们面前耍个帅呢？</p>
-<p>实力还是太弱了。看着知乎上的大佬谈笑风生，自己心里总觉得不是滋味。一场比赛下来就读了四道题，看人家讨论麻将题，我连有这个题都不知道。</p>
-<p>算了，总之结束了，无论有没有认真对待，无论有没有尽力而为。这几场ICPC在我单调的大学生涯里面无疑是浓墨重彩的一笔。毕竟让我看到了自己和强者的差距，哪怕比赛的成绩再惨烈，结果总是好的。</p>
-<p>哪怕没有下次了，但还是要继续努力。</p>
-
-          
+          ICPC昆明站，应该是退役之前的最后一场ICPC了。
+回想起报名那时还是寒假，看到队里的通知，我就出动了。队长还特地嘱咐我：“这是你们最后一场ICPC了，好好训练。”
+当时的我天天看紫书做dp，觉得虽然不知道队友怎么样，至少自己已经今非昔比了。
+再加上之前的南京站拿到了铜牌，所以我觉得这次努力一下，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/04/04/ICPC，鲜花饼，清明时节雨/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1873,7 +1805,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1997,6 +1929,8 @@
   
 
 
+  
+
 
 
 
@@ -2035,6 +1969,11 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
