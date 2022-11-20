@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pwn,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前写过的网络安全题都是去年网络安全综合实践这门课上布置的，从本篇开始，进入今年的内容，也就是笔者本人上课时老师布置的作业题 8月27日，lab1-1：got表 题目难度：简单 运行程序运行结果如下图，三次运行，每次先输入一个index，再输入一个value：  检查使用checksec指令查看程序开启了哪些保护措施：  我们能看到NX已经开启了，这意味着我们无法执行栈上的代码，因此经典的栈溢出已">
+<meta name="keywords" content="pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14-got表劫持">
+<meta property="og:url" content="http://yoursite.com/2021/09/01/14-got表劫持/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="之前写过的网络安全题都是去年网络安全综合实践这门课上布置的，从本篇开始，进入今年的内容，也就是笔者本人上课时老师布置的作业题 8月27日，lab1-1：got表 题目难度：简单 运行程序运行结果如下图，三次运行，每次先输入一个index，再输入一个value：  检查使用checksec指令查看程序开启了哪些保护措施：  我们能看到NX已经开启了，这意味着我们无法执行栈上的代码，因此经典的栈溢出已">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/0.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/1.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/2.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/3.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/4.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/5.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/6.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/7.png">
+<meta property="og:image" content="http://yoursite.com/images/14-got表劫持/9.png">
+<meta property="og:updated_time" content="2021-09-04T05:50:21.926Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14-got表劫持">
+<meta name="twitter:description" content="之前写过的网络安全题都是去年网络安全综合实践这门课上布置的，从本篇开始，进入今年的内容，也就是笔者本人上课时老师布置的作业题 8月27日，lab1-1：got表 题目难度：简单 运行程序运行结果如下图，三次运行，每次先输入一个index，再输入一个value：  检查使用checksec指令查看程序开启了哪些保护措施：  我们能看到NX已经开启了，这意味着我们无法执行栈上的代码，因此经典的栈溢出已">
+<meta name="twitter:image" content="http://yoursite.com/images/14-got表劫持/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/09/01/14-got表劫持/">
+
+
+
+
+
+  <title>14-got表劫持 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/01/14-got表劫持/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">14-got表劫持</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-01T23:36:30+08:00">
+                2021-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>之前写过的网络安全题都是去年网络安全综合实践这门课上布置的，从本篇开始，进入今年的内容，也就是笔者本人上课时老师布置的作业题</em></p>
+<p><strong>8月27日，lab1-1：got表</strong></p>
+<p>题目难度：<strong>简单</strong></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>程序运行结果如下图，三次运行，每次先输入一个index，再输入一个value：</p>
+<p><img src="/images/14-got表劫持/0.png" alt></p>
+<h1 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h1><p>使用checksec指令查看程序开启了哪些保护措施：</p>
+<p><img src="/images/14-got表劫持/1.png" alt></p>
+<p>我们能看到NX已经开启了，这意味着我们无法执行栈上的代码，因此经典的栈溢出已经不在我们的考虑范围只内了</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>打开ida，反编译分析其主要函数：</p>
+<p><img src="/images/14-got表劫持/2.png" alt></p>
+<p>我们能看到的是，读入函数进行了三次循环，每次将index读入v2中，将value读入v1中，我们猜测v2是数组下标。之后对v2做了越界检查，下标必须小于等于2，然后才给对应下标处赋值为v1</p>
+<p>我们还注意到v1的数据类型是llu，8字节长，数组的起始地址是0x601060</p>
+<p>看到这里，我们应该能意识到可以使用负数下标来绕过越界检查，从而对0x601060上方地址更低的位置进行修改。设修改位置为pos，有：</p>
+<p><code>pos = 601060 + 8 * v2</code></p>
+<p>当然，v2也可以是绝对值很大的负数，让8 * v2时产生溢出得到正数，这种手法也能做到对地址更大的位置进行修改</p>
+<p>但我们能够修改的位置好像只有bss段，由于NX保护机制的存在，堆栈上无法执行，代码段无法修改</p>
+<blockquote>
+<p>当然，刚开始做的时候是不明白NX保护机制的具体作用的，那时的思路是去修改代码段，结果浪费了一上午的时间</p>
+</blockquote>
+<p>之前的方法好像已经山穷水尽了，但我们仔细观察，还是能找到一些蛛丝马迹：</p>
+<p><img src="/images/14-got表劫持/3.png" alt></p>
+<p>代码中最后的printf函数，使用了一个我们熟悉的参数——“/bin/sh”。我们知道，调用system函数，再传入这个参数，就可以拿到我们想要的shell</p>
+<h1 id="GOT表劫持"><a href="#GOT表劫持" class="headerlink" title="GOT表劫持"></a>GOT表劫持</h1><h2 id="什么是GOT表"><a href="#什么是GOT表" class="headerlink" title="什么是GOT表"></a>什么是GOT表</h2><p>GOT表是数据段上的一个表，内部存着很多函数的真实地址，如我们经常使用的库函数printf，scanf，puts等</p>
+<h2 id="为什么会有GOT表"><a href="#为什么会有GOT表" class="headerlink" title="为什么会有GOT表"></a>为什么会有GOT表</h2><p>我们要知道：</p>
+<ul>
+<li><p>程序经常使用动态链接的方法来提高效率</p>
+</li>
+<li><p>动态链接时，链接库中的函数，用到了谁就加载谁，没用到就不加载</p>
+</li>
+<li><p>调用函数用的是plt表地址，plt表中指向的是got表，再由got表对应项去得到真实地址</p>
+</li>
+</ul>
+<p>既然程序用到谁就加载谁，那为什么不能直接写在一个表，还需要先plt表，再got表，使用两个表呢？原因是现代操作系统考虑到程序运行的安全，规定一旦程序运行，就不允许再修改代码段，但我们为了动态链接，又必须得在执行时修改函数的地址，因此我们只能写入bss段，当我们第一次调用某个函数时，先把它的真实地址写到bss段的got表里，在下次调用时，由代码段跳转到bss段，接着在got表里面拿到了真实的地址</p>
+<p>比较详细的介绍在这篇博客里：</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1663915740492408592&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1663915740492408592&amp;wfr=spider&amp;for=pc</a></p>
+<h2 id="如何做到got表劫持"><a href="#如何做到got表劫持" class="headerlink" title="如何做到got表劫持"></a>如何做到got表劫持</h2><p>我们先考虑一个动态链接进来的函数是怎么被调用的，以puts函数举例：</p>
+<p>代码中的某个位置使用了call指令，地址为puts的plt表，可以在ida里面找到前面带下划线的_puts函数，点开它：</p>
+<p><img src="/images/14-got表劫持/4.png" alt></p>
+<p>我们可以看到_puts是在4004C0里面的，根据地址我们可以判断这是在代码段，验证了我们说plt表是程序一开始就写在代码段里的。</p>
+<p>那么，我们执行puts时，就会先执行这个_puts函数，里面只有一行指令，jmp到这个601018的位置</p>
+<p>直接点开：</p>
+<p><img src="/images/14-got表劫持/5.png" alt></p>
+<p>直接跳进了数据段，最前面有灰色的小字写着got plt，然后有一个变量名字叫off_601018，这个位置就是got表的位置，我们跳转到这里来，这个变量里存的就是got的真实地址。</p>
+<p><strong>那么什么是got表劫持呢？</strong></p>
+<p>如果我们能把got表里的puts函数地址给它改掉，改成read函数的地址，这样我们执行puts的时候，实际上就会偷梁换柱，执行的就是read</p>
+<p>那我们如果把这个地址改成system的地址，它就会执行system</p>
+<p>改成其它函数的地址，同样也会执行其它函数</p>
+<h1 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h1><p>联系我们之前的线索，我们可以通过负数偏移量来修改601060之前的数据的值，然后紧接着有一个printf函数，里面的参数是我们心心念念的”/bin/sh”，所以，我们只需要让got表中本该是printf函数地址的地方，改为system的地址，那我们是不是就可以拿到shell了呢</p>
+<p>在got表里面直接找到printf函数地址存放的位置：</p>
+<p><img src="/images/14-got表劫持/6.png" alt></p>
+<p>0x601028 = 0x601060 - 0x8 * 7</p>
+<p>然后找到system的真实地址，这里可以使用gdb调试这个程序，在调试过程中，使用命令p system，输出system的地址：</p>
+<p><img src="/images/14-got表劫持/7.png" alt></p>
+<p>所以，我们只需要在三次输入的一次中，index = -7，value = 4,195,536(0x4006D0的十进制)，就可以拿到shell了</p>
+<p>本题的脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">conn = process(<span class="string">'./lab1-1'</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">"1"</span>)</span><br><span class="line">conn.sendline(<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">"1"</span>)</span><br><span class="line">conn.sendline(<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">"-7"</span>)</span><br><span class="line">conn.sendline(<span class="string">"4195536"</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.interactive()</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="/images/14-got表劫持/9.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/08/30/21-8-29/" rel="next" title="21/8/29">
+                <i class="fa fa-chevron-left"></i> 21/8/29
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/09/03/15-ret2syscall/" rel="prev" title="15-ret2syscall">
+                15-ret2syscall <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">1.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检查"><span class="nav-number">2.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GOT表劫持"><span class="nav-number">4.</span> <span class="nav-text">GOT表劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是GOT表"><span class="nav-number">4.1.</span> <span class="nav-text">什么是GOT表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会有GOT表"><span class="nav-number">4.2.</span> <span class="nav-text">为什么会有GOT表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何做到got表劫持"><span class="nav-number">4.3.</span> <span class="nav-text">如何做到got表劫持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#破解"><span class="nav-number">5.</span> <span class="nav-text">破解</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

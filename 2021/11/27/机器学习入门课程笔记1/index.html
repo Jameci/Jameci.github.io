@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文是网课 https://www.bilibili.com/video/BV164411b7dx?p=2 的随堂笔记，仅供本人学习使用  1.1 欢迎参加《机器学习》课程略 1.2 什么是机器学习机器学习的一些定义 Field of study that gives computers the ability to learn without being explicitly programm">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习入门课程笔记1">
+<meta property="og:url" content="http://yoursite.com/2021/11/27/机器学习入门课程笔记1/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="本文是网课 https://www.bilibili.com/video/BV164411b7dx?p=2 的随堂笔记，仅供本人学习使用  1.1 欢迎参加《机器学习》课程略 1.2 什么是机器学习机器学习的一些定义 Field of study that gives computers the ability to learn without being explicitly programm">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-11-29T06:53:28.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习入门课程笔记1">
+<meta name="twitter:description" content="本文是网课 https://www.bilibili.com/video/BV164411b7dx?p=2 的随堂笔记，仅供本人学习使用  1.1 欢迎参加《机器学习》课程略 1.2 什么是机器学习机器学习的一些定义 Field of study that gives computers the ability to learn without being explicitly programm">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/27/机器学习入门课程笔记1/">
+
+
+
+
+
+  <title>机器学习入门课程笔记1 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/27/机器学习入门课程笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习入门课程笔记1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-27T17:33:32+08:00">
+                2021-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文是网课 <a href="https://www.bilibili.com/video/BV164411b7dx?p=2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV164411b7dx?p=2</a> 的随堂笔记，仅供本人学习使用</p>
+</blockquote>
+<h1 id="1-1-欢迎参加《机器学习》课程"><a href="#1-1-欢迎参加《机器学习》课程" class="headerlink" title="1.1 欢迎参加《机器学习》课程"></a>1.1 欢迎参加《机器学习》课程</h1><p>略</p>
+<h1 id="1-2-什么是机器学习"><a href="#1-2-什么是机器学习" class="headerlink" title="1.2 什么是机器学习"></a>1.2 什么是机器学习</h1><h2 id="机器学习的一些定义"><a href="#机器学习的一些定义" class="headerlink" title="机器学习的一些定义"></a>机器学习的一些定义</h2><blockquote>
+<p>Field of study that gives computers the ability to learn without being explicitly programmed.</p>
+</blockquote>
+<p align="right">—-Arthur Samuel</p>
+
+<p>我的翻译：<strong>给予计算机不需要显式编程来进行学习的能力</strong></p>
+<p>这里的显示编程是什么意思呢，比如小花编写了一个五子棋程序，他直接在程序里面写好遇到某种局面该怎么分析，或者直接写好该怎么走（比如遇到我方四子连线，立刻下第五个子），这叫所谓的显式编程。</p>
+<p>如果小花没有在程序里面写该怎么走，而是交给机器去自行训练，把训练的结果记录下来作为以后遇到这种局面的参考。下次遇到这个局面，计算机会根据自己的记录结果选择赢面最大的走法。这种便是上面定义里提到的不使用显示编程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">explicitly: 显式地，明确地；其反义词是implicitly: 隐式地，暗中地</span><br><span class="line"></span><br><span class="line">常见使用：explicit type-casting：显示类型转换，implicit type-casting：隐式类型转换</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>A computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E.</p>
+</blockquote>
+<p align="right">—-Tom Mitchell</p>
+
+<p>我的翻译：<strong>一个通过经验E在任务T上进行学习，并用度量手段P去度量的计算机程序，如果它能够在经验E的作用下，通过P度量的在T上的结果有所提升，那么它就是一个好的机器学习程序</strong></p>
+<p>回到上面举的例子，假设小花编写程序去自我训练下五子棋，程序训练了几万次，小花借助程序，和小白下棋赢的概率越来越高。那么经验E，就是程序自我训练，下的那几万局棋局；任务T呢，就是下五子棋；而度量手段P就是这个程序和小白下棋输赢的概率。</p>
+<p>换句话说，之所以这个程序是机器学习程序，就是因为它通过经验E（训练自己下了几万局棋），在下棋这个任务T上，提升了自己的度量结果P（即赢小白的概率提升了）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with respect to: 关于，至于，一种比较书面的用法</span><br><span class="line"></span><br><span class="line">例句：With respect to your inquiry, I enclose an explanatory leaflet.</span><br></pre></td></tr></table></figure>
+<h1 id="1-3-supervised-learning-监督学习"><a href="#1-3-supervised-learning-监督学习" class="headerlink" title="1.3 supervised learning:监督学习"></a>1.3 supervised learning:监督学习</h1><p>监督学习是使用带有标记的数据集进行的学习。换句话说，我们知道一些数据的正确结果，想要得到更多的正确结果。</p>
+<p>举例1：小花发现自己在掉毛，为了预测自己掉毛的情况，他统计了过去一个月里，自己每天掉毛的数量。用此数据集来训练模型，预测未来自己掉毛的数量。</p>
+<p>这个例子是一个监督学习，在这个例子中，已有的数据集是有正确结果的。换句话说，上个月某天小花掉毛的数量是确定的。以此预测出下个月掉毛的数量是为了得到更多的正确结果。这样的问题也被称为回归问题。</p>
+<p>举例2：小花要送小白礼物，他认为小白的满意度和礼物的价格有关，于是他统计了过去自己送小白的礼物的价格和小白的满意度。以此训练模型来判断某种价格的礼物小白会不会喜欢。</p>
+<p>这个例子也是一个监督学习，在这个例子中，数据集里面某种价格的礼物是否被小白满意是确定的，有正确答案的。这个问题的实质是把某种价格的礼物分成两类，一类是小白满意，另一类是小白不满意，这样的问题也被称为分类问题</p>
+<p>分类问题也可以有更多分类，还可以有更多的参数。比如小花觉得单凭价格无法衡量礼物的好坏，他还加上了礼物的质量，颜色，送礼物的时间等等。甚至可以有无限种参数。</p>
+<h1 id="1-4-unsupervised-learning-无监督学习"><a href="#1-4-unsupervised-learning-无监督学习" class="headerlink" title="1.4 unsupervised learning:无监督学习"></a>1.4 unsupervised learning:无监督学习</h1><p>无监督学习的数据集上是没有标记的。无分类学习往往希望机器能够自动地找出数据的结构和内在关联。</p>
+<p>举例：小花喜欢玩minecraft，游戏后期，众多物品堆满了大大小小的箱子。小花统计了物品的一些数据（如名字，堆叠数，是否方块，用途，使用频率等等），交给了机器学习算法。算法自动将一些相关的物品划分为一簇。把这些东西放置在同一个箱子里。比如金胡萝卜和烟花火箭都是常用的消耗品，红石和活塞因为经常一起用于做工程而关联密切等。</p>
+<p>小花在使用算法时，自己也不知道哪些东西和哪些东西关系比较密切，也不知道该划分成多少簇。这就是无监督学习。这种算法称为聚类算法。</p>
+<p>还有一个有意思的鸡尾酒算法：因为聚会上有很多人会一起说话，往往导致声音交杂在一起听不清，这时在一个聚会上放置两个录音机，因为说话的声音源和两个录音机的距离不同，所以可以用算法将不同声音源的声音分离出来。</p>
+<p>由于我们的数据集只有录音机录到的声音，我们事先也不知道有几个声音源，我们甚至都听不清具体他们说了什么，但把这样的数据集交给机器，机器自动地就能把它们分辨出来。这也是一个无监督学习。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/25/纯萌新，Git和Github的基本使用/" rel="next" title="Git和Github的基本使用">
+                <i class="fa fa-chevron-left"></i> Git和Github的基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/27/机器学习入门课程笔记2/" rel="prev" title="机器学习入门课程笔记2">
+                机器学习入门课程笔记2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-1-欢迎参加《机器学习》课程"><span class="nav-number">1.</span> <span class="nav-text">1.1 欢迎参加《机器学习》课程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-什么是机器学习"><span class="nav-number">2.</span> <span class="nav-text">1.2 什么是机器学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习的一些定义"><span class="nav-number">2.1.</span> <span class="nav-text">机器学习的一些定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-3-supervised-learning-监督学习"><span class="nav-number">3.</span> <span class="nav-text">1.3 supervised learning:监督学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-4-unsupervised-learning-无监督学习"><span class="nav-number">4.</span> <span class="nav-text">1.4 unsupervised learning:无监督学习</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

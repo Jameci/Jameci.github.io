@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="机器学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文是网课 https://www.bilibili.com/video/BV164411b7dx?p=2 的随堂笔记，仅供本人学习使用  这一节讲的是OCTAVE，因其语法简单被用来做一些算法的测试版本 官网安装：http://www.gnu.org/software/octave/download 在windows下安装后会有一个命令行版本和一个带GUI的版本 在课程中，老师之所以推荐使用O">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习入门课程笔记4">
+<meta property="og:url" content="http://yoursite.com/2021/11/30/机器学习入门课程笔记4/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="本文是网课 https://www.bilibili.com/video/BV164411b7dx?p=2 的随堂笔记，仅供本人学习使用  这一节讲的是OCTAVE，因其语法简单被用来做一些算法的测试版本 官网安装：http://www.gnu.org/software/octave/download 在windows下安装后会有一个命令行版本和一个带GUI的版本 在课程中，老师之所以推荐使用O">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/0.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/1.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/2.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/3.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/4.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/5.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/6.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/7.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/8.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/9.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/10.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/11.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/12.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/13.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/14.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/15.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/16.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/17.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/18.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/19.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/20.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/21.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/22.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/23.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/24.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/25.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/26.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/27.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/28.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/29.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/30.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/31.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/32.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/33.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/34.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/35.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/36.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/40.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/37.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/38.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/41.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/42.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/43.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/44.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/45.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/46.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/47.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/48.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/49.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/50.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/51.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/52.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/53.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/54.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/55.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/56.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/57.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/58.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/59.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/60.png">
+<meta property="og:image" content="http://yoursite.com/images/机器学习入门课程笔记4/61.png">
+<meta property="og:updated_time" content="2021-12-06T05:40:19.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习入门课程笔记4">
+<meta name="twitter:description" content="本文是网课 https://www.bilibili.com/video/BV164411b7dx?p=2 的随堂笔记，仅供本人学习使用  这一节讲的是OCTAVE，因其语法简单被用来做一些算法的测试版本 官网安装：http://www.gnu.org/software/octave/download 在windows下安装后会有一个命令行版本和一个带GUI的版本 在课程中，老师之所以推荐使用O">
+<meta name="twitter:image" content="http://yoursite.com/images/机器学习入门课程笔记4/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/30/机器学习入门课程笔记4/">
+
+
+
+
+
+  <title>机器学习入门课程笔记4 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/30/机器学习入门课程笔记4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习入门课程笔记4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-30T21:40:18+08:00">
+                2021-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文是网课 <a href="https://www.bilibili.com/video/BV164411b7dx?p=2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV164411b7dx?p=2</a> 的随堂笔记，仅供本人学习使用</p>
+</blockquote>
+<p>这一节讲的是OCTAVE，因其语法简单被用来做一些算法的测试版本</p>
+<p>官网安装：<a href="http://www.gnu.org/software/octave/download" target="_blank" rel="noopener">http://www.gnu.org/software/octave/download</a></p>
+<p>在windows下安装后会有一个命令行版本和一个带GUI的版本</p>
+<p>在课程中，老师之所以推荐使用Octave的原因是我们在使用如同Java等语言具体实现某种算法时往往需要自己实现一些复杂的功能并耗费大量时间。Octave的优点是语法较为简单，实现常用的功能比较快速，这样可以在我们正式编程之前快速建立原型，节省时间</p>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>退出使用exit或者quit语句就可以退出</p>
+<p>打开Octave终端，我们可以之间在里面输入表达式求值：</p>
+<p><img src="/images/机器学习入门课程笔记4/0.png" alt></p>
+<p>我们同样可以做逻辑运算，用1表示真，0为假</p>
+<p><img src="/images/机器学习入门课程笔记4/1.png" alt></p>
+<p>图中的%是注释符，大部分逻辑运算符类似于C，和C语言不同的有不等于~=，异或xor(a, b)，其它的遇到我们再说</p>
+<p>下面是定义变量的做法，直接使用=就可以，非常方便</p>
+<p><img src="/images/机器学习入门课程笔记4/2.png" alt></p>
+<p>可以看到从上往下我们分别定义了a，b（整形），c（字符串），d（布尔型）四个变量。我们在定义一个变量之后，会在接下来的一行自动把它的值打印出来，如果说我们不想让我们的指令引起任何输出的话，可以在指令末尾加分号；</p>
+<p>我们想要打印已经定义过的某个变量的值，只需要直接输入变量名：</p>
+<p><img src="/images/机器学习入门课程笔记4/3.png" alt></p>
+<p>这里pi是π</p>
+<p>对于更复杂的输出，我们可以使用disp指令，比如我们想要保留两位小数，就可以使用：</p>
+<p><img src="/images/机器学习入门课程笔记4/4.png" alt></p>
+<p>format long和format short命令可以转换默认的小数输出位数</p>
+<p><img src="/images/机器学习入门课程笔记4/5.png" alt></p>
+<p>输入矩阵需要使用[]和;</p>
+<p><img src="/images/机器学习入门课程笔记4/6.png" alt></p>
+<p>上面两种方法都是输入了一个3 × 2的矩阵</p>
+<p>输入向量其实就是输入特殊的单行矩阵或单列矩阵</p>
+<p><img src="/images/机器学习入门课程笔记4/7.png" alt></p>
+<p>上图中有两种特殊的产生行向量的写法，1:0.1:2是从步长为0.1，从1到2的闭区间，若省略步长，则默认使用1为步长</p>
+<p><img src="/images/机器学习入门课程笔记4/8.png" alt></p>
+<p>ones()产生全1矩阵，可以使用乘法快速生成某个值的矩阵</p>
+<p>zeros()产生全0矩阵，rand()产生范围是0~1的矩阵</p>
+<p>randn()可以产生标准正态分布的随即值，可以使用统计学公式来产生任意均值和方差的正态分布序列</p>
+<p><img src="/images/机器学习入门课程笔记4/9.png" alt></p>
+<p>上图中w是一个均值为12，方差为5的正态序列，hist指令可以画出它的直方图</p>
+<p>可以绘制更多竖条的直方图</p>
+<p><img src="/images/机器学习入门课程笔记4/10.png" alt></p>
+<p>使用eye指令可以画出单位阵</p>
+<p><img src="/images/机器学习入门课程笔记4/11.png" alt></p>
+<p>help指令可以查看文档，比如help + rand，可以查看rand的文档（对非英语母语的人来说，可能help出来也看不懂吧，还得去网上找良莠不齐的教程，形形色色人写的博客）</p>
+<p>使用size返回矩阵的大小，如：</p>
+<p><img src="/images/机器学习入门课程笔记4/12.png" alt></p>
+<p>可以看到A是一个2 * 3的矩阵，使用size函数返回其大小是2 3，注意返回的值本身也是一个矩阵，这意味着我们同样可以使用size函数来处理先前size返回的值，现在得到的是1 2</p>
+<p>length可以输出矩阵或向量最大维度的大小，比如：</p>
+<p><img src="/images/机器学习入门课程笔记4/13.png" alt></p>
+<h1 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h1><p>使用pwd可以查看当前路径</p>
+<p><img src="/images/机器学习入门课程笔记4/14.png" alt></p>
+<p>使用cd来改变路径</p>
+<p><img src="/images/机器学习入门课程笔记4/15.png" alt></p>
+<p>假设我们要导入的是当前文件夹里面的x.dat和y.dat两个文件中的数据，可以使用load命令</p>
+<p><img src="/images/机器学习入门课程笔记4/16.png" alt></p>
+<p>load命令也可以用函数的方式</p>
+<p><img src="/images/机器学习入门课程笔记4/17.png" alt></p>
+<p>怎么看到我们已经加载进来的变量呢？使用who命令</p>
+<p><img src="/images/机器学习入门课程笔记4/18.png" alt></p>
+<p>在who命令的基础上，我们还可以加s，即whos命令，它能够为我们显示更详细的信息</p>
+<p><img src="/images/机器学习入门课程笔记4/19.png" alt></p>
+<p>可以看到它以列表的形式输出了变量名，并给出了它们对应的size和占用内存，数据类型</p>
+<p>想要去除某个变量，我们使用clear指令</p>
+<p><img src="/images/机器学习入门课程笔记4/20.png" alt></p>
+<p>可以看到x被clear以后，已经从变量列表里面消失了</p>
+<p>如果只输入了clear而不接任何参数，会直接清除所以工作区里的变量</p>
+<p>使用(i:j)可以把第i到j个元素取出来</p>
+<p><img src="/images/机器学习入门课程笔记4/21.png" alt></p>
+<p>想要存储变量，我们使用save指令</p>
+<p><img src="/images/机器学习入门课程笔记4/22.png" alt></p>
+<p>可以看到，我们存储了三个变量到myvalues.mat，之后清除掉了所有变量，想要把三个变量再找出来，只需要load一下myvalues.mat就可以了</p>
+<p>mat格式的文件会将所存储的变量进行一定的压缩，所以直接打开是看不懂的。如果不想把变量保存为mat格式的文件，可以将文件名改为txt后缀的文件，并在这一串命令的最后加上-ascii表示保存ascii码</p>
+<h1 id="数据的操作"><a href="#数据的操作" class="headerlink" title="数据的操作"></a>数据的操作</h1><p>使用下标取出矩阵x第i行，第j列的值</p>
+<p><img src="/images/机器学习入门课程笔记4/23.png" alt></p>
+<p>下标用()，同时是以1开始的</p>
+<p>如果想要取出某一行或者某一列，可以使用:代替这一行或者一列的全部数值</p>
+<p><img src="/images/机器学习入门课程笔记4/24.png" alt></p>
+<p>想要使用更复杂的方法，比如</p>
+<p><img src="/images/机器学习入门课程笔记4/25.png" alt></p>
+<p>这样就取出了x的第一行和第四行</p>
+<p>可以用这种取值方式去给x的部分元素赋值</p>
+<p><img src="/images/机器学习入门课程笔记4/26.png" alt></p>
+<p>这里演示了比较复杂的几种方式，首先是取了x的前两行两列，赋值给了t，然后更改了t的第一行值，并给t追加了一列</p>
+<p>如果只使用一个：，表示把整个矩阵变成一个列向量</p>
+<p><img src="/images/机器学习入门课程笔记4/27.png" alt></p>
+<p>如果两个矩阵具有一样的行数，我们还可以直接连接它们</p>
+<p><img src="/images/机器学习入门课程笔记4/28.png" alt></p>
+<p>如果使用分号，可以上下排列两个列数相同的矩阵</p>
+<p><img src="/images/机器学习入门课程笔记4/29.png" alt></p>
+<p>使用，的写法和直接加空格一样，是左右连接</p>
+<h1 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h1><p>矩阵乘法可以直接使用*来表示</p>
+<p><img src="/images/机器学习入门课程笔记4/30.png" alt></p>
+<p>除此之外，还可以使用.*来进行对应元素的乘法</p>
+<p><img src="/images/机器学习入门课程笔记4/31.png" alt></p>
+<p>点号一般用于元素操作</p>
+<p>要求两个操作对象的维度是一致的，但也有例外，如</p>
+<p><img src="/images/机器学习入门课程笔记4/32.png" alt></p>
+<p>使用1 ./ A来取得A中每个元素的倒数组成的矩阵</p>
+<p>log和exp表示取对数和以e为底求幂</p>
+<p><img src="/images/机器学习入门课程笔记4/33.png" alt></p>
+<p>abs函数也同样</p>
+<p>矩阵+1表示把矩阵中的每个元素都+1</p>
+<p><img src="/images/机器学习入门课程笔记4/34.png" alt></p>
+<p>A的转置需要’</p>
+<p><img src="/images/机器学习入门课程笔记4/35.png" alt></p>
+<p>max函数能够返回矩阵中每一列最大的元素值和其在对应列里的索引，如果只用一个变量接收，那么只会接收到这个最大值，如果使用两个，则会同时接收到最大值和索引</p>
+<p><img src="/images/机器学习入门课程笔记4/36.png" alt></p>
+<p>想要找到每行的最大值该怎么做呢？使用max(A, [], 2)，这相当于找到A在第二个维度上的最大值。换句话说，如果A是更高阶的张量，这种方法也能找到更高维度上的最值</p>
+<p><img src="/images/机器学习入门课程笔记4/40.png" alt></p>
+<p>如果使用&lt;进行比如A &lt; 2的运算，会将A中的元素依次和2比较，并将比较的结果放置在对应位置上产生新的布尔矩阵</p>
+<p><img src="/images/机器学习入门课程笔记4/37.png" alt></p>
+<p>如果使用find(A&lt;2)，这会找出A中所有小于2的值</p>
+<p><img src="/images/机器学习入门课程笔记4/38.png" alt></p>
+<p>如果用[r, c]去接收find函数的返回值，那么r会是所有A中符合要求元素的行索引构成的向量，c则是对应列</p>
+<p>求和函数sum，求积函数prod，下取整函数floor，上取值函数ceil和max有类似的用法</p>
+<p>比如sum(A, 1)可以求每一列的和组成的矩阵，sum(A, 2)则是求每一行的和</p>
+<p>max也可以用来返回两个矩阵对应位置最大值组成的矩阵</p>
+<p><img src="/images/机器学习入门课程笔记4/41.png" alt></p>
+<p>这里产生了两个随机的矩阵，然后取了对应位置的最大值</p>
+<p>pinv是求逆，实际上是伪逆，因为它会对奇异矩阵求出逆</p>
+<p>filpud是竖直翻转矩阵</p>
+<h1 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h1><p>plot函数可以绘制图像，类似于python</p>
+<p><img src="/images/机器学习入门课程笔记4/42.png" alt></p>
+<p>当我们需要同时显示两个图像的时候，可以在第一次绘制出图像之后使用hold on命令令其不被顶替掉</p>
+<p><img src="/images/机器学习入门课程笔记4/43.png" alt></p>
+<p>xlabel和ylabel是给x轴和y轴打标签的函数</p>
+<p>使用legend来制作图例，比如上图可以使用</p>
+<p><img src="/images/机器学习入门课程笔记4/44.png" alt></p>
+<p>再使用title函数可以指定图像的标题</p>
+<p>保存图片的方法是：</p>
+<p><img src="/images/机器学习入门课程笔记4/45.png" alt></p>
+<p>会保存在当前路径</p>
+<p>可以通过给图像编号的方式来打开多个窗口的图像</p>
+<p><img src="/images/机器学习入门课程笔记4/46.png" alt></p>
+<p>subplot函数可以把两个图像分开绘制在一个窗口上</p>
+<p><img src="/images/机器学习入门课程笔记4/47.png" alt></p>
+<p>axis可以设置轴的范围</p>
+<p>设置x为[0, 0.5]，y为[-1, 1]:</p>
+<p><img src="/images/机器学习入门课程笔记4/48.png" alt></p>
+<h1 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h1><p>for循环</p>
+<p><img src="/images/机器学习入门课程笔记4/49.png" alt></p>
+<p>循环的末尾要加end，类似地，while循环的写法是：</p>
+<p><img src="/images/机器学习入门课程笔记4/50.png" alt></p>
+<p>在Octave里同样可以使用break和continue</p>
+<p><img src="/images/机器学习入门课程笔记4/51.png" alt></p>
+<p>if语句类似，末尾也要加end</p>
+<p>如果是ifelse语句，写法稍有不同</p>
+<p><img src="/images/机器学习入门课程笔记4/52.png" alt></p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>定义函数需要先创建一个文本文件，名字是要定义的函数名，后缀以.m</p>
+<p><img src="/images/机器学习入门课程笔记4/53.png" alt></p>
+<p>切换到该函数的目录下</p>
+<p><img src="/images/机器学习入门课程笔记4/54.png" alt></p>
+<p>然后就可以使用了</p>
+<p><img src="/images/机器学习入门课程笔记4/55.png" alt></p>
+<p>可以为Octave添加搜索路径，来在其它位置搜索函数</p>
+<p><img src="/images/机器学习入门课程笔记4/56.png" alt></p>
+<p>可以看到即使不再桌面文件下，还是搜索到了f</p>
+<p><img src="/images/机器学习入门课程笔记4/57.png" alt></p>
+<p>我们把函数改成这样，就可以返回两个值</p>
+<p>接收方法是</p>
+<p><img src="/images/机器学习入门课程笔记4/58.png" alt></p>
+<p>实际上函数还可以被设计地更复杂，我们假设需要一个计算之前J(θ)的函数，数据集为点(1, 1)(2, 2)(3, 3)，θ是0，1</p>
+<p><img src="/images/机器学习入门课程笔记4/59.png" alt></p>
+<p>定义函数</p>
+<p><img src="/images/机器学习入门课程笔记4/60.png" alt></p>
+<p>计算结果</p>
+<p><img src="/images/机器学习入门课程笔记4/61.png" alt></p>
+<h1 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h1><p>使用向量化的实现方法会让代码更加简单，运行更加高效</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/30/MC：附魔指令/" rel="next" title="MC：附魔指令">
+                <i class="fa fa-chevron-left"></i> MC：附魔指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/06/机器学习入门课程笔记5/" rel="prev" title="机器学习入门课程笔记5">
+                机器学习入门课程笔记5 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本操作"><span class="nav-number">1.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入数据"><span class="nav-number">2.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据的操作"><span class="nav-number">3.</span> <span class="nav-text">数据的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运算"><span class="nav-number">4.</span> <span class="nav-text">运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可视化"><span class="nav-number">5.</span> <span class="nav-text">可视化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制语句"><span class="nav-number">6.</span> <span class="nav-text">控制语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">7.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量化"><span class="nav-number">8.</span> <span class="nav-text">向量化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

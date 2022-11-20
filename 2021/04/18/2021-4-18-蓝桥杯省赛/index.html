@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="比赛记录,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……  不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。 A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每个数只能用一次，求0-9这10个数各2021个，最多能组到几。比如1-9各3个最多只能组到10，再往">
+<meta name="keywords" content="比赛记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021&#x2F;4&#x2F;18 蓝桥杯省赛">
+<meta property="og:url" content="http://yoursite.com/2021/04/18/2021-4-18-蓝桥杯省赛/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……  不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。 A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每个数只能用一次，求0-9这10个数各2021个，最多能组到几。比如1-9各3个最多只能组到10，再往">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-14T13:51:14.995Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2021&#x2F;4&#x2F;18 蓝桥杯省赛">
+<meta name="twitter:description" content="下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……  不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。 A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每个数只能用一次，求0-9这10个数各2021个，最多能组到几。比如1-9各3个最多只能组到10，再往">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/18/2021-4-18-蓝桥杯省赛/">
+
+
+
+
+
+  <title>2021/4/18 蓝桥杯省赛 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/18/2021-4-18-蓝桥杯省赛/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2021/4/18 蓝桥杯省赛</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-18T15:32:04+08:00">
+                2021-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……</p>
+</blockquote>
+<p>不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。</p>
+<p>A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每个数只能用一次，求0-9这10个数各2021个，最多能组到几。比如1-9各3个最多只能组到10，再往下的11又需要两个1，这样就用去了4个1，所以不够了。</p>
+<p>做这道题也是毫无技巧可言，模拟就好。稍微想一想的话可以知道1永远是最先用完的，所以也可以把结果改成统计还剩几个1，或者干脆推出计算1的公式，手算出最大值也行。</p>
+<p>B题让求出坐标从(0,0)开始到(19,20)围城的矩形内部的这20×21个整数坐标的点能确定多少直线。计数要不重不漏，这题卡了我很久。回过头来看就不应该思考怎么做最简便。那么小规模的数据直接暴力就好，方法是这样的：遍历每个点，对每个可能的方向(360度能连接到另外一个有效的点的方向，如果它和它的反方向同时没被标记过)，我们标记为1，意思是找到了一个新的直线，然后把所有其他在这条直线上的点标记为2，意思是虽然这个方向上有直线，但这条直线以及被计数了。最后再扫一遍数组，统计标为1的位置。</p>
+<p>需要注意的是，方向我们使用一对互质的“增量”来表示。比如数对(2,3)，(4,6)是同一组增量，进行去公因数处理之后，我们标记当前点(x,y)在增量(i,j)上有一条直线，用四维数组实现。</p>
+<p>这题就很经典，因为知道的多了，所以对暴力方法本能地感到“恐惧”，我想过各种计数方法，或者用容斥原理去重，都因为细节太过繁琐而放弃了。经过了一个小时的无用功之后才意识到暴力解法。实际上感觉原因还是不熟悉赛制，填空题这种唯结果论的东西，哪怕暴力它两个小时又怎么样呢。</p>
+<p>C题我做错了，具体是这样的：给出一个数2021041820210418作为长方体的体积，求出一共可以有多少种长宽高为整数的长方体。其实质就是把一个数分解为3个因子的乘积。这题错的原因也是对赛制的不适应——我思考的是如何尽快地分解一个大整数，而题目需要我分解具体的2021041820210418，换句话说我想找出“一类”问题的解法，而题目只要求“一个”具体的解。我不知道怎么把任意一个规模为1e17的大整数分解成3个数的乘积，但，我应该一眼就看出来，20210418×100000001=2021041820210418，然后去分解规模更小的100000001和20210418。</p>
+<p>我直到赛后听到一对男女讨论题，女生说到对分解因子才如梦方醒。</p>
+<p>D是一道动态规划，编号为1到2021的2021个点组成了一张图，其中任意的两个点i和j，如果它们的绝对值只差小于等于21，那么它们之间存在一条边权为它们编号最大公倍数的边，求出1到2021的最短路。</p>
+<p><code>dp[i] = min(dp[j] + i * j / gcd(i, j) | max(i - 21, 1) ≤ j &lt; i)</code></p>
+<p>gcd用经典欧几里得算法求。</p>
+<p>这题起码给了我一点点安慰，我还是有进步的。虽然这种dp简直是套公式烂大街。</p>
+<p>E的题意是这样的：有21个点，编号为1-21，如果两个点之间互质那么两个点之间直接相邻，问从1开始有多少种不同的欧拉回路。</p>
+<p>思路很清晰——不会做。</p>
+<p>F题：给n个砝码和它们各自的质量，求能称出几种质量。比如1,4,6三个砝码，可以称出1,2,3,4,5,6,7,9,10,11这10种。</p>
+<p>之所以可以有3是因为砝码可以放两个盘，这样物体的质量等于两盘砝码的差。</p>
+<p>这样的话，每个砝码相当于都可以看成既有正值又有负值。</p>
+<p>我们这样处理，初始时，只有质量0可以被称出来，所以给0处做标记，然后取一个质量为wi的砝码，显然原本就可以称出来的质量还是可以称出来，并且由于这个砝码的加入，原本可以称出来的质量±wi之后得到的新质量也能被称出来了。</p>
+<p>显然，我们需要维护长度为总质量和的两倍的数组，每次标记由于新增砝码而新增的可达质量，最后统计一下即可。</p>
+<p>G题：给出一个树，求出其通过“左孩子右兄弟”表示法转换成的最高的二叉树的高度。</p>
+<p>有一道dp题，有：</p>
+<p><code>dp[i] = child[i] + max(dp[j] | j是i的子节点)</code></p>
+<p>由于这题的树是用父节点来存储的，所以可以用刷表法，记录每个节点的度，维护一个栈，初始时里面是叶子节点，每次取出一个点并从图中去掉，如果产生了新的叶子，则把它入栈，如此反复去更新父节点的值。</p>
+<p>赛后我和隔壁嗯哥交流了一下，他说没做出来，只是用暴力做出了规模小的那30%的测试样例。</p>
+<p>嗯哥不会dp，所以拉开了差距。这是我第一次觉得自己学到的东西有用，真的。</p>
+<p>H题：Alice和Bod又在玩游戏，他们一开始各有一个数0，然后每次可以从一个数组里取出一个数，要么拿它异或自己的数，要么异或对方的，直到数组被取空之后，他们两个人会比较自己手上数的大小，大的一方胜利。</p>
+<p>现在，Alice先手的情况下，双方都采取最优策略，求最终谁会获胜。</p>
+<p>这题我猜的，因为实在不会，但输出又只有0，-1，和1，骗分也是容易的。我的思路也很简单：Alice的优势太大了，如果Bob有什么必赢策略，Alice总能抢先一步，而且如果数组里面是奇数个元素，Alice还能多操作一次来补刀。</p>
+<p>所以我最后写的思路是如果两两相等配对，则0，否则1。</p>
+<blockquote>
+<p>刚刚在食堂吃饭想明白了，Bob就是赢不了，推导过程如下：</p>
+</blockquote>
+<blockquote>
+<p>假设这些数的二进制最高位有奇数个1，偶数个0，那么Alice的这一位总能拿到一个1，而Bob只能是0，Alice必胜。若最高位有偶数个1，那么哪怕两人胡乱选，Alice和Bob最终数字的最高位一定相等，所以最高位作废，再比较此高位以此类推，直到有一位的1的数量为奇数个，Alice就赢了。</p>
+</blockquote>
+<blockquote>
+<p>换句话说可怜的Bob根本赢不了，唯一一个不输的机会就是全体数字异或为0的情况</p>
+</blockquote>
+<p>所以当时的猜测还是太保守了。不过好歹错误的概率算小，就看样例怎么给了。</p>
+<p>I题，给出一串不匹配的小括号序列，求出有多少种最小修补方案。一个最小修补方案指的是在恰当的位置填补小括号或者括回来使得括号序列匹配，并且填补的数量最小。</p>
+<p>不会做。</p>
+<p>J题，分果果，看都没看。</p>
+<p>总之，不出意外的话，应该是A,B两题拿到10分，D题拿到10分，F题15分，G题20分，H题有一部分分，保守估计10分吧。</p>
+<p>看网上的说法，应该很难再出线了，毕竟出线大概填空要全对，大题起码拿一半分才有机会。啊，又没能拿到出线机会。还有明年，明年最后一年了……</p>
+<p>感觉思路还是太窄了。思维题总是反应不过来，而且赛制是真的不舒服，我还是喜欢ACM赛制。喜欢过测试点而不是解具体某个数。但感觉总体来说还算不错，尤其是两个dp题和天平题的快速反应，确确实实感觉到学到东西了，最近一段时间的训练是有效的。其实这样已经可以了，之前的我总是觉得学了算法却看不出来，算法会了但智商不够，一直在做题却看不到进步，现在总算看到反馈了。其实进步一直都有，只是训练量还达不到。</p>
+<p>一个好的开端，我如是鼓励自己。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/比赛记录/" rel="tag"># 比赛记录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/16/POJ3974-Palindrome/" rel="next" title="POJ3974_Palindrome">
+                <i class="fa fa-chevron-left"></i> POJ3974_Palindrome
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/22/POJ1961-Period/" rel="prev" title="POJ1961_Period">
+                POJ1961_Period <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

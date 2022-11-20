@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="线性变换V, W是F上的线性空间，映射T:V-&amp;gt;W，若任取v，w∈V，λ，μ∈F，有λT(v)+μT(w)=T(λv+μw)，则称T为V到W的一个线性映射 若V=W，称T是V上的一个线性变换 线性映射的性质核空间与像空间记L(V, W)为V到W的所有线性变换集合，T∈L(V, W) 定义T的核空间N(T)={x|x∈V,Tx=θ} T的像空间R(T)={y|y∈W,y=Tx,x∈V} N(T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵论2-线性变换及矩阵">
+<meta property="og:url" content="http://yoursite.com/2022/10/06/矩阵论2-线性变换及矩阵/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="线性变换V, W是F上的线性空间，映射T:V-&amp;gt;W，若任取v，w∈V，λ，μ∈F，有λT(v)+μT(w)=T(λv+μw)，则称T为V到W的一个线性映射 若V=W，称T是V上的一个线性变换 线性映射的性质核空间与像空间记L(V, W)为V到W的所有线性变换集合，T∈L(V, W) 定义T的核空间N(T)={x|x∈V,Tx=θ} T的像空间R(T)={y|y∈W,y=Tx,x∈V} N(T">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-10-07T01:21:46.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="矩阵论2-线性变换及矩阵">
+<meta name="twitter:description" content="线性变换V, W是F上的线性空间，映射T:V-&amp;gt;W，若任取v，w∈V，λ，μ∈F，有λT(v)+μT(w)=T(λv+μw)，则称T为V到W的一个线性映射 若V=W，称T是V上的一个线性变换 线性映射的性质核空间与像空间记L(V, W)为V到W的所有线性变换集合，T∈L(V, W) 定义T的核空间N(T)={x|x∈V,Tx=θ} T的像空间R(T)={y|y∈W,y=Tx,x∈V} N(T">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/10/06/矩阵论2-线性变换及矩阵/">
+
+
+
+
+
+  <title>矩阵论2-线性变换及矩阵 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/06/矩阵论2-线性变换及矩阵/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">矩阵论2-线性变换及矩阵</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-10-06T16:27:23+08:00">
+                2022-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="线性变换"><a href="#线性变换" class="headerlink" title="线性变换"></a>线性变换</h1><p>V, W是F上的线性空间，映射T:V-&gt;W，若任取v，w∈V，λ，μ∈F，有λT(v)+μT(w)=T(λv+μw)，则称T为V到W的一个线性映射</p>
+<p>若V=W，称T是V上的一个线性变换</p>
+<h1 id="线性映射的性质"><a href="#线性映射的性质" class="headerlink" title="线性映射的性质"></a>线性映射的性质</h1><h2 id="核空间与像空间"><a href="#核空间与像空间" class="headerlink" title="核空间与像空间"></a>核空间与像空间</h2><p>记L(V, W)为V到W的所有线性变换集合，T∈L(V, W)</p>
+<p>定义T的核空间N(T)={x|x∈V,Tx=θ}</p>
+<p>T的像空间R(T)={y|y∈W,y=Tx,x∈V}</p>
+<p>N(T)是V的子空间，并且dimN(T)被称为T的亏或零度</p>
+<p>R(T)是W的子空间，dimR(T)被称为T的秩</p>
+<p>理解一下为什么：我们认为一个线性空间可以看作一组基底和它们能表示的向量集合，那么何为核空间？要求里面的元素在经过T的变换之后，对应W中的零元。</p>
+<p>什么样的元素能够被T变成零元？首先V中的零元肯定可以。然后假设一个非零元素被T变成了零元，我们知道所有可以被该元素线性表示的元素也都会被T变成零元。因此若把这些会被变成零元的元素拿出来看作V子空间的一组基底，那么可以这样理解：T可以把V中基底的一部分向量变成零元，这一部分向量组成的线性空间被称为T的核空间，向量的个数称为T的亏</p>
+<p>那么T相当于抹除了V的一部分基底</p>
+<p>dimR(T)其实对应着V中没有被抹除的那部分基底</p>
+<h2 id="亏加秩定理"><a href="#亏加秩定理" class="headerlink" title="亏加秩定理"></a>亏加秩定理</h2><p>经过上面的分析，显然有dimN(T)+dimR(T)=dimV</p>
+<h1 id="线性空间的矩阵和同构"><a href="#线性空间的矩阵和同构" class="headerlink" title="线性空间的矩阵和同构"></a>线性空间的矩阵和同构</h1><h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><p>之前说过，线性空间固定一组基底后，一切运算都可以看作是在实空间上。那么对线性变换来说，固定基底后，实际上是坐标向量对坐标向量的变换</p>
+<p>坐标向量对坐标向量的变换可以用坐标向量乘以矩阵来表示</p>
+<p>取V的一组基e，Te=eA</p>
+<p>则A称为T在e下的矩阵</p>
+<p>注意e是一组基，即n个基</p>
+<p>L(V, V)上的线性变换和R<sup>nxn</sup>上的矩阵有一一对应的关系</p>
+<p>这样，研究线性变换就变成了研究矩阵</p>
+<p>这样去理解矩阵，矩阵也有了实际的意义</p>
+<h2 id="同构"><a href="#同构" class="headerlink" title="同构"></a>同构</h2><p>若存在数域F上的两个线性空间V和W，存在一一映射f:V-&gt;W，满足任取v，w∈V，λ，μ∈F，有λf(v)+μf(w)=f(λv+μw)说明V和W是同构的记作V在f全等于W，符号是一个等号上写全等号再上面写个f</p>
+<p>同构的线性空间相当于在不同的基下研究同一套矩阵，或者说，可以把同构的空间视作一个</p>
+<h2 id="一些性质"><a href="#一些性质" class="headerlink" title="一些性质"></a>一些性质</h2><h3 id="矩阵的亏加秩"><a href="#矩阵的亏加秩" class="headerlink" title="矩阵的亏加秩"></a>矩阵的亏加秩</h3><p>线性变换有亏加秩，线性变换和矩阵一一对应，则矩阵也有亏加秩定理</p>
+<p>矩阵的核空间N(A)={x|x∈F<sup>n</sup>, Ax=0}</p>
+<p>矩阵的像空间R(A)={y|x∈F<sup>n</sup>, Ax=y}</p>
+<p>R(A)+N(A)=n</p>
+<h3 id="同一线性变换不同基下的矩阵相似"><a href="#同一线性变换不同基下的矩阵相似" class="headerlink" title="同一线性变换不同基下的矩阵相似"></a>同一线性变换不同基下的矩阵相似</h3><p>根据过渡矩阵必是可逆阵可以轻松推出</p>
+<h1 id="特征值和特征向量"><a href="#特征值和特征向量" class="headerlink" title="特征值和特征向量"></a>特征值和特征向量</h1><p>同样的特征变换可以在不同的基下用不同的矩阵表示，这些矩阵都是相似的</p>
+<p>那么利用一些特殊的基来表示线性变换，就能够将矩阵的形式进行适当的简化</p>
+<p>这就引出了特征向量和特征值的概念，特征向量某种程度上反应了线性变换的方向，而特征值则反应了线性变换在某一维度上拉伸或收缩的倍率</p>
+<p>以特征向量作为矩阵的一组基，可以得到线性变换所对应的特殊的矩阵，这些矩阵是对角阵，其中第i行i列的值就是第i个特征向量对应的特征值</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>对线性变换T∈L(V, V)，若λ∈F，ξ∈V，Tξ=λξ，则称λ是T的一个特征值，ξ是对应的特征向量</p>
+<p>为了使求特征向量和特征值的问题变成一个纯代数问题，设定一组基底，将T转换为对应的矩阵A，将特征向量用对应基底下的坐标来表示</p>
+<p>这样，求特征向量变成了求解方程Ax=λx的所有解，即求方程组(A-λI)x=0</p>
+<p>为了让(A-λI)x=0有非零解，根据线性方程组的研究，引入了行列式|A|的概念，因为只有系数矩阵的行列式|A-λI|为0时，该线性方程组才有非0解</p>
+<p>所以，特征值λ即为方程|A-λI|=0的解，得到多个λ之后，带入(A-λI)x=0来寻找对应的x</p>
+<p>行列式|A-λI|被称之为特征多项式f(λ)</p>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><h2 id="相似的矩阵有相同的特征值"><a href="#相似的矩阵有相同的特征值" class="headerlink" title="相似的矩阵有相同的特征值"></a>相似的矩阵有相同的特征值</h2><p>这表明线性变换的特征值和基的选取无关。从方向和伸缩上去理解也是这样的。不同的基选取可能会导致特征值和基之间的相对方向有所不同，这种不同导致了特征向量的不同，但伸缩程度是绝对的，只由线性变换本身决定</p>
+<h2 id="Schur引理"><a href="#Schur引理" class="headerlink" title="Schur引理"></a>Schur引理</h2><p>(证明有些巧妙，多看看记下来……)任意矩阵都相似于一个上三角阵，其主对角元上是该矩阵的所有特征值</p>
+<p>这一点可以推出矩阵多项式的特征值</p>
+<h2 id="Hamilton-Cayley定理"><a href="#Hamilton-Cayley定理" class="headerlink" title="Hamilton-Cayley定理"></a>Hamilton-Cayley定理</h2><p>将矩阵代入自己的特征多项式f(A)=0(零矩阵)。这一点可以通过代数基本定理分解因式之后，利用Schur引理化三角阵证明</p>
+<p>这一定理可以用来简化矩阵多项式的计算</p>
+<h2 id="最小多项式"><a href="#最小多项式" class="headerlink" title="最小多项式"></a>最小多项式</h2><p>根据Cayley定理，对任意矩阵A，必存在使其零化的多项式</p>
+<p>所有能够使A零化的多项式里，次数最低的首一多项式称为A的最小多项式，记作m<sub>A</sub>(λ)</p>
+<p>很容易可以看出，任何使A零化的多项式都能被m<sub>A</sub>(λ)整除</p>
+<p>m<sub>A</sub>(λ)和f(λ)有着相同的根，因为后者的每个根都是A的特征值，对应特征向量ξ，那么m<sub>A</sub>(A)ξ=0，m<sub>A</sub>(A)ξ=m<sub>A</sub>(λ)ξ</p>
+<p>所以m<sub>A</sub>(λ)ξ=0，此时m<sub>A</sub>(λ)是数，ξ不为0，只能有m<sub>A</sub>(λ)=0</p>
+<p>因此，m<sub>A</sub>(λ)=Π(λ-λ<sub>i</sub>)<sup>m<sub>i</sub></sup></p>
+<p>1&lt;=mi&lt;=ni，ni是f(λ)里λ-λ<sub>i</sub>的次数</p>
+<p>变换T的最小多项式就是对应矩阵A的最小多项式</p>
+<h2 id="不同特征值对应特征向量线性无关"><a href="#不同特征值对应特征向量线性无关" class="headerlink" title="不同特征值对应特征向量线性无关"></a>不同特征值对应特征向量线性无关</h2><p>可以反证，用其它向量线性表示出某个向量，之后代入得矛盾</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/06/矩阵论1-线性空间引论/" rel="next" title="矩阵论1-线性空间引论">
+                <i class="fa fa-chevron-left"></i> 矩阵论1-线性空间引论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/10/07/矩阵论3-Jordan标准型/" rel="prev" title="矩阵论3-Jordan标准型">
+                矩阵论3-Jordan标准型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线性变换"><span class="nav-number">1.</span> <span class="nav-text">线性变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性映射的性质"><span class="nav-number">2.</span> <span class="nav-text">线性映射的性质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核空间与像空间"><span class="nav-number">2.1.</span> <span class="nav-text">核空间与像空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#亏加秩定理"><span class="nav-number">2.2.</span> <span class="nav-text">亏加秩定理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线性空间的矩阵和同构"><span class="nav-number">3.</span> <span class="nav-text">线性空间的矩阵和同构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵"><span class="nav-number">3.1.</span> <span class="nav-text">矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同构"><span class="nav-number">3.2.</span> <span class="nav-text">同构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些性质"><span class="nav-number">3.3.</span> <span class="nav-text">一些性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵的亏加秩"><span class="nav-number">3.3.1.</span> <span class="nav-text">矩阵的亏加秩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同一线性变换不同基下的矩阵相似"><span class="nav-number">3.3.2.</span> <span class="nav-text">同一线性变换不同基下的矩阵相似</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征值和特征向量"><span class="nav-number">4.</span> <span class="nav-text">特征值和特征向量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性质"><span class="nav-number">4.2.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相似的矩阵有相同的特征值"><span class="nav-number">4.3.</span> <span class="nav-text">相似的矩阵有相同的特征值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Schur引理"><span class="nav-number">4.4.</span> <span class="nav-text">Schur引理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hamilton-Cayley定理"><span class="nav-number">4.5.</span> <span class="nav-text">Hamilton-Cayley定理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小多项式"><span class="nav-number">4.6.</span> <span class="nav-text">最小多项式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同特征值对应特征向量线性无关"><span class="nav-number">4.7.</span> <span class="nav-text">不同特征值对应特征向量线性无关</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unity2D,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="User Interface，UI不属于游戏空间 添加Canvas右键Hierarchy，添加UI-&amp;gt;Canvas 添加Canvas之后，会再自动添加一个EventSystem 对Canvas进行一番设置选中Canvas，在右边inspector的canvas属性下 Render Mode改成Screen Space Camera 然后把主摄像机拖动到Camera Plane Distanc">
+<meta name="keywords" content="Unity2D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的Unity 11.UI">
+<meta property="og:url" content="http://yoursite.com/2021/10/26/从零开始的Unity-11-UI/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="User Interface，UI不属于游戏空间 添加Canvas右键Hierarchy，添加UI-&amp;gt;Canvas 添加Canvas之后，会再自动添加一个EventSystem 对Canvas进行一番设置选中Canvas，在右边inspector的canvas属性下 Render Mode改成Screen Space Camera 然后把主摄像机拖动到Camera Plane Distanc">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/从零开始的Unity11UI/0.png">
+<meta property="og:updated_time" content="2021-11-27T09:25:14.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始的Unity 11.UI">
+<meta name="twitter:description" content="User Interface，UI不属于游戏空间 添加Canvas右键Hierarchy，添加UI-&amp;gt;Canvas 添加Canvas之后，会再自动添加一个EventSystem 对Canvas进行一番设置选中Canvas，在右边inspector的canvas属性下 Render Mode改成Screen Space Camera 然后把主摄像机拖动到Camera Plane Distanc">
+<meta name="twitter:image" content="http://yoursite.com/images/从零开始的Unity11UI/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/10/26/从零开始的Unity-11-UI/">
+
+
+
+
+
+  <title>从零开始的Unity 11.UI | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/26/从零开始的Unity-11-UI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从零开始的Unity 11.UI</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-26T11:44:42+08:00">
+                2021-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>User Interface，UI不属于游戏空间</p>
+<h1 id="添加Canvas"><a href="#添加Canvas" class="headerlink" title="添加Canvas"></a>添加Canvas</h1><p>右键Hierarchy，添加UI-&gt;Canvas</p>
+<p>添加Canvas之后，会再自动添加一个EventSystem</p>
+<h2 id="对Canvas进行一番设置"><a href="#对Canvas进行一番设置" class="headerlink" title="对Canvas进行一番设置"></a>对Canvas进行一番设置</h2><p>选中Canvas，在右边inspector的canvas属性下</p>
+<p>Render Mode改成Screen Space Camera</p>
+<p>然后把主摄像机拖动到Camera</p>
+<p>Plane Distance改为5个单位（UI平面和摄像机之间的距离）</p>
+<h2 id="在Canvas里面添加控件"><a href="#在Canvas里面添加控件" class="headerlink" title="在Canvas里面添加控件"></a>在Canvas里面添加控件</h2><p>右键Hierarchy里面的canvas，添加控件</p>
+<h1 id="添加Text-文本控件"><a href="#添加Text-文本控件" class="headerlink" title="添加Text(文本控件)"></a>添加Text(文本控件)</h1><p>右键canvas，添加UI-&gt;Text</p>
+<p>属性：</p>
+<p>Font Size：字体大小</p>
+<p>Alignment：对齐</p>
+<p>Best Fit：根据Rect自动调节字体大小</p>
+<p>Color：颜色</p>
+<p>Font：字体，支持TTF和OTF，可以从资源网站上下载，也是直接拖动进来.ttf，.otf</p>
+<h1 id="添加Image-图片"><a href="#添加Image-图片" class="headerlink" title="添加Image(图片)"></a>添加Image(图片)</h1><p>右键canvas，添加UI-&gt;Image</p>
+<p>把图片拖动到Soucre Image</p>
+<p>Image Type：</p>
+<p>Simple：拉伸</p>
+<p>Sliced：九宫格</p>
+<p>Tiled：平铺</p>
+<p>Filled：充满</p>
+<p>九宫格的设置方法：</p>
+<p>选中图片：Splid editor，切出九宫格</p>
+<h1 id="添加Button-按钮"><a href="#添加Button-按钮" class="headerlink" title="添加Button(按钮)"></a>添加Button(按钮)</h1><p>右键canvas，添加UI-&gt;Button</p>
+<p>添加按钮后，Button组件自带了一个子节点Text</p>
+<p><img src="/images/从零开始的Unity11UI/0.png" alt></p>
+<p>右边Transition表示按钮在不同状态下的变化，默认是颜色变化Color Tint</p>
+<p>可以设置按钮的填充颜色，包含常规颜色，高亮（鼠标放置）颜色，按下颜色等等</p>
+<p>想要交换图片的话选中Sprite Swap</p>
+<h1 id="添加InputField-文本框"><a href="#添加InputField-文本框" class="headerlink" title="添加InputField(文本框)"></a>添加InputField(文本框)</h1><p>右键canvas，添加UI-&gt;InputField</p>
+<p>Image组件，调整颜色和背景图片</p>
+<p>Placeholder：文本框为空时，默认的填充文本</p>
+<p>Line Type：选择单行或多行模式</p>
+<h1 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h1><p>UI元素都有的组件是Rect Transform，是transform的子类</p>
+<p>posx，posy都是该组件中心点相对canvas中心点的坐标（像素）</p>
+<p>width和height都是像素</p>
+<h2 id="anchor"><a href="#anchor" class="headerlink" title="anchor"></a>anchor</h2><p>点击，自由选择元素的定位</p>
+<p>选择之后，位置参数会根据具体选择的位置为基准</p>
+<h2 id="panel"><a href="#panel" class="headerlink" title="panel"></a>panel</h2><p>使用面板来把UI组件分成一个个区域。</p>
+<p>面板上的子节点都会以面板位参考，跟着面板移动</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity2D/" rel="tag"># Unity2D</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/26/从零开始的Unity-10-其它常用api/" rel="next" title="从零开始的Unity 10.其它常用api">
+                <i class="fa fa-chevron-left"></i> 从零开始的Unity 10.其它常用api
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/26/21-10-26/" rel="prev" title="21/10/26">
+                21/10/26 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#添加Canvas"><span class="nav-number">1.</span> <span class="nav-text">添加Canvas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对Canvas进行一番设置"><span class="nav-number">1.1.</span> <span class="nav-text">对Canvas进行一番设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Canvas里面添加控件"><span class="nav-number">1.2.</span> <span class="nav-text">在Canvas里面添加控件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加Text-文本控件"><span class="nav-number">2.</span> <span class="nav-text">添加Text(文本控件)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加Image-图片"><span class="nav-number">3.</span> <span class="nav-text">添加Image(图片)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加Button-按钮"><span class="nav-number">4.</span> <span class="nav-text">添加Button(按钮)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加InputField-文本框"><span class="nav-number">5.</span> <span class="nav-text">添加InputField(文本框)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布局"><span class="nav-number">6.</span> <span class="nav-text">布局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#anchor"><span class="nav-number">6.1.</span> <span class="nav-text">anchor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#panel"><span class="nav-number">6.2.</span> <span class="nav-text">panel</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

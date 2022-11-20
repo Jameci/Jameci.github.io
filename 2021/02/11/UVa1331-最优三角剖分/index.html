@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="动态规划,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题意给出一组多边形，要求使用多边形的对角线将其划分为一堆三角形，记这堆三角形里面面积最大的一个面积为s。显然有多种划分的方法，要求求出所有划分方法中能得到的最小的s值。 思路设dp[i][j]为点i到点j顺序围成的多边形中，最大的剖分三角形的面积。在这个多边形中，不论怎么划分，必定有一个顶点k和i，j组成一个三角形，那么我们遍历其他顶点，和点i，j组成三角形，有： dp[i][j] = min(d">
+<meta name="keywords" content="动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UVa1331_最优三角剖分">
+<meta property="og:url" content="http://yoursite.com/2021/02/11/UVa1331-最优三角剖分/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="题意给出一组多边形，要求使用多边形的对角线将其划分为一堆三角形，记这堆三角形里面面积最大的一个面积为s。显然有多种划分的方法，要求求出所有划分方法中能得到的最小的s值。 思路设dp[i][j]为点i到点j顺序围成的多边形中，最大的剖分三角形的面积。在这个多边形中，不论怎么划分，必定有一个顶点k和i，j组成一个三角形，那么我们遍历其他顶点，和点i，j组成三角形，有： dp[i][j] = min(d">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/0.png">
+<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/1.png">
+<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/2.png">
+<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/3.png">
+<meta property="og:updated_time" content="2021-07-14T14:05:38.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UVa1331_最优三角剖分">
+<meta name="twitter:description" content="题意给出一组多边形，要求使用多边形的对角线将其划分为一堆三角形，记这堆三角形里面面积最大的一个面积为s。显然有多种划分的方法，要求求出所有划分方法中能得到的最小的s值。 思路设dp[i][j]为点i到点j顺序围成的多边形中，最大的剖分三角形的面积。在这个多边形中，不论怎么划分，必定有一个顶点k和i，j组成一个三角形，那么我们遍历其他顶点，和点i，j组成三角形，有： dp[i][j] = min(d">
+<meta name="twitter:image" content="http://yoursite.com/images/最优三角剖分/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/02/11/UVa1331-最优三角剖分/">
+
+
+
+
+
+  <title>UVa1331_最优三角剖分 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/11/UVa1331-最优三角剖分/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UVa1331_最优三角剖分</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-11T18:05:26+08:00">
+                2021-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给出一组多边形，要求使用多边形的对角线将其划分为一堆三角形，记这堆三角形里面面积最大的一个面积为s。显然有多种划分的方法，要求求出所有划分方法中能得到的最小的s值。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>设<code>dp[i][j]</code>为点i到点j顺序围成的多边形中，最大的剖分三角形的面积。在这个多边形中，不论怎么划分，必定有一个顶点k和i，j组成一个三角形，那么我们遍历其他顶点，和点i，j组成三角形，有：</p>
+<p><code>dp[i][j] = min(dp[i][j],min(s(i,j,k),dp[i][k]+dp[k][j]))</code></p>
+<p>其中s是指i，j，k三点围成的三角形面积。</p>
+<p>特殊地，k是i+1的时候不计算<code>dp[i][k]</code>，k是j-1的时候同理。</p>
+<p>如果j=i+2，那么<code>dp[i][j]=s(i,i+1,j)</code></p>
+<p>但问题是，有时候i，j，k三点并不合法。</p>
+<p>因为，有时候，某条对角线不在多边形的范围内，或者某条对角线可能和某条边交叉了。这些都不行。</p>
+<p>所以，我们可以预先处理一下对角线，对每条对角线，我们判定一下它是否合法。</p>
+<p>判定对角线i，j合法的方法是：</p>
+<p>1、对角线i，j在角i，角j的范围内。</p>
+<p>这里需要使用向量外积和三角函数。首先，需要计算所有的内角大小。计算内角大小不能用余弦定理，因为多边形的内角可能会超过180度。我们可以用计算向量偏转角的方式来得到。然后，根据向量外积，首先排除对角线和边重合的，即外积是0，向量的分量符号一致。如果对角线和两条边的外积同号，说明对角线在下图的2,3区域，否则就在1,4区域。</p>
+<p><img src="/images/最优三角剖分/0.png" alt></p>
+<p>这样，我们首先看内角是不是小于180度，如果是，则外积同号，并且对角线和两边夹角之和等于内角，合法，否则不合法。若大于180度，则外积同号的必然合法，异号的，同样是对角线和两边夹角之和等于内角才行。</p>
+<p>2、对角线和任何一条边都不相交</p>
+<p>线段相交的判定可以这样去进行，求出线段所属直线的解析式，然后判定线段的两端点是否在对方直线的两侧即可。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> pi 3.14159265358979323846264</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">50</span> + <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> inf = <span class="number">10000000000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> eta = <span class="number">0.0000001</span>;</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"><span class="keyword">double</span> x[maxm], y[maxm];</span><br><span class="line"><span class="keyword">double</span> d[maxm][maxm];</span><br><span class="line"><span class="keyword">double</span> the[maxm];</span><br><span class="line"><span class="keyword">int</span> v[maxm][maxm];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">ag</span><span class="params">(<span class="keyword">int</span> o, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> x0 = x[o];</span><br><span class="line">	<span class="keyword">double</span> y0 = y[o];</span><br><span class="line">	<span class="keyword">double</span> x1 = x[a];</span><br><span class="line">	<span class="keyword">double</span> y1 = y[a];</span><br><span class="line">	<span class="keyword">double</span> x2 = x[b];</span><br><span class="line">	<span class="keyword">double</span> y2 = y[b];</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">double</span> da = <span class="built_in">sqrt</span>((x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0));</span><br><span class="line">	<span class="keyword">double</span> cosa = (x1 - x0) / da;</span><br><span class="line">	<span class="keyword">double</span> sina = (y1 - y0) / da;</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">double</span> db = <span class="built_in">sqrt</span>((x2 - x0) * (x2 - x0) + (y2 - y0) * (y2 - y0));</span><br><span class="line">	<span class="keyword">double</span> cosb = (x2 - x0) / db;</span><br><span class="line">	<span class="keyword">double</span> sinb = (y2 - y0) / db;</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">double</span> cosi = cosb * cosa + sinb * sina;</span><br><span class="line">	<span class="keyword">double</span> sini = sinb * cosa - sina * cosb;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">double</span> ret;	</span><br><span class="line">	<span class="keyword">if</span>(sini &gt;= <span class="number">0</span>)ret = <span class="built_in">acos</span>(cosi);</span><br><span class="line">	<span class="keyword">else</span> ret = <span class="number">2</span> * pi - <span class="built_in">acos</span>(cosi);</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">absag</span><span class="params">(<span class="keyword">int</span> o, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> ret = ag(o, a, b);</span><br><span class="line">	<span class="keyword">if</span>(ret &gt; pi)ret = <span class="number">2</span> * pi - ret;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">s</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> x1 = x[i] - x[k];</span><br><span class="line">	<span class="keyword">double</span> x2 = x[j] - x[k];</span><br><span class="line">	<span class="keyword">double</span> y1 = y[i] - y[k];</span><br><span class="line">	<span class="keyword">double</span> y2 = y[j] - y[k];</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">fabs</span>(x1 * y2 - x2 * y1)/ <span class="number">2.0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cross</span><span class="params">(<span class="keyword">double</span> x1, <span class="keyword">double</span> y1, <span class="keyword">double</span> x2, <span class="keyword">double</span> y2, <span class="keyword">double</span> x3, <span class="keyword">double</span> y3, <span class="keyword">double</span> x4, <span class="keyword">double</span> y4)</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> A1, B1, C1;</span><br><span class="line">	<span class="keyword">if</span>((x1 - x2 &lt; eta) &amp;&amp; (-eta &lt; x1 - x2))&#123;</span><br><span class="line">		A1 = <span class="number">1</span>;</span><br><span class="line">		B1 = <span class="number">0</span>;</span><br><span class="line">		C1 = -x1;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>((y1 - y2 &lt; eta) &amp;&amp; (-eta &lt; y1 - y2))&#123;</span><br><span class="line">		A1 = <span class="number">0</span>;</span><br><span class="line">		B1 = <span class="number">1</span>;</span><br><span class="line">		C1 = -y1;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">double</span> k = (y1 - y2) / (x1 - x2);</span><br><span class="line">		A1 = -k;</span><br><span class="line">		B1 = <span class="number">1</span>;</span><br><span class="line">		C1 = k * x1 - y1;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">double</span> A2, B2, C2;</span><br><span class="line">	<span class="keyword">if</span>((x3 - x4 &lt; eta) &amp;&amp; (-eta &lt; x3 - x4))&#123;</span><br><span class="line">		A2 = <span class="number">1</span>;</span><br><span class="line">		B2 = <span class="number">0</span>;</span><br><span class="line">		C2 = -x3;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>((y3 - y4 &lt; eta) &amp;&amp; (-eta &lt; y3 - y4))&#123;</span><br><span class="line">		A2 = <span class="number">0</span>;</span><br><span class="line">		B2 = <span class="number">1</span>;</span><br><span class="line">		C2 = -y3;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">double</span> k = (y3 - y4) / (x3 - x4);</span><br><span class="line">		A2 = -k;</span><br><span class="line">		B2 = <span class="number">1</span>;</span><br><span class="line">		C2 = k * x3 - y3;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> ((A1 * x3 + B1 * y3 + C1) * (A1 * x4 + B1 * y4 + C1) &lt; <span class="number">0</span>) &amp;&amp; ((A2 * x1 + B2 * y1 + C2) * (A2 * x2 + B2 * y2 + C2) &lt; <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">inag</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> x1 = x[(i + <span class="number">1</span>) % m] - x[i];</span><br><span class="line">	<span class="keyword">double</span> y1 = y[(i + <span class="number">1</span>) % m] - y[i];</span><br><span class="line">	<span class="keyword">double</span> x2 = x[(i + m - <span class="number">1</span>) % m] - x[i];</span><br><span class="line">	<span class="keyword">double</span> y2 = y[(i + m - <span class="number">1</span>) % m] - y[i];</span><br><span class="line">	<span class="keyword">double</span> x0 = x[j] - x[i];</span><br><span class="line">	<span class="keyword">double</span> y0 = y[j] - y[i];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">double</span> ret1 = (x1 * y2 - x2 * y1);</span><br><span class="line">	<span class="keyword">double</span> ret2 = (x1 * y0 - x0 * y1);</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">fabs</span>(ret2) &lt; eta)&#123;</span><br><span class="line">		<span class="keyword">if</span>((x1 * x0 &gt; <span class="number">0</span>) &amp;&amp; (y1 * y0 &gt; <span class="number">0</span>))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">double</span> flag1 = ret1 * ret2;</span><br><span class="line">	</span><br><span class="line">	ret1 = (x2 * y1 - x1 * y2);</span><br><span class="line">	ret2 = (x2 * y0 - x0 * y2);</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">fabs</span>(ret2) &lt; eta)&#123;</span><br><span class="line">		<span class="keyword">if</span>((x2 * x0 &gt; <span class="number">0</span>) &amp;&amp; (y2 * y0 &gt; <span class="number">0</span>))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">double</span> flag2 = ret1 * ret2;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(the[i] &lt; pi)&#123;</span><br><span class="line">		<span class="keyword">if</span>(flag1 * flag2 &lt; <span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">double</span> the1 = absag(i, (i + <span class="number">1</span>) % m, j);</span><br><span class="line">		<span class="keyword">double</span> the2 = absag(i, (i + m - <span class="number">1</span>) % m, j);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">fabs</span>(the1 + the2 - the[i]) &gt; eta)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(flag1 * flag2 &gt; <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">double</span> the1 = absag(i, (i + <span class="number">1</span>) % m, j);</span><br><span class="line">			<span class="keyword">double</span> the2 = absag(i, (i + m - <span class="number">1</span>) % m, j);</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">fabs</span>(the1 + the2 - the[i]) &gt; eta)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	x0 = -x0;</span><br><span class="line">	y0 = -y0;</span><br><span class="line">	x1 = x[(j + <span class="number">1</span>) % m] - x[j];</span><br><span class="line">	y1 = y[(j + <span class="number">1</span>) % m] - y[j];</span><br><span class="line">	x2 = x[(j + m - <span class="number">1</span>) % m] - x[j];</span><br><span class="line">	y2 = y[(j + m - <span class="number">1</span>) % m] - y[j];</span><br><span class="line">	</span><br><span class="line">	ret1 = (x1 * y2 - x2 * y1);</span><br><span class="line">	ret2 = (x1 * y0 - x0 * y1);</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">fabs</span>(ret2) &lt; eta)&#123;</span><br><span class="line">		<span class="keyword">if</span>((x1 * x0 &gt; <span class="number">0</span>) &amp;&amp; (y1 * y0 &gt; <span class="number">0</span>))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	flag1 = ret1 * ret2;</span><br><span class="line">	</span><br><span class="line">	ret1 = (x2 * y1 - x1 * y2);</span><br><span class="line">	ret2 = (x2 * y0 - x0 * y2);</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">fabs</span>(ret2) &lt; eta)&#123;</span><br><span class="line">		<span class="keyword">if</span>((x2 * x0 &gt; <span class="number">0</span>) &amp;&amp; (y2 * y0 &gt; <span class="number">0</span>))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	flag2 = ret1 * ret2;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(the[j] &lt; pi)&#123;</span><br><span class="line">		<span class="keyword">if</span>(flag1 * flag2 &lt; <span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">double</span> the1 = absag(j, (j + <span class="number">1</span>) % m, i);</span><br><span class="line">		<span class="keyword">double</span> the2 = absag(j, (j + m - <span class="number">1</span>) % m, i);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">fabs</span>(the1 + the2 - the[j]) &gt; eta)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(flag1 * flag2 &gt; <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">double</span> the1 = absag(j, (j + <span class="number">1</span>) % m, i);</span><br><span class="line">			<span class="keyword">double</span> the2 = absag(j, (j + m - <span class="number">1</span>) % m, i);</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">fabs</span>(the1 + the2 - the[j]) &gt; eta)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initv</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">		the[i] = ag(i, (i + <span class="number">1</span>) % m, (i + m - <span class="number">1</span>) % m);</span><br><span class="line">		sum += the[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(sum &gt; pi * m)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">			the[i] = <span class="number">2</span> * pi - the[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">memset</span>(v, <span class="number">0</span>, <span class="keyword">sizeof</span>(v));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; m; ++j)&#123;</span><br><span class="line">			<span class="keyword">if</span>(j == (i + <span class="number">1</span>) % m)v[i][j] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(i == (j + <span class="number">1</span>) % m)v[i][j] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">int</span> flag = inag(i, j);</span><br><span class="line">				<span class="keyword">if</span>(flag)&#123;</span><br><span class="line">					<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; m; ++k)&#123;</span><br><span class="line">						<span class="keyword">int</span> v = k;</span><br><span class="line">						<span class="keyword">int</span> w = (k + <span class="number">1</span>) % m;</span><br><span class="line">						<span class="keyword">if</span>(v == i)<span class="keyword">continue</span>;</span><br><span class="line">						<span class="keyword">else</span> <span class="keyword">if</span>(v == j)<span class="keyword">continue</span>;</span><br><span class="line">						<span class="keyword">else</span> <span class="keyword">if</span>(w == i)<span class="keyword">continue</span>;</span><br><span class="line">						<span class="keyword">else</span> <span class="keyword">if</span>(w == j)<span class="keyword">continue</span>;</span><br><span class="line">						<span class="keyword">else</span>&#123;</span><br><span class="line">							<span class="keyword">if</span>(cross(x[i], y[i], x[j], y[j], x[v], y[v], x[w], y[w]))&#123;</span><br><span class="line">								flag = <span class="number">0</span>;</span><br><span class="line">								<span class="keyword">break</span>;</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;	</span><br><span class="line">				&#125;</span><br><span class="line">				v[i][j] = flag;</span><br><span class="line">			&#125;</span><br><span class="line">			v[j][i] = v[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> v[i][j] &amp;&amp; v[i][k] &amp;&amp; v[j][k];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(d[i][j] != <span class="number">0</span>)<span class="keyword">return</span> d[i][j];</span><br><span class="line">	<span class="keyword">if</span>(i + <span class="number">2</span> == j)&#123;</span><br><span class="line">		<span class="keyword">return</span> d[i][j] = s(i, i + <span class="number">1</span>, j);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		d[i][j] = inf;</span><br><span class="line">		<span class="keyword">if</span>(check(i, j, i + <span class="number">1</span>))&#123;</span><br><span class="line">			d[i][j] = min(d[i][j], max(s(i, j, i + <span class="number">1</span>), cal(i + <span class="number">1</span>, j)));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(check(i, j, j - <span class="number">1</span>))&#123;</span><br><span class="line">			d[i][j] = min(d[i][j], max(s(i, j, j - <span class="number">1</span>), cal(i, j - <span class="number">1</span>)));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = i + <span class="number">2</span>; k &lt; j - <span class="number">1</span>; ++k)&#123;</span><br><span class="line">			<span class="keyword">if</span>(check(i, j, k))&#123;</span><br><span class="line">				d[i][j] = min(d[i][j], max(max(cal(i, k), cal(k, j)), s(i, j, k)));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> d[i][j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">while</span>(n--)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);</span><br><span class="line">		<span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%lf %lf"</span>, &amp;x[i], &amp;y[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		initv();</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%.1lf\n"</span>, cal(<span class="number">0</span>, m - <span class="number">1</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>这道题我写了两个下午两个晚上，在这里简单地记录一下当时的思路和心路过程。</p>
+<p>刚刚拿到这道题的时候，由于刚刚做完切木棍（UVa10003），马上就意识到这道题和那道题的思路一样，都是设<code>dp[i][j]</code>为从i点到j点切割的最小值，然后从中任意切出一个三角形。实际上这个思路大致是对的，只不过有一个问题，就是这道题的状态是多边形，是一个环形，不像木棍题一样有两端，例如有六个点的多边形（点的编号为0~5），我切掉顶点是1,2,4的三角形，剩下的四边形部分顶点依次为0,1,4,5，是没办法用上面的数组表示的。</p>
+<p>为了修补这个思路，我草草地画了几个图，发现在做三角剖分的时候，似乎总能从一个角开始砍起，然后再砍掉其相邻的角，一个一个地砍。我称其为锯角法，因为就像小时候常常遇到的脑筋急转弯“锯掉一个桌子的角还有几个角”。</p>
+<p>锯角法的具体做法是：首先锯掉任意一个角，这样，破坏了原来多边形的“环”。比如六边形，一开始对于任意的角i，总有（i + 1）% m是它的后继，即相邻的角，等我锯掉一个之后，比如锯掉2，那么1的后继就变成了3，为此，我记这种状态为<code>dp[3][1]</code>，没有前驱的角放在最前面，没有后继的放在最后面。再继续转移时，就不能任意锯掉一个角了。</p>
+<p>这样，对于状态<code>dp[i][j]</code>我要么砍掉i角，要么砍掉j角，就避免了产生顶点不连续的多边形导致状态无法表示的问题。产生的状态要么是<code>dp[(i+1)%m][j]</code>要么是<code>dp[i][(j-1+m)%m]</code>，这样，保证了断开的环永远只有一处，不会出现状态无法表示的情况。</p>
+<p>结果样例都没过。</p>
+<p>仔细分析了一下发现，如果多边形有超过180度的内角，便不能锯掉这个角了，这里我并没有往深入想，而是觉得简单——把多边形的内角计算出来，同时计算<code>dp[i][j]</code>的时候，要注意这时i和j两个角的度数已经发生变化了，所以每次计算都维护一下就好了。</p>
+<p>为了实现这个想法，我差不多花了一下午的时间。计算多边形的内角对我来说实在不算容易，最主要的问题就是“何为内角”，如果用余弦公式去算的话，只能计算出小于180度的角，怎么区分谁在内部谁在外部呢？最终我用的方法是这样的，把每个边当成向量，然后算出这个边和坐标x轴的夹角正弦余弦，用差角公式算出来两个向量的夹角。再检查最终内角和是不是符合多边形内角和规则，如果不符合则每个角取2π-计算值。</p>
+<p>这样倒是过了样例，问题是有时候小于180度的角也不能去掉，比如下图的i角。</p>
+<p><img src="/images/最优三角剖分/1.png" alt></p>
+<p>于是又陷入僵局，遂又加上了判断线段不能相交的条件，可又遇到了下图</p>
+<p><img src="/images/最优三角剖分/2.png" alt></p>
+<p>于是又改成了最终版本的判断对角线合不合法。结果发现，一个一个地锯掉角是不行的，比如这个六边形就不能按照锯掉一个角，再锯掉相邻角的办法遍历所有解。</p>
+<p><img src="/images/最优三角剖分/3.png" alt></p>
+<p>后来不得已，重新思考了下，才改成了最终递推的方法。</p>
+<p>最近看艺术鉴赏课程，提到米开朗琪罗画西斯廷天顶画的故事，其中有一个片段很有意思。说米开朗琪罗对自己的作品十分认真，他常常为了构思人物的形象，整整一天，一动不动地站在架子上，一笔也不画。这种情形被居心叵测的人看到之后告诉了教皇，教皇质问米开朗琪罗为什么偷懒，这位大师回答说——一个画家最认真工作的时候就是不画的时候。</p>
+<p>为什么想起这个故事呢，因为在写这道最优三角剖分的时候，我草率了。往往是刚刚有一个大致的思路就开始敲打，结果是可想而知的，要么写到一半就发现了错误，自相矛盾；要么写到最后提交判错，再苦苦debug，然后推翻了之前的一切重来。这道题得出的经验教训，如果用米开朗琪罗的话说，就是——一个程序员最认真工作的时候就是他什么都不敲的时候。对于程序设计者而言，没有明确自己要做什么，要怎么做，而只是模模糊糊，隐隐约约觉得应该怎么做的时候，千万不要写程序，否则就是自讨苦头。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/09/UVa1626-括号序列/" rel="next" title="UVa1626_括号序列">
+                <i class="fa fa-chevron-left"></i> UVa1626_括号序列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/15/几种经典的树上动态规划问题/" rel="prev" title="几种经典的树上动态规划问题">
+                几种经典的树上动态规划问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.1.</span> <span class="nav-text">备注</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

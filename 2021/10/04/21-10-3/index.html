@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日记,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今日天气：晴 历经苦难而不厌，此乃修罗之道！ ——海贼王  今日python练习 Leetcode166.分数到小数 题目描述 给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。 如果小数部分为循环小数，则将循环的部分括在括号内。 如果存在多个答案，只需返回 任意一个 。 对于所有给定的输入，保证 答案字符串的长度小于 10^4 。 思">
+<meta name="keywords" content="日记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21&#x2F;10&#x2F;3">
+<meta property="og:url" content="http://yoursite.com/2021/10/04/21-10-3/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="今日天气：晴 历经苦难而不厌，此乃修罗之道！ ——海贼王  今日python练习 Leetcode166.分数到小数 题目描述 给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。 如果小数部分为循环小数，则将循环的部分括在括号内。 如果存在多个答案，只需返回 任意一个 。 对于所有给定的输入，保证 答案字符串的长度小于 10^4 。 思">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-10-04T04:59:55.990Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="21&#x2F;10&#x2F;3">
+<meta name="twitter:description" content="今日天气：晴 历经苦难而不厌，此乃修罗之道！ ——海贼王  今日python练习 Leetcode166.分数到小数 题目描述 给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。 如果小数部分为循环小数，则将循环的部分括在括号内。 如果存在多个答案，只需返回 任意一个 。 对于所有给定的输入，保证 答案字符串的长度小于 10^4 。 思">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/10/04/21-10-3/">
+
+
+
+
+
+  <title>21/10/3 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/21-10-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">21/10/3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T12:29:54+08:00">
+                2021-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/日常/" itemprop="url" rel="index">
+                    <span itemprop="name">日常</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>今日天气：晴</em></p>
+<p><em>历经苦难而不厌，此乃修罗之道！</em></p>
+<p align="right"><em>——海贼王</em></p>
+
+<p><strong>今日python练习</strong></p>
+<p><em>Leetcode166.分数到小数</em></p>
+<p><strong><em>题目描述</em></strong></p>
+<p>给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。</p>
+<p>如果小数部分为循环小数，则将循环的部分括在括号内。</p>
+<p>如果存在多个答案，只需返回 任意一个 。</p>
+<p>对于所有给定的输入，保证 答案字符串的长度小于 10^4 。</p>
+<p><strong><em>思路</em></strong></p>
+<p>循环小数分为两种，纯循环和混循环，纯循环如1/3=0.33333……，这里小数部分只要循环节3，而混循环如1/6=0.166666……，这里6是循环节，而小数部分不仅仅是由循环节6组成，还有一个1</p>
+<p>我们再引入形如9，99，999，9999，99999这样只有9组成的数，这样的数做分母的真分数化为小数有一个特殊性质——它们都是纯循环小数，循环节长度等于9的个数，并且循环节就是带前导零的分子本身</p>
+<p>如1/9=0.11111……，1/99=0.0101……，56/999=0.056056……</p>
+<p>因此，所有的纯循环小数都可以化为这种特定形式的分数，以1/7=0.142857……为例，循环节为142857，所以有：</p>
+<p>1/7 = 142857/999999 = 0.142857……</p>
+<p>那么，假设我们要计算1/7，那么其实我们只需要找到一个全是9组成的数x，令x能被7整除，自然就可以把1/7化为上面这种形式的分数，然后直接得到循环节</p>
+<p>那么混循环怎么办，我们再引出一个结论，所有混循环小数的分母上一定带有因子2或因子5，如1/6=0.1666……，1/15=0.06666……，这是为什么呢？因为2和5是10的因数，所以十进制下的任何整数都可以被其因数仅仅含有2，5的除尽。比如任何整数除以10，20，50，25，8，125，都肯定是能除得尽的。</p>
+<p>这造成了混循环，为什么这么说呢，例如1/14，实际上相当于1先除以2，再除以7，也就变成了0.5除以7，这时循环节和5除以7的循环节是一模一样的，只不过因为先除以2的存在，小数点后移了一位，造成小数部分的第一位不是循环节的一部分，产生了混循环</p>
+<p>经过上面的分析，如何处理混循环的思路也很明确了，先做一个预处理：即先把分母中的因子2，5去掉，如果分子也含2，5，先约分，如果不含，分子分母同时除以2或5，但这样做会在预处理时把分子变成小数，为了避免这样，我们可以换种方式，用一个变量记录混循环的位数，我们知道，每当分子分母同时除以10，相当于小数点后移一位，混循环位数加1，我们利用混循环位数加1的操作代替分子除以10，来避免预处理时把分子变成小数，具体做法是先约分2和5，之后，如果分母中有多余的一对2和5，则分母除以10，记录混循环位数加一，不再对分子进行处理，同理，如果分母只有多余的2，我们就除掉它，并给分子乘5，再记录小数点后混循环位数加1，若只有多余的5，我们就除掉它，并给分子乘2，混循环位数加1</p>
+<p>剔除2和5之后，再按照处理纯循环的方式处理</p>
+<p>最后，还需要针对结果为负数以及结果是0的情况进行一下特殊判断</p>
+<p><strong><em>解决</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def fractionToDecimal(self, numerator: int, denominator: int) -&gt; str:</span><br><span class="line">        ret = &apos;&apos;</span><br><span class="line">        if numerator == 0:</span><br><span class="line">            return &apos;0&apos;</span><br><span class="line">        elif numerator &lt; 0 and denominator &lt; 0:</span><br><span class="line">            denominator = -denominator</span><br><span class="line">            numerator = -numerator</span><br><span class="line">        elif numerator &lt; 0:</span><br><span class="line">            ret += &apos;-&apos;</span><br><span class="line">            numerator = -numerator</span><br><span class="line">        elif denominator &lt; 0:</span><br><span class="line">            ret += &apos;-&apos;</span><br><span class="line">            denominator = -denominator</span><br><span class="line">        ret += str(numerator // denominator)</span><br><span class="line">        numerator %= denominator</span><br><span class="line">        if numerator != 0:</span><br><span class="line">            ret += &quot;.&quot;</span><br><span class="line">            temp_denominator = 0</span><br><span class="line">            while denominator % 2 == 0:</span><br><span class="line">                denominator //= 2</span><br><span class="line">                if numerator % 2 == 0:</span><br><span class="line">                    numerator //= 2</span><br><span class="line">                else:</span><br><span class="line">                    if denominator % 5 == 0:</span><br><span class="line">                        denominator //= 5</span><br><span class="line">                    else:</span><br><span class="line">                        numerator *= 5</span><br><span class="line">                    temp_denominator += 1</span><br><span class="line">            while denominator % 5 == 0:</span><br><span class="line">                if numerator % 5 == 0:</span><br><span class="line">                    numerator //= 5</span><br><span class="line">                else:</span><br><span class="line">                    denominator //= 5</span><br><span class="line">                    temp_denominator += 1</span><br><span class="line">                    numerator *= 2</span><br><span class="line">            temp_denominator2 = 1</span><br><span class="line">            if denominator == 1:</span><br><span class="line">                temp_denominator2 = 0</span><br><span class="line">            else:</span><br><span class="line">                while ((10 ** temp_denominator2) - 1) % denominator != 0:</span><br><span class="line">                    temp_denominator2 += 1</span><br><span class="line">            print(temp_denominator)</span><br><span class="line">            print(temp_denominator2)</span><br><span class="line">            print(numerator)</span><br><span class="line">            if temp_denominator2 == 0:</span><br><span class="line">                ret += (&apos;0&apos; * (temp_denominator - len(str(numerator))))</span><br><span class="line">                ret += str(numerator)</span><br><span class="line">            else:</span><br><span class="line">                numerator *= (((10 ** temp_denominator2) - 1) // denominator)</span><br><span class="line">                if temp_denominator != 0:</span><br><span class="line">                    part1 = numerator // ((10 ** temp_denominator2) - 1) </span><br><span class="line">                    ret += (&apos;0&apos; * (temp_denominator - len(str(part1))))</span><br><span class="line">                    ret += str(part1)</span><br><span class="line">                ret += &apos;(&apos;</span><br><span class="line">                part2 = numerator % ((10 ** temp_denominator2) - 1)</span><br><span class="line">                ret += (&apos;0&apos; * (temp_denominator2 - len(str(part2))))</span><br><span class="line">                ret += str(part2)</span><br><span class="line">                ret += &apos;)&apos;</span><br><span class="line">        return ret</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/日记/" rel="tag"># 日记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/04/21-10-2/" rel="next" title="21/10/2">
+                <i class="fa fa-chevron-left"></i> 21/10/2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/04/21-10-4/" rel="prev" title="21/10/4">
+                21/10/4 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">258</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
