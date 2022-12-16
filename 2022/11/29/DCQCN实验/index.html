@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原理DCQCN全称为Data Center Quantized Congestion Notification。DCQCN主要是为了满足高带宽（40Gbps+）、低时延（10us- per hop）的数据中心网络需求 RDMARemote Direct Memory Access，远程直接数据存取，它消除了外部存储器复制和上下文切换的开销，因而能解放内存带宽和CPU周期用于改进应用系统性能 对标T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DCQCN实验">
+<meta property="og:url" content="http://yoursite.com/2022/11/29/DCQCN实验/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="原理DCQCN全称为Data Center Quantized Congestion Notification。DCQCN主要是为了满足高带宽（40Gbps+）、低时延（10us- per hop）的数据中心网络需求 RDMARemote Direct Memory Access，远程直接数据存取，它消除了外部存储器复制和上下文切换的开销，因而能解放内存带宽和CPU周期用于改进应用系统性能 对标T">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/DCQCN实验/0.png">
+<meta property="og:image" content="http://yoursite.com/images/DCQCN实验/1.png">
+<meta property="og:image" content="http://yoursite.com/images/DCQCN实验/2.png">
+<meta property="og:image" content="http://yoursite.com/images/DCQCN实验/3.png">
+<meta property="og:updated_time" content="2022-12-04T13:42:18.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DCQCN实验">
+<meta name="twitter:description" content="原理DCQCN全称为Data Center Quantized Congestion Notification。DCQCN主要是为了满足高带宽（40Gbps+）、低时延（10us- per hop）的数据中心网络需求 RDMARemote Direct Memory Access，远程直接数据存取，它消除了外部存储器复制和上下文切换的开销，因而能解放内存带宽和CPU周期用于改进应用系统性能 对标T">
+<meta name="twitter:image" content="http://yoursite.com/images/DCQCN实验/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/11/29/DCQCN实验/">
+
+
+
+
+
+  <title>DCQCN实验 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/29/DCQCN实验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DCQCN实验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-29T15:15:21+08:00">
+                2022-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>DCQCN全称为Data Center Quantized Congestion Notification。DCQCN主要是为了满足高带宽（40Gbps+）、低时延（10us- per hop）的数据中心网络需求</p>
+<h2 id="RDMA"><a href="#RDMA" class="headerlink" title="RDMA"></a>RDMA</h2><p>Remote Direct Memory Access，远程直接数据存取，它消除了外部存储器复制和上下文切换的开销，因而能解放内存带宽和CPU周期用于改进应用系统性能</p>
+<p>对标TCP/IP，它更适用于数据中心网络的低CPU占用率需求</p>
+<p>当前 RDMA 在以太网上的传输协议是 RoCEv2，RoCEv2 是基于无连接协议的 UDP 协议。其传输是不可靠的，一旦出现丢包会导致 RDMA 的传输效率降低，这是由 RDMA 的 Go-back-N 重传机制决定的。RDMA 接收方网卡发现丢包时，会丢弃后续接收到的数据包，发送方需要重发之后的所有数据包，这导致性能大幅下降。所以要想 RDMA 发挥出其性能，需要为其搭建一套不丢包的无损网络环境</p>
+<p>RDMA将网络协议栈实现在网卡（NIC）上，通过Kernel Bypass的方式降低CPU开销，直接与对端内存进行交互。关键问题是如何为RDMA网络营造一个无损环境，如何在网卡上设计和实现拥塞控制协议避免丢包</p>
+<p>RoCEv2协议是一种网络层协议，可以实现路由功能，允许不同广播域下的主机通过三层直接访问。RoCEv2是基于UDP协议封装的</p>
+<h2 id="PFC"><a href="#PFC" class="headerlink" title="PFC"></a>PFC</h2><p>Priority-Based Flow Control，优先级流控制，当出现拥塞时传统流控但会阻止一条链路上的所有流量。PFC允许在一条以太网链路上创建8个虚拟通道，并为每条虚拟通道指定一个IEEE 802.1P优先等级（cos），允许单独暂停和重启其中任意一条虚拟通道，同时允许其它虚拟通道的流量无中断通过</p>
+<p>问题：PFC拥塞控制机制不能区分流，粒度太粗</p>
+<p>这里不是很明白所谓的流和其虚拟通道优先级什么的有什么关系</p>
+<h2 id="DCQCN"><a href="#DCQCN" class="headerlink" title="DCQCN"></a>DCQCN</h2><p>DCQCN是基于速率和基于反馈的拥塞控制。<br>DCQCN的设计包括3个部分：</p>
+<pre><code>拥塞点，交换机；
+通知点，流量接收端和信号发送端；
+反应点，流量发送端。
+</code></pre><p>发送方（RP）以最高速开始发送，沿途过程中如果有拥塞，会被标记ECN显示拥塞，当这个被标记的报文转发到接收方（NP）的时候，接收方（NP）会回应一个CNP报文，通知发送方（RP）。收到CNP报文的发送方（RP），就会开始降速。当发送方没有收到CNP报文时，就开始又提速了</p>
+<h3 id="CP"><a href="#CP" class="headerlink" title="CP"></a>CP</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>拥塞点Congestion Point，当某处出现拥塞，这个流的队列会越排越长</p>
+<p>当这个流的长度超过了ECN阈值，CP会将标记打在ECN位上，随着数据往下游走</p>
+<p>当流长度继续增加，超过了PFC阈值，PFC会正常向上游发消息，阻止上游发数据</p>
+<h4 id="详细描述"><a href="#详细描述" class="headerlink" title="详细描述"></a>详细描述</h4><p>如果队列长度超过阈值，会通过一个函数(该函数输入队列长度)计算出概率，以此概率给数据包附上ECN标记</p>
+<p>当长度超过了某个上限值，该函数的计算结果是1，意味着此时所有的包都会被打上标记</p>
+<p>标记会直接打在要发出的数据包上</p>
+<p>函数是线性增长的：</p>
+<p><img src="/images/DCQCN实验/0.png" alt></p>
+<h3 id="NP"><a href="#NP" class="headerlink" title="NP"></a>NP</h3><h4 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h4><p>通知点Notification Point，当拥塞点（流的接收端）接收数据包时，它检查其ECN位。如果一个接收端接收到带有ECN标记的分组，则它向流的发送端发送拥塞通知分组a congestion notification packet （CNP），并且在下一个固定的时间段内，例如50微秒，它将不再针对相同的流发送CNP</p>
+<p>CNP是拥塞信号，通知发送者控制流速</p>
+<h4 id="详细描述-1"><a href="#详细描述-1" class="headerlink" title="详细描述"></a>详细描述</h4><p>ECN标记的数据包到达NP表示网络拥塞.。NP将此信息传回发送方。RoCEv2标准为此定义了显式拥塞通知包(CNP)。NP算法指定如何以及何时生成CNP</p>
+<p>对于每个流，该算法遵循下图中的状态机。如果一个数据流被标记的数据包到达接收方，并且在最近N微秒内没有为该流发送CNP，则立即发送一个CNP。然后，如果在该时间窗口内到达的任何数据包被标记，则网卡每N微秒为该流生成至多一个CNP数据包。我们在部署中使用N = 50μs。处理标记数据包并生成CNP代价高昂，因此我们将每个标记数据包的活动最小化</p>
+<p><img src="/images/DCQCN实验/1.png" alt></p>
+<h3 id="RP"><a href="#RP" class="headerlink" title="RP"></a>RP</h3><h4 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h4><p>反应点Reaction Point，当流量发送端接收到CNP时，它会按比例减少流量，该切割比的计算类似于DCTCP。当接收到CNP时，切割比率增加。 并且当流速增加时，切割比降低</p>
+<p>定时器和字节计数器用于发送端以进行速率恢复，当发送方未在固定时间内收到CNP时，它会根据其先前的状态增加流量</p>
+<p>加速有三种状态，如QCN，快速恢复，加性增加和超增加</p>
+<p>在快速恢复中，发送方将流速增加到上次切割前的速率。快速恢复将持续到，恢复到目标速率</p>
+<p>在加性增长中，流速相加地增加，也就是说，使用固定的增加步骤。</p>
+<p>在超级增长中，增加步骤随着增加的时间增长而增长</p>
+<h4 id="详细描述-2"><a href="#详细描述-2" class="headerlink" title="详细描述"></a>详细描述</h4><p>DCQCN速率控制算法通过下面的图表来描述。简而言之，发送方基于内部定时器和发送字节计数器，持续的增加发送速率，一旦收到CNP包，就会对指定发送方进行降速。除此之外，它还维持一个叫做α的参数，它反映了网络中的拥塞度，用于降速计算</p>
+<p><img src="/images/DCQCN实验/2.png" alt></p>
+<p>该算法通过三个并行的流程来定义：</p>
+<p>α更新(测量拥塞度)</p>
+<p>降速</p>
+<p>提速</p>
+<h5 id="α更新"><a href="#α更新" class="headerlink" title="α更新"></a>α更新</h5><p>时间被切分为可配置的时间间隙。每个时间间隙指示是否有CNP在该时间间隙内到达。α参数是一个不断变化的平均值，它是CNP到达的时间间隙的比例(如果同一个时间间隙内不止一个CNP到达，与只有一个CNP到达效果一样)。每个时间间隙结束时，α通过后面的式子更新：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_α = g * old_α + (1 - g) * CNP_arrived</span><br></pre></td></tr></table></figure>
+<p>这里g是一个介于0和1的常量参数，CNP_arrived是一个比特位的域，用来指示在上个时间间隙内是否有CNP到达</p>
+<h5 id="降速"><a href="#降速" class="headerlink" title="降速"></a>降速</h5><p>时间被切分为可配置的时间间隙(不同于α更新的间隙)。如果CNP在上个时间间隙到达(在同一个时间间隙内不止一个CNP到达时，后面的CNP不会产生指示)，QP的速率通过后面的式子来减少：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_rate = old_rate * (1 - α / 2)</span><br></pre></td></tr></table></figure>
+<p>同时将用于提速的几个参数重置</p>
+<h5 id="提速"><a href="#提速" class="headerlink" title="提速"></a>提速</h5><p>提速逻辑和QCN定义的非常相似。该逻辑划分为三个顺序的阶段：快速恢复，积极增加(保持探测)，超积极增加(保持探测)</p>
+<p>从一个阶段移向下一个阶段是通过在该阶段中统计到的提速事件数量参数定义的。在一个阶段中提速事件的数量超过预定义的门限值后，逻辑移向下一个阶段。降速事件会重置所有和提速相关的计数器，并且返回到快速恢复阶段。除此之外，一旦提速后，在降速之前，当前的速度会被保存在一个叫target_rate的参数中</p>
+<p>自从上次提速后，在经过预定义的时间间隙或者预定义的发送字节数过程后，如果没有出现降速事件，就会出现提速事件</p>
+<p>处于快速恢复阶段时，面对每个提速事件，速度按照到target_rate的距离的一半来增加(也就是对数接近，current_rate = (current_rate + target_rate) / 2)。这允许在快速恢复阶段的开始能快速恢复到拥塞出现的速度，然后在速度接近拥塞发生的速度时，更谨慎的增加速度</p>
+<p>在后面两个阶段中，一旦出现提速事件，速度都是按照一个常量值来增加。这可以在带宽释放的时候获得吞吐量</p>
+<p><img src="/images/DCQCN实验/3.png" alt></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="DCQCN运转流程"><a href="#DCQCN运转流程" class="headerlink" title="DCQCN运转流程"></a>DCQCN运转流程</h4><p>DCQCN的大部分功能都是从网卡中实现的，其工作流程大致为：当某个流开始发送流量，会直接以最大速率开始发送并逐渐增加，随着流量的增加，链路上的某点达到ECN阈值，该点为CP点，会将接下来的报文ECN位置1。通知点NP接到该报文，会向上游发送CNP，上游接到后，开始减少流量，按一定比例计算</p>
+<p>与此同时，在拥塞点发送ECN=1的报文之后，上游接到CNP减少流量之前会有一段时间的时间差，此时拥塞点的排队长度会继续增加，如果增加到一定程度就会超过PFC阈值，此时PFC会向上游发消息，直接阻止上游发送报文</p>
+<h4 id="DCQCN正确操作"><a href="#DCQCN正确操作" class="headerlink" title="DCQCN正确操作"></a>DCQCN正确操作</h4><p>正确操作DCQCN的关键是要平衡两个冲突：</p>
+<p>PFC不能触发的太早，不然减少流量的通知无法及时反馈</p>
+<p>PFC不能触发的太晚，不然开始丢包会降低效率</p>
+<p>这需要合理设置缓冲区大小，PFC和ECN的阈值</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/11/20/北航计网实验复习/" rel="next" title="北航计网实验复习">
+                <i class="fa fa-chevron-left"></i> 北航计网实验复习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/12/01/Windows定时提醒/" rel="prev" title="Windows定时提醒">
+                Windows定时提醒 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDMA"><span class="nav-number">1.1.</span> <span class="nav-text">RDMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PFC"><span class="nav-number">1.2.</span> <span class="nav-text">PFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCQCN"><span class="nav-number">1.3.</span> <span class="nav-text">DCQCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CP"><span class="nav-number">1.3.1.</span> <span class="nav-text">CP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详细描述"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">详细描述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NP"><span class="nav-number">1.3.2.</span> <span class="nav-text">NP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详细描述-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">详细描述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RP"><span class="nav-number">1.3.3.</span> <span class="nav-text">RP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-2"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#详细描述-2"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">详细描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#α更新"><span class="nav-number">1.3.3.2.1.</span> <span class="nav-text">α更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#降速"><span class="nav-number">1.3.3.2.2.</span> <span class="nav-text">降速</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提速"><span class="nav-number">1.3.3.2.3.</span> <span class="nav-text">提速</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.4.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DCQCN运转流程"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">DCQCN运转流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCQCN正确操作"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">DCQCN正确操作</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
