@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/05/Java之路——8-Swing/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/22/三分求单值函数极值/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/05/Java之路——8-Swing/" itemprop="url">Java之路——8 Swing</a></h1>
+                <a class="post-title-link" href="/2021/03/22/三分求单值函数极值/" itemprop="url">三分求单值函数极值</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-05T16:20:53+08:00">
-                2021-10-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-22T23:18:06+08:00">
+                2021-03-22
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -342,14 +342,16 @@
       
         
           
-          AWTAWT指的是“抽象窗口工具集”，当我们使用AWT的组件时，JVM会调用相应操作系统的API去实现。
-比如同样的一段程序，我们放在Windows上去运行，运行出的风格就是Windows的风格，放在Linux下，就是Linux的风格
-继承体系：
-Component代表能够显现出来，并与用户交互的对
+          观察函数图像：f(x) = xlnx
+
+假设我们现在要取该函数的极小值点，且知道极小值点在(l, r)之间，我们取两个三分点lmid和rmid，f(lmid)和f(rmid)的关系，有几种情况
+1 f(rmid) &gt; f(lmid)如图：
+
+此时极值点可以有两种情况，要么在lmid和rmid之
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/05/Java之路——8-Swing/#more" rel="contents">
+            <a class="btn" href="/2021/03/22/三分求单值函数极值/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -400,7 +402,7 @@ Component代表能够显现出来，并与用户交互的对
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/05/Java之路——7-异常/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/22/第k大数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -419,7 +421,7 @@ Component代表能够显现出来，并与用户交互的对
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/05/Java之路——7-异常/" itemprop="url">Java之路——7 异常</a></h1>
+                <a class="post-title-link" href="/2021/03/22/第k大数/" itemprop="url">第k大数</a></h1>
         
 
         <div class="post-meta">
@@ -431,8 +433,8 @@ Component代表能够显现出来，并与用户交互的对
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-05T15:27:12+08:00">
-                2021-10-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-22T22:20:21+08:00">
+                2021-03-22
               </time>
             
 
@@ -454,8 +456,8 @@ Component代表能够显现出来，并与用户交互的对
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -493,11 +495,14 @@ Component代表能够显现出来，并与用户交互的对
       
         
           
-          异常处理语法1234567891011try&#123;	//程序代码块&#125;catch(Exceptiontype1 e)&#123;	//处理异常1&#125;catch(Exceptiontype2 e)&#123;	//处理异常2&#125;...finally&#123;	//程序块
+          给出一个数组，找出其中第k大的数。
+一个常见的思路是先排序，然后输出第k大的数字，时间复杂度为O(nlogn)
+蓝书上给了另一种思路，即类似于快速排序的思想：
+先选取一个数a作为”基准“，和其他数字比较，比a大的放左边，比a小的放右边，并统计个数，假设最终左边个数为cnt，如果cnt&gt;=k，那
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/05/Java之路——7-异常/#more" rel="contents">
+            <a class="btn" href="/2021/03/22/第k大数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -548,7 +553,7 @@ Component代表能够显现出来，并与用户交互的对
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/05/MC：村民繁殖机/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/POJ3784-Running-Median/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -567,7 +572,7 @@ Component代表能够显现出来，并与用户交互的对
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/05/MC：村民繁殖机/" itemprop="url">MC：村民繁殖机</a></h1>
+                <a class="post-title-link" href="/2021/03/21/POJ3784-Running-Median/" itemprop="url">POJ3784_Running Median</a></h1>
         
 
         <div class="post-meta">
@@ -579,8 +584,8 @@ Component代表能够显现出来，并与用户交互的对
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-05T01:18:20+08:00">
-                2021-10-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-21T11:42:25+08:00">
+                2021-03-21
               </time>
             
 
@@ -602,8 +607,8 @@ Component代表能够显现出来，并与用户交互的对
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/游戏/" itemprop="url" rel="index">
-                    <span itemprop="name">游戏</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -641,25 +646,15 @@ Component代表能够显现出来，并与用户交互的对
       
         
           
-          首先，搭三格高的支柱
-
-支柱上面搭6×6的平台
-
-平台三面围起来，不要让村民跑出来即可
-
-没被围起来的那面搭一格高，再放四个活板门，竖起来
-
-向外延伸三格宽
-
-打开四格宽的槽，也放上活板门，竖起来，这是为了让村民认为这里能走，从而漏下去
-
-在前面的平台上放床
-
-接下来，搭建下面的结构，先在漏下来的槽
+          题意输入一些测试用例，每组测试用例是奇数个数字。
+要求输出前1，3，5，…，n个数字的中位数。n是该组测试用例的数目。
+数据范围测试用例数小于1000，每组数据个数小于9999
+思路对每组数据输入后排序并离散化，使用双向循环链表存储它们，然后倒着遍历输入数组，两个两个地在链表中删除。
+设置中位数指针
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/05/MC：村民繁殖机/#more" rel="contents">
+            <a class="btn" href="/2021/03/21/POJ3784-Running-Median/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -710,7 +705,7 @@ Component代表能够显现出来，并与用户交互的对
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/Java之路——5-包装类和数字处理类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/CH0502-七夕/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -729,7 +724,7 @@ Component代表能够显现出来，并与用户交互的对
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/Java之路——5-包装类和数字处理类/" itemprop="url">Java之路——5 包装类和数字处理类</a></h1>
+                <a class="post-title-link" href="/2021/03/21/CH0502-七夕/" itemprop="url">CH0502_七夕祭</a></h1>
         
 
         <div class="post-meta">
@@ -741,8 +736,8 @@ Component代表能够显现出来，并与用户交互的对
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T19:30:13+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-21T10:51:54+08:00">
+                2021-03-21
               </time>
             
 
@@ -764,8 +759,8 @@ Component代表能够显现出来，并与用户交互的对
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -803,12 +798,13 @@ Component代表能够显现出来，并与用户交互的对
       
         
           
-          包装类Java是面向对象的语言，希望“一切皆对象”，但对于一些像int，char这样的基本类型，将其看作对象new在堆里会导致运行效率的不理想，因此Java还是使用了基本类型int，char，short，long，byte，float，double，这样可以使效率较高。
-但为了符合Java面向对象的
+          题意七夕祭上的摊位摆放成了一个n行m列的矩形，我们只关注其中的t个摊位，现在希望每一行和每一列中，我们感兴趣的摊位数目相等。
+可以通过交换相邻的两个摊位的位置的方法来达到我们的要求。相邻的定义是两个摊位在同一行且它们的列号相差1，或者处于同一列且行号相差1。
+由于七夕祭的主办者成功扭曲了空间，所以第
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/Java之路——5-包装类和数字处理类/#more" rel="contents">
+            <a class="btn" href="/2021/03/21/CH0502-七夕/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -859,7 +855,7 @@ Component代表能够显现出来，并与用户交互的对
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/Java之路——6-接口、继承与多态/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/关于博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -878,7 +874,7 @@ Component代表能够显现出来，并与用户交互的对
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/Java之路——6-接口、继承与多态/" itemprop="url">Java之路——6 接口、继承与多态</a></h1>
+                <a class="post-title-link" href="/2021/03/20/关于博客/" itemprop="url">关于博客</a></h1>
         
 
         <div class="post-meta">
@@ -890,8 +886,8 @@ Component代表能够显现出来，并与用户交互的对
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T19:19:20+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T01:19:15+08:00">
+                2021-03-20
               </time>
             
 
@@ -913,8 +909,8 @@ Component代表能够显现出来，并与用户交互的对
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/关于我/" itemprop="url" rel="index">
+                    <span itemprop="name">关于我</span>
                   </a>
                 </span>
 
@@ -952,14 +948,13 @@ Component代表能够显现出来，并与用户交互的对
       
         
           
-          类的继承使用关键字extends表示该类继承自某一个类
-123class B extends A&#123;	//some&#125;
-super使用super关键字调用父类的成员，子类可以调用父类所有非private的成员
-123456class B extends A&#123;	public 
+          关于搭建这个博客的动机，事到如今我已经记不清了。可能是想有一个地方放一些自己写的东西吧。尤其是代码和做题的心得。
+所以我记得大三上学期，有一次和某位技术大能聊天，突然谈到了想搭一个自己的博客。
+那段时间正好是我刚刚顶完了软件设计与分析课的大项目，过上了每天四天半休假，没事就去教学区写题的日子。记得那
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/Java之路——6-接口、继承与多态/#more" rel="contents">
+            <a class="btn" href="/2021/03/20/关于博客/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1010,7 +1005,7 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/Java之路——4-类和对象/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/CH0501-货仓选址/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -1029,7 +1024,7 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/Java之路——4-类和对象/" itemprop="url">Java之路——4 类和对象</a></h1>
+                <a class="post-title-link" href="/2021/03/20/CH0501-货仓选址/" itemprop="url">CH0501_货仓选址</a></h1>
         
 
         <div class="post-meta">
@@ -1041,8 +1036,8 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T15:39:43+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T00:37:25+08:00">
+                2021-03-20
               </time>
             
 
@@ -1064,8 +1059,8 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -1103,15 +1098,15 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
       
         
           
-          Java 包(package)为了更好地组织类，Java 提供了包机制，用于区别类名的命名空间。
-包的作用：
-1、把功能相似或相关的类或接口组织在同一个包中，方便类的查找和使用。
-
-2、如同文件夹一样，包也采用了树形目录的存储方式。同一个包中的类名字是不同的，不同的包中的类的名字是可以相同的，当同时
+          描述给定一维数轴上的n个地址，每一个地址上都有一个商店，求出一个位置修建一个货仓，要求这个货仓到每个商店的距离之和最小。
+求出这个距离之和，并输出。
+数据范围1 &lt;= N &lt;= 100000
+思路本题说的是中位数的性质。
+我们不妨假设有x个商店在货仓的左边，那么有y个商店在货仓的右边，假
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/Java之路——4-类和对象/#more" rel="contents">
+            <a class="btn" href="/2021/03/20/CH0501-货仓选址/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1162,7 +1157,7 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/21-10-4/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/20/Codeforces670C-Cinema/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -1181,7 +1176,7 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/21-10-4/" itemprop="url">21/10/4</a></h1>
+                <a class="post-title-link" href="/2021/03/20/Codeforces670C-Cinema/" itemprop="url">Codeforces670C_Cinema</a></h1>
         
 
         <div class="post-meta">
@@ -1193,8 +1188,8 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T12:32:20+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-20T00:07:03+08:00">
+                2021-03-20
               </time>
             
 
@@ -1216,8 +1211,8 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/日常/" itemprop="url" rel="index">
-                    <span itemprop="name">日常</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -1255,19 +1250,12 @@ super使用super关键字调用父类的成员，子类可以调用父类所有�
       
         
           
-          今日天气：晴
-有什么能阻挡一个男人扬帆起航？
-——海贼王
-
-今日练习
-Leetcode482.密钥格式化
-题目描述
-有一个密钥字符串 S ，只包含字母，数字以及 ‘-‘（破折号）。其中， N 个 ‘-‘ 将字符串分成了 N+1 组。
-给你一个数字 K，请你重新格式化字符串，使每个分组恰好包含 K 个
+          描述有n个人，他们相约看电影，有m个电影院供他们选择。每个电影院的电影都会说特定的语言，同时有特定语言的字幕（字幕的语言和电影的语言可以不一样，比如中文片日文字幕）。
+每个人只会一种语言，如果他看的电影正好是他会的语言，那么他会非常高兴。如果电影说的语言他不会，但是他能看懂字幕的话，他也会比较高兴。
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/21-10-4/#more" rel="contents">
+            <a class="btn" href="/2021/03/20/Codeforces670C-Cinema/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1318,7 +1306,7 @@ Leetcode482.密钥格式化
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/21-10-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/POJ2777-Count-Color/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -1337,7 +1325,7 @@ Leetcode482.密钥格式化
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/21-10-3/" itemprop="url">21/10/3</a></h1>
+                <a class="post-title-link" href="/2021/03/12/POJ2777-Count-Color/" itemprop="url">POJ2777_Count Color</a></h1>
         
 
         <div class="post-meta">
@@ -1349,8 +1337,8 @@ Leetcode482.密钥格式化
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T12:29:54+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-12T11:41:04+08:00">
+                2021-03-12
               </time>
             
 
@@ -1372,8 +1360,8 @@ Leetcode482.密钥格式化
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/日常/" itemprop="url" rel="index">
-                    <span itemprop="name">日常</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -1411,20 +1399,15 @@ Leetcode482.密钥格式化
       
         
           
-          今日天气：晴
-历经苦难而不厌，此乃修罗之道！
-——海贼王
-
-今日python练习
-Leetcode166.分数到小数
-题目描述
-给定两个整数，分别表示分数的分子 numerator 和分母 denominator，以 字符串形式返回小数 。
-如果小数部分为循环小数，则将循环的部分括在括号内。
-如果存
+          描述有一块长度为L厘米的板子，我们可以把板子分成L块，每块一厘米长。
+我们现在给板上色，规则是一块只能涂一种颜色，使用不同的整数取描述某种颜色，我们可以做的操作有：
+“C A B C” 把区间[A,B]涂成颜色C。
+“P A B” 输出区间[A,B]之间的不同颜色数。
+在最开始时，整个板的颜色是1。
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/21-10-3/#more" rel="contents">
+            <a class="btn" href="/2021/03/12/POJ2777-Count-Color/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1475,7 +1458,7 @@ Leetcode166.分数到小数
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/21-10-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/POJ2456-Agressive-Cows/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -1494,7 +1477,7 @@ Leetcode166.分数到小数
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/21-10-2/" itemprop="url">21/10/2</a></h1>
+                <a class="post-title-link" href="/2021/03/12/POJ2456-Agressive-Cows/" itemprop="url">POJ2456_Agressive Cows</a></h1>
         
 
         <div class="post-meta">
@@ -1506,8 +1489,8 @@ Leetcode166.分数到小数
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T12:13:57+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-12T11:08:06+08:00">
+                2021-03-12
               </time>
             
 
@@ -1529,8 +1512,8 @@ Leetcode166.分数到小数
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/日常/" itemprop="url" rel="index">
-                    <span itemprop="name">日常</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -1568,18 +1551,14 @@ Leetcode166.分数到小数
       
         
           
-          今日天气：晴
-灾难总是接踵而至，这正是世间的常理，你以为只要解释一下，就有谁会来救你吗？要是死了，就只能说明我不过是如此程度的男人
-——海贼王
-
-今日python练习
-Leetcode405.数字转换为十六进制数
-题目描述
-给定一个整数，编写一个算法将这个数转换为十六进制数。对于负整数，我们通常使用
+          描述Farmer John 有一个很长的牛棚，他把牛棚分成了N个隔间，每个隔间位于xi的位置。
+John的C头牛不喜欢这样的牛棚布局，所以它们变得极具攻击性，John希望把这些牛尽量分散，以防止它们相互攻击。
+计算出两头牛之间最小距离的最大值。
+数据范围2 &lt;= N &lt;= 100,000
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/21-10-2/#more" rel="contents">
+            <a class="btn" href="/2021/03/12/POJ2456-Agressive-Cows/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1630,7 +1609,7 @@ Leetcode405.数字转换为十六进制数
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/10/04/21-10-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/12/POJ3263-Tallest-Cow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jameci">
@@ -1649,7 +1628,7 @@ Leetcode405.数字转换为十六进制数
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/10/04/21-10-1/" itemprop="url">21/10/1</a></h1>
+                <a class="post-title-link" href="/2021/03/12/POJ3263-Tallest-Cow/" itemprop="url">POJ3263_Tallest Cow</a></h1>
         
 
         <div class="post-meta">
@@ -1661,8 +1640,8 @@ Leetcode405.数字转换为十六进制数
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T12:04:43+08:00">
-                2021-10-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-12T10:30:07+08:00">
+                2021-03-12
               </time>
             
 
@@ -1684,8 +1663,8 @@ Leetcode405.数字转换为十六进制数
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/日常/" itemprop="url" rel="index">
-                    <span itemprop="name">日常</span>
+                  <a href="/categories/算法竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">算法竞赛</span>
                   </a>
                 </span>
 
@@ -1723,18 +1702,15 @@ Leetcode405.数字转换为十六进制数
       
         
           
-          今日天气：晴
-一个人诞生在这个世界上，绝对不会是永远孤单的
-——海贼王
-
-今日python练习
-Leetcode1436.旅行终点站
-题目描述
-给你一份旅游线路图，该线路图中的旅行线路用数组 paths 表示，其中 paths[i] = [cityAi, cityBi] 表示该线路将会从 cityA
+          描述Farmer John 有N头牛排列成一排，当两头牛i，j之间的牛身高都小于它们时，这两头牛可以看到对方。
+现在，知道最高的牛的编号是I，身高为H，以及R对可以相互看到对方的牛的编号。
+在让每头牛都尽可能高的情况下，求出所有牛的身高。
+数据范围1 ≤ N ≤ 10,000
+1 ≤ H ≤ 1,0
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/10/04/21-10-1/#more" rel="contents">
+            <a class="btn" href="/2021/03/12/POJ3263-Tallest-Cow/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1776,7 +1752,7 @@ Leetcode1436.旅行终点站
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1822,7 +1798,7 @@ Leetcode1436.旅行终点站
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-count">138</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1833,7 +1809,7 @@ Leetcode1436.旅行终点站
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1844,7 +1820,7 @@ Leetcode1436.旅行终点站
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1881,7 +1857,7 @@ Leetcode1436.旅行终点站
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
