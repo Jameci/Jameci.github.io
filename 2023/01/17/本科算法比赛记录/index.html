@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2021/3/7 蓝桥杯校选#又到了一年一度的蓝桥杯环节，不得不说这次的校选真是好顺啊。靠着运气，我这样的半吊子也跑到了榜单的前几名。 总之，体验还不错。 想想今后能打的比赛越来越少，这种心情可能再也很难体会到了吧。 大一大二荒废时间，浪费学校给的比赛名额，到了大三了，总算学会了点基础，但以后可能就没机会了，想想还挺惭愧的，也挺遗憾的。 总之现在好好地学吧，哪怕以后只能在博客里写写题也是好的。 因">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本科算法比赛记录">
+<meta property="og:url" content="http://yoursite.com/2023/01/17/本科算法比赛记录/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="2021/3/7 蓝桥杯校选#又到了一年一度的蓝桥杯环节，不得不说这次的校选真是好顺啊。靠着运气，我这样的半吊子也跑到了榜单的前几名。 总之，体验还不错。 想想今后能打的比赛越来越少，这种心情可能再也很难体会到了吧。 大一大二荒废时间，浪费学校给的比赛名额，到了大三了，总算学会了点基础，但以后可能就没机会了，想想还挺惭愧的，也挺遗憾的。 总之现在好好地学吧，哪怕以后只能在博客里写写题也是好的。 因">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-01-17T05:53:28.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="本科算法比赛记录">
+<meta name="twitter:description" content="2021/3/7 蓝桥杯校选#又到了一年一度的蓝桥杯环节，不得不说这次的校选真是好顺啊。靠着运气，我这样的半吊子也跑到了榜单的前几名。 总之，体验还不错。 想想今后能打的比赛越来越少，这种心情可能再也很难体会到了吧。 大一大二荒废时间，浪费学校给的比赛名额，到了大三了，总算学会了点基础，但以后可能就没机会了，想想还挺惭愧的，也挺遗憾的。 总之现在好好地学吧，哪怕以后只能在博客里写写题也是好的。 因">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/01/17/本科算法比赛记录/">
+
+
+
+
+
+  <title>本科算法比赛记录 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/17/本科算法比赛记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">本科算法比赛记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-17T13:51:28+08:00">
+                2023-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2021-3-7-蓝桥杯校选"><a href="#2021-3-7-蓝桥杯校选" class="headerlink" title="2021/3/7 蓝桥杯校选"></a>2021/3/7 蓝桥杯校选</h1><p>#又到了一年一度的蓝桥杯环节，不得不说这次的校选真是好顺啊。靠着运气，我这样的半吊子也跑到了榜单的前几名。</p>
+<p>总之，体验还不错。</p>
+<p>想想今后能打的比赛越来越少，这种心情可能再也很难体会到了吧。</p>
+<p>大一大二荒废时间，浪费学校给的比赛名额，到了大三了，总算学会了点基础，但以后可能就没机会了，想想还挺惭愧的，也挺遗憾的。</p>
+<p>总之现在好好地学吧，哪怕以后只能在博客里写写题也是好的。</p>
+<p>因为比赛的代码没有拷贝回来，所以这篇主要写思路和当时做题时候的一些回忆。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h3 id="A-风花雪月"><a href="#A-风花雪月" class="headerlink" title="A.风花雪月"></a>A.风花雪月</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定两组二维直角坐标(a,b)和(p,q)，以及一个整数k，希望能找出从(a,b)移动到(p,q)的最少行动次数。</p>
+<p>假设当前处于坐标(x,y)，以下三种行为都被看做一次行动：</p>
+<p>1.直接移动到(u1,v1)，条件是(x,y)到(u1,v1)的曼哈顿距离应小于等于k。</p>
+<p>2.传送到(u2,v2)，条件是x + y = u2 + v2。</p>
+<p>3.传送到(u3,v3)，条件是x - y = u3 - v3。</p>
+<h4 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h4><p>所有数据均为正整数且不大于1e9。</p>
+<h4 id="现场回忆"><a href="#现场回忆" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>比赛开始的时候，其实我最先开的就是A题。</p>
+<p>刚开始没有办法跟榜的时候，我用了经典的字典序开题法。</p>
+<p>这亏好像我大一的时候就吃过了，大一的蓝桥杯校选A题是道极其变态的数论。当时还被大奶牛教训说，出A题的目的就是为了提醒你们注意开题顺序。</p>
+<p>但这次的A题我确实有思路，看了一眼就产生的绝妙思路。</p>
+<p>定义一个新的坐标系，对于老坐标系里面的点(x,y)，它在新坐标系中的位置为(x+y,x-y)。</p>
+<p>新坐标系的好处是，只要在新坐标系里面横坐标或者纵坐标相等，就可以直接一步传送。虽然最终实现看来，转化坐标系这一波操作显得多此一举，但对于一开始找思路的帮助很大。因为转换坐标系之后，相当于国际象棋的皇后变成了车，从只能斜着走变成了可以直着走，那么接着就自然而然地想到了一点，那就是对于车来说，棋盘上的任何位置都可以两步之内到位。</p>
+<p>于是就有了这样的想法：先转换坐标系，对于同一行或者同一列上的就直接输出1，否则输出2。</p>
+<p>想到这里，我当时的反应就是茅塞顿开的感觉，直接一声操，觉得真是高估这道题了，然后抄起键盘就写起来了。</p>
+<p>可惜，这个思路并不正确。</p>
+<p>道理很简单，我们稍微想一下就能想明白：取原坐标系里的两个点(0,1)和(1,1)，它们在新坐标系里对应的坐标是(1,-1)，(2,0)，我们发现，它们无法在两步之内到达。新坐标系里面(1,0)和(2,-1)点压根就不存在！车无法先到达它们，再到达目的点。</p>
+<p>为什么不存在呢，因为x和y都是整数的情况下，显然x+y和x-y要么都是奇数要么都是偶数，不存在一奇一偶的情况。</p>
+<p>这样我们的结论修改为，对于x+y奇偶性相同的两个点，可以在两步之内到达，不同的，第一步可以先移动到曼哈顿距离小于等于k的奇偶性相同的上，然后再花费两步到达。</p>
+<p>但这样并没有考虑曼哈顿距离较小，可以通过直接移动的情况，比如明明(1,2)和(2,2)相距很近，上面的策略就硬要第一步走到奇偶性相同的另一个点比如(0,2)，然后再传送。</p>
+<p>综合考虑之后，我得出的思路是这样的：</p>
+<p>1.对于曼哈顿距离在k之内，或者可以一步传送到的点，输出1</p>
+<p>2.不符合1，曼哈顿距离在2k之内，或者新坐标的奇偶性相同的点，输出2</p>
+<p>3.不符合1，2，但通过一步可以到达x+y，x-y与目的地相同的中间点，再通过一步传送到达的，输出2</p>
+<p>4.不符合1，2，3，输出3</p>
+<p>关于3的判断，我们考虑直接移动对x+y或者x-y的影响，我们知道曼哈顿距离的定义是两组坐标的差的绝对值之和。我们将其理解为对两组坐标的总该变量。我们知道一次的最大总改变量为k，那么在一步之内x+y和x-y最多可以变化的区间是±k，所以，只需要判断目的地的x+y，x-y值与起始地的x+y，x-y差值是否属于±k之间就可以了。</p>
+<p>但还是wa了，因为还有第0种情况——起点就在终点上。</p>
+<p>做这道题的过程感觉自己在被折磨，想出坐标变换可以一步到位，这算是想出了第一层，想出奇偶性不一样，这算第二层，再修补上可以直接移动的点，这才算是第三层。</p>
+<p>接下来的两种情况最隐秘，即上面的3，我wa了起码5发才想到有3，这算第四层，当我觉得已经是万全之策了……</p>
+<p>结果还有第5层——踏马的起点直接和终点相等。</p>
+<p>这题我花了一个小时才做出来，wa了7发。</p>
+<p>虽然说全场就三个人做出来，但我还是觉得自己太菜了。这题做得再快一点的话，我可以有更多时间思考的，说不定能把dp过了呢……</p>
+<p>对于这种情况特别多的题，一定考虑周全，出了错也不能急，一方面想实现是不是错，另一方面要想有没有其他情况，有没有漏解。对于实现错，针对程序的特点搞几个易错的样例，同时对于漏解，瞎几把写几个样例做黑盒测试。</p>
+<p>这道题能过的背后体现的是我丰富的debug经验（平时写题老写不对，久病成医了）。</p>
+<h3 id="B-鲈鱼森友会"><a href="#B-鲈鱼森友会" class="headerlink" title="B.鲈鱼森友会"></a>B.鲈鱼森友会</h3><h4 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h4><p>k种不同的地板（数量不限）用来装饰岛屿，把岛上的道路看成2×n的网格，每个网格只能填一种地板，对于任意一个网格，它与上下左右相邻的网格的地板的种类都不一样，问合法的方案有多少？答案对1e9+7取模</p>
+<h4 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h4><p>样例数小于1e5，n，k小于1e9</p>
+<h4 id="现场回忆-1"><a href="#现场回忆-1" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>刚开始的时候B其实看了一眼，经典组合计数问题，因为那时dp题做的比较多所以看什么都像是dp，便觉得这不是签到题就不再看了。实际上这真是签到题，稍微推一下就知道这不是dp而是快速幂。</p>
+<p>但我比赛的时候一直觉得是小dp，留到最后才做，没想到比A还简单。</p>
+<p>假设f(x)表示前x排有几种方案，我们用数组<code>a[x][0]</code>和<code>a[x][1]</code>来表示第k排的两块砖的颜色，那么对于第k+1排，若<code>a[x+1][0]</code> = <code>a[x][1]</code>，那么<code>a[x+1][1]</code>只需要和<code>a[x+1][0]</code>不一样就行了，有k-1种选法。如果<code>a[x+1][0]</code> != <code>a[x][1]</code>，那么<code>a[x+1][0]</code>有k-2种选法，在此基础上<code>a[x+1][1]</code>需要和<code>a[x+1][0]</code>，<code>a[x][1]</code>都不一样，有k-2种。</p>
+<p>所以f(x+1) = f(x)×(k-1) + f(x)×(k-2)(k-2) = f(x)×(k²-3k+3)</p>
+<p>然后经典快速幂。</p>
+<p>这题只有9个过的，冲的人只有不到A题的一半。可我觉得表达式真的是高中水平，至于快速幂这种东西，也只能说知道的都不会交第二发，不知道的，怎么交也过不了。</p>
+<h3 id="C-我不知道"><a href="#C-我不知道" class="headerlink" title="C.我不知道"></a>C.我不知道</h3><h4 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定n个正整数与k，现在询问是否存在(l,r)满足该区间之内(包括端点)的数的和等于k</p>
+<p>第一行输入两个数n,k</p>
+<p>第二行输入n个数</p>
+<p>如果存在满足条件的(l,r)，输出”Wryyy”</p>
+<p>反之输出”damedane”</p>
+<h4 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h4><p>n小于等于1e5，k小于等于1e13，每个数ai小于等于1e9，都是正整数</p>
+<h4 id="现场回忆-2"><a href="#现场回忆-2" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>C题是跟榜做的，开的比较早。</p>
+<p>当时看到这个Wryyy差点跟着Wryyy出来，还说JoJo真是无处不在来着，但damedane我不知道什么梗。</p>
+<p>这题我看到以后，直接前缀和加双层循环，显然错了。1e5的范围用O(n^2)显然沾点看不起人了。</p>
+<p>思路类似与“黑瞎子掰棒子”，用两个指针指向区间的前后，然后向前拿起一个，发现不够就接着拿，要是发现拿多了，扔到最先拿到的那个。因为这题不要比要求大的，也不要比要求小的，就要和要求正好的，所以这样做要么找得到，要么找不到，不会漏解。</p>
+<p>时间复杂度是O(n)。</p>
+<p>感觉C是最难的一道签到题，现场交了400多发，过了40发，可能很多人不知道怎么优化吧。</p>
+<h3 id="D-一跃千里，纵横四方"><a href="#D-一跃千里，纵横四方" class="headerlink" title="D.一跃千里，纵横四方"></a>D.一跃千里，纵横四方</h3><h4 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h4><p>《MHR》马上就要发售了，奶牛期待这款游戏很久了，以至于当他看到任何一个字符串的子序列中存在”MHR”都会非常激动，子序列的定义是：<br>如果我们从字符串s中删去一些字符，剩余的字符保持相对位置不变，得到了字符串t，那么t就是s的一个子序列</p>
+<p>例如:”bicl”是”bushiczl”子序列 ，而”mhw”不是”monsterhunter”的子序列</p>
+<p>现在奶牛好奇，如何判断字符串t是不是t的子序列呢？</p>
+<p>第一行输入字符串s</p>
+<p>第二行输入字符串t</p>
+<p>保证s和t的字符串长度和不超过10^6</p>
+<p>如果t是s的子序列输出”Yes”</p>
+<p>反之输出”No”</p>
+<h4 id="现场回忆-3"><a href="#现场回忆-3" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>因为有人开所以我跟着做的，这场写的第一道题，字符串子序列经典中的经典，当时看到这道题我思路都没有就自信地写起来了。因为我知道这绝壁是个签到中的签到。</p>
+<p>果不其然，这题过的人是最多的。大部分选手都没交第二发。</p>
+<h3 id="E-超能力者的灾难"><a href="#E-超能力者的灾难" class="headerlink" title="E.超能力者的灾难"></a>E.超能力者的灾难</h3><h4 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h4><p>高中生齐木楠雄，拥有超高校级的超能力,他能够使用万能的超能力，因此根本不需为人生付出丝毫努力，为了不引人注目，他需要默默生活在普通人之中。</p>
+<p>马上他所在的班级要进行考试了，班里共有n个人，齐木楠雄知道第i个人考试的最低分为ai，最高分为bi，如果一个人的成绩(a,b) <strong>包含</strong>了另一个人的成绩(c,d),那么有：a &lt;= c &lt;= d &lt;= b</p>
+<p>齐木楠雄希望在班级中找到一个成绩<strong>最普通</strong>的人并复制他的试卷，<strong>最普通</strong>的定义为：这个人的成绩<strong>包含</strong>了尽可能多的其他人的成绩</p>
+<p>对于齐木楠雄来说当然很简单，但他把这个问题交给了你</p>
+<h4 id="数据范围-3"><a href="#数据范围-3" class="headerlink" title="数据范围"></a>数据范围</h4><p>人数n小于等于1e5，分数小于等于1e9且都是正整数。</p>
+<h4 id="现场回忆-4"><a href="#现场回忆-4" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>齐神题，我没有做出来，我还交了四发来着，当时都没有考虑清楚，觉得是区间套问题，DAG上的动态规划就来了。问题是，假设A区间包含B区间，B区间包含C区间，那么A应该把B，C的dp值取最大值。若是A区间包含B，C区间，但B，C区间没有包含关系，这时候A就应该把B，C的值加起来。</p>
+<p>那么，怎么知道B，C的值到底是应该加还是应该取最大呢？我当时真是脑子一抽，碰壁了还不觉得是自己的问题，反手又来了个并查集，给自己写烂了。</p>
+<p>后来比赛结束了复盘，听人说才知道这是个线段树。</p>
+<p>齐神真的会做线段树吗?毕竟他只是个<strong>普通</strong>的高中生</p>
+<p>留个坑，以后把这题补了。</p>
+<p>离谱的是，这题居然交了一百多发，过了6个，比A，B都受欢迎。</p>
+<p>果然是我太菜了。</p>
+<h3 id="F-氪不改命"><a href="#F-氪不改命" class="headerlink" title="F.氪不改命"></a>F.氪不改命</h3><h4 id="题目描述-5"><a href="#题目描述-5" class="headerlink" title="题目描述"></a>题目描述</h4><p>Yukinoo抽阿莫斯保底两次歪了两把天空大剑，所以他要给明日方舟充钱，气死米哈游</p>
+<p>如果氪金只有以下四个选项</p>
+<ul>
+<li>81RMB   买  12源石</li>
+<li>162RMB 买  25源石</li>
+<li>324RMB 买  60源石</li>
+<li>648RMB 买  130源石</li>
+</ul>
+<p>那么给你Yukinoo持有的RMB总数n，你能帮他算出可以买多少源石吗</p>
+<h4 id="数据范围-4"><a href="#数据范围-4" class="headerlink" title="数据范围"></a>数据范围</h4><p>1 &lt;= n &lt;= 1e9</p>
+<h4 id="现场回忆-5"><a href="#现场回忆-5" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>签到题，先买价格高的，不够了再买价格低的。</p>
+<h3 id="G-傅の音游"><a href="#G-傅の音游" class="headerlink" title="G.傅の音游"></a>G.傅の音游</h3><h4 id="题目描述-6"><a href="#题目描述-6" class="headerlink" title="题目描述"></a>题目描述</h4><p>fg不会打音游，但是他会设计音游</p>
+<p>已知fg的音游每首歌的最高分都是n。每首歌他都会设置一些按键，玩家需要在特定的时间按下这些按键，如果玩家能连续按下这些按键的话，就会达成“连击”。如果玩家从第一个按键连击到最后一个按键，就会获得最高分n。</p>
+<p>fg在设计一首歌的谱面时，可以任选按键的个数，但是需要保证玩家在连击过程中，每一个按键的得分都要<strong>不小于</strong>前一个按键，且所有按键的得分之和为n。fg想知道当他选择了一个最高分n时，他可以设计多少种不同的谱面。当且仅当两个谱面的按键个数不同，或者按键个数相同但是按键分数不完全相同时，两个谱面不同。</p>
+<p>fg觉得这个问题太简单了，所以把它交给了你，你能解决这个问题吗？</p>
+<p>会给出t个样例，每个样例包含一个n。</p>
+<p>要求输出t行，每行包括对应n的不同的谱面种数。答案对1e9+7取模</p>
+<h4 id="数据范围-5"><a href="#数据范围-5" class="headerlink" title="数据范围"></a>数据范围</h4><p>测试样例个数小于1e3。</p>
+<p>每个样例，n小于5e3。</p>
+<h4 id="现场回忆-6"><a href="#现场回忆-6" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>当时拿到这个题，知道是dp，觉得能做。</p>
+<p>这就是经典的有n种面值的纸币，求凑成某个特定金额的方法。</p>
+<p>标记0有一种，之后遍历每种面值k，从<code>dp[k]</code>开始推，<code>dp[i] = dp[i - k] + 1</code>。</p>
+<p>问题是，我不会优化。</p>
+<p>据说当时有打表过的，我怎么就没想到呢……</p>
+<p>然后当时这题和齐神题没过，不停地切换，这题dp没过之后，还想了个矩阵快速幂的做法，做到写完矩阵乘了才发现不对，真是绝了。</p>
+<p>有空把这题补了。</p>
+<h3 id="H-龙门飙车"><a href="#H-龙门飙车" class="headerlink" title="H.龙门飙车"></a>H.龙门飙车</h3><h4 id="题目描述-7"><a href="#题目描述-7" class="headerlink" title="题目描述"></a>题目描述</h4><p>fg在龙门飙车，他不仅车技了得，开的车也不是凡品，所以他可以做到车速无缝切换，速度改变的时间可以忽略不计。</p>
+<p>然而因为维护罗德岛的形象是每个刀客塔应尽的义务，而fg也是刀客塔，所以他也要遵守交通规则。</p>
+<p>fg每秒可以走1个单位长度，从起点飙到龙门近卫局需要走$n$段路程，其中经过n-1个十字路口，每个路口的红绿灯交替闪烁（没有黄灯），红灯停、绿灯行，且每个灯的持续时间恒定不变。当fg处于起点时，所有红绿灯都处于绿灯的第一秒，如果当到达路口时，恰好从绿灯变成了红灯，也请停下来等一等吧。</p>
+<p>fg在专心开车，所以想让你帮他计算从起点开到龙门近卫局需要多少时间。</p>
+<h4 id="输入和数据范围"><a href="#输入和数据范围" class="headerlink" title="输入和数据范围"></a>输入和数据范围</h4><p>第一行输入一个数n(1 &lt;= n &lt;= 1e5)代表路程个数。</p>
+<p>接下来一行输入n个数a1,a2…an(1 &lt;= ai &lt;= 1e5)，中间用空格隔开，代表每段路程的长度，行进方向为从1到n。</p>
+<p>接下来n-1行，每行输入两个数g,r(1 &lt;= g,r &lt;= 1e5)，分别代表每个红绿灯的绿灯持续时间和红灯持续时间。</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>输出fg从起点开到目的地需要的时间。</p>
+<h4 id="现场回忆-7"><a href="#现场回忆-7" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>签到题，具体的做法很容易想到：从头到尾计算时间，遇到一段路程就直接加，遇到红绿灯则检测一下是否绿灯，检测方法也很简单，时间对红绿灯的周期取模得l，如果l小于g则是绿灯，直接走，否则，总时间加上g+r-l。</p>
+<h3 id="I-进击的丘丘人"><a href="#I-进击的丘丘人" class="headerlink" title="I 进击的丘丘人"></a>I 进击的丘丘人</h3><h4 id="题目描述-8"><a href="#题目描述-8" class="headerlink" title="题目描述"></a>题目描述</h4><blockquote>
+<p>大丘丘病了，二丘丘瞧；三丘丘采药，四丘丘熬；五丘丘死了，六丘丘抬~</p>
+<p>欸。。。呼。</p>
+</blockquote>
+<p>旅行者每天都要击杀很多丘丘人，所以往生堂每天都很忙。</p>
+<p>这天往生堂来了一家子丘丘人客户，共有n个兄弟，分别是大丘丘、二丘丘、三丘丘…一直到n丘丘，第一天被抬进来的是大丘丘，之后每天都会有一个被抬进往生堂，但他们不一定是按照年龄顺序被抬进来的。</p>
+<p>无聊的胡桃堂主每天都会数被抬来往生堂的丘丘人，从大丘丘开始，按照一个个连续的年龄排行往下数，当她数到i丘丘后，她就会去数i+1丘丘，直到她找不到i+1丘丘时，她就会停止。</p>
+<p>但是随着被抬来的丘丘人的增多，她发现这个任务量会变得巨大，所以她想让你告诉她，她每天数到的最后一个丘丘人是多少丘丘，你能帮她解决这个问题吗。</p>
+<h4 id="输入和数据范围-1"><a href="#输入和数据范围-1" class="headerlink" title="输入和数据范围"></a>输入和数据范围</h4><p>第一行输入一个数n(1 &lt;= n &lt;= 1e5)代表丘丘人个数。</p>
+<p>接下来n行每行一个数ai，代表第i个被抬进来的丘丘人是ai丘丘，保证a1=1。</p>
+<h4 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h4><p>输出n行，第i行代表第i天的答案。</p>
+<h4 id="现场回忆-8"><a href="#现场回忆-8" class="headerlink" title="现场回忆"></a>现场回忆</h4><p>签到题，设置一个数组v表示第i个人是否出现了，然后记录上一天的解r，如果新一天的人正好是r+1，则继续往下遍历一直找到第一个<code>v[j]</code>是0的位置为止。然后记录新一天的解是j-1。</p>
+<h2 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h2><p>这次虽然排名靠前，但其实出现的问题有很多。</p>
+<p>线段树，并查集，还有一些dp题，很多以前学过的东西都忘了怎么写了，实际上并不难，只不过做的题太少了，要么就是做题的时候不同程度的看了答案，导致对细节的印象不深，以后已经学过的东西一定要时不时地复习。知道思路的东西一定要自己实现。实现过的东西一定要记下来。</p>
+<p>复杂度的估算问题，查找区间内和等于k的题规模是1e5，当时还是交了个n²的。感觉还是经验不够，而且平时做题也没有注意这一块，这很重要，尤其是决定这个题该用什么做法的时候。</p>
+<h1 id="2021-4-18-蓝桥杯省赛"><a href="#2021-4-18-蓝桥杯省赛" class="headerlink" title="2021/4/18 蓝桥杯省赛"></a>2021/4/18 蓝桥杯省赛</h1><blockquote>
+<p>下次省赛，一定要把当天的日期组成的数字研究透了，比如202204018到底有多少个因子之类的……</p>
+</blockquote>
+<p>不得不说这次省赛暴露了我的很多问题，比如代码的实现能力和速度上，思维题的推导速度上都不尽人意。照这个成绩来看，今年应该还是打不了国赛了。</p>
+<p>A题是一道简单计数题，若干个0-9的数字按顺序组成自然数，每个数只能用一次，求0-9这10个数各2021个，最多能组到几。比如1-9各3个最多只能组到10，再往下的11又需要两个1，这样就用去了4个1，所以不够了。</p>
+<p>做这道题也是毫无技巧可言，模拟就好。稍微想一想的话可以知道1永远是最先用完的，所以也可以把结果改成统计还剩几个1，或者干脆推出计算1的公式，手算出最大值也行。</p>
+<p>B题让求出坐标从(0,0)开始到(19,20)围城的矩形内部的这20×21个整数坐标的点能确定多少直线。计数要不重不漏，这题卡了我很久。回过头来看就不应该思考怎么做最简便。那么小规模的数据直接暴力就好，方法是这样的：遍历每个点，对每个可能的方向(360度能连接到另外一个有效的点的方向，如果它和它的反方向同时没被标记过)，我们标记为1，意思是找到了一个新的直线，然后把所有其他在这条直线上的点标记为2，意思是虽然这个方向上有直线，但这条直线以及被计数了。最后再扫一遍数组，统计标为1的位置。</p>
+<p>需要注意的是，方向我们使用一对互质的“增量”来表示。比如数对(2,3)，(4,6)是同一组增量，进行去公因数处理之后，我们标记当前点(x,y)在增量(i,j)上有一条直线，用四维数组实现。</p>
+<p>这题就很经典，因为知道的多了，所以对暴力方法本能地感到“恐惧”，我想过各种计数方法，或者用容斥原理去重，都因为细节太过繁琐而放弃了。经过了一个小时的无用功之后才意识到暴力解法。实际上感觉原因还是不熟悉赛制，填空题这种唯结果论的东西，哪怕暴力它两个小时又怎么样呢。</p>
+<p>C题我做错了，具体是这样的：给出一个数2021041820210418作为长方体的体积，求出一共可以有多少种长宽高为整数的长方体。其实质就是把一个数分解为3个因子的乘积。这题错的原因也是对赛制的不适应——我思考的是如何尽快地分解一个大整数，而题目需要我分解具体的2021041820210418，换句话说我想找出“一类”问题的解法，而题目只要求“一个”具体的解。我不知道怎么把任意一个规模为1e17的大整数分解成3个数的乘积，但，我应该一眼就看出来，20210418×100000001=2021041820210418，然后去分解规模更小的100000001和20210418。</p>
+<p>我直到赛后听到一对男女讨论题，女生说到对分解因子才如梦方醒。</p>
+<p>D是一道动态规划，编号为1到2021的2021个点组成了一张图，其中任意的两个点i和j，如果它们的绝对值只差小于等于21，那么它们之间存在一条边权为它们编号最大公倍数的边，求出1到2021的最短路。</p>
+<p><code>dp[i] = min(dp[j] + i * j / gcd(i, j) | max(i - 21, 1) ≤ j &lt; i)</code></p>
+<p>gcd用经典欧几里得算法求。</p>
+<p>这题起码给了我一点点安慰，我还是有进步的。虽然这种dp简直是套公式烂大街。</p>
+<p>E的题意是这样的：有21个点，编号为1-21，如果两个点之间互质那么两个点之间直接相邻，问从1开始有多少种不同的欧拉回路。</p>
+<p>思路很清晰——不会做。</p>
+<p>F题：给n个砝码和它们各自的质量，求能称出几种质量。比如1,4,6三个砝码，可以称出1,2,3,4,5,6,7,9,10,11这10种。</p>
+<p>之所以可以有3是因为砝码可以放两个盘，这样物体的质量等于两盘砝码的差。</p>
+<p>这样的话，每个砝码相当于都可以看成既有正值又有负值。</p>
+<p>我们这样处理，初始时，只有质量0可以被称出来，所以给0处做标记，然后取一个质量为wi的砝码，显然原本就可以称出来的质量还是可以称出来，并且由于这个砝码的加入，原本可以称出来的质量±wi之后得到的新质量也能被称出来了。</p>
+<p>显然，我们需要维护长度为总质量和的两倍的数组，每次标记由于新增砝码而新增的可达质量，最后统计一下即可。</p>
+<p>G题：给出一个树，求出其通过“左孩子右兄弟”表示法转换成的最高的二叉树的高度。</p>
+<p>有一道dp题，有：</p>
+<p><code>dp[i] = child[i] + max(dp[j] | j是i的子节点)</code></p>
+<p>由于这题的树是用父节点来存储的，所以可以用刷表法，记录每个节点的度，维护一个栈，初始时里面是叶子节点，每次取出一个点并从图中去掉，如果产生了新的叶子，则把它入栈，如此反复去更新父节点的值。</p>
+<p>赛后我和隔壁嗯哥交流了一下，他说没做出来，只是用暴力做出了规模小的那30%的测试样例。</p>
+<p>嗯哥不会dp，所以拉开了差距。这是我第一次觉得自己学到的东西有用，真的。</p>
+<p>H题：Alice和Bod又在玩游戏，他们一开始各有一个数0，然后每次可以从一个数组里取出一个数，要么拿它异或自己的数，要么异或对方的，直到数组被取空之后，他们两个人会比较自己手上数的大小，大的一方胜利。</p>
+<p>现在，Alice先手的情况下，双方都采取最优策略，求最终谁会获胜。</p>
+<p>这题我猜的，因为实在不会，但输出又只有0，-1，和1，骗分也是容易的。我的思路也很简单：Alice的优势太大了，如果Bob有什么必赢策略，Alice总能抢先一步，而且如果数组里面是奇数个元素，Alice还能多操作一次来补刀。</p>
+<p>所以我最后写的思路是如果两两相等配对，则0，否则1。</p>
+<blockquote>
+<p>刚刚在食堂吃饭想明白了，Bob就是赢不了，推导过程如下：</p>
+</blockquote>
+<blockquote>
+<p>假设这些数的二进制最高位有奇数个1，偶数个0，那么Alice的这一位总能拿到一个1，而Bob只能是0，Alice必胜。若最高位有偶数个1，那么哪怕两人胡乱选，Alice和Bob最终数字的最高位一定相等，所以最高位作废，再比较此高位以此类推，直到有一位的1的数量为奇数个，Alice就赢了。</p>
+</blockquote>
+<blockquote>
+<p>换句话说可怜的Bob根本赢不了，唯一一个不输的机会就是全体数字异或为0的情况</p>
+</blockquote>
+<p>所以当时的猜测还是太保守了。不过好歹错误的概率算小，就看样例怎么给了。</p>
+<p>I题，给出一串不匹配的小括号序列，求出有多少种最小修补方案。一个最小修补方案指的是在恰当的位置填补小括号或者括回来使得括号序列匹配，并且填补的数量最小。</p>
+<p>不会做。</p>
+<p>J题，分果果，看都没看。</p>
+<p>总之，不出意外的话，应该是A,B两题拿到10分，D题拿到10分，F题15分，G题20分，H题有一部分分，保守估计10分吧。</p>
+<p>看网上的说法，应该很难再出线了，毕竟出线大概填空要全对，大题起码拿一半分才有机会。啊，又没能拿到出线机会。还有明年，明年最后一年了……</p>
+<p>感觉思路还是太窄了。思维题总是反应不过来，而且赛制是真的不舒服，我还是喜欢ACM赛制。喜欢过测试点而不是解具体某个数。但感觉总体来说还算不错，尤其是两个dp题和天平题的快速反应，确确实实感觉到学到东西了，最近一段时间的训练是有效的。其实这样已经可以了，之前的我总是觉得学了算法却看不出来，算法会了但智商不够，一直在做题却看不到进步，现在总算看到反馈了。其实进步一直都有，只是训练量还达不到。</p>
+<p>一个好的开端，我如是鼓励自己。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/17/STL容器/" rel="next" title="STL容器">
+                <i class="fa fa-chevron-left"></i> STL容器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/01/17/容器技术/" rel="prev" title="容器技术">
+                容器技术 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2021-3-7-蓝桥杯校选"><span class="nav-number">1.</span> <span class="nav-text">2021/3/7 蓝桥杯校选</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-风花雪月"><span class="nav-number">1.1.1.</span> <span class="nav-text">A.风花雪月</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据范围"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-鲈鱼森友会"><span class="nav-number">1.1.2.</span> <span class="nav-text">B.鲈鱼森友会</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据范围-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-1"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-我不知道"><span class="nav-number">1.1.3.</span> <span class="nav-text">C.我不知道</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-2"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据范围-2"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-2"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-一跃千里，纵横四方"><span class="nav-number">1.1.4.</span> <span class="nav-text">D.一跃千里，纵横四方</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-3"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-3"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-超能力者的灾难"><span class="nav-number">1.1.5.</span> <span class="nav-text">E.超能力者的灾难</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-4"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据范围-3"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-4"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#F-氪不改命"><span class="nav-number">1.1.6.</span> <span class="nav-text">F.氪不改命</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-5"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据范围-4"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-5"><span class="nav-number">1.1.6.3.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G-傅の音游"><span class="nav-number">1.1.7.</span> <span class="nav-text">G.傅の音游</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-6"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据范围-5"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-6"><span class="nav-number">1.1.7.3.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H-龙门飙车"><span class="nav-number">1.1.8.</span> <span class="nav-text">H.龙门飙车</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-7"><span class="nav-number">1.1.8.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入和数据范围"><span class="nav-number">1.1.8.2.</span> <span class="nav-text">输入和数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出"><span class="nav-number">1.1.8.3.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-7"><span class="nav-number">1.1.8.4.</span> <span class="nav-text">现场回忆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-进击的丘丘人"><span class="nav-number">1.1.9.</span> <span class="nav-text">I 进击的丘丘人</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述-8"><span class="nav-number">1.1.9.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入和数据范围-1"><span class="nav-number">1.1.9.2.</span> <span class="nav-text">输入和数据范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出-1"><span class="nav-number">1.1.9.3.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现场回忆-8"><span class="nav-number">1.1.9.4.</span> <span class="nav-text">现场回忆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反思"><span class="nav-number">1.2.</span> <span class="nav-text">反思</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2021-4-18-蓝桥杯省赛"><span class="nav-number">2.</span> <span class="nav-text">2021/4/18 蓝桥杯省赛</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
