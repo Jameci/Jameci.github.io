@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="SSH登录ssh -p端口号 用户名@IP地址 直接执行命令ssh 用户名@IP地址 命令 传文件SCPscp命令可以方便地在远程Linux之间传输文件 常用格式： 12345678910上传/d/work/1.txt到远程服务器的/home：scp /d/work/1.txt root@123.45.67.89:/home然后输入密码基本格式：scp 本地文件路径 远程用户名@远程ip地址:远程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-01-17T10:33:51.286Z">
+<meta property="og:image" content="http://yoursite.com/images/Linux常用命令/0.png">
+<meta property="og:image" content="http://yoursite.com/images/Linux常用命令/1.png">
+<meta property="og:updated_time" content="2023-01-18T10:45:32.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
 <meta name="twitter:description" content="SSH登录ssh -p端口号 用户名@IP地址 直接执行命令ssh 用户名@IP地址 命令 传文件SCPscp命令可以方便地在远程Linux之间传输文件 常用格式： 12345678910上传/d/work/1.txt到远程服务器的/home：scp /d/work/1.txt root@123.45.67.89:/home然后输入密码基本格式：scp 本地文件路径 远程用户名@远程ip地址:远程">
+<meta name="twitter:image" content="http://yoursite.com/images/Linux常用命令/0.png">
 
 
 
@@ -396,6 +399,49 @@
 <h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>全部在/etc/apt/sources.list文件里面</p>
 <p>换源只需要把里面的内容修改就好了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">#阿里源地址</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">#华为源地址</span><br><span class="line"></span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal main restricted</span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal-updates main restricted</span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal universe</span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal-updates universe</span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal-backports main restricted universe</span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal-security main restricted</span><br><span class="line">deb https://repo.huaweicloud.com/ubuntu/ focal-security universe</span><br><span class="line"></span><br><span class="line">#中科大源地址</span><br><span class="line"></span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.ustc.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">#163源地址</span><br><span class="line"></span><br><span class="line">deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">#清华源地址</span><br><span class="line"></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe ultiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restricted universe ultiverse</span><br></pre></td></tr></table></figure>
+<h1 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h1><p>grep是linux的文本搜索工具，根据用户定义的规则对目标文本逐行进行匹配检查，并打印匹配到的行</p>
+<p>忽略大小写 grep -i</p>
+<p>仅打印字符串而非整行 grep -o</p>
+<p>反选 grep -v</p>
+<p>匹配ERE规则的正则表达式 grep -E ‘正则表达式’</p>
+<p>匹配PCRE规则的正则表达式 grep -P ‘正则表达式’</p>
+<p>不输出任何信息 grep -q</p>
+<p>统计匹配到的个数 grep -c</p>
+<p>同时显示行号 grep -n</p>
+<p>单词模式匹配(前后必须和其他单词隔开) grep -w ‘单词’</p>
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>正则表达式分为三类，BRE，ERE和PCRE，BRE只支持最简单的正则表达式功能，对于一些特殊字符则需要使用转义来表示其正则含义；ERE在BRE的基础上增加了一些功能，其主要区别是ERE的元字符默认就是正则含义，想要匹配普通字符需要加\；PCRE则支持更多的功能，比如常用的通配符\d，BRE和ERE都不支持</p>
+<p>Linux中正则表达式的规则</p>
+<p>\    单独匹配特殊符号时需转义</p>
+<p>\d    表十进制数字</p>
+<p>\D    表非数字</p>
+<p>^    匹配字符串开始</p>
+<p>$    匹配字符串末尾</p>
+<p>.    代表除”\n\s”之外的任何单个字符</p>
+<p>|    表示或者</p>
+<p>*    匹配前面的子表达式零次或多次</p>
+<p>+    匹配前面的子表达式一次或多次</p>
+<p>?    匹配前面的子表达式一次或零次</p>
+<p>()    小括号，改变结合对象和运算优先级</p>
+<p>[ ]    字符集合，匹配所包含的任意的一个字符</p>
+<p>[^]    复制字符集。匹配未包含在[ ]内的任意一个字符</p>
+<p>[n1-n2]    字符范围。匹配指定范围内的任意一个字符。例如[a-z]可以匹配到a到z范围内的任意一个小写字母字符</p>
+<p>{n}    n是一个非负整数，匹配确定的n次，例如“o{2}”不能匹配“Bob”中的“o”，但是能匹配到“food”中的“oo”</p>
+<p>{n,}    n是一个非负整数，至少（最少）匹配n次。例如，“o{2,}”不能匹配”Bob”中的“o”，但是能匹配“fooooood”中的所有o。“o{1,}”等于“o+”</p>
+<p>{n,m}    n和m均为非负整数，其中n&lt;=m，最少匹配n次，最多匹配m次</p>
+<h1 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h1><p>cut是LINUX命令之一，可以将其描述为从一行上移除部分内容、选择性显示出已筛选内容的文本操作命令</p>
+<p>常用参数</p>
+<p>cut -c<em>x</em>-<em>y</em>    从每一行的第一个字符算起，第一个字符算第1个，取区间[x, y]内的字符</p>
+<p><img src="/images/Linux常用命令/0.png" alt></p>
+<p>cut -d ‘一个字符’ -f <em>x</em>    将每行数字按照给定字符切分成多行，取第x行</p>
+<p><img src="/images/Linux常用命令/1.png" alt></p>
+<p>注意，就算切分字符是第一个/最后一个，同样也会切分出一个空行出来，因此对于给定的文本”origin” : “114.51.41.98”，第一行是空行，第二行是origin，第三行是:，第四行才是114.51.41.98，最后再接一个空行</p>
+<h1 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h1><p>为常用的命令起别名，仅在当前用户登录期间有用</p>
+<p>比如我有一个使用curl来查看自己外网ip地址的命令，但因为它比较长，我每次都敲一遍很麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://httpbin.org/get | grep -P &apos;\d+\.\d+\.\d+\.\d+&apos; | cut -d &apos;&quot;&apos; -f 4</span><br></pre></td></tr></table></figure>
+<p>使用alias将该命令命名为myip，注意此时命令要用””括起来，因此原命令里面的”需要转义成\”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias myip=&quot;curl http://httpbin.org/get | grep -P &apos;\d+\.\d+\.\d+\.\d+&apos; | cut -d &apos;\&quot;&apos; -f 4&quot;</span><br></pre></td></tr></table></figure>
+<p>之后再想要执行上面的命令，直接执行myip就可以了</p>
+
       
     </div>
     
@@ -514,7 +560,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -536,7 +582,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -569,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH"><span class="nav-number">1.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传文件SCP"><span class="nav-number">2.</span> <span class="nav-text">传文件SCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加用户"><span class="nav-number">3.</span> <span class="nav-text">添加用户</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置环境变量"><span class="nav-number">4.</span> <span class="nav-text">配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">4.1.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用于当前用户"><span class="nav-number">4.2.</span> <span class="nav-text">用于当前用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所有用户"><span class="nav-number">4.3.</span> <span class="nav-text">所有用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看环境变量"><span class="nav-number">4.4.</span> <span class="nav-text">查看环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim常用"><span class="nav-number">5.</span> <span class="nav-text">vim常用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解压"><span class="nav-number">6.</span> <span class="nav-text">解压</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-文件"><span class="nav-number">6.1.</span> <span class="nav-text">.tar 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-gz文件"><span class="nav-number">6.2.</span> <span class="nav-text">.tar.gz文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip文件"><span class="nav-number">6.3.</span> <span class="nav-text">.zip文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rar文件"><span class="nav-number">6.4.</span> <span class="nav-text">.rar文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#换源"><span class="nav-number">7.</span> <span class="nav-text">换源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH"><span class="nav-number">1.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传文件SCP"><span class="nav-number">2.</span> <span class="nav-text">传文件SCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加用户"><span class="nav-number">3.</span> <span class="nav-text">添加用户</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置环境变量"><span class="nav-number">4.</span> <span class="nav-text">配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">4.1.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用于当前用户"><span class="nav-number">4.2.</span> <span class="nav-text">用于当前用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所有用户"><span class="nav-number">4.3.</span> <span class="nav-text">所有用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看环境变量"><span class="nav-number">4.4.</span> <span class="nav-text">查看环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vim常用"><span class="nav-number">5.</span> <span class="nav-text">vim常用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解压"><span class="nav-number">6.</span> <span class="nav-text">解压</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-文件"><span class="nav-number">6.1.</span> <span class="nav-text">.tar 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-gz文件"><span class="nav-number">6.2.</span> <span class="nav-text">.tar.gz文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip文件"><span class="nav-number">6.3.</span> <span class="nav-text">.zip文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rar文件"><span class="nav-number">6.4.</span> <span class="nav-text">.rar文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#换源"><span class="nav-number">7.</span> <span class="nav-text">换源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">8.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number">9.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cut"><span class="nav-number">10.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">11.</span> <span class="nav-text">alias</span></a></li></ol></div>
             
 
           </div>
