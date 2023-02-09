@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="CH0101_a^b描述求a的b次方对p取模的值 数据范围1 ≤ a, b, p ≤ 10^9 思路快速幂 解决1234567891011121314151617181920#include &amp;lt;cstdio&amp;gt;using namespace std;long long a, b, p;int main()&amp;#123;	scanf(&quot;%lld %lld %lld&quot;, &amp;amp;a, &amp;am">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/三分求单值函数极值/image0.png">
-<meta property="og:image" content="http://yoursite.com/images/三分求单值函数极值/image1.png">
-<meta property="og:updated_time" content="2023-01-17T10:22:09.674Z">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——二分/0.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——二分/1.png">
+<meta property="og:updated_time" content="2023-02-09T14:17:05.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法题整理——二分">
 <meta name="twitter:description" content="CH0101_a^b描述求a的b次方对p取模的值 数据范围1 ≤ a, b, p ≤ 10^9 思路快速幂 解决1234567891011121314151617181920#include &amp;lt;cstdio&amp;gt;using namespace std;long long a, b, p;int main()&amp;#123;	scanf(&quot;%lld %lld %lld&quot;, &amp;amp;a, &amp;am">
-<meta name="twitter:image" content="http://yoursite.com/images/三分求单值函数极值/image0.png">
+<meta name="twitter:image" content="http://yoursite.com/images/算法题整理——二分/0.png">
 
 
 
@@ -386,10 +386,10 @@
 <h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>二分答案。</p>
 <h2 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">const int N = 1E5 + 5;</span><br><span class="line"></span><br><span class="line">int x[N];</span><br><span class="line">int n, c;</span><br><span class="line"></span><br><span class="line">bool check(int m)&#123;</span><br><span class="line">  int pos = 0;</span><br><span class="line">  for(int i = 0; i &lt; c - 1; ++i)&#123;</span><br><span class="line">    int j;</span><br><span class="line">    for(j = pos; (j &lt; n) &amp;&amp; (x[j] - x[pos] &lt; m); ++j);</span><br><span class="line">    pos = j;</span><br><span class="line">    if(pos &gt; n - 1)return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  return 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  scanf(&quot;%d %d&quot;, &amp;n, &amp;c);</span><br><span class="line">  for(int i = 0; i &lt; n; ++i)</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;x[i]);</span><br><span class="line">  sort(x, x + n);</span><br><span class="line">  /*for(int i = 0; i &lt; n; ++i)</span><br><span class="line">    printf(&quot;%d\n&quot;, x[i]);</span><br><span class="line">    */</span><br><span class="line">  int h = x[n - 1] - x[0];</span><br><span class="line">  int l = 0;</span><br><span class="line">  int m = (h + l + 1) &gt;&gt; 1;</span><br><span class="line">  //printf(&quot;%d %d %d\n&quot;, h, m, l); </span><br><span class="line">  while(h &gt; l)&#123;</span><br><span class="line">    if(check(m))l = m;</span><br><span class="line">    else h = m - 1;</span><br><span class="line">    m = (h + l + 1) &gt;&gt; 1;</span><br><span class="line">    //printf(&quot;%d %d %d\n&quot;, h, m, l); </span><br><span class="line">  &#125;</span><br><span class="line">  printf(&quot;%d\n&quot;, m);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="三分求单峰-谷函数极值"><a href="#三分求单峰-谷函数极值" class="headerlink" title="三分求单峰/谷函数极值"></a>三分求单峰/谷函数极值</h1><p>观察函数图像：f(x) = xlnx</p>
-<p><img src="/images/三分求单值函数极值/image0.png" alt></p>
+<p><img src="/images/算法题整理——二分/0.png" alt></p>
 <p>假设我们现在要取该函数的极小值点，且知道极小值点在(l, r)之间，我们取两个三分点lmid和rmid，f(lmid)和f(rmid)的关系，有几种情况</p>
 <p>1 f(rmid) &gt; f(lmid)如图：</p>
-<p><img src="/images/三分求单值函数极值/image1.png" alt></p>
+<p><img src="/images/算法题整理——二分/1.png" alt></p>
 <p>此时极值点可以有两种情况，要么在lmid和rmid之间，要么在l和lmid之间，不可能在rmid和r之间，否则从l到lmid再到rmid形成了一个递减区间，这样就不会有f(rmid) &gt; f(lmid)。</p>
 <p>因此，我们可以把区间缩为[l, rmid]，继续三分。</p>
 <p>2 f(lmid) &gt; f(rmid)，同理，区间缩为[lmid, r]。</p>
@@ -529,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -540,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

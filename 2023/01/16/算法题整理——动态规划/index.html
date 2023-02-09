@@ -87,18 +87,18 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="动态规划往往是求解最大最小值的问题，在求解这类问题的过程中，往往最终是需要得到某种多次决策的链条 在什么决策都没做的情况下，我们称此时问题处于初始状态，在一个状态下，所能做出的决策往往和状态有关，决策造成的影响也和状态有关，不同的决策会使得问题走向不同状态 待求解问题也会在一次一次决策中分解为一个一个的子问题，子问题在待求解问题求解的过程中可能会被重复求解，因此动态规划过程往往需要额外存储一些子问">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/数字三角形/数字三角形.png">
-<meta property="og:image" content="http://yoursite.com/images/最长递增子序列/0.png">
-<meta property="og:image" content="http://yoursite.com/images/最长递增子序列/1.png">
-<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/0.png">
-<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/1.png">
-<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/2.png">
-<meta property="og:image" content="http://yoursite.com/images/最优三角剖分/3.png">
-<meta property="og:updated_time" content="2023-01-17T10:21:40.779Z">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/0.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/1.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/2.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/3.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/4.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/5.png">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——动态规划/6.png">
+<meta property="og:updated_time" content="2023-02-09T13:37:01.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法题整理——动态规划">
 <meta name="twitter:description" content="动态规划往往是求解最大最小值的问题，在求解这类问题的过程中，往往最终是需要得到某种多次决策的链条 在什么决策都没做的情况下，我们称此时问题处于初始状态，在一个状态下，所能做出的决策往往和状态有关，决策造成的影响也和状态有关，不同的决策会使得问题走向不同状态 待求解问题也会在一次一次决策中分解为一个一个的子问题，子问题在待求解问题求解的过程中可能会被重复求解，因此动态规划过程往往需要额外存储一些子问">
-<meta name="twitter:image" content="http://yoursite.com/images/数字三角形/数字三角形.png">
+<meta name="twitter:image" content="http://yoursite.com/images/算法题整理——动态规划/0.png">
 
 
 
@@ -360,7 +360,7 @@
 <p>待求解问题也会在一次一次决策中分解为一个一个的子问题，子问题在待求解问题求解的过程中可能会被重复求解，因此动态规划过程往往需要额外存储一些子问题的解以增进效率</p>
 <p>动态规划能解决的问题有很多，同时动态规划的变种也有很多，这使得相关的问题可以很简单也可以很复杂</p>
 <h1 id="数字三角形"><a href="#数字三角形" class="headerlink" title="数字三角形"></a>数字三角形</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>数字三角形指的是这样的图形：第一行只有一个数字，从第一行开始，每个数字的左下和右下方各有一个数字</p>
-<p><img src="/images/数字三角形/数字三角形.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/0.png" alt></p>
 <p>现在有一个非负数组成的数字三角形，我们希望能够找到这样一条从上向下的路径：它从第一行开始，每次只能向左下或者右下，直到最后一行，并且经过的数字之和最大</p>
 <p>记第i行的第j个数为<code>a[i][j]</code></p>
 <h2 id="递归方法"><a href="#递归方法" class="headerlink" title="递归方法"></a>递归方法</h2><p>不妨把我们需要解决的问题记做solve(1,1)，如果去掉第一行，可以把下面的部分看做是两个重叠的数字三角形，如果我们能够解决solve(2,1)和solve(2,2)，那么有</p>
@@ -466,9 +466,9 @@
 <p>如此这般，复杂度是O(n^2)的。会超时。</p>
 <p>我们可以看到，在计算每个数字的d值时，总是要遍历之前的所有数字，实际上，这里是可以简化的。</p>
 <p>我们举一个例子来说明，假设数列的前四个数是1，3，2，4，那么我们可以得到，在计算d3之前，有d0 = 1，d1 = 2，d2 = 2（如下图）</p>
-<p><img src="/images/最长递增子序列/0.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/1.png" alt></p>
 <p>那么，计算d3的时候，我们可以发现，我们只关注两件事，即前面的数字是不是比我小？如果小的话，它的d是多少。我们假设把已经计算了的数列部分重新排列，使其更加有序，如下图：</p>
-<p><img src="/images/最长递增子序列/1.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/2.png" alt></p>
 <p>需要注意的是，尽管重新排列了，di值仍然是原来的值，如图中的3对应di值并没有变成3。</p>
 <p>这样做的好处是什么，当我计算下一个数是si的di值，我需要找到小于si的数的d值，由于之前的数字已经是按序排好的，我可以更快的查找到小于si的数。</p>
 <p>但是仍然不够好，因为即使可以使用诸如二分查找来简化查找的过程，找到第一个小于si的数，我仍然需要遍历所有小于si的数来更新d值。</p>
@@ -546,7 +546,7 @@
 <p>判定对角线i，j合法的方法是：</p>
 <p>1、对角线i，j在角i，角j的范围内。</p>
 <p>这里需要使用向量外积和三角函数。首先，需要计算所有的内角大小。计算内角大小不能用余弦定理，因为多边形的内角可能会超过180度。我们可以用计算向量偏转角的方式来得到。然后，根据向量外积，首先排除对角线和边重合的，即外积是0，向量的分量符号一致。如果对角线和两条边的外积同号，说明对角线在下图的2,3区域，否则就在1,4区域。</p>
-<p><img src="/images/最优三角剖分/0.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/3.png" alt></p>
 <p>这样，我们首先看内角是不是小于180度，如果是，则外积同号，并且对角线和两边夹角之和等于内角，合法，否则不合法。若大于180度，则外积同号的必然合法，异号的，同样是对角线和两边夹角之和等于内角才行。</p>
 <p>2、对角线和任何一条边都不相交</p>
 <p>线段相交的判定可以这样去进行，求出线段所属直线的解析式，然后判定线段的两端点是否在对方直线的两侧即可。</p>
@@ -560,11 +560,11 @@
 <p>仔细分析了一下发现，如果多边形有超过180度的内角，便不能锯掉这个角了，这里我并没有往深入想，而是觉得简单——把多边形的内角计算出来，同时计算<code>dp[i][j]</code>的时候，要注意这时i和j两个角的度数已经发生变化了，所以每次计算都维护一下就好了。</p>
 <p>为了实现这个想法，我差不多花了一下午的时间。计算多边形的内角对我来说实在不算容易，最主要的问题就是“何为内角”，如果用余弦公式去算的话，只能计算出小于180度的角，怎么区分谁在内部谁在外部呢？最终我用的方法是这样的，把每个边当成向量，然后算出这个边和坐标x轴的夹角正弦余弦，用差角公式算出来两个向量的夹角。再检查最终内角和是不是符合多边形内角和规则，如果不符合则每个角取2π-计算值。</p>
 <p>这样倒是过了样例，问题是有时候小于180度的角也不能去掉，比如下图的i角。</p>
-<p><img src="/images/最优三角剖分/1.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/4.png" alt></p>
 <p>于是又陷入僵局，遂又加上了判断线段不能相交的条件，可又遇到了下图</p>
-<p><img src="/images/最优三角剖分/2.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/5.png" alt></p>
 <p>于是又改成了最终版本的判断对角线合不合法。结果发现，一个一个地锯掉角是不行的，比如这个六边形就不能按照锯掉一个角，再锯掉相邻角的办法遍历所有解。</p>
-<p><img src="/images/最优三角剖分/3.png" alt></p>
+<p><img src="/images/算法题整理——动态规划/6.png" alt></p>
 <p>后来不得已，重新思考了下，才改成了最终递推的方法。</p>
 <p>最近看艺术鉴赏课程，提到米开朗琪罗画西斯廷天顶画的故事，其中有一个片段很有意思。说米开朗琪罗对自己的作品十分认真，他常常为了构思人物的形象，整整一天，一动不动地站在架子上，一笔也不画。这种情形被居心叵测的人看到之后告诉了教皇，教皇质问米开朗琪罗为什么偷懒，这位大师回答说——一个画家最认真工作的时候就是不画的时候。</p>
 <p>为什么想起这个故事呢，因为在写这道最优三角剖分的时候，我草率了。往往是刚刚有一个大致的思路就开始敲打，结果是可想而知的，要么写到一半就发现了错误，自相矛盾；要么写到最后提交判错，再苦苦debug，然后推翻了之前的一切重来。这道题得出的经验教训，如果用米开朗琪罗的话说，就是——一个程序员最认真工作的时候就是他什么都不敲的时候。对于程序设计者而言，没有明确自己要做什么，要怎么做，而只是模模糊糊，隐隐约约觉得应该怎么做的时候，千万不要写程序，否则就是自讨苦头。</p>
@@ -782,7 +782,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -793,7 +793,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

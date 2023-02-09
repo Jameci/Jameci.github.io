@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="容器,">
 
 
 
@@ -80,20 +80,21 @@
 
 
 <meta name="description" content="K8s全称为Kubernetes，也称Kube 容器技术容器技术是一种虚拟化技术。 虚拟机的缺点在早期，人们普遍使用虚拟机来进行远程服务器上资源的共享。虚拟机有一个特点，即每个虚拟机实例都能够运行任何其所支持的操作系统，而不受其他实例的影响。这导致了所有虚拟机必须加载操作系统的完整副本和其中大量的应用程序。 这严重影响了性能。如每种操作系统和应用程序堆栈都需要使用DRAM。对于多个运行简单应用程序">
+<meta name="keywords" content="容器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="容器技术">
 <meta property="og:url" content="http://yoursite.com/2023/01/17/容器技术/index.html">
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="K8s全称为Kubernetes，也称Kube 容器技术容器技术是一种虚拟化技术。 虚拟机的缺点在早期，人们普遍使用虚拟机来进行远程服务器上资源的共享。虚拟机有一个特点，即每个虚拟机实例都能够运行任何其所支持的操作系统，而不受其他实例的影响。这导致了所有虚拟机必须加载操作系统的完整副本和其中大量的应用程序。 这严重影响了性能。如每种操作系统和应用程序堆栈都需要使用DRAM。对于多个运行简单应用程序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/K8s/0.png">
-<meta property="og:image" content="http://yoursite.com/images/K8s/1.png">
-<meta property="og:image" content="http://yoursite.com/images/K8s/2.png">
-<meta property="og:updated_time" content="2023-01-17T05:58:23.452Z">
+<meta property="og:image" content="http://yoursite.com/images/容器技术/0.png">
+<meta property="og:image" content="http://yoursite.com/images/容器技术/1.png">
+<meta property="og:image" content="http://yoursite.com/images/容器技术/2.png">
+<meta property="og:updated_time" content="2023-02-09T14:27:57.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="容器技术">
 <meta name="twitter:description" content="K8s全称为Kubernetes，也称Kube 容器技术容器技术是一种虚拟化技术。 虚拟机的缺点在早期，人们普遍使用虚拟机来进行远程服务器上资源的共享。虚拟机有一个特点，即每个虚拟机实例都能够运行任何其所支持的操作系统，而不受其他实例的影响。这导致了所有虚拟机必须加载操作系统的完整副本和其中大量的应用程序。 这严重影响了性能。如每种操作系统和应用程序堆栈都需要使用DRAM。对于多个运行简单应用程序">
-<meta name="twitter:image" content="http://yoursite.com/images/K8s/0.png">
+<meta name="twitter:image" content="http://yoursite.com/images/容器技术/0.png">
 
 
 
@@ -296,6 +297,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术工具/" itemprop="url" rel="index">
+                    <span itemprop="name">技术工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -335,9 +358,9 @@
 <p>部署虚拟服务器的目的之一在于快速创建新的虚拟机实例。然而从网络存储当中复制镜像需要花费大量时间，这些操作会延长启动过程，无疑会限制系统灵活性。</p>
 <h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>一个容器镜像是一个可运行的软件包，其中包含了一个完整的可执行程序，包括代码和运行时需要应用、系统库和全部重要设置的默认值。</p>
 <p>应用程序通过使用容器与底层的宿主机架构解耦。如下图所示，我们可以利用底层机器在容器引擎之上运行多个容器。这促进了容器在各种操作系统和云场景中的部署。</p>
-<p><img src="/images/K8s/0.png" alt></p>
+<p><img src="/images/容器技术/0.png" alt></p>
 <p>容器技术的核心就是通过对资源的限制和隔离把进程运行在一个沙盒中。并且这个沙盒可以被打包成容器镜像（Image），移植到另一台机器上可以直接运行，不需要任何的多余配置。其中docker是容器技术的事实标准。</p>
-<p><img src="/images/K8s/1.png" alt></p>
+<p><img src="/images/容器技术/1.png" alt></p>
 <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>Docker是PaaS提供商dotCloud开源的一个基于LXC（一种内核虚拟化技术，可提供轻量级的虚拟化）的高级容器引擎，源代码托管在Github上, 基于go语言并遵从Apache2.0协议开源。</p>
 <p>Docker使用客户端-服务器(C/S)架构模式，使用远程API来管理和创建Docker容器。Docker容器通过Docker镜像来创建。容器与镜像的关系类似于面向对象编程中的对象与类。</p>
 <p>Docker采用C/S架构Docker daemon作为服务端接受来自客户的请求，并处理这些请求（创建、运行、分发容器）。客户端和服务端既可以运行在一个机器上，也可通过socket或者RESTful API来进行通信。</p>
@@ -365,7 +388,7 @@
 <p>当控制平面需要在节点中执行某个操作时，kubelet 就会执行该操作。</p>
 <h4 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h4><p>kube-proxy 是集群中每个节点（node）上运行的网络代理，是实现 Kubernetes 服务（Service） 概念的一部分。</p>
 <p>kube-proxy 维护节点网络规则和转发流量，实现从集群内部或外部的网络与 Pod 进行网络通信。</p>
-<p><img src="/images/K8s/2.png" alt></p>
+<p><img src="/images/容器技术/2.png" alt></p>
 <h1 id="kubeadm配置简单model"><a href="#kubeadm配置简单model" class="headerlink" title="kubeadm配置简单model"></a>kubeadm配置简单model</h1><h2 id="先装docker"><a href="#先装docker" class="headerlink" title="先装docker"></a>先装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt full-upgrade</span><br><span class="line">sudo apt-get install docker.io -y</span><br><span class="line"># 启动docker  </span><br><span class="line">sudo systemctl start docker</span><br><span class="line"># 设置开机启动docker</span><br><span class="line">sudo systemctl enable docker</span><br></pre></td></tr></table></figure>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 禁用交换分区(在旧版的 k8s 中 kubelet 都要求关闭 swapoff ，但最新版的 kubelet 其实已经支持 swap ，因此这一步其实可以不做。)</span><br><span class="line">sudo swapoff -a</span><br><span class="line"># 永久禁用，打开/etc/fstab注释掉swap那一行。  </span><br><span class="line">sudo vim /etc/fstab</span><br><span class="line"># 修改内核参数(首先确认你的系统已经加载了 br_netfilter 模块，默认是没有该模块的，需要你先安装 bridge-utils)</span><br><span class="line">apt-get install -y bridge-utils</span><br><span class="line"># 开机自动加载br_netfilter模块，是linux的一个命令，可向内核载入指定的个别模块，或是载入一组相依的模块</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">lsmod | grep br_netfilter</span><br><span class="line"># 如果报错找不到包，需要先更新 apt-get update -y</span><br></pre></td></tr></table></figure>
 <h2 id="Master节点的配置"><a href="#Master节点的配置" class="headerlink" title="Master节点的配置"></a>Master节点的配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 安装基础环境</span><br><span class="line">apt-get install -y ca-certificates curl software-properties-common apt-transport-https curl</span><br><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -</span><br><span class="line"># 执行配置k8s阿里云源  </span><br><span class="line">vim /etc/apt/sources.list.d/kubernetes.list</span><br><span class="line">#加入以下内容</span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main</span><br><span class="line"># 执行更新</span><br><span class="line">apt-get update -y</span><br><span class="line"># 安装kubeadm、kubectl、kubelet  </span><br><span class="line">apt-get install -y kubelet=1.23.1-00 kubeadm=1.23.1-00 kubectl=1.23.1-00</span><br><span class="line"># 阻止自动更新(apt upgrade时忽略)。所以更新的时候先unhold，更新完再hold。</span><br><span class="line">apt-mark hold kubelet kubeadm kubectl</span><br></pre></td></tr></table></figure>
@@ -459,6 +482,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/容器/" rel="tag"># 容器</a>
+          
+        </div>
       
 
       
@@ -569,7 +598,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -580,7 +609,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

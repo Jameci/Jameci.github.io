@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="MPLS诞生随着早期互联网的快速发展，人们担心简单的IP协议无法承载 进而开始了更复杂的网络层协议的研究，其中一个协议是ATM协议，但由于过于复杂，这个协议没有大范围取代IP 虽然ATM寄了，但它的几点思想启发了后来的MPLS： 摈弃了繁琐的路由查找，改为了简单快速的标签交换 将具有全局意义的路由表改为只有本地意义的标签表 这些都可以大大提高一台录取的转发功能 包头结构 相关概念标签通过绑定过程和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/VPN/0.png">
-<meta property="og:image" content="http://yoursite.com/images/VPN/1.png">
-<meta property="og:image" content="http://yoursite.com/images/VPN/2.png">
-<meta property="og:image" content="http://yoursite.com/images/VPN/3.png">
-<meta property="og:image" content="http://yoursite.com/images/VPN/4.png">
-<meta property="og:updated_time" content="2023-02-09T13:13:07.094Z">
+<meta property="og:image" content="http://yoursite.com/images/MPLS_VPN/0.png">
+<meta property="og:image" content="http://yoursite.com/images/MPLS_VPN/1.png">
+<meta property="og:image" content="http://yoursite.com/images/MPLS_VPN/2.png">
+<meta property="og:image" content="http://yoursite.com/images/MPLS_VPN/3.png">
+<meta property="og:image" content="http://yoursite.com/images/MPLS_VPN/4.png">
+<meta property="og:updated_time" content="2023-02-09T13:43:04.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MPLS_VPN">
 <meta name="twitter:description" content="MPLS诞生随着早期互联网的快速发展，人们担心简单的IP协议无法承载 进而开始了更复杂的网络层协议的研究，其中一个协议是ATM协议，但由于过于复杂，这个协议没有大范围取代IP 虽然ATM寄了，但它的几点思想启发了后来的MPLS： 摈弃了繁琐的路由查找，改为了简单快速的标签交换 将具有全局意义的路由表改为只有本地意义的标签表 这些都可以大大提高一台录取的转发功能 包头结构 相关概念标签通过绑定过程和">
-<meta name="twitter:image" content="http://yoursite.com/images/VPN/0.png">
+<meta name="twitter:image" content="http://yoursite.com/images/MPLS_VPN/0.png">
 
 
 
@@ -359,7 +359,7 @@
 <p>摈弃了繁琐的路由查找，改为了简单快速的标签交换</p>
 <p>将具有全局意义的路由表改为只有本地意义的标签表</p>
 <p>这些都可以大大提高一台录取的转发功能</p>
-<h2 id="包头结构"><a href="#包头结构" class="headerlink" title="包头结构"></a>包头结构</h2><p><img src="/images/VPN/0.png" alt></p>
+<h2 id="包头结构"><a href="#包头结构" class="headerlink" title="包头结构"></a>包头结构</h2><p><img src="/images/MPLS_VPN/0.png" alt></p>
 <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p>标签通过绑定过程和FEC相映射</p>
 <p>FEC是转发等价类，是在转发过程中以等价方式处理的一组数据分组。就是不同的报文对于沿途的路由器都采用相同的动作，比如从A中同样的接口进来，再到B上同样的接口出去……就视为一组转发等价类</p>
 <p>通常在一台设备上，对于一个FEC分配相同的标签</p>
@@ -388,7 +388,7 @@
 <p>互相收到keepalive，建立会话</p>
 <p>期间接收到任何差错，关闭会话，断开TCP</p>
 <p>状态转移图</p>
-<p><img src="/images/VPN/1.png" alt></p>
+<p><img src="/images/MPLS_VPN/1.png" alt></p>
 <h3 id="标签的分发和管理"><a href="#标签的分发和管理" class="headerlink" title="标签的分发和管理"></a>标签的分发和管理</h3><p>在一条LSP上，沿着数据包传送的方向，相邻的LSR分别叫做上游，下游</p>
 <p>发路由信息则从下游到上游</p>
 <p>一般LDP标签分配方式采用DU方式，即下游主动向上游发出标记映射信息</p>
@@ -397,7 +397,7 @@
 <p>该转发有水平分割，即“你告诉我的事情，我会告诉所有人，但不会再告诉你，因为这是你说的，你肯定比我更清楚”</p>
 <p>保守方式和自由方式的区别：自由方式来着不拒，对于路由通知都收下；保守方式只保留路由下一跳邻居的标签(近的)，丢弃非下一跳邻居发来的标签</p>
 <p>谁是路由下一跳？近的是</p>
-<p><img src="/images/VPN/2.png" alt></p>
+<p><img src="/images/MPLS_VPN/2.png" alt></p>
 <p>标签向邻居的发送方式：有序和独立</p>
 <p>有序指的是我只发自己家的直连路由，只有接收到别人的标签时，我才发自己学到的</p>
 <p>独立指的是我连自己学到的也发出去</p>
@@ -416,7 +416,7 @@
 <p>所谓隧道，就是把一种报文打包，整个装到另一种报文里，是网络中常用的技术</p>
 <p>常说的VPN是指把设备和专门的VPN服务器建立安全连接(利用的是VPN技术)，之后上网时吧加密的数据发送到VPN服务器，VPN服务器</p>
 <h2 id="Overlay和Peer-to-peer两种VPN"><a href="#Overlay和Peer-to-peer两种VPN" class="headerlink" title="Overlay和Peer-to-peer两种VPN"></a>Overlay和Peer-to-peer两种VPN</h2><p>CE、PE和P的定义</p>
-<p><img src="/images/VPN/3.png" alt></p>
+<p><img src="/images/MPLS_VPN/3.png" alt></p>
 <h3 id="Overlay"><a href="#Overlay" class="headerlink" title="Overlay"></a>Overlay</h3><p>1.在CE之间建立隧道，并直接传递路由信息，协议有GRE，IPSec</p>
 <p>保密性、安全性很好，不同VPN用户可以使用相同的地址空间</p>
 <p>但是需要客户自己创建并维护VPN，成本高</p>
@@ -447,7 +447,7 @@
 <p>一组属于这个VRF的接口集合</p>
 <p>一组只用于本VRF的路由协议</p>
 <p>扩展的community叫RT，表示自己的路由取舍和喜好的方式</p>
-<p><img src="/images/VPN/4.png" alt></p>
+<p><img src="/images/MPLS_VPN/4.png" alt></p>
 <p>发布RT是用来解决本地冲突的，他表示IP的归属，通过声明自己接受哪些RT，发布哪些RT来确定互访规则</p>
 <p>RD来解决网络传输中的冲突，其实是BGP发相同地址的路由撤销报文才有用，用于区分不同的路由。在IP地址前加RD，变成VPN-IPv4地址族，用于区分相同的地址来自哪个VPN</p>
 <p>以上解决了控制平面路由学习的问题，数据层面路由转发时也有冲突。同一台PE接收到远端PE发给本地的同一地址的不同VRF怎么办？再加一个由MP-BGP分配的标签，发送时带上，根据这个来区分</p>
@@ -598,7 +598,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -609,7 +609,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

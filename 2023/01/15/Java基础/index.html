@@ -87,17 +87,17 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="配环境安装Jre和IDEA去IDEA官网下载： https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows 之前装了jdk，不用再下了  关于jdk和jre的区别：   JRE： Java Runtime Environment，顾名思义是java运行时环境，包含了java虚拟机，java基础类库。是使">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/Java之路——0配置环境/0.png">
-<meta property="og:image" content="http://yoursite.com/images/Java之路——4类和对象/0.png">
-<meta property="og:image" content="http://yoursite.com/images/Java之路——4类和对象/1.png">
-<meta property="og:image" content="http://yoursite.com/images/Java之路——4类和对象/2.png">
-<meta property="og:image" content="http://yoursite.com/images/Java之路——8Swing/0.png">
-<meta property="og:image" content="http://yoursite.com/images/Java之路——8Swing/1.png">
-<meta property="og:updated_time" content="2023-01-15T15:52:13.025Z">
+<meta property="og:image" content="http://yoursite.com/images/Java基础/0.png">
+<meta property="og:image" content="http://yoursite.com/images/Java基础/1.png">
+<meta property="og:image" content="http://yoursite.com/images/Java基础/2.png">
+<meta property="og:image" content="http://yoursite.com/images/Java基础/3.png">
+<meta property="og:image" content="http://yoursite.com/images/Java基础/4.png">
+<meta property="og:image" content="http://yoursite.com/images/Java基础/5.png">
+<meta property="og:updated_time" content="2023-02-09T13:28:44.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础">
 <meta name="twitter:description" content="配环境安装Jre和IDEA去IDEA官网下载： https://www.jetbrains.com/idea/download/download-thanks.html?platform=windows 之前装了jdk，不用再下了  关于jdk和jre的区别：   JRE： Java Runtime Environment，顾名思义是java运行时环境，包含了java虚拟机，java基础类库。是使">
-<meta name="twitter:image" content="http://yoursite.com/images/Java之路——0配置环境/0.png">
+<meta name="twitter:image" content="http://yoursite.com/images/Java基础/0.png">
 
 
 
@@ -370,7 +370,7 @@
 <p>如果你需要运行java程序，只需安装JRE就可以了。如果你需要编写java程序，需要安装JDK。</p>
 </blockquote>
 <h2 id="如何使用IDEA"><a href="#如何使用IDEA" class="headerlink" title="如何使用IDEA"></a>如何使用IDEA</h2><p>打开idea，创建工程，在左边的src文件中选择创建java class</p>
-<p><img src="/images/Java之路——0配置环境/0.png" alt></p>
+<p><img src="/images/Java基础/0.png" alt></p>
 <p>创建之后，随便写个main函数，按alt+shift+f10运行</p>
 <h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="主类结构"><a href="#主类结构" class="headerlink" title="主类结构"></a>主类结构</h2><p>Java是面向对象的语言，因此Java程序的基本构成是类，与C和C++不同的是，main方法也必须包括在类中，这个含有main方法的类叫做主类</p>
 <p>main方法的声明：</p>
@@ -587,7 +587,7 @@ java.io-包含输入输出功能的函数
 <h2 id="package-的目录结构"><a href="#package-的目录结构" class="headerlink" title="package 的目录结构"></a>package 的目录结构</h2><p>类放在包中会有两种主要的结果：</p>
 <pre><code>包名成为类名的一部分，正如我们前面讨论的一样。
 包名必须与相应的字节码所在的目录结构相吻合。
-</code></pre><p><img src="/images/Java之路——4类和对象/0.png" alt></p>
+</code></pre><p><img src="/images/Java基础/1.png" alt></p>
 <p>如上图，类Test在包test中，路径也是在test下有一个Test.Java文件</p>
 <h1 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h1><h2 id="成员变量和成员方法"><a href="#成员变量和成员方法" class="headerlink" title="成员变量和成员方法"></a>成员变量和成员方法</h2><p>与C++基本一致</p>
 <h3 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h3><p>权限修饰符有private，protected，public三种，与C++差不多，但有区别</p>
@@ -608,11 +608,11 @@ java.io-包含输入输出功能的函数
 <p>5.在Test类中写主函数，导入othertest包，分别输出OtherTest和SameTest的a，发现一切正常</p>
 <p><strong>说明public的类无论在任何地方，都可以被访问到</strong></p>
 <p>6.去掉OtherTest和SameTest的修饰符public，这时候发现编译器立刻报错提醒，表示OtherTest已经无法被访问，但SameTest还是正常</p>
-<p><img src="/images/Java之路——4类和对象/1.png" alt></p>
+<p><img src="/images/Java基础/2.png" alt></p>
 <p><strong>说明protected的类不能被不同包的其它类访问，但可以被同一个包下的其它类访问</strong></p>
 <h3 id="修饰成员"><a href="#修饰成员" class="headerlink" title="修饰成员"></a>修饰成员</h3><p>需要注意的是，Java类的权限会影响到成员的权限，比如尽管一个成员变量是public的，但它所属类是默认权限default，那么在不同的包下还是不能访问这个成员变量，这时的成员变量权限也可以看作是default的。</p>
 <p>成员变量的访问关系可以由下图所示：</p>
-<p><img src="/images/Java之路——4类和对象/2.png" alt></p>
+<p><img src="/images/Java基础/3.png" alt></p>
 <p>比较有趣的是protected型的成员在不同包下的父子类之间的访问，这里实际上指的是子类的实例可以访问从父类继承而来的protected方法。即在子类中的某个方法fun1()直接访问父类的protected方法，再去实例化子类，通过子类的实例调用fun1()，从而间接实现访问父类的protected方法，但不能通过父类的实例直接去访问其protected方法。</p>
 <p>演示：</p>
 <p>1.新建两个包，一个名为test，另一个为othertest</p>
@@ -734,7 +734,7 @@ java.io-包含输入输出功能的函数
 <p><strong>继承体系</strong>：</p>
 <p>Component代表能够显现出来，并与用户交互的对象</p>
 <p>MenuComponent代表菜单</p>
-<p><img src="/images/Java之路——8Swing/0.png" alt></p>
+<p><img src="/images/Java基础/4.png" alt></p>
 <p>Container是特殊的组件，意思为“容器”，表示它们可以包含其它的组件</p>
 <p>还有一个接口名字加LayoutManager，是布局管理器</p>
 <p>学习AWT主要就是学习这三部分</p>
@@ -748,7 +748,7 @@ java.io-包含输入输出功能的函数
 <p><strong>setVisiable(boolean b)</strong></p>
 <p>设置可见</p>
 <h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><p>Container继承体系：</p>
-<p><img src="/images/Java之路——8Swing/1.png" alt></p>
+<p><img src="/images/Java基础/5.png" alt></p>
 <p>Window是可以独立存在的顶级窗口，默认使用BorderLayout来管理其布局</p>
 <p>Panel可以容纳其它组件却不能独立存在，它必须内嵌在其它容器中使用，默认使用FlowLayout管理其布局</p>
 <p>ScrollPane也不能独立存在，默认使用BorderLayout管理布局</p>
@@ -1141,7 +1141,7 @@ java.io-包含输入输出功能的函数
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1152,7 +1152,7 @@ java.io-包含输入输出功能的函数
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

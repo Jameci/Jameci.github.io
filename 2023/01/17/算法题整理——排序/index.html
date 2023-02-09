@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="第k大数问题给出一个数组，找出其中第k大的数。 一个常见的思路是先排序，然后输出第k大的数字，时间复杂度为O(nlogn) 蓝书上给了另一种思路，即类似于快速排序的思想： 先选取一个数a作为”基准“，和其他数字比较，比a大的放左边，比a小的放右边，并统计个数，假设最终左边个数为cnt，如果cnt&amp;gt;=k，那么在左边重复上述操作找第k大数，如果cnt&amp;lt;k，那么在右边找第k-cnt大数。 这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/CH0502/image0.png">
-<meta property="og:updated_time" content="2023-01-17T10:22:46.812Z">
+<meta property="og:image" content="http://yoursite.com/images/算法题整理——排序/0.png">
+<meta property="og:updated_time" content="2023-02-09T13:38:48.002Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法题整理——排序">
 <meta name="twitter:description" content="第k大数问题给出一个数组，找出其中第k大的数。 一个常见的思路是先排序，然后输出第k大的数字，时间复杂度为O(nlogn) 蓝书上给了另一种思路，即类似于快速排序的思想： 先选取一个数a作为”基准“，和其他数字比较，比a大的放左边，比a小的放右边，并统计个数，假设最终左边个数为cnt，如果cnt&amp;gt;=k，那么在左边重复上述操作找第k大数，如果cnt&amp;lt;k，那么在右边找第k-cnt大数。 这">
-<meta name="twitter:image" content="http://yoursite.com/images/CH0502/image0.png">
+<meta name="twitter:image" content="http://yoursite.com/images/算法题整理——排序/0.png">
 
 
 
@@ -389,7 +389,7 @@
 <p>我们用<code>A[i]</code>表示前缀和，那么显然问题的解是所有<code>A[i]</code>的和。</p>
 <p>回到摊位问题中来，对于交换摊位，有一点和纸牌问题不一样，那就是摊位的1和n是相邻的，这相当于n个人排成一个环形交换纸牌。对此，我们发现，交换次数最少的交换方法中，一定至少有相邻的两行之间一次交换也没有发生过。</p>
 <p>要证明这一点也很简单，我们还是考虑n个人交换纸牌的问题，只不过他们排成了一个环形，如果任意的两个人之间都有纸牌的“净流入”，或者“净流出”，那么无非会出现两种情况：</p>
-<p><img src="/images/CH0502/image0.png" alt></p>
+<p><img src="/images/算法题整理——排序/0.png" alt></p>
 <p>对于左边，显然至少有一张纸牌被传递了一圈，显然这是不合算的，取消掉之后，传递次数最少的两个人之间就会没有一次交换发生。</p>
 <p>对于右边，我们把最下面的那个人想两边传递的纸牌集中起来，传递给一个，这样可以在不增加传递次数的情况下满足存在两个人之间不发生交换的情况。</p>
 <p>这样，我们假设从第k-1和第k个人之间不发生任何交换，可以知道：</p>
@@ -553,7 +553,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -564,7 +564,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
