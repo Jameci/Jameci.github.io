@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本项目是从2023年初开始的，当时我躺在床上正舒服着，老师突然把我拉进了一个项目群，并且通知马上开会。简单听了听内容之后，其实我还是挺高兴的——终于可以有一个自己的项目了   结果年后问题频频，本科生倒是做得挺欢，每周都有很大的进展，反观我这边，一度不知道该从何下手。于是我沉住气，分析了一下要解决的问题，发现目前最容易做的就是风电预测，提高风电预测的精准度   MD，这我不是天才吗——作为在风电">
+<meta property="og:type" content="article">
+<meta property="og:title" content="水电风电项目">
+<meta property="og:url" content="http://yoursite.com/2023/03/17/水电风电项目/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="本项目是从2023年初开始的，当时我躺在床上正舒服着，老师突然把我拉进了一个项目群，并且通知马上开会。简单听了听内容之后，其实我还是挺高兴的——终于可以有一个自己的项目了   结果年后问题频频，本科生倒是做得挺欢，每周都有很大的进展，反观我这边，一度不知道该从何下手。于是我沉住气，分析了一下要解决的问题，发现目前最容易做的就是风电预测，提高风电预测的精准度   MD，这我不是天才吗——作为在风电">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/风电预测按时间分类.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/上下包络线.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/利用标准差进行的柯西收敛性检验.png">
+<meta property="og:updated_time" content="2023-03-21T15:34:47.449Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="水电风电项目">
+<meta name="twitter:description" content="本项目是从2023年初开始的，当时我躺在床上正舒服着，老师突然把我拉进了一个项目群，并且通知马上开会。简单听了听内容之后，其实我还是挺高兴的——终于可以有一个自己的项目了   结果年后问题频频，本科生倒是做得挺欢，每周都有很大的进展，反观我这边，一度不知道该从何下手。于是我沉住气，分析了一下要解决的问题，发现目前最容易做的就是风电预测，提高风电预测的精准度   MD，这我不是天才吗——作为在风电">
+<meta name="twitter:image" content="http://yoursite.com/images/水电风电项目/风电预测按时间分类.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/03/17/水电风电项目/">
+
+
+
+
+
+  <title>水电风电项目 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/17/水电风电项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">水电风电项目</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-03-17T21:43:49+08:00">
+                2023-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本项目是从2023年初开始的，当时我躺在床上正舒服着，老师突然把我拉进了一个项目群，并且通知马上开会。简单听了听内容之后，其实我还是挺高兴的——终于可以有一个自己的项目了</p>
+</blockquote>
+<blockquote>
+<p>结果年后问题频频，本科生倒是做得挺欢，每周都有很大的进展，反观我这边，一度不知道该从何下手。于是我沉住气，分析了一下要解决的问题，发现目前最容易做的就是风电预测，提高风电预测的精准度</p>
+</blockquote>
+<blockquote>
+<p>MD，这我不是天才吗——作为在风电预测公司打杂了两个月的我，没吃过猪肉但也见过猪跑了。模型不是我写的，但要解决什么问题我非常明了，并且数据在哪下的我都知道啊</p>
+</blockquote>
+<blockquote>
+<p>赢赢赢！</p>
+</blockquote>
+<blockquote>
+<p>结果正准备大展宏图，结果被另一位老师拍脑瓜了，对于我提出的风功率预测，他们不屑一顾，表示：“知道风速了，风功率不是接着就出来了吗”</p>
+</blockquote>
+<blockquote>
+<p>还真不是……你以为风是直直的吹到风机上的？风是匀速，吹上去之后也不减速？风电场是复杂多变的，风速风向都是不定的，更别谈还有什么尾流效应一堆堆麻烦的东西</p>
+</blockquote>
+<blockquote>
+<p>但就是这样，老师只负责拍脑瓜，他一拍觉得能行，我就得去干活；他一拍觉得不行，我就得把话憋回去</p>
+</blockquote>
+<blockquote>
+<p>于是，刚刚调研完风功率预测的我，不得不再去找风速预测了。但我想了想，风速预测不是有现成模型？人家做天气预报的也不是吃干饭的啊……</p>
+</blockquote>
+<blockquote>
+<p>怨气，怨言……</p>
+</blockquote>
+<h1 id="梯级水库调度"><a href="#梯级水库调度" class="headerlink" title="梯级水库调度"></a>梯级水库调度</h1><p>目前从学弟的口中得到了三种方法——传统DP，遗传算法和粒子群算法</p>
+<h1 id="风电预测"><a href="#风电预测" class="headerlink" title="风电预测"></a>风电预测</h1><p>风电预测可以根据预测的时间尺度分为不同的类别，有短期，超短期，中期和长期四种</p>
+<p><img src="/images/水电风电项目/风电预测按时间分类.png" alt></p>
+<p>根据用的方法不同，分为持久化方法，物理方法，统计方法。统计方法又分为神经网络方法和基于时间序列的方法</p>
+<p>很明显，我们只会选神经网络的方法</p>
+<p>因为那个老师的拍脑瓜，所以风电预测停摆，改为风速预测</p>
+<h1 id="风速预测"><a href="#风速预测" class="headerlink" title="风速预测"></a>风速预测</h1><p>首先是一个常识性的问题了，我一开始也没搞明白——风速和风力有什么区别？</p>
+<p>风速就是风的速度呗，那风力呢？风的力量？我没找到有关风力的明确说法，一种是说风吹在一块板上造成压力，用这压力除以板的面积得到风力，但我又去查了很多资料发现那叫风压。除此之外，单位时间吹出的空气量叫做风量</p>
+<p>风速风压和风量之间肯定有关系</p>
+<p>另外一种方法说是风力就是那个什么风速分级，几级风对应几级天气预警那个</p>
+<p>风力和风速老是混用，有时候风力又是一个模糊的词，风比较大的时候，人们总是喜欢说风力大，而不是风速大</p>
+<p>所以最终我们还是关注没有歧义的风速</p>
+<h2 id="基于分解和AI的多阶段短期风功率预测模型"><a href="#基于分解和AI的多阶段短期风功率预测模型" class="headerlink" title="基于分解和AI的多阶段短期风功率预测模型"></a>基于分解和AI的多阶段短期风功率预测模型</h2><p>A new multistage short-term wind power forecast model using decomposition and artificial intelligence methods</p>
+<p>奶奶滴，论文名字总是又臭又长</p>
+<p>话说这个decomposition到底是啥？</p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>就是说他要预测风功率，搞了三个阶段，第一阶段利用历史风速风向和风力预测现在的风速风向风力，之后第二阶段用预测出的风速风向风力来预测风功率，最后一个阶段搞了个修正流程，咱也不知道是怎么弄的，接着往下看吧</p>
+<p>用的模型是ANFIS，ANN和SVR，EMD和SWD用作pre-processing</p>
+<p>模型最终的输出是ANFIS，ANN和SVR的加权平均值</p>
+<h3 id="背景故事"><a href="#背景故事" class="headerlink" title="背景故事"></a>背景故事</h3><p>我都快会背了——风电是新能源，低排放低碳实惠又管饱绿色生态大大滴好，但风电不稳定是它的问题，因为储电很难做，所以发电一般要和用电同步</p>
+<p>这时候，预测风电就成了重中之重</p>
+<p>然后介绍一下研究历史，风电预测分为四种——物理，统计，AI，混合，谁谁谁做过什么，效果怎么样，问题出在哪</p>
+<p>然后终于，他们有那么多的问题，所以我们的方法应运而生，然后就是自卖自夸——我们的方法他大大滴好，大大滴优秀</p>
+<p>对于熟悉风电预测文章的我来说最有用的就是最后一段：</p>
+<p>本文的主要贡献如下:</p>
+<p>(1)结合分解方法和人工智能方法，建立了一种新的预测模型(废话)</p>
+<p>(2)在文献研究中，下个小时风电功率预测一般选用较少的数据，一般为几天至1年。但本研究选取两年的数据进行检验</p>
+<p>(3)进行风速预报和风向预报，获得更准确的风电功率预报值</p>
+<p>(4)利用预处理阶段和后处理阶段，每一步都提高了预测值</p>
+<p>(5)选择了三种不同的预测方法，并在每一步中确定了最成功的方法。最终的结果是由集成方法建立的</p>
+<p>(6)与文献中使用相同数据的研究相比，该方法是成功的</p>
+<p>总结起来：是因为我们用的数据时间长，预测了风速风向，阶段多，预测方法多，所以我们的方法做出来的东西牛</p>
+<h3 id="data"><a href="#data" class="headerlink" title="data"></a>data</h3><p>数据是西班牙一个试验性风电场的数据，用了6年的数据，4年用训练，2年来测试</p>
+<h3 id="Main-dish"><a href="#Main-dish" class="headerlink" title="Main dish"></a>Main dish</h3><h4 id="Pre-processing"><a href="#Pre-processing" class="headerlink" title="Pre-processing"></a>Pre-processing</h4><blockquote>
+<p>什么鸡巴玩意啊，你妈的洋文看不懂日常破防，一秒四破</p>
+</blockquote>
+<h5 id="EMD"><a href="#EMD" class="headerlink" title="EMD"></a>EMD</h5><p>全称是Empirical Mode Decomposition，Empirical是经验主义的，咱们看看到底是怎么体现这个经验主义的</p>
+<p>上来还是一通夸，说这个EMD啊，真NB啊，能把容易复杂的数据集Decompositon成有限个intrinsic mode function加余量，这个intrinsic是固有的意思</p>
+<p>然后就准备介绍细节了</p>
+<p>EMD需要两个条件，我一个都没看懂：</p>
+<p>The number of the extrema points is equal to zero crossing or most one difference</p>
+<p>The mean of lower and upper envelopes is zero</p>
+<p>第一条能猜个大概，就是极值点最多一个的意思，第二条envelopes到底啥意思也没查着，信封？上下信封均值为0？</p>
+<p>所以该看别人的博客了——<a href="https://zhuanlan.zhihu.com/p/40005057" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/40005057</a></p>
+<p>这篇文章提到了小波分析，我也不懂，但我猜是对波进行处理和分类的方法。他说到EMD比小波分析要好，好在不需要提前对未知信号分析和研究，可以直接开始分解</p>
+<p>而上面提到的intrinsic mode function，即IMF，是信号被EMD分解后得到的函数，翻译过来叫内态模因分量</p>
+<p>之后就是讲述什么是内态模因分量了——不看不知道，一看吓一跳，我自己看论文理解的完全不对——上面说的两个条件其实是IMF的两个条件，而非被EMD处理的信号需要满足的</p>
+<p>并且第一条是极值点和变号零点数量最多差1(我把句子断成了is equal to zero，实际上是is equal to zero crossing，zero crossing居然是个名词)</p>
+<p>第二条是Envelop，其实不是信封，而是包络线</p>
+<p>数学上包络线定义是这样的：和一个曲线族中的每个曲线都至少有一个点相切的线</p>
+<p>信号包络线和曲线包络线又不一样——对信号的每个峰值点连线，就可以形成上下两条线，称为上包络线和下包络线</p>
+<p><img src="/images/水电风电项目/上下包络线.png" alt></p>
+<p>这里指的是上下包络线平均值为0</p>
+<blockquote>
+<p>妈的，洋文简直就是老子科研的障碍，怎么什么便宜都让那群洋鬼子占了，傻逼洋文，草你妈，傻逼洋文</p>
+</blockquote>
+<p>这下终于舒畅了</p>
+<p>那么EMD分解怎么做的呢</p>
+<p><a href="http://perso.ens-lyon.fr/patrick.flandrin/emd.ppt" target="_blank" rel="noopener">http://perso.ens-lyon.fr/patrick.flandrin/emd.ppt</a></p>
+<p>首先，取上下包络线的均值线，把均值线从原始信号中刨除，看剩下的是不是满足两个条件</p>
+<p>若是，该均值线就是IMF1，若不是，继续刨直到满足为止</p>
+<p>取出IMF1之后呢，用原始信号减去IMF1，剩下的继续取IMF2</p>
+<p>至于什么时候停下来，他没说</p>
+<p>再转过头看论文，果然他这过程就是处理的过程啊，舒畅！</p>
+<p>Step1：取出所有最大最小值点</p>
+<p>Step2：三次样条插值求出上下包络线</p>
+<p>Step3：取均值</p>
+<p>Step4：刨除</p>
+<p>Step5：判断是否合规。这里使用了利用标准差进行的柯西收敛性检验，k就是一个interval</p>
+<p><img src="/images/水电风电项目/利用标准差进行的柯西收敛性检验.png" alt></p>
+<p>我不明白这样做的道理，但我明白这样做的目的</p>
+<p>Step6：原始数据减去IMF</p>
+<p>Step7：剩下部分如果还有极大极小值，就继续，否则记为Remining，R(t)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/03/16/群智能算法/" rel="next" title="群智能算法">
+                <i class="fa fa-chevron-left"></i> 群智能算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/03/20/一些崩溃的话/" rel="prev" title="一些崩溃的话">
+                一些崩溃的话 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#梯级水库调度"><span class="nav-number">1.</span> <span class="nav-text">梯级水库调度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#风电预测"><span class="nav-number">2.</span> <span class="nav-text">风电预测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#风速预测"><span class="nav-number">3.</span> <span class="nav-text">风速预测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于分解和AI的多阶段短期风功率预测模型"><span class="nav-number">3.1.</span> <span class="nav-text">基于分解和AI的多阶段短期风功率预测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">3.1.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景故事"><span class="nav-number">3.1.2.</span> <span class="nav-text">背景故事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data"><span class="nav-number">3.1.3.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-dish"><span class="nav-number">3.1.4.</span> <span class="nav-text">Main dish</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pre-processing"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">Pre-processing</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#EMD"><span class="nav-number">3.1.4.1.1.</span> <span class="nav-text">EMD</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
