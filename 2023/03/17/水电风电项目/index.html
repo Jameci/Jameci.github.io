@@ -106,7 +106,15 @@
 <meta property="og:image" content="http://yoursite.com/images/水电风电项目/AR模型.png">
 <meta property="og:image" content="http://yoursite.com/images/水电风电项目/MA模型.png">
 <meta property="og:image" content="http://yoursite.com/images/水电风电项目/ARMA.png">
-<meta property="og:updated_time" content="2023-03-29T03:29:18.746Z">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/TEDA.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/困惑的公式.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/典型性和离散度的关系.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/最初的条件.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/查看是否outlier.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/添加了r0.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/一个点是否属于cluster.png">
+<meta property="og:image" content="http://yoursite.com/images/水电风电项目/多阶段FTS.png">
+<meta property="og:updated_time" content="2023-04-08T14:58:21.455Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="水电风电项目">
 <meta name="twitter:description" content="本项目是从2023年初开始的，当时我躺在床上正舒服着，老师突然把我拉进了一个项目群，并且通知马上开会。简单听了听内容之后，其实我还是挺高兴的——终于可以有一个自己的项目了   结果年后问题频频，本科生倒是做得挺欢，每周都有很大的进展，反观我这边，一度不知道该从何下手。于是我沉住气，分析了一下要解决的问题，发现目前最容易做的就是风电预测，提高风电预测的精准度   MD，这我不是天才吗——作为在风电">
@@ -535,6 +543,48 @@
 <p>谱估计（spectrum estimation) 对随机信号序列进行功率谱密度估计算法的总称，属于频域中描述随机信号特性的分析方法之―</p>
 <p><img src="/images/水电风电项目/MA模型.png" alt></p>
 <h2 id="ARMA模型"><a href="#ARMA模型" class="headerlink" title="ARMA模型"></a>ARMA模型</h2><p><img src="/images/水电风电项目/ARMA.png" alt></p>
+<h2 id="Evolving-fuzzy-time-series-for-spatio-temporal-forecasting-in-renewable-energy-systems"><a href="#Evolving-fuzzy-time-series-for-spatio-temporal-forecasting-in-renewable-energy-systems" class="headerlink" title="Evolving fuzzy time series for spatio-temporal forecasting in renewable energy systems"></a>Evolving fuzzy time series for spatio-temporal forecasting in renewable energy systems</h2><p>第一步是一个data clustering，clustering的意思是聚类</p>
+<p>使用的主要方法在4.2里讲了，主要就是这个microTEDAclus</p>
+<h3 id="microTEDAclus"><a href="#microTEDAclus" class="headerlink" title="microTEDAclus"></a>microTEDAclus</h3><p>首先它是一个进化的算法，并且基于TEDA(统计学名词)</p>
+<p>TEDA查不到，原词是Typicality and Eccentricity Data Analytics</p>
+<p>只能完全依靠它文章中讲的东西来理解了</p>
+<h4 id="TEDA-framework"><a href="#TEDA-framework" class="headerlink" title="TEDA framework"></a>TEDA framework</h4><p>typicality and eccentricity is the key concept of TEDA(可不呗，一共四个词，总不能Data Analytics是key吧)</p>
+<p><img src="/images/水电风电项目/TEDA.png" alt></p>
+<p>Point B has higher typicality as it is closer to other point.</p>
+<p>While point A has higher eccentricity because A is more distant from the other data</p>
+<p>确实，谁离经叛道谁就有更好的偏心度eccentricity，谁和别人更接近谁就有更好的典型度typicality</p>
+<p>之后它给出了困扰我一晚上的公式：</p>
+<p><img src="/images/水电风电项目/困惑的公式.png" alt></p>
+<p>这里的φ不是欧式距离，而是欧式距离的平方，最大的问题是他怎么推出来的，我推了整整一晚上，没推出来</p>
+<p><img src="/images/水电风电项目/典型性和离散度的关系.png" alt></p>
+<p>我没想到直接把typicality定义为eccentricity关于1的互补数了</p>
+<h4 id="evolving-clustering-algorithm"><a href="#evolving-clustering-algorithm" class="headerlink" title="evolving clustering algorithm"></a>evolving clustering algorithm</h4><p>没仔细介绍，只是讲了mirco cluster update是其主要部分</p>
+<h4 id="Mirco-cluster-update"><a href="#Mirco-cluster-update" class="headerlink" title="Mirco-cluster update"></a>Mirco-cluster update</h4><p><img src="/images/水电风电项目/最初的条件.png" alt></p>
+<p>最初，各项参数被设定为上图</p>
+<p>之后每来一个新点，会动态计算其典型度和偏心度</p>
+<p><img src="/images/水电风电项目/查看是否outlier.png" alt></p>
+<p>查看一个点是否为outlier的方法是使用上图的第一个公式，什么是outliner呢？其含义是离群点，异常值点</p>
+<p>为了防止前两个点相差过大并且导致cluster过大，添加了参数r0来限制</p>
+<p><img src="/images/水电风电项目/添加了r0.png" alt></p>
+<p>添加一个点，如果是cluster里的，就更新该cluster的所有值，如果不是则建立一个新的cluster</p>
+<p><img src="/images/水电风电项目/一个点是否属于cluster.png" alt></p>
+<p>回到之前说的第一步是聚类，第一步利用microTEDAclus方法来聚类，得到了一群聚类后的点集ci</p>
+<h3 id="fuzzy-time-series-模糊时间序列"><a href="#fuzzy-time-series-模糊时间序列" class="headerlink" title="fuzzy time series(模糊时间序列)"></a>fuzzy time series(模糊时间序列)</h3><p>什么叫模糊时间序列呢，就是把时间序列分成一系列模糊集</p>
+<p>一般用字母A来表示模糊集，这里为了表达时间序列，搞了很多模糊集，所以带上下标Ai表示第i个模糊集</p>
+<p>这些模糊集的集合就是FTS(fuzzy time series)，本质上是用模糊集的集合来替代了原始的真实数据</p>
+<p>那么，模糊集是啥？</p>
+<p>传统集合讲究清晰的归属关系，一个人要么高，要么矮——即一个人要么属于高这个集合，要么属于矮这个集合</p>
+<p>模糊集定义了隶属度函数mf<sub>Ai</sub>: ui -&gt; [0, 1]</p>
+<p>意思是区间ui上的元素x都属于Ai，其隶属度为mf<sub>Ai</sub>(x)</p>
+<p>隶属度顾名思义，越高表示越属于这个集合，比如1.8米的人对于高这个集合的隶属度肯定要不小于1.3m的人，2.3米的人又不小于1.8米的人</p>
+<p>区间ui用来分割原来的时间序列值可能变化的区间，从上述隶属度的定义我们也可以看出，区间ui是可以重叠的</p>
+<p>(其实我还是没明白区间ui存在的必要性，明明所有元素都属于集合Ai，Ai对应的隶属函数直接定义域取全集不就好了？)</p>
+<h3 id="Fuzzy-logical-relationship-FLR"><a href="#Fuzzy-logical-relationship-FLR" class="headerlink" title="Fuzzy logical relationship(FLR)"></a>Fuzzy logical relationship(FLR)</h3><p>说是FTS的基础，本质上什么都没讲</p>
+<p>只是说函数f(t)和f(t-1)有因果关系，应用该类规则的模式类似f(t)=f(t-1) R(t, t-1)</p>
+<p>R应该是一种推导规则类的东西</p>
+<p>逻辑模型就是如果A，则推出B，猜测这里也一样</p>
+<h3 id="多元FTS"><a href="#多元FTS" class="headerlink" title="多元FTS"></a>多元FTS</h3><p>多元FTS是用多个模糊时间序列来解决一个问题。给定一个具有d个p阶FTS的模型，模糊逻辑关系可以表示为:</p>
+<p><img src="/images/水电风电项目/多阶段FTS.png" alt></p>
 
       
     </div>
@@ -703,7 +753,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#梯级水库调度"><span class="nav-number">1.</span> <span class="nav-text">梯级水库调度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#风电预测"><span class="nav-number">2.</span> <span class="nav-text">风电预测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#风速预测"><span class="nav-number">3.</span> <span class="nav-text">风速预测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于分解和AI的多阶段短期风功率预测模型"><span class="nav-number">3.1.</span> <span class="nav-text">基于分解和AI的多阶段短期风功率预测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">3.1.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景故事"><span class="nav-number">3.1.2.</span> <span class="nav-text">背景故事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data"><span class="nav-number">3.1.3.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-dish"><span class="nav-number">3.1.4.</span> <span class="nav-text">Main dish</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pre-processing"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">Pre-processing</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#EMD"><span class="nav-number">3.1.4.1.1.</span> <span class="nav-text">EMD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SWD"><span class="nav-number">3.1.4.1.2.</span> <span class="nav-text">SWD</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Forecast-Methods"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">Forecast Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ANFIS"><span class="nav-number">3.1.4.2.1.</span> <span class="nav-text">ANFIS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ANN"><span class="nav-number">3.1.4.2.2.</span> <span class="nav-text">ANN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SVR"><span class="nav-number">3.1.4.2.3.</span> <span class="nav-text">SVR</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体模型"><span class="nav-number">3.1.4.3.</span> <span class="nav-text">具体模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Stage-1"><span class="nav-number">3.1.4.3.1.</span> <span class="nav-text">Stage 1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stage2"><span class="nav-number">3.1.4.3.2.</span> <span class="nav-text">Stage2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stage3"><span class="nav-number">3.1.4.3.3.</span> <span class="nav-text">Stage3</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用线性回归模型和多变量LSTM和NARX网络对厄瓜多尔安第斯山脉复杂地形进行短期风速预测"><span class="nav-number">4.</span> <span class="nav-text">利用线性回归模型和多变量LSTM和NARX网络对厄瓜多尔安第斯山脉复杂地形进行短期风速预测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AR模型"><span class="nav-number">4.1.</span> <span class="nav-text">AR模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MA模型"><span class="nav-number">4.2.</span> <span class="nav-text">MA模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARMA模型"><span class="nav-number">4.3.</span> <span class="nav-text">ARMA模型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#梯级水库调度"><span class="nav-number">1.</span> <span class="nav-text">梯级水库调度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#风电预测"><span class="nav-number">2.</span> <span class="nav-text">风电预测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#风速预测"><span class="nav-number">3.</span> <span class="nav-text">风速预测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于分解和AI的多阶段短期风功率预测模型"><span class="nav-number">3.1.</span> <span class="nav-text">基于分解和AI的多阶段短期风功率预测模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">3.1.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景故事"><span class="nav-number">3.1.2.</span> <span class="nav-text">背景故事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data"><span class="nav-number">3.1.3.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-dish"><span class="nav-number">3.1.4.</span> <span class="nav-text">Main dish</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pre-processing"><span class="nav-number">3.1.4.1.</span> <span class="nav-text">Pre-processing</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#EMD"><span class="nav-number">3.1.4.1.1.</span> <span class="nav-text">EMD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SWD"><span class="nav-number">3.1.4.1.2.</span> <span class="nav-text">SWD</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Forecast-Methods"><span class="nav-number">3.1.4.2.</span> <span class="nav-text">Forecast Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ANFIS"><span class="nav-number">3.1.4.2.1.</span> <span class="nav-text">ANFIS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ANN"><span class="nav-number">3.1.4.2.2.</span> <span class="nav-text">ANN</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SVR"><span class="nav-number">3.1.4.2.3.</span> <span class="nav-text">SVR</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体模型"><span class="nav-number">3.1.4.3.</span> <span class="nav-text">具体模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Stage-1"><span class="nav-number">3.1.4.3.1.</span> <span class="nav-text">Stage 1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stage2"><span class="nav-number">3.1.4.3.2.</span> <span class="nav-text">Stage2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stage3"><span class="nav-number">3.1.4.3.3.</span> <span class="nav-text">Stage3</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用线性回归模型和多变量LSTM和NARX网络对厄瓜多尔安第斯山脉复杂地形进行短期风速预测"><span class="nav-number">4.</span> <span class="nav-text">利用线性回归模型和多变量LSTM和NARX网络对厄瓜多尔安第斯山脉复杂地形进行短期风速预测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AR模型"><span class="nav-number">4.1.</span> <span class="nav-text">AR模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MA模型"><span class="nav-number">4.2.</span> <span class="nav-text">MA模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARMA模型"><span class="nav-number">4.3.</span> <span class="nav-text">ARMA模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evolving-fuzzy-time-series-for-spatio-temporal-forecasting-in-renewable-energy-systems"><span class="nav-number">4.4.</span> <span class="nav-text">Evolving fuzzy time series for spatio-temporal forecasting in renewable energy systems</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#microTEDAclus"><span class="nav-number">4.4.1.</span> <span class="nav-text">microTEDAclus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TEDA-framework"><span class="nav-number">4.4.1.1.</span> <span class="nav-text">TEDA framework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#evolving-clustering-algorithm"><span class="nav-number">4.4.1.2.</span> <span class="nav-text">evolving clustering algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mirco-cluster-update"><span class="nav-number">4.4.1.3.</span> <span class="nav-text">Mirco-cluster update</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fuzzy-time-series-模糊时间序列"><span class="nav-number">4.4.2.</span> <span class="nav-text">fuzzy time series(模糊时间序列)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fuzzy-logical-relationship-FLR"><span class="nav-number">4.4.3.</span> <span class="nav-text">Fuzzy logical relationship(FLR)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多元FTS"><span class="nav-number">4.4.4.</span> <span class="nav-text">多元FTS</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
