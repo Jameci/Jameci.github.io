@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Jameci&#39;s Blog">
 <meta property="og:description" content="2023年3月20日该怎么开始呢，虽然开这篇就是为了喷而开的，但是一上来反而又开始谨慎地构思前因后果该怎么写了 事情其实要追溯到上周六 周六是一个组会，没错，现在我一周有两个组会了。这件事每次和朋友提起来，他总是不可思议地说：“周末还开组会的吗？！” 不说还好，一说反倒激起我的反抗精神了——本来我是可以接受的，经他这么说了之后，每次周六开组会心里都像是有个小小的疙瘩 我本可以忍受黑暗，如果我从未见">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-04-17T15:59:05.399Z">
+<meta property="og:updated_time" content="2023-04-24T04:18:04.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些崩溃的话">
 <meta name="twitter:description" content="2023年3月20日该怎么开始呢，虽然开这篇就是为了喷而开的，但是一上来反而又开始谨慎地构思前因后果该怎么写了 事情其实要追溯到上周六 周六是一个组会，没错，现在我一周有两个组会了。这件事每次和朋友提起来，他总是不可思议地说：“周末还开组会的吗？！” 不说还好，一说反倒激起我的反抗精神了——本来我是可以接受的，经他这么说了之后，每次周六开组会心里都像是有个小小的疙瘩 我本可以忍受黑暗，如果我从未见">
@@ -282,7 +282,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-03-20T23:05:27+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-03-20T23:05:27+00:00">
                 2023-03-20
               </time>
             
@@ -535,6 +535,38 @@
 <p>用中国人的话说，就是狗眼看人低</p>
 <p>她无法是个编辑，又不是什么大官，腔调倒是学得挺好——又是“讲中国故事”，让人看着想笑</p>
 <p>里面的人，是不是都喜欢打官腔，喜欢鹦鹉学舌</p>
+<h1 id="2023年4月19日"><a href="#2023年4月19日" class="headerlink" title="2023年4月19日"></a>2023年4月19日</h1><p>太他妈傻逼了我糙，我今天坐了一天愣是没搞懂TemporalFusionTransformer该怎么用。这就是个库函数啊，我TM愣是没整明白</p>
+<p>现在基本上流程弄懂了——就是生成数据集，然后转为loader，搞个模型，之后整个trainer</p>
+<p>问题是这个trainer就是不认可我的模型，说它想要一个LightningModule</p>
+<p>关键是TemporalFusionTransformer就是LightningModule的子类</p>
+<p>我真不知道是什么原因啊，我没学过python</p>
+<p>欲速则不达了，我或许应该放平心态……</p>
+<p>是这样的</p>
+<p>讲个故事吧，你的房间有一张桌子，一个柜子，桌子左右都有抽屉，柜子分上下两层，然后呢，上床下桌嘛，上面还有个床</p>
+<p>某天，你的一个很常用的东西丢了，也不是丢了，你很清楚它就在房间里，不可能丢，但就是找不到了</p>
+<p>你有两种方案，1是地毯式搜索，按一定顺序，从床上，到桌面，到每个抽屉，到每层柜子，再到地面</p>
+<p>当然还要再细化，床上还有床头啊，枕头底下啊，床两侧的缝隙啊，杯子里面啊，床单底下啊这些，桌上可能会有很多东西，可以要把它们拿起来找，抽屉也是，地面可能会被挡住，分为桌子底下，地面，桌子后面，柜子角落等等等等</p>
+<p>你很清楚这样下来一套你必然能找到，但是你觉得很麻烦要花20分钟</p>
+<p>你选择了2号方案，去找该物品最有可能放的位置，大多数情况下，你会一边回忆一边很快找到——比如在桌上，比如在床头，但不排除有这样的可能——你找遍了所有常见位置，但还是找不到</p>
+<p>欲速则不达就体现在这里——你觉得你可以很快地处理这件事，实际上正式这种想法束缚了你。当你在”重新找一遍常见地方”和”稍微花点力气去搜索不常见地方并且把已经搜索过的地方记下来”之间选择时，因为你有：“这件事我应该很快就能处理”的错误认知，导致你不愿意选择后者这个会花费更多时间和精力的处理方法，从而不断地重复前者这个错误方法</p>
+<p>换句话说，你选择了效率，但你的目标不是全局最优，而是一个局部最优</p>
+<p>在今天这件事上，我算是明白这个道理了——我有两种方法，一种是老老实实去啃代码，弄明白这个TemporalFusionTransformer该怎么用，另一种是用gpt去生成一个样例，我先调通，然后一点点去尝试</p>
+<p>如果gpt真的能生成好代码，就像我让他写一个窗体程序一样，那无疑第二种方法是最好的，再加上这就是个库而已，我认为也花不了多久——无非就是弄明白这个库怎么用</p>
+<p>结果呢，gpt生成的有问题，我找问题找了一下午，然后还不死心，重新生成，一天过去了</p>
+<p>最终的结果是，还是得去搞懂源码</p>
+<p>唉，欲速则不达啊，真的是</p>
+<h1 id="2023年4月23日"><a href="#2023年4月23日" class="headerlink" title="2023年4月23日"></a>2023年4月23日</h1><p>被膝盖的伤折磨得难受，或许我真的太敏感了——其实好像也没太大的问题</p>
+<p>我这个月，光求医问药就花了得3000了</p>
+<p>上个月做检查花光了2000多</p>
+<p>这学期我是带来了6000块，问我姑要了2000，我爹给了1000，上周又给我补了1000，学校发了2500，我本来的积蓄有5000左右</p>
+<p>总共17500块，我花得还剩4500，大部分都用来看病了</p>
+<p>如果破财真的能消灾，我认了</p>
+<h1 id="2023年4月24日"><a href="#2023年4月24日" class="headerlink" title="2023年4月24日"></a>2023年4月24日</h1><p>最近有紫砂的念头，就是因为一些身体上的不舒服久久不能治愈</p>
+<p>好想无痛紫砂。我也想用孟子那一套来说服自己，什么饿其体肤什么的</p>
+<p>我活着最大的愿望是什么啊，我并不想出人头地，只想惬意地活着</p>
+<p>就像吉良吉影说的，不需要疯狂的喜悦，相反，也没有深切的绝望</p>
+<p>我最大的心愿其实是不再孤独，得到认可……现在这种愿望已经被扭曲了，我希望能得到异性的青睐，越多越好</p>
+<p>然后呢，我的身体出状况了，生活和学业受影响，也无心穿着打扮……青春在流逝……绝望，深切的绝望</p>
 
       
     </div>
@@ -654,7 +686,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -709,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年3月20日"><span class="nav-number">1.</span> <span class="nav-text">2023年3月20日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月5日"><span class="nav-number">2.</span> <span class="nav-text">2023年4月5日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月12日"><span class="nav-number">3.</span> <span class="nav-text">2023年4月12日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月16日"><span class="nav-number">4.</span> <span class="nav-text">2023年4月16日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月17日"><span class="nav-number">5.</span> <span class="nav-text">2023年4月17日</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年3月20日"><span class="nav-number">1.</span> <span class="nav-text">2023年3月20日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月5日"><span class="nav-number">2.</span> <span class="nav-text">2023年4月5日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月12日"><span class="nav-number">3.</span> <span class="nav-text">2023年4月12日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月16日"><span class="nav-number">4.</span> <span class="nav-text">2023年4月16日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月17日"><span class="nav-number">5.</span> <span class="nav-text">2023年4月17日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月19日"><span class="nav-number">6.</span> <span class="nav-text">2023年4月19日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月23日"><span class="nav-number">7.</span> <span class="nav-text">2023年4月23日</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2023年4月24日"><span class="nav-number">8.</span> <span class="nav-text">2023年4月24日</span></a></li></ol></div>
             
 
           </div>

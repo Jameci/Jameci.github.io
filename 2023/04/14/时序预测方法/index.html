@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="TFT时序框架 内容来自Lim, B., Arık, S. Ö., Loeff, N., &amp;amp; Pfister, T. (2021). Temporal fusion transformers for interpretable multi-horizon time series forecasting. International Journal of Forecasting.  过往研究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="时序预测方法">
+<meta property="og:url" content="http://yoursite.com/2023/04/14/时序预测方法/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="TFT时序框架 内容来自Lim, B., Arık, S. Ö., Loeff, N., &amp;amp; Pfister, T. (2021). Temporal fusion transformers for interpretable multi-horizon time series forecasting. International Journal of Forecasting.  过往研究">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/问题示意图.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/TFT框架.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/GRU.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/ELU.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/VSN.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/Encoder-Decoder框架.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/E-D.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/权重.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/注意力向量.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/权重函数.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/socre.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/自注意力.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/self-attention公式.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/transformer.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/transformer结构.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/encoder%20of%20transformer.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/decoder%20of.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/标准化.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/残差连接.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/Decoder结构.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/最好的学习率.png">
+<meta property="og:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/初次结果.png">
+<meta property="og:updated_time" content="2023-04-21T13:58:18.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时序预测方法">
+<meta name="twitter:description" content="TFT时序框架 内容来自Lim, B., Arık, S. Ö., Loeff, N., &amp;amp; Pfister, T. (2021). Temporal fusion transformers for interpretable multi-horizon time series forecasting. International Journal of Forecasting.  过往研究">
+<meta name="twitter:image" content="http://yoursite.com/images/时序预测方法/TFT时序框架/问题示意图.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/04/14/时序预测方法/">
+
+
+
+
+
+  <title>时序预测方法 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/04/14/时序预测方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">时序预测方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-14T15:01:14+01:00">
+                2023-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="TFT时序框架"><a href="#TFT时序框架" class="headerlink" title="TFT时序框架"></a>TFT时序框架</h1><blockquote>
+<p>内容来自Lim, B., Arık, S. Ö., Loeff, N., &amp; Pfister, T. (2021). Temporal fusion transformers for interpretable multi-horizon time series forecasting. International Journal of Forecasting.</p>
+</blockquote>
+<h2 id="过往研究的不足之处"><a href="#过往研究的不足之处" class="headerlink" title="过往研究的不足之处"></a>过往研究的不足之处</h2><h2 id="预测方法"><a href="#预测方法" class="headerlink" title="预测方法"></a>预测方法</h2><p>多步时序预测可以用下图表示</p>
+<p><img src="/images/时序预测方法/TFT时序框架/问题示意图.png" alt></p>
+<p>以风速预测为例，输入分为四部分</p>
+<p>Past Targets就是过去的风速真实值</p>
+<p>Observed Inputs是过去的观察值，比如温度之类，这一类数据无法提前知晓</p>
+<p>Known Inputs是类似月份，季节这种虽然也随着时间变化，但是我们可以提前知晓的</p>
+<p>Static Covariates是静态不变的，如风电场的海拔，位置</p>
+<p>再以某商店内商品的销量预测为例，在时序预测中，所有的变量都大体划分为两大类：静态和动态，即随着时间改变和不随时间改变</p>
+<p>静态变量再细分又可以分为离散和连续，离散的静态变量如商店的位置，所处的城市，商品的大类等</p>
+<p>连续的静态变量如去年商品A在双十一的销量等等</p>
+<p>动态变量也分为动态时变和动态时不变变量两种，这两种的区别是动态时变变量我们无法提前知晓，而动态时不变变量我们可以很容易推出来</p>
+<p>举个例子就明白了——星期几就是一个典型的动态时不变变量，它虽然随时间变化，但是我们很容易推出来</p>
+<p>讲完了输入变量和变量的分类，具体的预测方法如下图：</p>
+<p><img src="/images/时序预测方法/TFT时序框架/TFT框架.png" alt></p>
+<p>这个图，我先按照<a href="https://zhuanlan.zhihu.com/p/461795429是思路去拆解" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/461795429是思路去拆解</a></p>
+<h3 id="输入层"><a href="#输入层" class="headerlink" title="输入层"></a>输入层</h3><p>大体上是一个双输入的结构，就是静态变量 + 动态特征</p>
+<p>静态变量中的离散成分要接embedding再和连续成分concat，之后输入</p>
+<p>embedding直译为嵌入，实际上是化离散为连续的过程——可以用一个embedding neural network来做，把离散的值映射到连续的空间中，并且一定程度上保留它们原本的特征</p>
+<p>动态特征对离散值的处理也一样，区别在于t时刻(包括)之前的是所有的动态特征，t时刻之后的仅有动态时不变特征</p>
+<h3 id="VSN-Variable-Selection-Network"><a href="#VSN-Variable-Selection-Network" class="headerlink" title="VSN(Variable Selection Network)"></a>VSN(Variable Selection Network)</h3><p>之后就是一个varibale selection，顾名思义是变量提取，或者说，特征选择</p>
+<h4 id="GLU-门控线性单元"><a href="#GLU-门控线性单元" class="headerlink" title="GLU 门控线性单元"></a>GLU 门控线性单元</h4><p>一般形式为输入X，输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h(X) = (XW + b) * σ(XV + c)</span><br></pre></td></tr></table></figure>
+<p>σ是sigmoid函数</p>
+<p>如果在训练过程中，某个因素影响微弱，会使得值sigmoid之后趋于0，起到软性的特征选择作用</p>
+<p>(原理未知)</p>
+<h4 id="GRN"><a href="#GRN" class="headerlink" title="GRN"></a>GRN</h4><p><img src="/images/时序预测方法/TFT时序框架/GRU.png" alt></p>
+<p>Gate对应的是上面的GLU，ELU是一个激活函数，其函数值如下：</p>
+<p><img src="/images/时序预测方法/TFT时序框架/ELU.png" alt></p>
+<p>a和c先经过一个线性变换(第一个Dense)，之后经过ELU，再经过一个线性变换+Dropdout后进GLU，得到的结果和初始的a相加，再进行normalization</p>
+<p>之所以使用ELU作为激活函数，原因是：</p>
+<p>ELU这个激活函数可以取到负值，相比于Relu这让单元激活均值可以更接近0，类似于Batch Normalization的效果但是只需要更低的计算复杂度。同时在输入取较小值时具有软饱和的特性，提升了对噪声的鲁棒性</p>
+<p>(这些话我明白意思，但是，我不懂为什么)</p>
+<p>a加上去是虚线，原因是为了让维度一致。同时a加上去本身是为了抑制非线性变化的速度。因为有些维度比较低比较简单的模型可能不太需要复杂的非线性变换，所以就相当于把a直接normalization了然后输出</p>
+<h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><p>我不太明白这里的特征指的是什么，应该就是输入吧</p>
+<p><img src="/images/时序预测方法/TFT时序框架/VSN.png" alt></p>
+<p>每个特征都过一下GRN，提取信息，之后再来一个从flattened inputs中得出的权重</p>
+<p>我认为这样做的原因是为了让模型能够综合考虑所有特征的信息，而不是只依赖于单个特征的输出。通过拼接所有特征的输出向量，再应用一个GRN，可以让模型学习到一个高层次的特征表示，从而更好地判断每个特征对于输出的贡献。这也可以看作是一种注意力机制，让模型关注更重要的特征，忽略不相关的特征</p>
+<p>所谓注意力机制，就是忽略不重要的，学习重要的，基于这种思想，给所有输入一个动态的权重</p>
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><p>他这里直接调的LSTM模板</p>
+<h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p>首先讲一下什么是attention机制</p>
+<p>attention就是要实现从关注全部到关注重点的一个转换</p>
+<p>就像是我们看一张照片，可能不会发现照片的背景上有什么细节，但照片里的人我们会一眼就注意到</p>
+<p>基于这个思想，attention机制最早出现在图像识别领域，真正将其发扬光大的则是在NLP领域</p>
+<p>attention的三大优势，一是参数少，二是速度快，三是效果好，都是很好理解的——你把一张图片大部分都去掉了，只关注重点部分，可不是参数少了，速度快了。同时你的模型更加“专注”了，从而忽略掉了干扰项，效果也就好了</p>
+<p>速度快还有一个原因——attention可以并行计算，这一点因为我对attention内部实现还了解不深，所以仅仅把它放在这</p>
+<p>attention用于解决机器翻译问题，常常与Encoder Decoder框架结合使用</p>
+<h4 id="机器翻译的attention"><a href="#机器翻译的attention" class="headerlink" title="机器翻译的attention"></a>机器翻译的attention</h4><p>单凭词语的替换是解决不了机器翻译问题的，比如早上好翻译成英文是Good morning，而不是morning good</p>
+<p>为此，使用了一个Encoder-Decoder机制，将原始文本读入转换到隐藏层，从而获取文字的含义，再将隐藏层输出</p>
+<p><img src="/images/时序预测方法/TFT时序框架/Encoder-Decoder框架.png" alt></p>
+<p>但这样做又会存在一个问题：当我们翻译大段大段的文字时，往往会出现隐藏层所能存储的信息不够了，通俗来说，就是模型有点“记不住”了</p>
+<p>怎么会记不住了呢？一般隐藏层就是一个长度恒定的向量，既然是恒定的，它所能存储的信息就是有限的。我让它翻译一句话可以，我让它翻译一本书，可不就是记不住了吗</p>
+<p>那我把一本书看成一句话，一句一句地翻译不就行了？</p>
+<p>我猜测很多模型就是这样做的(因为用的很多翻译软件就是这样，丝毫没有上下文信息)</p>
+<p>这不够好，尤其是复杂的文字——可能每句话之间有很强的逻辑联系或者有上下文关系。或者这个词是多义词，在当前语境下的翻译要考虑上下文等</p>
+<p>这就需要attention出马了。在现实中我们也是这么做的——如果有人跟我们说话，我们往往只能根据几个关键词就能理解他的意思。如果我们去读书，可能根据几个关键词就能看懂某个章节</p>
+<p><img src="/images/时序预测方法/TFT时序框架/E-D.png" alt></p>
+<p>上图给出了一种翻译框架，Encoder中的隐藏层是ht，Decoder中的是Ht</p>
+<p>可以看到的是，每个Ht以前一时刻隐藏层Ht-1和输出值yt-1为输入</p>
+<p>写成式子就是Ht = f(Ht-1, yt-1)</p>
+<p>这里，我们再引入一个C值，并且在每个时刻C值不一样，即在t时刻，我们引入Ct</p>
+<p>Ht = f(Ht-1, yt-1, Ct)</p>
+<p>这个Ct就是上下文向量，把它定义为原文隐藏层ht的加权平均</p>
+<p><img src="/images/时序预测方法/TFT时序框架/权重.png" alt></p>
+<p>注意：每个Decoder隐藏层Hk都有一套完全不同的权重αk，这个权重就体现了应该对原文的注意力分配</p>
+<p>又叫全局对齐权重</p>
+<p>为了说明注意力的演变，举一个将法语句子“L’accord sur l’Espace économique européen a été signé en août 1992.” 翻译成英语句子“The agreement on the European Economic Area was signed in August 1992.”时，每一个输出英文词汇的α构成的对齐矩阵：</p>
+<p><img src="/images/时序预测方法/TFT时序框架/注意力向量.png" alt></p>
+<p>于是乎，该如何计算权重αk呢？似乎很复杂，所以我们用一个小的神经网络把它计算出来</p>
+<p>αk的目的是想要知道，面对Hk-1时，应该给hk分配多少权重</p>
+<p><img src="/images/时序预测方法/TFT时序框架/权重函数.png" alt></p>
+<p>score有很多种，如：</p>
+<p><img src="/images/时序预测方法/TFT时序框架/socre.png" alt></p>
+<h4 id="从Hhc到QKV"><a href="#从Hhc到QKV" class="headerlink" title="从Hhc到QKV"></a>从Hhc到QKV</h4><p>上述加性模型和乘法模型我们都好理解，无非就是通过优化参数，得到最好的注意力权重</p>
+<p>那么点积模型是什么？连个参数都没有，我们该如何理解呢？</p>
+<p>我们再回到最初的Encoder和Decoder，H是做什么用的？H是解码器的隐藏层，相当于根据之前的输出 + 编码器的隐藏层，得到当前的输出</p>
+<p>再想想的话，就是说h相当于我要翻译的这句话的全部信息，H只不过起到一个查询的作用，对于不同的Ht-1，我根据h给出Ht，仅此而已</p>
+<p>此时H就承担了权重的工作，此时我相当于取消了解码器的隐藏层——原本是用来存放待解码的信息用的</p>
+<p>问题是，我需要存放这个信息吗？我有了编码器的隐藏层，我已经知道全部的信息了</p>
+<p>所以H就变了，由一个存放信息的层变成了单纯表示权重的层</p>
+<p>那再进一步想，我把h看做是包含了全部信息的图书馆，把H当成是一种查询或者寻址，以便于我找到应该输出的答案。那么原先的H就是查询Q，h就是键值K，输出就是答案Value</p>
+<p>之前的NLP模型中，Q和V是相同的，都带着要输出的信息，无非一个是隐藏层，一个已经被解码了而已，但self-attention里Q和V是不同的</p>
+<h4 id="self-attention"><a href="#self-attention" class="headerlink" title="self-attention"></a>self-attention</h4><p>K和V不同的话，我们相当于按照K去分配权重，然后利用这个权重来把V加权平均</p>
+<p>score的值我们要同时根据k和q来计算(完全可以直接点乘)</p>
+<p>假如我们的问题不再是翻译，而是想知道在一段话中处理某个词时，应该对其它的词分配多大的权重</p>
+<p><img src="/images/时序预测方法/TFT时序框架/自注意力.png" alt></p>
+<p>假设这段文本中的每个词Wi经过词嵌入变成了Xi∈R，用三个矩阵Wk，Wv，Wq分别乘Xi得到三个表征</p>
+<p>之后取出查询Q，对每个Ki计算全局对齐权重，最后把v按照该权重求和得到attention值</p>
+<p><img src="/images/时序预测方法/TFT时序框架/self-attention公式.png" alt></p>
+<p>这里的dk是K向量的大小，将其缩小一定倍数的原因是防止SoftMax函数梯度过小</p>
+<h4 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h4><p>说完了attention，就要谈谈transformer，Transformer类似一个CNN，可以在同一时间计算所有输入单词，并得到这些单词各自的表征向量。重要的是，这一次性的处理中得到的每一个表征向量都是在考虑到整句话语境信息以后的结果！这使得Transformer不再需要像RNN一样按照序列顺序处理信息，一来解决了长期依赖问题，而来也使得训练速度加快</p>
+<p>而它正是基于self-attention机制的</p>
+<p><img src="/images/时序预测方法/TFT时序框架/transformer.png" alt></p>
+<p>其实相当于把一种数据翻译成另一种数据——我觉得应该可以用来做时序预测的特征提取</p>
+<p>内部结构如下：</p>
+<p><img src="/images/时序预测方法/TFT时序框架/transformer结构.png" alt></p>
+<p>一般情况下包含六个编码器和六个解码器(我糙啊，为啥要六个，一个不够吗)</p>
+<p><img src="/images/时序预测方法/TFT时序框架/encoder of transformer.png" alt></p>
+<p>所谓feed forward(前馈网络)，就是最简单的一个线性层 + 一个激活函数</p>
+<p><img src="/images/时序预测方法/TFT时序框架/decoder of.png" alt></p>
+<p>说实话，怎么加入的attention我不懂</p>
+<h5 id="multi-head-attention"><a href="#multi-head-attention" class="headerlink" title="multi-head attention"></a>multi-head attention</h5><p>多头attention，看完之后和我预想的不一样</p>
+<p>我以为是对于多个查询分别训练出特定的”头”，实际上仅仅是增加了很多个Wq，Wv和Wk，每个x都乘这些Wq，Wv和Wk，因为有多组，所以会得到多组不同的q，v和k，然后最终结果也不一样，拼接起来线性转换成一个最终结果</p>
+<p>我不明白这样的多头有什么好处呢，网上说多头的好处是能够关注的更加全面，捕捉不同的注意力</p>
+<h5 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h5><p><img src="/images/时序预测方法/TFT时序框架/标准化.png" alt></p>
+<p>其实我感觉不是特别重要</p>
+<h5 id="Dense"><a href="#Dense" class="headerlink" title="Dense"></a>Dense</h5><p>multi-head attention之后再来个全连接层，其实就是一个前馈网络(FFN)</p>
+<p>除此之外呢，还加入了残差连接</p>
+<p><img src="/images/时序预测方法/TFT时序框架/残差连接.png" alt></p>
+<h5 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h5><p><img src="/images/时序预测方法/TFT时序框架/Decoder结构.png" alt></p>
+<p>Decoder的结构如上图</p>
+<p>除了和encoder一样的部分外，又加入了Encoder-Decoder Attention层</p>
+<p>这是干什么的呢？</p>
+<p>Encoder 6会输出A，我们把它乘个矩阵得到K和V，这个矩阵在每一次进入不同的Decoder时都是不一样的</p>
+<p>然后呢，Q是上一次Decoder的输出</p>
+<p>(这样好像没啥可解释性)</p>
+<h4 id="回到文章中"><a href="#回到文章中" class="headerlink" title="回到文章中"></a>回到文章中</h4><p>该文章只是使用了一个多头注意力机制，其中的V矩阵是所有头共享的(Wv)</p>
+<h3 id="分位数回归"><a href="#分位数回归" class="headerlink" title="分位数回归"></a>分位数回归</h3><p>其实就是换了个损失函数</p>
+<h1 id="TFT框架的代码"><a href="#TFT框架的代码" class="headerlink" title="TFT框架的代码"></a>TFT框架的代码</h1><p>看这是个库，还以为实现起来不会很难，没想到到处都是坑，干脆还是看教程好了</p>
+<p>如果教程里面也有坑的话，我也只能无能狂怒，问候他亲娘了</p>
+<h2 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import warnings</span><br><span class="line"></span><br><span class="line">warnings.filterwarnings(&quot;ignore&quot;)  # avoid printing out absolute paths</span><br><span class="line"></span><br><span class="line">os.chdir(&quot;../../..&quot;)</span><br></pre></td></tr></table></figure>
+<p>导入了两个包，这里的warning.filterwarnings我是明白的，因为后面老是报让我ignore的warning，无视掉免得心烦</p>
+<p>os.chdir我就不明白了，注释掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import copy</span><br><span class="line">from pathlib import Path</span><br><span class="line">import warnings</span><br><span class="line"></span><br><span class="line">import lightning.pytorch as pl</span><br><span class="line">from lightning.pytorch.callbacks import EarlyStopping, LearningRateMonitor</span><br><span class="line">from lightning.pytorch.loggers import TensorBoardLogger</span><br><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">import torch</span><br><span class="line"></span><br><span class="line">from pytorch_forecasting import Baseline, TemporalFusionTransformer, TimeSeriesDataSet</span><br><span class="line">from pytorch_forecasting.data import GroupNormalizer</span><br><span class="line">from pytorch_forecasting.metrics import MAE, SMAPE, PoissonLoss, QuantileLoss</span><br><span class="line">from pytorch_forecasting.models.temporal_fusion_transformer.tuning import optimize_hyperparameters</span><br></pre></td></tr></table></figure>
+<p>依然是导入了一堆库，在后面应该用得上</p>
+<h2 id="读入数据"><a href="#读入数据" class="headerlink" title="读入数据"></a>读入数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">from pytorch_forecasting.data.examples import get_stallion_data</span><br><span class="line"></span><br><span class="line">data = get_stallion_data()</span><br><span class="line"></span><br><span class="line"># add time index</span><br><span class="line">data[&quot;time_idx&quot;] = data[&quot;date&quot;].dt.year * 12 + data[&quot;date&quot;].dt.month</span><br><span class="line">data[&quot;time_idx&quot;] -= data[&quot;time_idx&quot;].min()</span><br><span class="line"></span><br><span class="line"># add additional features</span><br><span class="line">data[&quot;month&quot;] = data.date.dt.month.astype(str).astype(&quot;category&quot;)  # categories have be strings</span><br><span class="line">data[&quot;log_volume&quot;] = np.log(data.volume + 1e-8)</span><br><span class="line">data[&quot;avg_volume_by_sku&quot;] = data.groupby([&quot;time_idx&quot;, &quot;sku&quot;], observed=True).volume.transform(&quot;mean&quot;)</span><br><span class="line">data[&quot;avg_volume_by_agency&quot;] = data.groupby([&quot;time_idx&quot;, &quot;agency&quot;], observed=True).volume.transform(&quot;mean&quot;)</span><br><span class="line"></span><br><span class="line"># we want to encode special days as one variable and thus need to first reverse one-hot encoding</span><br><span class="line">special_days = [</span><br><span class="line">    &quot;easter_day&quot;,</span><br><span class="line">    &quot;good_friday&quot;,</span><br><span class="line">    &quot;new_year&quot;,</span><br><span class="line">    &quot;christmas&quot;,</span><br><span class="line">    &quot;labor_day&quot;,</span><br><span class="line">    &quot;independence_day&quot;,</span><br><span class="line">    &quot;revolution_day_memorial&quot;,</span><br><span class="line">    &quot;regional_games&quot;,</span><br><span class="line">    &quot;fifa_u_17_world_cup&quot;,</span><br><span class="line">    &quot;football_gold_cup&quot;,</span><br><span class="line">    &quot;beer_capital&quot;,</span><br><span class="line">    &quot;music_fest&quot;,</span><br><span class="line">]</span><br><span class="line">data[special_days] = data[special_days].apply(lambda x: x.map(&#123;0: &quot;-&quot;, 1: x.name&#125;)).astype(&quot;category&quot;)</span><br><span class="line">data.sample(10, random_state=521)</span><br></pre></td></tr></table></figure>
+<p>进入loaddata，这个data在pytorch的dataexample里，就很棒，减少了很多下载和格式之类的麻烦</p>
+<p>我收回上面的话，因为我运行了一下发现它只是在内部下载而已，但我的代码被great wall挡住了，md</p>
+<p>所以我又额外花了半小时的时间去下载数据集</p>
+<p>下面是tutorial的翻译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">首先，我们需要将时间序列转换为pandas数据框架，其中每一行都可以用一个时间步长和一个时间序列来标识。幸运的是，大多数数据集已经是这种格式了</span><br><span class="line"></span><br><span class="line">在本教程中，我们将使用来自Kaggle的Stallion数据集来描述各种饮料的销售。我们的任务是通过库存单位(SKU)来预测六个月的销售量，SKU是指由一个代理机构，也就是一个商店销售的产品</span><br><span class="line"></span><br><span class="line">大约有21000个月的历史销售记录。除了历史销售，我们有关于销售价格的信息，代理商的位置，特殊的日子，如假期，和销售量在整个行业</span><br><span class="line"></span><br><span class="line">数据集的格式已经正确，但是缺少一些重要的特性。最重要的是，我们需要添加一个时间索引，每个时间步加1。此外，添加日期特征是有益的，在这种情况下，这意味着从日期记录中提取月份。</span><br></pre></td></tr></table></figure>
+<p>我需要在下载下来的几个文件夹中，找到所谓的饮料销售数据集</p>
+<p>然后我发现，这些都是饮料数据集，只不过每个表是一部分，比如我找到了一个calendar文件，明显在说每个月份里有什么节日</p>
+<p>我现在的思路是去找读入这些数据集的代码</p>
+<p>然后找到了Kaggle大赛的介绍，看了一眼，除了这个大赛里面有很多厉害的人，没什么有价值的信息</p>
+<p>只能自己写了，我要给它一个pandas数据框</p>
+<p>先看这个数据集里面有什么：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">price_sales_promotion.csv: </span><br><span class="line">不同的代理商在不同时间销售不同饮料的价格，促销价格，和促销力度(价格-促销价格)</span><br><span class="line"></span><br><span class="line">weather.csv</span><br><span class="line">不同代理商在不同时间的温度</span><br><span class="line"></span><br><span class="line">event_calendar.csv</span><br><span class="line">每个时间点是否是特殊日子，非时序</span><br><span class="line"></span><br><span class="line">historical_volume.csv</span><br><span class="line">每个销售商在不同时间销售不同饮料的销量(显然这是target了)</span><br><span class="line"></span><br><span class="line">demographics.csv</span><br><span class="line">每个销售商所在地点的人口统计资料，包含了人口数量和年收入，非时序</span><br><span class="line"></span><br><span class="line">industry_volume.csv&amp;industry_soda_sales.csv</span><br><span class="line">总啤酒/汽水销量</span><br><span class="line"></span><br><span class="line">另外一个文件夹中的文件是用来提交结果的</span><br></pre></td></tr></table></figure>
+<p>看完之后，我们需要读入这些数据，先使用read_csv读入试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(r&apos;.\train_OwBvO8W\historical_volume.csv&apos;)</span><br><span class="line"></span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">          Agency     SKU  YearMonth      Volume</span><br><span class="line">0      Agency_22  SKU_01     201301    52.27200</span><br><span class="line">1      Agency_22  SKU_02     201301   110.70000</span><br><span class="line">2      Agency_58  SKU_23     201301     0.00000</span><br><span class="line">3      Agency_48  SKU_07     201301    28.32000</span><br><span class="line">4      Agency_22  SKU_05     201301   238.53870</span><br><span class="line">...          ...     ...        ...         ...</span><br><span class="line">20995  Agency_60  SKU_05     201709  1776.99525</span><br><span class="line">20996  Agency_60  SKU_23     201709     1.26000</span><br><span class="line">20997  Agency_60  SKU_04     201709  1142.59575</span><br><span class="line">20998  Agency_32  SKU_02     201709  3456.43200</span><br><span class="line">20999  Agency_32  SKU_05     201709  4174.97025</span><br><span class="line"></span><br><span class="line">[21000 rows x 4 columns]</span><br></pre></td></tr></table></figure>
+<p>之后考虑怎么合并，再读一个price_sales_promotion.csv进来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data1 = pd.read_csv(r&apos;.\train_OwBvO8W\historical_volume.csv&apos;)</span><br><span class="line">data2 = pd.read_csv(r&apos;.\train_OwBvO8W\price_sales_promotion.csv&apos;)</span><br><span class="line"></span><br><span class="line">data = pd.merge(data1, data2, on=[&apos;Agency&apos;, &apos;SKU&apos;, &apos;YearMonth&apos;], how=&apos;outer&apos;)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>pandas.merge这里使用的是一个多行的外连接(并)</p>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">          Agency     SKU  YearMonth      Volume        Price        Sales  Promotions</span><br><span class="line">0      Agency_22  SKU_01     201301    52.27200  1168.903668  1069.166193   99.737475</span><br><span class="line">1      Agency_22  SKU_02     201301   110.70000  1167.000000  1067.257500   99.742500</span><br><span class="line">2      Agency_58  SKU_23     201301     0.00000     0.000000     0.000000    0.000000</span><br><span class="line">3      Agency_48  SKU_07     201301    28.32000  1143.503390  1143.503390    0.000000</span><br><span class="line">4      Agency_22  SKU_05     201301   238.53870  1310.176057  1203.875711  106.300346</span><br><span class="line">...          ...     ...        ...         ...          ...          ...         ...</span><br><span class="line">20995  Agency_60  SKU_05     201709  1776.99525  1901.705090  1438.932004  462.773086</span><br><span class="line">20996  Agency_60  SKU_23     201709     1.26000  4256.796429  4256.796429    0.000000</span><br><span class="line">20997  Agency_60  SKU_04     201709  1142.59575  2217.266046  1920.172302  297.093744</span><br><span class="line">20998  Agency_32  SKU_02     201709  3456.43200  1662.640914  1370.792395  291.848519</span><br><span class="line">20999  Agency_32  SKU_05     201709  4174.97025  1927.262426  1469.799613  457.462813</span><br><span class="line"></span><br><span class="line">[21000 rows x 7 columns]</span><br></pre></td></tr></table></figure>
+<p>太好了，快都合并了吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">data = pd.merge(</span><br><span class="line">    pd.merge(</span><br><span class="line">        pd.merge(</span><br><span class="line">            pd.merge(</span><br><span class="line">                pd.merge(</span><br><span class="line">                    pd.merge(data1, data2, on=[&apos;Agency&apos;, &apos;SKU&apos;, &apos;YearMonth&apos;], how=&apos;inner&apos;), </span><br><span class="line">                    data3, </span><br><span class="line">                    on=[&apos;Agency&apos;, &apos;YearMonth&apos;], </span><br><span class="line">                    how=&apos;inner&apos;</span><br><span class="line">                    ), </span><br><span class="line">                data4, </span><br><span class="line">                on=[&apos;Agency&apos;],</span><br><span class="line">                how=&apos;inner&apos;</span><br><span class="line">            ), </span><br><span class="line">            data5, </span><br><span class="line">            on=[&apos;YearMonth&apos;], </span><br><span class="line">            how=&apos;inner&apos;</span><br><span class="line">        ),</span><br><span class="line">        data6, </span><br><span class="line">        on=[&apos;YearMonth&apos;], </span><br><span class="line">        how=&apos;inner&apos;</span><br><span class="line">    ),</span><br><span class="line">    data7, </span><br><span class="line">    on=[&apos;YearMonth&apos;], </span><br><span class="line">    how=&apos;inner&apos;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>人为给加上一个时间索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data[&apos;time_idx&apos;] = data[&apos;YearMonth&apos;] // 100 * 12 + data[&apos;YearMonth&apos;] % 100</span><br><span class="line">data[&apos;time_idx&apos;] -= data[&apos;time_idx&apos;].min()</span><br><span class="line">data[&apos;month&apos;] = data[&apos;YearMonth&apos;] % 100</span><br></pre></td></tr></table></figure>
+<p>之后去掉不必要的YearMonth和Promotions</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = data.drop(columns=[&apos;YearMonth&apos;, &apos;Promotions&apos;])</span><br></pre></td></tr></table></figure>
+<p>然后我就想摆烂了，我就拿着我现在的数据集往下走</p>
+<h2 id="创建dataset和dataloader"><a href="#创建dataset和dataloader" class="headerlink" title="创建dataset和dataloader"></a>创建dataset和dataloader</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">下一步是将数据框转换为PyTorch Forecasting TimeSeriesDataSet。除了告诉数据集哪些特征是分类的，哪些是连续的，哪些是静态的，哪些是随时间变化的，我们还必须决定如何规范化数据。在这里，我们分别对每个时间序列进行标准缩放，并表明值总是正的。通常，EncoderNormalizer会在训练过程中对每个编码器序列进行动态缩放，它可以避免由归一化引起的前视偏差。但是，如果您难以找到一个相当稳定的规范化，例如，因为您的数据中有很多零，那么您可能会接受前瞻性偏差。或者你期望在推理中有一个更稳定的规范化。在后一种情况下，您可以确保不会学习到在运行推理时不会出现的“奇怪”跳跃，从而在更真实的数据集上进行训练</span><br></pre></td></tr></table></figure>
+<p>接下来的代码，我们一点一点来看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">max_prediction_length = 6</span><br><span class="line">max_encoder_length = 24</span><br><span class="line">training_cutoff = data[&quot;time_idx&quot;].max() - max_prediction_length</span><br></pre></td></tr></table></figure>
+<p>什么是max_prediction_length？其实就是模型能向前预测的最大步数</p>
+<p>那max_encoder_length是什么呢？是模型输入的历史数据点的数量</p>
+<p>training_cutoff是最大的时间戳减去预测长度，很好理解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">training = TimeSeriesDataSet(</span><br><span class="line">    XXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>上面的代码构建了一个timeseries，我们还是拆开来看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data[lambda x: x.time_idx &lt;= training_cutoff],</span><br><span class="line">    time_idx=&quot;time_idx&quot;,</span><br><span class="line">    target=&quot;Volume&quot;,</span><br><span class="line">    group_ids=[&quot;Agency&quot;, &quot;SKU&quot;],</span><br><span class="line">    min_encoder_length=max_encoder_length // 2,  # keep encoder length long (as it is in the validation set)</span><br><span class="line">    max_encoder_length=max_encoder_length,</span><br><span class="line">    min_prediction_length=1,</span><br><span class="line">    max_prediction_length=max_prediction_length,</span><br></pre></td></tr></table></figure>
+<p>lambda表达式是很有意思的东西，这里的x.time_idx &lt; training_cutoff指的是所有time_idx在训练范围内的data</p>
+<p>后面的含义都比较明显了，列出来主要是要明白时序预测需要指定什么</p>
+<p>接着就是划分了，大体分为6类——static还是time_varying，然后categoricals还是reals。最后time_varying中又分为known和unknown</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">static_categoricals=[&quot;Agency&quot;, &quot;SKU&quot;],</span><br><span class="line">static_reals=[&quot;Avg_Population_2017&quot;, &quot;Avg_Yearly_Household_Income_2017&quot;],</span><br><span class="line">time_varying_known_categoricals=[],</span><br><span class="line">time_varying_known_reals=[</span><br><span class="line">        &quot;Easter Day&quot;, </span><br><span class="line">        &quot;Good Friday&quot;, </span><br><span class="line">        &quot;New Year&quot;, </span><br><span class="line">        &quot;Christmas&quot;, </span><br><span class="line">        &quot;Labor Day&quot;, </span><br><span class="line">        &quot;Independence Day&quot;, </span><br><span class="line">        &quot;Revolution Day Memorial&quot;, </span><br><span class="line">        &quot;Regional Games &quot;, </span><br><span class="line">        &quot;FIFA U-17 World Cup&quot;, </span><br><span class="line">        &quot;Football Gold Cup&quot;, </span><br><span class="line">        &quot;Beer Capital&quot;,	</span><br><span class="line">        &quot;Music Fest&quot;,</span><br><span class="line">        &quot;time_idx&quot;, </span><br><span class="line">        &quot;month&quot;, </span><br><span class="line">        ],</span><br><span class="line">time_varying_unknown_categoricals=[],</span><br><span class="line">time_varying_unknown_reals=[&quot;Volume&quot;, &quot;Price&quot;, &quot;Sales&quot;, &quot;Avg_Max_Temp&quot;, &quot;Industry_Volume&quot;, &quot;Soda_Volume&quot;],</span><br></pre></td></tr></table></figure>
+<p>后面这个time_varying_known_categoricals我不太明白，因为既然是special_days这种，是不是得搞个公式来计算啊</p>
+<p>后来才回过味来，觉得自己想多了，只需要告诉模型就是了，模型又不是不会读后面的</p>
+<p>至于为什么是reals，因为我没做节日的分类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">target_normalizer=GroupNormalizer(</span><br><span class="line">        groups=[&quot;Agency&quot;, &quot;SKU&quot;], transformation=&quot;softplus&quot;</span><br><span class="line">    ),  # use softplus and normalize by group</span><br></pre></td></tr></table></figure>
+<p>显然是在Agency和SKU组内进行数据的正则化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_relative_time_idx=True,</span><br><span class="line">    add_target_scales=True,</span><br><span class="line">    add_encoder_length=True,</span><br></pre></td></tr></table></figure>
+<p>这三项分别说，将时间跨度，输入尺度和编码长度纳入输入特征，是提高模型性能的，就直接用了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># create validation set (predict=True) which means to predict the last max_prediction_length points in time</span><br><span class="line"># for each series</span><br><span class="line">validation = TimeSeriesDataSet.from_dataset(training, data, predict=True, stop_randomization=True)</span><br><span class="line"></span><br><span class="line"># create dataloaders for model</span><br><span class="line">batch_size = 128  # set this between 32 to 128</span><br><span class="line">train_dataloader = training.to_dataloader(train=True, batch_size=batch_size, num_workers=0)</span><br><span class="line">val_dataloader = validation.to_dataloader(train=False, batch_size=batch_size * 10, num_workers=0)</span><br></pre></td></tr></table></figure>
+<p>生成验证集和dataloader，突然觉得这training_cutoff好短，分的有问题啊</p>
+<p>不过先这么着吧</p>
+<h2 id="创建基准模型"><a href="#创建基准模型" class="headerlink" title="创建基准模型"></a>创建基准模型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># calculate baseline mean absolute error, i.e. predict next value as the last available value from the history</span><br><span class="line">baseline_predictions = Baseline().predict(val_dataloader, return_y=True)</span><br><span class="line">MAE()(baseline_predictions.output, baseline_predictions.y)</span><br></pre></td></tr></table></figure>
+<p>没问题，不愧是tutorial</p>
+<h2 id="TFT"><a href="#TFT" class="headerlink" title="TFT"></a>TFT</h2><p>终于到了重头戏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># configure network and trainer</span><br><span class="line">pl.seed_everything(42)</span><br><span class="line">trainer = pl.Trainer(</span><br><span class="line">    accelerator=&quot;cpu&quot;,</span><br><span class="line">    # clipping gradients is a hyperparameter and important to prevent divergance</span><br><span class="line">    # of the gradient for recurrent neural networks</span><br><span class="line">    gradient_clip_val=0.1,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>pl.seed_everything(42)是将所有的随机种子设为42，这是为了让结果具有可重复性</p>
+<p>gradient_clip_val=0.1则是对梯度进行一番控制，如果梯度的范数超过了0.1，将会把梯度调节到范数为0.1，这是为了防止梯度过大引起模型不收敛等问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">tft = TemporalFusionTransformer.from_dataset(</span><br><span class="line">    training,</span><br><span class="line">    # not meaningful for finding the learning rate but otherwise very important</span><br><span class="line">    learning_rate=0.03,</span><br><span class="line">    hidden_size=8,  # most important hyperparameter apart from learning rate</span><br><span class="line">    # number of attention heads. Set to up to 4 for large datasets</span><br><span class="line">    attention_head_size=1,</span><br><span class="line">    dropout=0.1,  # between 0.1 and 0.3 are good values</span><br><span class="line">    hidden_continuous_size=8,  # set to &lt;= hidden_size</span><br><span class="line">    loss=QuantileLoss(),</span><br><span class="line">    optimizer=&quot;Ranger&quot;</span><br><span class="line">    # reduce learning rate if no improvement in validation loss after x epochs</span><br><span class="line">    # reduce_on_plateau_patience=1000,</span><br><span class="line">)</span><br><span class="line">print(f&quot;Number of parameters in network: &#123;tft.size()/1e3:.1f&#125;k&quot;)</span><br></pre></td></tr></table></figure>
+<p>这里是定义了一个tft模型，打印了它内部的参数数量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Global seed set to 42</span><br><span class="line">GPU available: False, used: False</span><br><span class="line">TPU available: False, using: 0 TPU cores</span><br><span class="line">IPU available: False, using: 0 IPUs</span><br><span class="line">HPU available: False, using: 0 HPUs</span><br><span class="line">Number of parameters in network: 21.5k</span><br></pre></td></tr></table></figure>
+<p>之后为了找到最优的学习率</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># find optimal learning rate</span><br><span class="line">from lightning.pytorch.tuner import Tuner</span><br><span class="line"></span><br><span class="line">res = Tuner(trainer).lr_find(</span><br><span class="line">    tft,</span><br><span class="line">    train_dataloaders=train_dataloader,</span><br><span class="line">    val_dataloaders=val_dataloader,</span><br><span class="line">    max_lr=10.0,</span><br><span class="line">    min_lr=1e-6,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">print(f&quot;suggested learning rate: &#123;res.suggestion()&#125;&quot;)</span><br><span class="line">fig = res.plot(show=True, suggest=True)</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p>不懂就问，这不是已经在训练了吗</p>
+<p><img src="/images/时序预测方法/TFT时序框架/最好的学习率.png" alt></p>
+<p>0.17782794100389226是最好的学习率</p>
+<h2 id="训练模型"><a href="#训练模型" class="headerlink" title="训练模型"></a>训练模型</h2><p>我拿到学习率之后，把上面的代码删了</p>
+<p>之后由于有个日志，我需要下载tensorboard和tensorboardX</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># configure network and trainer</span><br><span class="line">pl.seed_everything(42)</span><br><span class="line">early_stop_callback = EarlyStopping(monitor=&quot;val_loss&quot;, min_delta=1e-4, patience=10, verbose=False, mode=&quot;min&quot;)</span><br><span class="line">lr_logger = LearningRateMonitor()  # log the learning rate</span><br><span class="line">logger = TensorBoardLogger(&quot;lightning_logs&quot;)  # logging results to a tensorboard</span><br><span class="line"></span><br><span class="line">trainer = pl.Trainer(</span><br><span class="line">    max_epochs=50,</span><br><span class="line">    accelerator=&quot;cpu&quot;,</span><br><span class="line">    enable_model_summary=True,</span><br><span class="line">    gradient_clip_val=0.1,</span><br><span class="line">    limit_train_batches=50,  # coment in for training, running valiation every 30 batches</span><br><span class="line">    # fast_dev_run=True,  # comment in to check that networkor dataset has no serious bugs</span><br><span class="line">    callbacks=[lr_logger, early_stop_callback],</span><br><span class="line">    logger=logger,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tft = TemporalFusionTransformer.from_dataset(</span><br><span class="line">    training,</span><br><span class="line">    learning_rate=0.17782794100389226,</span><br><span class="line">    hidden_size=16,</span><br><span class="line">    attention_head_size=2,</span><br><span class="line">    dropout=0.1,</span><br><span class="line">    hidden_continuous_size=8,</span><br><span class="line">    loss=QuantileLoss(),</span><br><span class="line">    log_interval=10,  # uncomment for learning rate finder and otherwise, e.g. to 10 for logging every 10 batches</span><br><span class="line">    optimizer=&quot;Ranger&quot;,</span><br><span class="line">    reduce_on_plateau_patience=4,</span><br><span class="line">)</span><br><span class="line">print(f&quot;Number of parameters in network: &#123;tft.size()/1e3:.1f&#125;k&quot;)</span><br><span class="line"></span><br><span class="line">trainer.fit(</span><br><span class="line">    tft,</span><br><span class="line">    train_dataloaders=train_dataloader,</span><br><span class="line">    val_dataloaders=val_dataloader,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>查看日志的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=lightning_logs/</span><br></pre></td></tr></table></figure>
+<h2 id="风速预测并画图"><a href="#风速预测并画图" class="headerlink" title="风速预测并画图"></a>风速预测并画图</h2><p>仿照上面的写了代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import warnings</span><br><span class="line"></span><br><span class="line">warnings.filterwarnings(&quot;ignore&quot;)  # avoid printing out absolute paths</span><br><span class="line"></span><br><span class="line"># os.chdir(&quot;../../..&quot;)</span><br><span class="line"></span><br><span class="line">import copy</span><br><span class="line">from pathlib import Path</span><br><span class="line">import warnings</span><br><span class="line"></span><br><span class="line">import datetime as dt</span><br><span class="line">import lightning.pytorch as pl</span><br><span class="line">from lightning.pytorch.callbacks import EarlyStopping, LearningRateMonitor</span><br><span class="line">from lightning.pytorch.loggers import TensorBoardLogger</span><br><span class="line">import numpy as np</span><br><span class="line">import pandas as pd</span><br><span class="line">import torch</span><br><span class="line"></span><br><span class="line">from pytorch_forecasting import Baseline, TemporalFusionTransformer, TimeSeriesDataSet</span><br><span class="line">from pytorch_forecasting.data import GroupNormalizer</span><br><span class="line">from pytorch_forecasting.metrics import MAE, SMAPE, PoissonLoss, QuantileLoss</span><br><span class="line">from pytorch_forecasting.models.temporal_fusion_transformer.tuning import optimize_hyperparameters</span><br><span class="line"></span><br><span class="line">from pytorch_forecasting.data.examples import get_stallion_data</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import pandas as pd </span><br><span class="line"></span><br><span class="line">data = pd.read_excel(r&apos;./data.xlsx&apos;)</span><br><span class="line"></span><br><span class="line">t = []</span><br><span class="line">for i in data[&apos;time&apos;]:</span><br><span class="line">    tt = i - dt.datetime.strptime(&quot;2020-01-01 00:00:00&quot;, &quot;%Y-%m-%d %H:%M:%S&quot;)</span><br><span class="line">    tt = int(tt.total_seconds()) // 900</span><br><span class="line">    t.append(tt)</span><br><span class="line">    </span><br><span class="line">data[&apos;time_idx&apos;] = t</span><br><span class="line">data[&apos;time_idx&apos;] -= data[&apos;time_idx&apos;].min()</span><br><span class="line"></span><br><span class="line">t_time_idx = []</span><br><span class="line">t_speed = []</span><br><span class="line"></span><br><span class="line">for i in range(len(data[&apos;time_idx&apos;]) - 1):</span><br><span class="line">    cur = data[&apos;time_idx&apos;][i]</span><br><span class="line">    nxt = data[&apos;time_idx&apos;][i + 1]</span><br><span class="line">    </span><br><span class="line">    if cur + 1 &lt; nxt:</span><br><span class="line">        t_time_idx.append(cur)</span><br><span class="line">        t_speed.append(data[&apos;speed&apos;][i])</span><br><span class="line">        l = data[&apos;speed&apos;][i]</span><br><span class="line">        r = data[&apos;speed&apos;][i + 1]</span><br><span class="line">        for j in range(cur + 1, nxt):</span><br><span class="line">            t_time_idx.append(j)</span><br><span class="line">            t_speed.append((l * (j - cur) + r * (nxt - j)) / (nxt - cur))</span><br><span class="line">    elif cur + 1 &gt; nxt:</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        t_time_idx.append(cur)</span><br><span class="line">        t_speed.append(data[&apos;speed&apos;][i])</span><br><span class="line"></span><br><span class="line">t_time_idx.append(data[&apos;time_idx&apos;][len(data[&apos;time_idx&apos;]) - 1])</span><br><span class="line">t_speed.append(data[&apos;speed&apos;][len(data[&apos;speed&apos;]) - 1])</span><br><span class="line"></span><br><span class="line">data = pd.DataFrame(&#123;&quot;time_idx&quot;:t_time_idx, &quot;speed&quot;:t_speed, &quot;group&quot;:[&quot;1&quot; for _ in range(len(t_speed))]&#125;)</span><br><span class="line"></span><br><span class="line">print(&quot;导入数据成功&quot;)</span><br><span class="line"></span><br><span class="line">max_encoder_length = 24</span><br><span class="line">max_prediction_length = 1</span><br><span class="line">training_cutoff = 366 * 96 - max_prediction_length - 1</span><br><span class="line"></span><br><span class="line">training = TimeSeriesDataSet(</span><br><span class="line">    data[lambda x: x.time_idx &lt;= training_cutoff], </span><br><span class="line">    time_idx=&quot;time_idx&quot;, </span><br><span class="line">    target=&quot;speed&quot;, </span><br><span class="line">    group_ids=[&quot;group&quot;], </span><br><span class="line">    static_categoricals=[&apos;group&apos;], </span><br><span class="line">    static_reals=[], </span><br><span class="line">    time_varying_known_categoricals=[], </span><br><span class="line">    time_varying_known_reals=[&apos;time_idx&apos;], </span><br><span class="line">    time_varying_unknown_categoricals=[], </span><br><span class="line">    time_varying_unknown_reals=[&apos;speed&apos;], </span><br><span class="line">    min_encoder_length=max_encoder_length // 2, </span><br><span class="line">    max_encoder_length=max_encoder_length, </span><br><span class="line">    min_prediction_length=max_prediction_length, </span><br><span class="line">    max_prediction_length=max_encoder_length, </span><br><span class="line">    target_normalizer=GroupNormalizer(</span><br><span class="line">        groups=[&apos;group&apos;], </span><br><span class="line">        transformation=&apos;softplus&apos;, </span><br><span class="line">    ), </span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># create validation set (predict=True) which means to predict the last max_prediction_length points in time</span><br><span class="line"># for each series</span><br><span class="line">validation = TimeSeriesDataSet.from_dataset(training, data, predict=True, stop_randomization=True)</span><br><span class="line"></span><br><span class="line"># create dataloaders for model</span><br><span class="line">batch_size = 128  # set this between 32 to 128</span><br><span class="line">train_dataloader = training.to_dataloader(train=True, batch_size=batch_size, num_workers=0)</span><br><span class="line">val_dataloader = validation.to_dataloader(train=False, batch_size=batch_size, num_workers=0)</span><br><span class="line"></span><br><span class="line"># configure network and trainer</span><br><span class="line">pl.seed_everything(42)</span><br><span class="line">early_stop_callback = EarlyStopping(monitor=&quot;val_loss&quot;, min_delta=1e-4, patience=10, verbose=False, mode=&quot;min&quot;)</span><br><span class="line">lr_logger = LearningRateMonitor()  # log the learning rate</span><br><span class="line">logger = TensorBoardLogger(&quot;lightning_logs&quot;)  # logging results to a tensorboard</span><br><span class="line"></span><br><span class="line"># calculate baseline mean absolute error, i.e. predict next value as the last available value from the history</span><br><span class="line">baseline_predictions = Baseline().predict(val_dataloader, return_y=True)</span><br><span class="line">MAE()(baseline_predictions.output, baseline_predictions.y)</span><br><span class="line"></span><br><span class="line">trainer = pl.Trainer(</span><br><span class="line">    max_epochs=100,</span><br><span class="line">    accelerator=&quot;cpu&quot;,</span><br><span class="line">    enable_model_summary=True,</span><br><span class="line">    gradient_clip_val=0.1,</span><br><span class="line">    limit_train_batches=50,  # coment in for training, running valiation every 30 batches</span><br><span class="line">    # fast_dev_run=True,  # comment in to check that networkor dataset has no serious bugs</span><br><span class="line">    callbacks=[lr_logger, early_stop_callback],</span><br><span class="line">    logger=logger,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">tft = TemporalFusionTransformer.from_dataset(</span><br><span class="line">    training,</span><br><span class="line">    learning_rate=0.17,</span><br><span class="line">    hidden_size=48,</span><br><span class="line">    attention_head_size=6,</span><br><span class="line">    dropout=0.1,</span><br><span class="line">    hidden_continuous_size=36,</span><br><span class="line">    loss=QuantileLoss(),</span><br><span class="line">    log_interval=10,  # uncomment for learning rate finder and otherwise, e.g. to 10 for logging every 10 batches</span><br><span class="line">    optimizer=&quot;Ranger&quot;,</span><br><span class="line">    reduce_on_plateau_patience=4,</span><br><span class="line">)</span><br><span class="line">print(f&quot;Number of parameters in network: &#123;tft.size()/1e3:.1f&#125;k&quot;)</span><br><span class="line"></span><br><span class="line">trainer.fit(</span><br><span class="line">    tft,</span><br><span class="line">    train_dataloaders=train_dataloader,</span><br><span class="line">    val_dataloaders=val_dataloader,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"># load the best model according to the validation loss</span><br><span class="line"># (given that we use early stopping, this is not necessarily the last epoch)</span><br><span class="line">best_model_path = trainer.checkpoint_callback.best_model_path</span><br><span class="line">best_tft = TemporalFusionTransformer.load_from_checkpoint(best_model_path)</span><br><span class="line"></span><br><span class="line"># raw predictions are a dictionary from which all kind of information including quantiles can be extracted</span><br><span class="line">raw_predictions = best_tft.predict(val_dataloader, mode=&quot;raw&quot;, return_x=True)</span><br><span class="line"></span><br><span class="line">best_tft.plot_prediction(raw_predictions.x, raw_predictions.output, idx=0, add_loss_to_title=True)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/时序预测方法/TFT时序框架/初次结果.png" alt></p>
+<h2 id="画出长时间的图"><a href="#画出长时间的图" class="headerlink" title="画出长时间的图"></a>画出长时间的图</h2><h2 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h2><p>虽然调好了，但是很遗憾的是，预测的结果看上去并没有那么理想，loss值也一直维持在0.6左右无法进一步下降</p>
+<p>mape倒是挺低的，但是我却看不懂</p>
+<p>然后我也不知道该怎么用这个模型做预测啊，我根本不知道他这个predict到底输入输出是个啥</p>
+<p>输入我还算能理解，这个输出怎么会那么多</p>
+<p>为了能够加快效率，免得每次调试一遍还得先训练，我得先学会怎么把模型存起来才行</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/03/房地产大电影/" rel="next" title="房地产大电影">
+                <i class="fa fa-chevron-left"></i> 房地产大电影
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/04/22/实现LSTM/" rel="prev" title="实现LSTM">
+                实现LSTM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TFT时序框架"><span class="nav-number">1.</span> <span class="nav-text">TFT时序框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#过往研究的不足之处"><span class="nav-number">1.1.</span> <span class="nav-text">过往研究的不足之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预测方法"><span class="nav-number">1.2.</span> <span class="nav-text">预测方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入层"><span class="nav-number">1.2.1.</span> <span class="nav-text">输入层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VSN-Variable-Selection-Network"><span class="nav-number">1.2.2.</span> <span class="nav-text">VSN(Variable Selection Network)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GLU-门控线性单元"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">GLU 门控线性单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GRN"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">GRN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM"><span class="nav-number">1.2.3.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention"><span class="nav-number">1.2.4.</span> <span class="nav-text">Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#机器翻译的attention"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">机器翻译的attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从Hhc到QKV"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">从Hhc到QKV</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#self-attention"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">self-attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transformer"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#multi-head-attention"><span class="nav-number">1.2.4.4.1.</span> <span class="nav-text">multi-head attention</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标准化"><span class="nav-number">1.2.4.4.2.</span> <span class="nav-text">标准化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Dense"><span class="nav-number">1.2.4.4.3.</span> <span class="nav-text">Dense</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Decoder"><span class="nav-number">1.2.4.4.4.</span> <span class="nav-text">Decoder</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回到文章中"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">回到文章中</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分位数回归"><span class="nav-number">1.2.5.</span> <span class="nav-text">分位数回归</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TFT框架的代码"><span class="nav-number">2.</span> <span class="nav-text">TFT框架的代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导入包"><span class="nav-number">2.1.</span> <span class="nav-text">导入包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读入数据"><span class="nav-number">2.2.</span> <span class="nav-text">读入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建dataset和dataloader"><span class="nav-number">2.3.</span> <span class="nav-text">创建dataset和dataloader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建基准模型"><span class="nav-number">2.4.</span> <span class="nav-text">创建基准模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TFT"><span class="nav-number">2.5.</span> <span class="nav-text">TFT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练模型"><span class="nav-number">2.6.</span> <span class="nav-text">训练模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#风速预测并画图"><span class="nav-number">2.7.</span> <span class="nav-text">风速预测并画图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#画出长时间的图"><span class="nav-number">2.8.</span> <span class="nav-text">画出长时间的图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储模型"><span class="nav-number">2.9.</span> <span class="nav-text">存储模型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

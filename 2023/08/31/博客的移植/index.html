@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="因为工位的电脑没有hexo，只能用飞书的云文档来记录日常的心得，但是那太琐碎了，想要整理到一起的时候还是不够舒服，所以又自然而然地想到要把博客移植到工位的电脑去   这种事挺费力的，我也不知道为什么。就像上次给工位的电脑重装系统，不是很简单的事情吗，可实际上就遇到了很多问题——用了他们的ventory启动盘，结果一直遇到卡在系统安装的界面上，进度条不动，反复排查就半天过去了，最终也没找到问题所在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客的移植">
+<meta property="og:url" content="http://yoursite.com/2023/08/31/博客的移植/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="因为工位的电脑没有hexo，只能用飞书的云文档来记录日常的心得，但是那太琐碎了，想要整理到一起的时候还是不够舒服，所以又自然而然地想到要把博客移植到工位的电脑去   这种事挺费力的，我也不知道为什么。就像上次给工位的电脑重装系统，不是很简单的事情吗，可实际上就遇到了很多问题——用了他们的ventory启动盘，结果一直遇到卡在系统安装的界面上，进度条不动，反复排查就半天过去了，最终也没找到问题所在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-08-31T17:08:06.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="博客的移植">
+<meta name="twitter:description" content="因为工位的电脑没有hexo，只能用飞书的云文档来记录日常的心得，但是那太琐碎了，想要整理到一起的时候还是不够舒服，所以又自然而然地想到要把博客移植到工位的电脑去   这种事挺费力的，我也不知道为什么。就像上次给工位的电脑重装系统，不是很简单的事情吗，可实际上就遇到了很多问题——用了他们的ventory启动盘，结果一直遇到卡在系统安装的界面上，进度条不动，反复排查就半天过去了，最终也没找到问题所在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/08/31/博客的移植/">
+
+
+
+
+
+  <title>博客的移植 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/31/博客的移植/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">博客的移植</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-08-31T18:06:08+01:00">
+                2023-08-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>因为工位的电脑没有hexo，只能用飞书的云文档来记录日常的心得，但是那太琐碎了，想要整理到一起的时候还是不够舒服，所以又自然而然地想到要把博客移植到工位的电脑去</p>
+</blockquote>
+<blockquote>
+<p>这种事挺费力的，我也不知道为什么。就像上次给工位的电脑重装系统，不是很简单的事情吗，可实际上就遇到了很多问题——用了他们的ventory启动盘，结果一直遇到卡在系统安装的界面上，进度条不动，反复排查就半天过去了，最终也没找到问题所在，换了wape做启动盘，一下子就好了</p>
+</blockquote>
+<blockquote>
+<p>很多事都这样，在底层不出错的情况下，其实是简单的不能再简单的事情，问题就在于底层万一出错了怎么办？</p>
+</blockquote>
+<p>博客的移植只需要以下几步：</p>
+<p>1.安装git，去官网下载并配置好环境变量，一般来说是需要把git下的cmd文件夹放进path里，确保git.exe这个程序能够通过环境变量找到。配置好后，右键菜单应该会多出一个git bath here和git gui here</p>
+<p>2.安装nodejs，去官网下就行，环境变量也配一下，找一下它的module文件夹，加到path里，命令行输入node -v和npm -v都能输出对应的版本信息即可</p>
+<p>3.安装hexo，输入npm install -g hexo-cli，安装好之后hexo -v应该能输出版本信息，找个博客文件，启动hexo init</p>
+<p>4.移植之前的scaffolds，themes，source和_config.yml，package.json</p>
+<p>5.启动hexo s</p>
+<p>看着也很简单吧，实际上踩了很多坑，有些坑甚至现在都还没弄明白为什么</p>
+<p>首先安装nodejs，它其实类似于python，python安装的时候你想要用它的解释器，你得把python.exe所在的文件夹放到环境变量里，那么你想要用pip呢，你就得把python目录文件下面的scripts文件也放到环境变量里，而用pip下载的包就会在python目录中的site-package文件夹</p>
+<p>nodejs的环境也有类似之处，npm就类似于python的pip，只不过nodejs安装的时候，也会像python一样，自动的把node和npm两个程序所在的目录放进环境变量中，从而方便直接使用</p>
+<p>这里容易踩的坑是hexo是对node的版本有一定要求的，如果不小心按照了过于落后的版本，就得重装，自动设置的环境变量容易引发一些问题……比如npm装的包找不到了之类</p>
+<p>如果不想把node装在C盘，也不想让node把包安在C盘，就需要手动设置一下node安包的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set prefix &quot;创建的node_global文件夹所在路径&quot;</span><br><span class="line">npm config set cache &quot;创建的node_cache文件夹所在路径&quot;</span><br></pre></td></tr></table></figure>
+<p>之后安装的module就会通通进入node_global下的modules里</p>
+<p>安装包是用的npm install -g命令</p>
+<p>安装hexo的时候容易遇到的问题是：安装好了无非输出hexo -v，这需要找到hexo的安装位置，把该位置的路径放进path</p>
+<p>如果不放，只能用npx hexo 这种方式来调起hexo，有点类似python -m</p>
+<p>还有一个至今没想明白的问题——我的node等文件都装在C盘，hexo装在E盘，结果我在C和D盘上都可以使用hexo命令，E盘就不行</p>
+<p>难道这玩意不能跨硬盘吗？很离谱</p>
+<p>之后就是hexo的一些主题和差件，这些都得重新下载一下，然后在blog文件夹里用npm安装，比如hexo-admin，next主题等等</p>
+<p>安装完了之后可能会提示有多少个vulnerabilities，这个是漏洞，我一开始还以为是依赖项的版本冲突，其实不用管</p>
+<p>各种各样的坑导致本来半小时完成的事情搞了一天……</p>
+<p>然后本来想着都完事了，还有最后一个坑等着我——打开博客发现分类和标签都是乱码！</p>
+<p>我以为是新版本的next主题解析中文有问题了，或者是新next不认识旧next的设置了，先是重新生成了一下那些页面，没用</p>
+<p>然后我耐心地翻了一下，发现分类是显示的，只不过分类这两个字变成了乱码，我猜就是next的语言问题，于是去找next的语言设置</p>
+<p>果然要改成zh-Hans才行，改了之后发现还是一样不起作用，我又试着删除了缓存重新构建，没用</p>
+<p>彻底疯狂了，后来转念一想，这或许不是乱码，应该是某个其它国家的语言，我就去问了一下gpt，gpt告诉我这是阿拉伯语，是博文的意思</p>
+<p>我一下子就明白了，这不是bug，一定是我没设置好，我猜测其它人也会遇到这种问题，就去搜，果然第一个就找到了，那人说，是因为next的中文文档过期了，改zh-Hans已经是老版本的事情了，现在next的简体中文包叫zh-CN，next找不到包，自然就会默认使用第一个语言，也就是阿拉伯语了</p>
+<p>后面也是很好地修复了这个错误</p>
+<p>搞技术还是要有耐心啊，计算机是人造的科学，当然没有自然科学那般圆满，拿写代码来说，一个人一个样。要意识到人造的东西，充满漏洞也是必然的事情，但也得有信心才行。计算机世界没有玄学，一切现象都有其原因的，就像这个阿拉伯语一样</p>
+<p>就当是解谜游戏吧</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/07/26/欢迎来到不公平的世界/" rel="next" title="欢迎来到不公平的世界">
+                <i class="fa fa-chevron-left"></i> 欢迎来到不公平的世界
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
