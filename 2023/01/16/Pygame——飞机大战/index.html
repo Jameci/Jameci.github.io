@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Pygame,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="准备工作1.准备python环境 2.准备pycharm，新建工程 3.安装pygame Python环境的配置配过多次python环境，久病也没成医，现配还是得查。还好开发项目之前python的环境已经配置完成了。 如果有一天，我又需要配一遍python环境，我会回来把过程记在这里。 新建工程先下载pycharm https://www.jetbrains.com/pycharm/ 白嫖一个co">
+<meta name="keywords" content="Pygame">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pygame——飞机大战">
+<meta property="og:url" content="http://yoursite.com/2023/01/16/Pygame——飞机大战/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="准备工作1.准备python环境 2.准备pycharm，新建工程 3.安装pygame Python环境的配置配过多次python环境，久病也没成医，现配还是得查。还好开发项目之前python的环境已经配置完成了。 如果有一天，我又需要配一遍python环境，我会回来把过程记在这里。 新建工程先下载pycharm https://www.jetbrains.com/pycharm/ 白嫖一个co">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-02-09T13:21:29.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pygame——飞机大战">
+<meta name="twitter:description" content="准备工作1.准备python环境 2.准备pycharm，新建工程 3.安装pygame Python环境的配置配过多次python环境，久病也没成医，现配还是得查。还好开发项目之前python的环境已经配置完成了。 如果有一天，我又需要配一遍python环境，我会回来把过程记在这里。 新建工程先下载pycharm https://www.jetbrains.com/pycharm/ 白嫖一个co">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/01/16/Pygame——飞机大战/">
+
+
+
+
+
+  <title>Pygame——飞机大战 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/16/Pygame——飞机大战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pygame——飞机大战</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-16T01:53:09+08:00">
+                2023-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>1.准备python环境</p>
+<p>2.准备pycharm，新建工程</p>
+<p>3.安装pygame</p>
+<h2 id="Python环境的配置"><a href="#Python环境的配置" class="headerlink" title="Python环境的配置"></a>Python环境的配置</h2><p>配过多次python环境，久病也没成医，现配还是得查。还好开发项目之前python的环境已经配置完成了。</p>
+<p>如果有一天，我又需要配一遍python环境，我会回来把过程记在这里。</p>
+<h2 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h2><p>先下载pycharm</p>
+<p><code>https://www.jetbrains.com/pycharm/</code></p>
+<p>白嫖一个community版够用了，安装一路点next</p>
+<p>新建工程，命名为Plane_war</p>
+<h2 id="Pygame的安装"><a href="#Pygame的安装" class="headerlink" title="Pygame的安装"></a>Pygame的安装</h2><p>新建一个main.py，输入import pygame报错，点小灯泡，然后让pycharm自动下载就好</p>
+<h1 id="总体设计"><a href="#总体设计" class="headerlink" title="总体设计"></a>总体设计</h1><p>1.游戏的框架</p>
+<p>2.什么是游戏循环——书写主游戏类和主函数</p>
+<p>3.展示主界面</p>
+<h2 id="游戏框架"><a href="#游戏框架" class="headerlink" title="游戏框架"></a>游戏框架</h2><p>一个游戏由三部分组成，即初始化，游戏循环，退出</p>
+<p>初始化完成的是游戏正式开始之前的准备工作，如导入资源，加载存档等</p>
+<p>游戏循环意味着游戏正式开始，一般会有一个死循环，该循环以固定的帧率刷新屏幕，直到满足某个条件时，游戏退出</p>
+<p>退出时的代码做一些释放资源，存储等操作</p>
+<h2 id="书写主游戏类"><a href="#书写主游戏类" class="headerlink" title="书写主游戏类"></a>书写主游戏类</h2><p>根据上面的说明，我们知道主游戏类至少具有：</p>
+<p>初始化方法：初始化并创建一些资源</p>
+<p>主方法：运行游戏循环，因此我们先写一个死循环占位</p>
+<p>退出方法：退出游戏，不妨使用exit方法</p>
+<p>因此，我们新建文件main_game.py</p>
+<p>在其中定义Main_Game类：</p>
+<blockquote>
+<p>注意：在使用pygame提供的模块前，应先执行pygame.init()方法来进行一些初始化操作，在退出游戏之前，也应该执行oygame.quit()方法</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pygame</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main_Game</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""游戏初始化"""</span></span><br><span class="line">        pygame.init()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""游戏循环"""</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">game_over</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="string">"""游戏结束"""</span></span><br><span class="line">        pygame.quit()</span><br><span class="line">        print(<span class="string">"游戏结束"</span>)</span><br><span class="line">        exit()</span><br></pre></td></tr></table></figure>
+<p>接着，主函数main中，新建一个Main_Game对象并调用其start方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> main_game</span><br><span class="line"></span><br><span class="line">game = main_game.Main_Game()</span><br><span class="line"></span><br><span class="line">game.start()</span><br></pre></td></tr></table></figure></p>
+<h2 id="展示主界面"><a href="#展示主界面" class="headerlink" title="展示主界面"></a>展示主界面</h2><p>在pygame中，创建主界面的方法为：</p>
+<p><code>pygame.display.set_mode(resolution(0, 0),flags=0,depth=0)-&gt;Surface</code></p>
+<p>resolution属性制定主界面的宽和高，默认值为全屏，flags指定附加选项，depth指定颜色位数</p>
+<p>我们需要接收创建出的Surface对象，之后的绘制工作全都在它上面进行</p>
+<p>因此，不妨在Main_Game的init方法中，加入：</p>
+<p><code>self.screen = pygame.display.set_mode()</code></p>
+<p>这时再执行代码，就能看到黑色的框创建出来了</p>
+<h1 id="细化框架"><a href="#细化框架" class="headerlink" title="细化框架"></a>细化框架</h1><p>1.分析游戏循环中应该执行那些操作</p>
+<p>2.细化游戏循环的框架</p>
+<p>3.设置帧率</p>
+<p>4.实现退出游戏功能</p>
+<h2 id="游戏循环分析"><a href="#游戏循环分析" class="headerlink" title="游戏循环分析"></a>游戏循环分析</h2><p>我们知道，在游戏运行中，我们可以通过操作键盘和鼠标对游戏中的角色进行控制，因此我们需要一个事件处理函数</p>
+<p>每当一次游戏循环运行时，游戏中的人物会移动，我们需要更新显示，因此我们需要一个显示更新函数</p>
+<p>在Main_Game类中加入上述两个函数，并先使用pass占位<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__event_handler</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""事件处理"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__update_screen</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""更新屏幕"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>在游戏循环中，分别调用这两个函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""游戏循环"""</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"></span><br><span class="line">        self.__event_handler()</span><br><span class="line"></span><br><span class="line">        self.__update_screen()</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置帧率"><a href="#设置帧率" class="headerlink" title="设置帧率"></a>设置帧率</h2><p>帧率的设置需要定义设置时钟对象</p>
+<p>要设置时钟对象，需要使用pygame中的time模块中的Clock</p>
+<p>在Main_Game的init方法中，创建时钟对象：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""游戏初始化"""</span></span><br><span class="line">    pygame.init()</span><br><span class="line">    <span class="comment"># 创建主界面</span></span><br><span class="line">    self.screen = pygame.display.set_mode()</span><br><span class="line">    <span class="comment"># 设置帧率</span></span><br><span class="line">    self.clock = pygame.time.Clock()</span><br></pre></td></tr></table></figure></p>
+<p>在start的游戏循环中，调用clock的tick方法，指定帧率为60</p>
+<p>这里，为了避免直接使用整数，我们建立一个constant.py文件，在其中定义：</p>
+<p><code>FLAME_PER_SECOND = 60</code></p>
+<p>然后start方法改为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""游戏循环"""</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        self.clock.tick(constants.FLAME_PRE_SECOND)</span><br><span class="line"></span><br><span class="line">        self.__event_handler()</span><br><span class="line"></span><br><span class="line">        self.__update_screen()</span><br></pre></td></tr></table></figure></p>
+<h2 id="实现退出事件监听"><a href="#实现退出事件监听" class="headerlink" title="实现退出事件监听"></a>实现退出事件监听</h2><p>游戏的退出是事件的一种，我们在事件处理函数中，如果检测到退出事件，应调用game_over函数</p>
+<p>想要得到发生的事件，需要使用pygame.event.get()函数来得到当前事件列表</p>
+<p>event_handler函数改成：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__event_handler</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""事件处理"""</span></span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> pygame.event.get():</span><br><span class="line">        <span class="keyword">if</span> event.type == pygame.QUIT:</span><br><span class="line">            Main_Game.game_over()</span><br></pre></td></tr></table></figure></p>
+<p>现在，点击黑色框的×可以将游戏正常退出了</p>
+<h1 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h1><p>1.Rect类</p>
+<p>2.Sprite</p>
+<p>3.Sprite组</p>
+<h2 id="Rect类"><a href="#Rect类" class="headerlink" title="Rect类"></a>Rect类</h2><p>pygame.Rect是pygame中描述矩形的类，其中主要属性有：</p>
+<p>x，y分布表示左上点的位置横纵坐标，其中屏幕的最左上点坐标为(0,0)</p>
+<p>left表示最左边x坐标，right类推</p>
+<p>top表示顶部y坐标，bottom类推</p>
+<p>center是一个二元组(centerx,centery)，表示中心位置</p>
+<p>size是一个二元组(width,height)表示矩形大小</p>
+<p>创建Rect对象需要传入四元组(x, y, w, h)</p>
+<h2 id="Sprite"><a href="#Sprite" class="headerlink" title="Sprite"></a>Sprite</h2><p>pygame.sprite.Sprite类，翻译过来是精灵。实际上表示游戏中可以独立活动的一个整体，比如一架飞机，或者一颗子弹。</p>
+<p>使用Sprite的好处是，我们可以把一个独立活动的整体设置成一个对象，定义了其update方法之后，就可以让它自动在屏幕上，以我们设置好的方法移动，避免我们在每次循环中手动绘制游戏画面</p>
+<p>主要方法和属性有：</p>
+<p>image是一个图像</p>
+<blockquote>
+<p>导入一个图像可以使用pygame.image.load(路径)方法</p>
+</blockquote>
+<p>rect是该精灵的位置大小等信息</p>
+<p>update方法：设置更新精灵位置的方式</p>
+<p>kill方法：销毁该精灵，并在所有组中删除</p>
+<h2 id="精灵组"><a href="#精灵组" class="headerlink" title="精灵组"></a>精灵组</h2><p>我们可以把精灵加入精灵组，这样我们就可以同时调用一组精灵的update方法，并方便我们针对不同种类的精灵进行不同的操作</p>
+<p>精灵组位于pygame.sprite.Group</p>
+<p>主要方法和属性：</p>
+<p>add(精灵列表):向该组中添加精灵</p>
+<p>update方法：调用该组中所有精灵的update方法</p>
+<p>draw(Surface)：把组中所有精灵的位置绘制在屏幕上</p>
+<p>Sprites()：返回组中精灵的列表</p>
+<blockquote>
+<p>需要更新精灵的位置时，一般要三步：</p>
+</blockquote>
+<blockquote>
+<p>使用精灵组的update方法，更新精灵的位置属性</p>
+</blockquote>
+<blockquote>
+<p>使用精灵组的draw方法，绘制在屏幕上</p>
+</blockquote>
+<blockquote>
+<p>调用pygame.display.update()方法来更新显示</p>
+</blockquote>
+<h1 id="精灵和精灵组"><a href="#精灵和精灵组" class="headerlink" title="精灵和精灵组"></a>精灵和精灵组</h1><p>1.创建游戏精灵</p>
+<p>2.在主游戏类中创建游戏精灵组</p>
+<p>3.创建背景精灵</p>
+<p>4.实现背景的更新</p>
+<p>5.进一步完善</p>
+<h2 id="创建游戏精灵"><a href="#创建游戏精灵" class="headerlink" title="创建游戏精灵"></a>创建游戏精灵</h2><p>经过上篇，我们知道，游戏精灵就是游戏中所有运动的对象，它继承自pygame.sprite.Sprite，而我们创建自己的游戏精灵，至少需要重写其init和update方法</p>
+<p>在本游戏中，我们先创建一个基本游戏精灵，并令其它的精灵都继承自这个基本精灵。</p>
+<p>新建一个类，命名为：Game_Sprite，继承自pygame.sprite.Sprite</p>
+<p>基本精灵应该有一个图片类型的数据以绘制其图像，指定其初始位置，还应该有横向和纵向的速度，因此，我们的init函数重写为：</p>
+<p>这里默认了游戏中所有类创建初始位置是(0,0)，初始横向速度为0，纵向速度为1，即默认水平</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, image_file: str, init_pos=<span class="params">(<span class="number">0</span>, <span class="number">0</span>)</span>, speed_x=<span class="number">0</span>, speed_y=<span class="number">1</span>)</span>:</span></span><br><span class="line">    super().__init__()</span><br><span class="line">    <span class="comment"># 初始化图像</span></span><br><span class="line">    self.image = pygame.image.load(image_file)</span><br><span class="line">    <span class="comment"># 初始化位置</span></span><br><span class="line">    self.rect = pygame.Rect(init_pos[<span class="number">0</span>], init_pos[<span class="number">1</span>], self.image.get_width(), self.image.get_height())</span><br><span class="line">    <span class="comment"># 初始化速度</span></span><br><span class="line">    self.speed_x = speed_x</span><br><span class="line">    self.speed_y = speed_y</span><br></pre></td></tr></table></figure>
+<p>这样，我们的update函数就可以使用速度来更新精灵的位置了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(self, *args, **kwargs)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">    self.rect.x += self.speed_x</span><br><span class="line">    self.rect.y += self.speed_y</span><br></pre></td></tr></table></figure>
+<h2 id="创建游戏精灵组"><a href="#创建游戏精灵组" class="headerlink" title="创建游戏精灵组"></a>创建游戏精灵组</h2><p>在游戏初始化时，我们需要创建精灵，因此，我们先添加一个创建精灵组函数，统一创建我们想要的精灵组，然后在主类初始化的时候调用它</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__create_sprites</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""创建精灵和组"""</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>主类的初始化函数修改为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""游戏初始化"""</span></span><br><span class="line">    pygame.init()</span><br><span class="line">    <span class="comment"># 创建主界面</span></span><br><span class="line">    self.screen = pygame.display.set_mode(constants.GAME_SCREEN_RECT.size)</span><br><span class="line">    <span class="comment"># 设置帧率</span></span><br><span class="line">    self.clock = pygame.time.Clock()</span><br><span class="line">    <span class="comment"># 创建精灵组</span></span><br><span class="line">    self.__create_sprites()</span><br></pre></td></tr></table></figure>
+<h2 id="创建背景精灵"><a href="#创建背景精灵" class="headerlink" title="创建背景精灵"></a>创建背景精灵</h2><p>我们首先创建背景精灵，绘制背景图案</p>
+<p>首先，在constants.py这个存放常数的文件里面添加背景图片的路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BACKGROUND_FILE = &quot;./images/background.png&quot;</span><br></pre></td></tr></table></figure>
+<p>新建一个类，命名为Background_Sprite，继承自我们的游戏精灵Game_Sprite，重写其init方法为调用父类的init方法并传入背景图片路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import pygame</span><br><span class="line">import game_sprite</span><br><span class="line">import constants</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Background_Sprite(game_sprite.Game_Sprite):</span><br><span class="line">    &quot;&quot;&quot;背景精灵&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__(constants.BACKGROUND_FILE)</span><br></pre></td></tr></table></figure>
+<p>在主类的__create_sprites函数里，先为背景精灵创建一个背景精灵组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def __create_sprites(self):</span><br><span class="line">    &quot;&quot;&quot;创建精灵和组&quot;&quot;&quot;</span><br><span class="line">    self.background_sprite_group = pygame.sprite.Group()</span><br><span class="line">    background_sprites = background_sprite.Background_Sprite()</span><br><span class="line">    self.background_sprite_group.add(background_sprites)</span><br></pre></td></tr></table></figure>
+<h2 id="更新屏幕"><a href="#更新屏幕" class="headerlink" title="更新屏幕"></a>更新屏幕</h2><p>尽管我们已经创建了背景精灵，但为了能够让它正常地运动起来，我们还需要调用精灵组的update方法，这里，我们在主类中实现一个更新屏幕的函数，在其中调用每个精灵组的update和draw方法以更新它们在屏幕中的位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def __update_screen(self):</span><br><span class="line">&quot;&quot;&quot;更新屏幕&quot;&quot;&quot;</span><br><span class="line">self.background_sprite_group.update()</span><br><span class="line">self.background_sprite_group.draw(self.screen)</span><br><span class="line">pygame.display.update()</span><br></pre></td></tr></table></figure>
+<p>在每个游戏循环的最后都加入这个更新屏幕方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def start(self):</span><br><span class="line">    &quot;&quot;&quot;游戏循环&quot;&quot;&quot;</span><br><span class="line">    while True:</span><br><span class="line">        # 帧率</span><br><span class="line">        self.clock.tick(constants.FLAME_PRE_SECOND)</span><br><span class="line">        # 事件处理</span><br><span class="line">        self.__event_handler()</span><br><span class="line">        # 更新屏幕</span><br><span class="line">        self.__update_screen()</span><br></pre></td></tr></table></figure>
+<p>这样，我们就可以运行的时候看到下降的背景画面了</p>
+<h2 id="进一步完善"><a href="#进一步完善" class="headerlink" title="进一步完善"></a>进一步完善</h2><p>背景虽然下降了，但下降到屏幕外面就没了，我们显然不希望这样，我们希望背景能够一直存在，并且一直动态地下降，这样，我们就使用两张图片交替显示的方式，当一张图片完全移动到屏幕外面的时候，我们再重新把它放在屏幕的最上方</p>
+<p>可以通过修改背景精灵的update方法来实现这样的功能，每次update时，先调用父类的update使其正常下移，然后判断图片的y坐标是否已经下降到屏幕外(y &gt; 屏幕的高度)，若是，则把y重新调到上面去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def update(self, *args, **kwargs) -&gt; None:</span><br><span class="line">    super(Background_Sprite, self).update()</span><br><span class="line">    if self.rect.y &gt;= constants.GAME_SCREEN_RECT.height:</span><br><span class="line">        self.rect.y = -constants.GAME_SCREEN_RECT.height</span><br></pre></td></tr></table></figure>
+<p>写完这里，可以再执行一下测试能否实现上述的功能</p>
+<p>之后就是两张图片如何交替移动的问题了，其实很简单，我们只需要把背景图片组中添加两个初始位置不同的图片就可以了，一张的初始位置在(0,0)，另一张不妨就设置到第一张的上方</p>
+<p>为此，我们修改一下主类的创建背景精灵函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def __create_sprites(self):</span><br><span class="line">    &quot;&quot;&quot;创建精灵和组&quot;&quot;&quot;</span><br><span class="line">    self.background_sprite_group = pygame.sprite.Group()</span><br><span class="line">    background_sprite1 = background_sprite.Background_Sprite()</span><br><span class="line">    background_sprite2 = background_sprite.Background_Sprite()</span><br><span class="line">    background_sprite2.rect.y = -constants.GAME_SCREEN_RECT.height</span><br><span class="line">    self.background_sprite_group.add(background_sprite1)</span><br><span class="line">    self.background_sprite_group.add(background_sprite2)</span><br></pre></td></tr></table></figure>
+<p>这样再执行，背景图片就可以非常连贯地交替下移了</p>
+<h1 id="敌机"><a href="#敌机" class="headerlink" title="敌机"></a>敌机</h1><p>1.创建敌机</p>
+<p>2.定时器——敌机随机出现</p>
+<h2 id="创建敌机"><a href="#创建敌机" class="headerlink" title="创建敌机"></a>创建敌机</h2><p>首先，把敌机图片的路径写入到constants里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 敌机图片路径</span><br><span class="line">ENEMY_FILE = &quot;./images/enemy1.png&quot;</span><br></pre></td></tr></table></figure>
+<p>然后，创建敌机精灵类，命名为Enemy_Sprite</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import pygame</span><br><span class="line">import game_sprite</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Enemy_Sprite(game_sprite.Game_Sprite):</span><br></pre></td></tr></table></figure>
+<p>敌机出现时总是在屏幕最上方，位置x随机，垂直速度speed_y为1~3随机，没有水平速度</p>
+<p>这样，我们定义敌机的init方法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self):</span><br><span class="line">    super(Enemy_Sprite, self).__init__(constants.ENEMY_FILE)</span><br><span class="line">    self.rect.x = random.randint(0, constants.GAME_SCREEN_RECT.width - self.rect.width)</span><br><span class="line">    self.rect.bottom = 0</span><br><span class="line">    self.speed_y = random.randint(1, 3)</span><br></pre></td></tr></table></figure>
+<p>敌机的更新方式不需要大的改动，但有一点需要注意的是，当敌机已经飞出屏幕的时候，我们就不需要它了，所以，我们需要把这个敌机对象杀死</p>
+<p>这就需要使用到我们的析构函数del和精灵的kill方法</p>
+<p>析构函数和update：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def update(self, *args, **kwargs) -&gt; None:</span><br><span class="line">    super(Enemy_Sprite, self).update()</span><br><span class="line">    if self.rect.y == constants.GAME_SCREEN_RECT.y:</span><br><span class="line">        self.kill()</span><br></pre></td></tr></table></figure>
+<p>这时候可以在主类里面创建一个敌机，看看是不是可以正确行动</p>
+<p>在create_sprites里面添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 创建敌机组</span><br><span class="line">        self.enemy_sprite_group = pygame.sprite.Group()</span><br><span class="line">        enemy_sprite1 = enemy_sprite.Enemy_Sprite()</span><br><span class="line">        self.enemy_sprite_group.add(enemy_sprite1)</span><br></pre></td></tr></table></figure>
+<p>然后在update_screen里面添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 更新敌机</span><br><span class="line">        self.enemy_sprite_group.update()</span><br><span class="line">        self.enemy_sprite_group.draw(self.screen)</span><br></pre></td></tr></table></figure>
+<h2 id="随机出现的敌机"><a href="#随机出现的敌机" class="headerlink" title="随机出现的敌机"></a>随机出现的敌机</h2><p>我们需要使用pygame中的计时器pygame.time.set_timer()</p>
+<p>使用方法是：传入两个参数，第一个为事件id，第二个为事件间隔时间，单位毫秒</p>
+<p>事件id是自己定义的，设定计时器之后，每次计时器到达时间点事件id会被放入事件列表</p>
+<p>可以使用pygame自带的事件id，pygame.USERENEVT，之后的事件可以在此基础上+1</p>
+<p>在constants里面设定敌机出现事件的事件id和时间间隔：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 创建敌机事件id</span><br><span class="line">ENEMY_CREATE_EVENT_ID = pygame.USEREVENT</span><br><span class="line"># 创建敌机事件间隔</span><br><span class="line">ENEMY_CREATE_EVENT_TIME = 1000</span><br></pre></td></tr></table></figure>
+<p>在主类的init方法里添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建敌机计时器</span><br><span class="line">        pygame.time.set_timer(constants.ENEMY_CREATE_EVENT_ID, constants.ENEMY_CREATE_EVENT_TIME)</span><br></pre></td></tr></table></figure>
+<p>这样，事件处理列表中需要变为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def __event_handler(self):</span><br><span class="line">    &quot;&quot;&quot;事件处理&quot;&quot;&quot;</span><br><span class="line">    for event in pygame.event.get():</span><br><span class="line">        if event.type == pygame.QUIT:</span><br><span class="line">            Main_Game.game_over()</span><br><span class="line">        elif event.type == constants.ENEMY_CREATE_EVENT_ID:</span><br><span class="line">            enemy = enemy_sprite.Enemy_Sprite()</span><br><span class="line">            self.enemy_sprite_group.add(enemy)</span><br></pre></td></tr></table></figure>
+<p>再把之前为了测试敌机的行为写的代码去掉，即create_sprites中创建敌机组时，直接创建一个空组，不再上来就为其添加一个敌机</p>
+<p>运行，敌机可以随机创建了</p>
+<h1 id="主角"><a href="#主角" class="headerlink" title="主角"></a>主角</h1><p>1.创建英雄</p>
+<p>2.英雄发射子弹</p>
+<h2 id="创建英雄"><a href="#创建英雄" class="headerlink" title="创建英雄"></a>创建英雄</h2><p>首先添加英雄图片路径，在constant里加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 英雄图片路径</span><br><span class="line">HERO_FILE = &quot;./images/me1.png&quot;</span><br></pre></td></tr></table></figure>
+<p>创建英雄精灵类Hero_Sprite，我们假设英雄初始位置在界面底部中间位置，初始无速度，定义其init方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Hero_Sprite(game_sprite.Game_Sprite):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(Hero_Sprite, self).__init__(constants.HERO_FILE)</span><br><span class="line">        self.rect.bottom = constants.GAME_SCREEN_RECT.height</span><br><span class="line">        self.rect.centerx = constants.GAME_SCREEN_RECT.centerx</span><br><span class="line">        self.speed_y = 0</span><br></pre></td></tr></table></figure>
+<p>然后在主类create_sprites中添加英雄组，在英雄组中加入英雄：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 创建英雄组</span><br><span class="line">        self.hero_sprite_group = pygame.sprite.Group()</span><br><span class="line">        hero = hero_sprite.Hero_Sprite()</span><br><span class="line">        self.hero_sprite_group.add(hero)</span><br></pre></td></tr></table></figure>
+<p>同时在更新屏幕函数中添加英雄组的更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 更新英雄</span><br><span class="line">        self.hero_sprite_group.update()</span><br><span class="line">        self.hero_sprite_group.draw(self.screen)</span><br></pre></td></tr></table></figure>
+<h2 id="发射子弹"><a href="#发射子弹" class="headerlink" title="发射子弹"></a>发射子弹</h2><p>添加子弹图片路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 子弹图片路径</span><br><span class="line">BULLET_FILE = &quot;./images/bullet1.png&quot;</span><br></pre></td></tr></table></figure>
+<p>子弹从英雄图片的正上方发射，默认竖直向上移动</p>
+<p>所以，创建子弹时，我们需要传出英雄的位置参数</p>
+<p>定义子弹类Bullet_Sprite，其初始化方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Bullet_Sprite(game_sprite.Game_Sprite):</span><br><span class="line">    def __init__(self, x, y):</span><br><span class="line">        super(Bullet_Sprite, self).__init__(constants.BULLET_FILE)</span><br><span class="line">        self.speed_y = -4</span><br><span class="line">        self.rect.x = x</span><br><span class="line">        self.rect.y = y</span><br></pre></td></tr></table></figure>
+<p>由于子弹飞出屏幕之后我们也需要销毁它，同样改写update:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def update(self, *args, **kwargs) -&gt; None:</span><br><span class="line">    super(Bullet_Sprite, self).update()</span><br><span class="line">    if self.rect.y &lt;= 0:</span><br><span class="line">        self.kill()</span><br></pre></td></tr></table></figure>
+<p>在create_sprite函数里面添加子弹组，并向里面添加一发子弹来测试效果，因为子弹的发射初始位置和英雄的位置有关，我们遍历英雄组，取英雄位置作为子弹的初始参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 创建子弹组</span><br><span class="line">        self.bullet_sprite_group = pygame.sprite.Group()</span><br><span class="line">        for sprite in self.hero_sprite_group:</span><br><span class="line">            bullet = bullet_sprite.Bullet_Sprite(sprite.rect.centerx, sprite.rect.top)</span><br><span class="line">            self.bullet_sprite_group.add(bullet)</span><br></pre></td></tr></table></figure>
+<p>在更新屏幕函数里面添加更新子弹：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 更新子弹</span><br><span class="line">        self.bullet_sprite_group.update()</span><br><span class="line">        self.bullet_sprite_group.draw(self.screen)</span><br><span class="line">        pygame.display.update()</span><br></pre></td></tr></table></figure>
+<p>可以看到子弹的行为正常</p>
+<p>接下来我们添加定时发射子弹，首先添加发射子弹事件id，并设置定时器</p>
+<p>constants中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 添加子弹事件id</span><br><span class="line">BULLET_CREATE_EVENT_ID = pygame.USEREVENT + 1</span><br><span class="line"># 创建子弹事件间隔</span><br><span class="line">BULLET_CREATE_EVENT_TIME = 500</span><br></pre></td></tr></table></figure>
+<p>主类的init中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建子弹计时器</span><br><span class="line">        pygame.time.set_timer(constants.BULLET_CREATE_EVENT_ID, constants.BULLET_CREATE_EVENT_TIME)</span><br></pre></td></tr></table></figure>
+<p>把刚刚为了测试而写在create_sprite里面遍历英雄发射子弹的代码，移动到事件处理函数里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def __event_handler(self):</span><br><span class="line">    &quot;&quot;&quot;事件处理&quot;&quot;&quot;</span><br><span class="line">    for event in pygame.event.get():</span><br><span class="line">        if event.type == pygame.QUIT:</span><br><span class="line">            Main_Game.game_over()</span><br><span class="line">        elif event.type == constants.ENEMY_CREATE_EVENT_ID:</span><br><span class="line">            enemy = enemy_sprite.Enemy_Sprite()</span><br><span class="line">            self.enemy_sprite_group.add(enemy)</span><br><span class="line">        elif event.type == constants.BULLET_CREATE_EVENT_ID:</span><br><span class="line">            for sprite in self.hero_sprite_group:</span><br><span class="line">                bullet = bullet_sprite.Bullet_Sprite(sprite.rect.centerx, sprite.rect.top)</span><br><span class="line">                self.bullet_sprite_group.add(bullet)</span><br></pre></td></tr></table></figure>
+<p>这样，我们的英雄就会持续发出子弹了</p>
+<h1 id="主角操作"><a href="#主角操作" class="headerlink" title="主角操作"></a>主角操作</h1><p>1.捕获键盘实现英雄的移动</p>
+<p>2.碰撞检测来摧毁敌机</p>
+<p>3.碰撞检测牺牲英雄</p>
+<h2 id="英雄移动"><a href="#英雄移动" class="headerlink" title="英雄移动"></a>英雄移动</h2><p>为了方便控制英雄，我们修改创建英雄方法，把创建出的英雄也作为主类的一个属性保存起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 创建英雄组</span><br><span class="line">        self.hero_sprite_group = pygame.sprite.Group()</span><br><span class="line">        self.hero = hero_sprite.Hero_Sprite()</span><br><span class="line">        self.hero_sprite_group.add(self.hero)</span><br></pre></td></tr></table></figure>
+<p>我们使用pygame.key.get_pressed()方法，该方法可以检测当前被按下的键，并返回一个元组，元组中，凡是被按下的键对应的值都是true</p>
+<p>我们在检测事件中加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">key_pressed = pygame.key.get_pressed()</span><br><span class="line">        speed_x = 0</span><br><span class="line">        speed_y = 0</span><br><span class="line">        if key_pressed[pygame.K_RIGHT]:</span><br><span class="line">            speed_x += 3</span><br><span class="line">        if key_pressed[pygame.K_LEFT]:</span><br><span class="line">            speed_x -= 3</span><br><span class="line">        if key_pressed[pygame.K_DOWN]:</span><br><span class="line">            speed_y += 3</span><br><span class="line">        if key_pressed[pygame.K_UP]:</span><br><span class="line">            speed_y -= 3</span><br><span class="line">        self.hero.speed_x = speed_x</span><br><span class="line">        self.hero.speed_y = speed_y</span><br></pre></td></tr></table></figure>
+<p>这样，英雄就可以在我们的控制下移动了，但有问题的是，此时英雄可以移出屏幕外，我们不希望这样，因此我们在英雄的update方法里面增加一个边界检测：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def update(self, *args, **kwargs) -&gt; None:</span><br><span class="line">super(Hero_Sprite, self).update()</span><br><span class="line">if self.rect.top &lt; 0:</span><br><span class="line">    self.rect.top = 0</span><br><span class="line">if self.rect.bottom &gt; constants.GAME_SCREEN_RECT.height:</span><br><span class="line">    self.rect.bottom = constants.GAME_SCREEN_RECT.height</span><br><span class="line">if self.rect.left &lt; 0:</span><br><span class="line">    self.rect.left = 0</span><br><span class="line">if self.rect.right &gt; constants.GAME_SCREEN_RECT.width:</span><br><span class="line">    self.rect.right = constants.GAME_SCREEN_RECT.width</span><br></pre></td></tr></table></figure>
+<p>这样，英雄的移动就做好了</p>
+<h2 id="摧毁敌机"><a href="#摧毁敌机" class="headerlink" title="摧毁敌机"></a>摧毁敌机</h2><p>使用碰撞检测pygame.sprite.groupcollide()来判断子弹和敌机是否碰撞。</p>
+<p>传入四个参数，前两个是检测碰撞的组，后面接上两个True，表示检测到碰撞后清除碰撞在一起的对象</p>
+<p>可以在事件监听函数中加入碰撞检测</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pygame.sprite.groupcollide(self.enemy_sprite_group, self.bullet_sprite_group, True, True)</span><br></pre></td></tr></table></figure>
+<h2 id="牺牲英雄"><a href="#牺牲英雄" class="headerlink" title="牺牲英雄"></a>牺牲英雄</h2><p>同样使用碰撞检测，只不过这次不使用英雄组，而是使用英雄对象，检测某个组和某个对象有碰撞的函数是pygame.sprite.spritecollide，参数是对象，组名，是否杀死，我们检测英雄对象和敌机组有没有碰撞，这个函数会返回敌机列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enemies = pygame.sprite.spritecollide(self.hero, self.enemy_sprite_group, True)</span><br><span class="line">        if len(enemies) &gt; 0:</span><br><span class="line">            self.hero.kill()</span><br><span class="line">            self.game_over()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Pygame/" rel="tag"># Pygame</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/16/矩阵论课程笔记/" rel="next" title="矩阵论课程笔记">
+                <i class="fa fa-chevron-left"></i> 矩阵论课程笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/01/16/机器学习入门课程笔记/" rel="prev" title="机器学习入门课程笔记">
+                机器学习入门课程笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python环境的配置"><span class="nav-number">1.1.</span> <span class="nav-text">Python环境的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建工程"><span class="nav-number">1.2.</span> <span class="nav-text">新建工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pygame的安装"><span class="nav-number">1.3.</span> <span class="nav-text">Pygame的安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总体设计"><span class="nav-number">2.</span> <span class="nav-text">总体设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏框架"><span class="nav-number">2.1.</span> <span class="nav-text">游戏框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#书写主游戏类"><span class="nav-number">2.2.</span> <span class="nav-text">书写主游戏类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#展示主界面"><span class="nav-number">2.3.</span> <span class="nav-text">展示主界面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#细化框架"><span class="nav-number">3.</span> <span class="nav-text">细化框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏循环分析"><span class="nav-number">3.1.</span> <span class="nav-text">游戏循环分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置帧率"><span class="nav-number">3.2.</span> <span class="nav-text">设置帧率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现退出事件监听"><span class="nav-number">3.3.</span> <span class="nav-text">实现退出事件监听</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具类"><span class="nav-number">4.</span> <span class="nav-text">工具类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rect类"><span class="nav-number">4.1.</span> <span class="nav-text">Rect类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sprite"><span class="nav-number">4.2.</span> <span class="nav-text">Sprite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精灵组"><span class="nav-number">4.3.</span> <span class="nav-text">精灵组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#精灵和精灵组"><span class="nav-number">5.</span> <span class="nav-text">精灵和精灵组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建游戏精灵"><span class="nav-number">5.1.</span> <span class="nav-text">创建游戏精灵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建游戏精灵组"><span class="nav-number">5.2.</span> <span class="nav-text">创建游戏精灵组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建背景精灵"><span class="nav-number">5.3.</span> <span class="nav-text">创建背景精灵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新屏幕"><span class="nav-number">5.4.</span> <span class="nav-text">更新屏幕</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进一步完善"><span class="nav-number">5.5.</span> <span class="nav-text">进一步完善</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#敌机"><span class="nav-number">6.</span> <span class="nav-text">敌机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建敌机"><span class="nav-number">6.1.</span> <span class="nav-text">创建敌机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机出现的敌机"><span class="nav-number">6.2.</span> <span class="nav-text">随机出现的敌机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主角"><span class="nav-number">7.</span> <span class="nav-text">主角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建英雄"><span class="nav-number">7.1.</span> <span class="nav-text">创建英雄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发射子弹"><span class="nav-number">7.2.</span> <span class="nav-text">发射子弹</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主角操作"><span class="nav-number">8.</span> <span class="nav-text">主角操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#英雄移动"><span class="nav-number">8.1.</span> <span class="nav-text">英雄移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摧毁敌机"><span class="nav-number">8.2.</span> <span class="nav-text">摧毁敌机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#牺牲英雄"><span class="nav-number">8.3.</span> <span class="nav-text">牺牲英雄</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

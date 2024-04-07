@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Mysal_C++安装和配置安装123sudo apt-get install mysql-serversudo apt-get install mysql-clientsudo apt-get install libmysqlclient-dev 启动mysql-server1sudo service mysql start 登录mysql-server1sudo mysql -u 用户名 -p">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++常用库和代码">
+<meta property="og:url" content="http://yoursite.com/2023/02/10/C-常用库和代码/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="Mysal_C++安装和配置安装123sudo apt-get install mysql-serversudo apt-get install mysql-clientsudo apt-get install libmysqlclient-dev 启动mysql-server1sudo service mysql start 登录mysql-server1sudo mysql -u 用户名 -p">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-02-09T14:57:09.963Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++常用库和代码">
+<meta name="twitter:description" content="Mysal_C++安装和配置安装123sudo apt-get install mysql-serversudo apt-get install mysql-clientsudo apt-get install libmysqlclient-dev 启动mysql-server1sudo service mysql start 登录mysql-server1sudo mysql -u 用户名 -p">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/02/10/C-常用库和代码/">
+
+
+
+
+
+  <title>C++常用库和代码 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/02/10/C-常用库和代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++常用库和代码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-02-10T05:04:09+08:00">
+                2023-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Mysal-C"><a href="#Mysal-C" class="headerlink" title="Mysal_C++"></a>Mysal_C++</h1><h2 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server</span><br><span class="line">sudo apt-get install mysql-client</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br></pre></td></tr></table></figure>
+<h3 id="启动mysql-server"><a href="#启动mysql-server" class="headerlink" title="启动mysql-server"></a>启动mysql-server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql start</span><br></pre></td></tr></table></figure>
+<h3 id="登录mysql-server"><a href="#登录mysql-server" class="headerlink" title="登录mysql-server"></a>登录mysql-server</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -u 用户名 -p</span><br></pre></td></tr></table></figure>
+<h2 id="使用C-："><a href="#使用C-：" class="headerlink" title="使用C++："></a>使用C++：</h2><h3 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;mysql.h&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>mysql_real_connect函数原型:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MYSQL *mysql_real_connect (</span><br><span class="line">	MYSQL *mysql,        // MYSQL*连接句柄。</span><br><span class="line">	const char *host,        //  可以是一个主机名或一个IP地址。如果host是NULL或字符串&quot;localhost&quot;，表示是到本地主机的一个连接。 </span><br><span class="line">	const char *user,        // 用户名</span><br><span class="line">	const char *passwd,        // 密码</span><br><span class="line">	const char *db,        // 要连接的数据库名称</span><br><span class="line">	unsigned int port,        // 端口</span><br><span class="line">	const char *unix_socket,        // 如果unix_socket不是NULL，字符串指定套接字或应该被使用的命名管道。 </span><br><span class="line">	unsigned long client_flag        //通常是0</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">返回值用于判断连接是否成功，如果连接成功，返回值应该和第一个参数相同，否则返回NULL</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MYSQL conn;</span><br><span class="line">mysql_init(&amp;conn); // 要先初始化</span><br><span class="line">if(mysql_real_connect(&amp;conn, &quot;localhost&quot;, &quot;root&quot;, &quot;password&quot;, &quot;test&quot;, 3306, NULL, CLIENT_FOUND_ROWS))&#123;</span><br><span class="line">        cout &lt;&lt; &quot;connect success&quot; &lt;&lt; endl;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">        printf(&quot;OK\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>mysql_query函数原型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int mysql_query(</span><br><span class="line">	MYSQL *mysql,        //数据库句柄</span><br><span class="line">	const char *query        // 要执行的语句</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">std::string query = &quot;select * from test&quot;;</span><br><span class="line">    if(mysql_query(&amp;conn, query.c_str()))&#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;query error&quot; &lt;&lt; std::endl;</span><br><span class="line">        std::cout &lt;&lt; &quot;Query failed: &quot; &lt;&lt; mysql_error(&amp;conn) &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    MYSQL_RES* res = NULL;</span><br><span class="line">    res = mysql_store_result(&amp;conn);</span><br><span class="line">    if(!res)&#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;can not read result &quot; &lt;&lt; mysql_error(&amp;conn) &lt;&lt; std::endl; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;number of dataline returned: &quot; &lt;&lt; mysql_affected_rows(&amp;conn) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    // 获取列数</span><br><span class="line">    int j = mysql_num_fields(res);</span><br><span class="line"></span><br><span class="line">    //存储字段信息</span><br><span class="line">    char *str_field[32];  </span><br><span class="line"></span><br><span class="line">    //获取字段名</span><br><span class="line">    for (int i = 0; i &lt; j; i++)&#123; </span><br><span class="line">        str_field[i] = mysql_fetch_field(res)-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //打印字段</span><br><span class="line">    for (int i = 0; i &lt; j; i++)  </span><br><span class="line">        printf(&quot;%10s\t&quot;, str_field[i]);</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">    </span><br><span class="line">    MYSQL_ROW column;   //数据行的列</span><br><span class="line">    //打印查询结果</span><br><span class="line">    //MYSQL_ROW mysql_fetch_row(MYSQL_RES *result)</span><br><span class="line">    //Fetches the next row from the result set</span><br><span class="line">    while (column = mysql_fetch_row(res))&#123;</span><br><span class="line">        printf(&quot;%10s\t%10s\n&quot;, column[0], column[1]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插入-amp-修改-amp-删除"><a href="#插入-amp-修改-amp-删除" class="headerlink" title="插入&amp;修改&amp;删除"></a>插入&amp;修改&amp;删除</h3><p>使用mysql_query</p>
+<h3 id="释放资源"><a href="#释放资源" class="headerlink" title="释放资源"></a>释放资源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void FreeConnect()&#123;</span><br><span class="line">    mysql_free_result(res);</span><br><span class="line">    mysql_close(&amp;conn);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="另一个示例代码"><a href="#另一个示例代码" class="headerlink" title="另一个示例代码"></a>另一个示例代码</h3><p>来源：<a href="https://www.cnblogs.com/iwangzhengchao/p/10056075.html" target="_blank" rel="noopener">https://www.cnblogs.com/iwangzhengchao/p/10056075.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">C/C++连接MySQL数据库时，需要包含一个*.h的mysql头文件和一个mysql的lib文件</span><br><span class="line">1、初始化；2、连接数据库；3、执行sql查询语句；4、获取查询值；5、关闭</span><br><span class="line">*/</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;WinSock.h&gt;  </span><br><span class="line">#include &lt;mysql.h&gt;   </span><br><span class="line">#include &lt;Windows.h&gt;</span><br><span class="line">#pragma comment(lib,&quot;wsock32.lib&quot;)</span><br><span class="line">#pragma comment(lib,&quot;libmysql.lib&quot;)</span><br><span class="line"></span><br><span class="line">MYSQL mysql;</span><br><span class="line">MYSQL_FIELD *fd;    //字段列数组</span><br><span class="line">char field[32][32]; //存字段名二维数组</span><br><span class="line">MYSQL_RES *res;     //行的一个查询结果集</span><br><span class="line">MYSQL_ROW column;   //数据行的列</span><br><span class="line">char query[150];    //查询语句</span><br><span class="line"></span><br><span class="line">//函数声明</span><br><span class="line">bool ConnectDatabase();     </span><br><span class="line">void FreeConnect();</span><br><span class="line">bool QueryDatabase(); </span><br><span class="line">bool InsertData();</span><br><span class="line">bool ModifyData();</span><br><span class="line">bool DeleteData();</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv)&#123;</span><br><span class="line">    ConnectDatabase();</span><br><span class="line">    QueryDatabase();</span><br><span class="line">    InsertData();</span><br><span class="line">    QueryDatabase();</span><br><span class="line">    ModifyData();</span><br><span class="line">    QueryDatabase();</span><br><span class="line">    //DeleteData();</span><br><span class="line">    //QueryDatabase();</span><br><span class="line">    FreeConnect();</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//连接数据库</span><br><span class="line">bool ConnectDatabase()&#123;</span><br><span class="line">    //Gets or initializes a MYSQL structure</span><br><span class="line">    mysql_init(&amp;mysql); </span><br><span class="line"></span><br><span class="line">    // Connects to a MySQL server</span><br><span class="line">    const char host[] = &quot;localhost&quot;;</span><br><span class="line">    const char user[] = &quot;root&quot;;</span><br><span class="line">    const char passwd[] = &quot;root&quot;;</span><br><span class="line">    const char db[] = &quot;employees&quot;;</span><br><span class="line">    unsigned int port = 3306;</span><br><span class="line">    const char *unix_socket = NULL;</span><br><span class="line">    unsigned long client_flag = 0;</span><br><span class="line"></span><br><span class="line">    /*A MYSQL* connection handler if the connection was successful, </span><br><span class="line">    NULL if the connection was unsuccessful. For a successful connection, </span><br><span class="line">    the return value is the same as the value of the first parameter.*/</span><br><span class="line">    if (mysql_real_connect(&amp;mysql, host, user, passwd, db, port, unix_socket, client_flag))&#123;</span><br><span class="line">        printf(&quot;The connection was successful.\n&quot;);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        /*const char *mysql_error(MYSQL *mysql)</span><br><span class="line">        Returns the error message for the most recently invoked MySQL function</span><br><span class="line">        A null-terminated character string that describes the error. </span><br><span class="line">        An empty string if no error occurred.*/</span><br><span class="line">        printf(&quot;Error connecting to database:%s\n&quot;, mysql_error(&amp;mysql));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//释放资源</span><br><span class="line">/*void mysql_free_result(MYSQL_RES *result)</span><br><span class="line">Frees the memory allocated for a result set by mysql_store_result(), </span><br><span class="line">mysql_use_result(), mysql_list_dbs(), and so forth.When you are done </span><br><span class="line">with a result set, you must free the memory it uses by calling mysql_free_result().</span><br><span class="line">Do not attempt to access a result set after freeing it.*/</span><br><span class="line"></span><br><span class="line">/*void mysql_close(MYSQL *mysql)</span><br><span class="line">Closes a previously opened connection.mysql_close() also deallocates </span><br><span class="line">the connection handler pointed to by mysql if the handler was allocated </span><br><span class="line">automatically by mysql_init() or mysql_connect().*/</span><br><span class="line">void FreeConnect()&#123;</span><br><span class="line">    mysql_free_result(res);</span><br><span class="line">    mysql_close(&amp;mysql);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//查询数据</span><br><span class="line">bool QueryDatabase()&#123;</span><br><span class="line">    //将数据格式化输出到字符串</span><br><span class="line">    sprintf_s(query, &quot;select * from departments&quot;);</span><br><span class="line">    //设置编码格式</span><br><span class="line">    mysql_query(&amp;mysql, &quot;set names gbk&quot;); </span><br><span class="line"></span><br><span class="line">    /*int mysql_query(MYSQL *mysql, const char *stmt_str)</span><br><span class="line">    Executes an SQL query specified as a null-terminated string</span><br><span class="line">    Executes the SQL statement pointed to by the null-terminated string stmt_str. </span><br><span class="line">    Normally, the string must consist of a single SQL statement without </span><br><span class="line">    a terminating semicolon (;). If multiple-statement execution has been enabled,</span><br><span class="line">    the string can contain several statements separated by semicolons.</span><br><span class="line">    Return Values:Zero for success. Nonzero if an error occurred.*/</span><br><span class="line">    if (mysql_query(&amp;mysql, query))&#123;</span><br><span class="line">        printf(&quot;Query failed (%s)\n&quot;, mysql_error(&amp;mysql));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;query success\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /*MYSQL_RES *mysql_store_result(MYSQL *mysql)</span><br><span class="line">    Retrieves a complete result set to the client</span><br><span class="line">    mysql_store_result() reads the entire result of a query to the client,</span><br><span class="line">    allocates a MYSQL_RES structure, and places the result into this structure. </span><br><span class="line">    mysql_store_result() returns a null pointer if the statement did not return </span><br><span class="line">    a result set(for example, if it was an INSERT statement). mysql_store_result() </span><br><span class="line">    also returns a null pointer if reading of the result set failed.</span><br><span class="line">    You can check whether an error occurred by checking whether mysql_error() </span><br><span class="line">    returns a nonempty string. Return Values:A MYSQL_RES result structure with</span><br><span class="line">    the results.NULL(0) if an error occurred.*/</span><br><span class="line">    res = mysql_store_result(&amp;mysql);</span><br><span class="line">    if (!res)&#123;</span><br><span class="line">        printf(&quot;Couldn&apos;t get result from %s\n&quot;, mysql_error(&amp;mysql));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /*my_ulonglong mysql_affected_rows(MYSQL *mysql)</span><br><span class="line">    It returns the number of rows changed, deleted, </span><br><span class="line">    or inserted by the last statement if it was an UPDATE, DELETE, or INSERT. </span><br><span class="line">    For SELECT statements, returns the number of rows in the result set.*/</span><br><span class="line">    printf(&quot;number of dataline returned: %d\n&quot;, mysql_affected_rows(&amp;mysql));</span><br><span class="line"></span><br><span class="line">    /*MYSQL_FIELD *mysql_fetch_field(MYSQL_RES *result)</span><br><span class="line">    Returns the definition of one column of a result set as a MYSQL_FIELD structure.</span><br><span class="line">    Call this function repeatedly to retrieve information about all columns in the result set.*/</span><br><span class="line">    </span><br><span class="line">    // 获取列数</span><br><span class="line">    int j = mysql_num_fields(res);</span><br><span class="line"></span><br><span class="line">    //存储字段信息</span><br><span class="line">    char *str_field[32];  </span><br><span class="line"></span><br><span class="line">    //获取字段名</span><br><span class="line">    for (int i = 0; i &lt; j; i++)&#123; </span><br><span class="line">        str_field[i] = mysql_fetch_field(res)-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //打印字段</span><br><span class="line">    for (int i = 0; i &lt; j; i++)  </span><br><span class="line">        printf(&quot;%10s\t&quot;, str_field[i]);</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">    //打印查询结果</span><br><span class="line">    //MYSQL_ROW mysql_fetch_row(MYSQL_RES *result)</span><br><span class="line">    //Fetches the next row from the result set</span><br><span class="line">    while (column = mysql_fetch_row(res))&#123;</span><br><span class="line">        printf(&quot;%10s\t%10s\n&quot;, column[0], column[1]);</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//插入数据</span><br><span class="line">bool InsertData()&#123;</span><br><span class="line">    sprintf_s(query, &quot;insert into departments values (&apos;xxxx&apos;, &apos;xxxxx&apos;);&quot;);</span><br><span class="line">    if (mysql_query(&amp;mysql, query)) &#123;</span><br><span class="line">        printf(&quot;Query failed (%s)\n&quot;, mysql_error(&amp;mysql));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;Insert success\n&quot;);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//修改数据</span><br><span class="line">bool ModifyData()&#123;</span><br><span class="line">    sprintf_s(query, &quot;update departments set dept_name=&apos;yyyyy&apos; where dept_no=&apos;xxxx&apos;&quot;);</span><br><span class="line">    if (mysql_query(&amp;mysql, query)) &#123;</span><br><span class="line">        printf(&quot;Query failed (%s)\n&quot;, mysql_error(&amp;mysql));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;Insert success\n&quot;);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//删除数据</span><br><span class="line">bool DeleteData()</span><br><span class="line">&#123;</span><br><span class="line">    sprintf_s(query, &quot;delete from departments where dept_no=&apos;xxxx&apos;;&quot;);</span><br><span class="line">    if (mysql_query(&amp;mysql, query)) &#123;</span><br><span class="line">        printf(&quot;Query failed (%s)\n&quot;, mysql_error(&amp;mysql));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        printf(&quot;Insert success\n&quot;);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ mysqltest.cpp `mysql_config --cflags --libs` -o mysqltest</span><br></pre></td></tr></table></figure>
+<h1 id="线程库std-stread"><a href="#线程库std-stread" class="headerlink" title="线程库std::stread"></a>线程库std::stread</h1><h2 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h2><p>头文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;thread&gt;</span><br></pre></td></tr></table></figure>
+<p>构造：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::thread t(f, arg1, arg2, ……);</span><br></pre></td></tr></table></figure>
+<p>第一个参数是某个函数的地址，后面的参数是传递给该函数的参数。</p>
+<p>线程启动后，会直接调用该函数。</p>
+<p>如果函数是类的成员函数的话，需要添加该类的地址作为函数的第一个参数</p>
+<p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class A&#123;</span><br><span class="line">	void f(int x);</span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	A a;</span><br><span class="line">    int x;</span><br><span class="line">	std::thread t(A::f, &amp;a, x);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="join和detach"><a href="#join和detach" class="headerlink" title="join和detach"></a>join和detach</h2><p>join方法：主线程启动线程并等待其执行结束后继续执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;thread&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">void f()&#123;</span><br><span class="line">	for(int i = 0; i &lt; 10; ++i)&#123;</span><br><span class="line">    	std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	std::thread t(f);</span><br><span class="line">    t.join();</span><br><span class="line">    std::cout &lt;&lt; &quot;main&quot; &lt;&lt; std::endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">main</span><br></pre></td></tr></table></figure>
+<p>detech方法：创建线程后分离，主线程和子线程同时继续执行</p>
+<p>主线程如果执行太快了，可能会来不及执行完子线程就结束，跟着杀死子线程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;thread&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">void f()&#123;</span><br><span class="line">	for(int i = 0; i &lt; 10; ++i)&#123;</span><br><span class="line">    	std::cout &lt;&lt; i &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	std::thread t(f);</span><br><span class="line">    t.detach();</span><br><span class="line">    std::cout &lt;&lt; &quot;main&quot; &lt;&lt; std::endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">main</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/18/爬虫入门/" rel="next" title="爬虫入门">
+                <i class="fa fa-chevron-left"></i> 爬虫入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/02/10/Python基本语法/" rel="prev" title="Python基本语法">
+                Python基本语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysal-C"><span class="nav-number">1.</span> <span class="nav-text">Mysal_C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置"><span class="nav-number">1.1.</span> <span class="nav-text">安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动mysql-server"><span class="nav-number">1.1.2.</span> <span class="nav-text">启动mysql-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录mysql-server"><span class="nav-number">1.1.3.</span> <span class="nav-text">登录mysql-server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用C-："><span class="nav-number">1.2.</span> <span class="nav-text">使用C++：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#头文件"><span class="nav-number">1.2.1.</span> <span class="nav-text">头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接"><span class="nav-number">1.2.2.</span> <span class="nav-text">连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">1.2.3.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入-amp-修改-amp-删除"><span class="nav-number">1.2.4.</span> <span class="nav-text">插入&amp;修改&amp;删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#释放资源"><span class="nav-number">1.2.5.</span> <span class="nav-text">释放资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#另一个示例代码"><span class="nav-number">1.2.6.</span> <span class="nav-text">另一个示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">1.2.7.</span> <span class="nav-text">编译</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线程库std-stread"><span class="nav-number">2.</span> <span class="nav-text">线程库std::stread</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#thread"><span class="nav-number">2.1.</span> <span class="nav-text">thread</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join和detach"><span class="nav-number">2.2.</span> <span class="nav-text">join和detach</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

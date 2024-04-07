@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="爬虫,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="爬虫概述数据的来源： 企业生产的用户数据 数据管理咨询公司 政府/机构公开数据 第三方购买数据 爬虫获取网络数据 基本用途 获取数据分析/人工智能的数据 爬取其他社区用户信息，作为社交软件的冷启动 舆情监控 监控商业竞争对手 12306抢票 选课 刷票 短信轰炸 理论上浏览器能做的爬虫都能做  设计思路网页的三大特征：  唯一的URL 都使用HTML来描述页面信息(还有CSS/JS，HTML骨架，">
+<meta name="keywords" content="爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫入门">
+<meta property="og:url" content="http://yoursite.com/2023/01/18/爬虫入门/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="爬虫概述数据的来源： 企业生产的用户数据 数据管理咨询公司 政府/机构公开数据 第三方购买数据 爬虫获取网络数据 基本用途 获取数据分析/人工智能的数据 爬取其他社区用户信息，作为社交软件的冷启动 舆情监控 监控商业竞争对手 12306抢票 选课 刷票 短信轰炸 理论上浏览器能做的爬虫都能做  设计思路网页的三大特征：  唯一的URL 都使用HTML来描述页面信息(还有CSS/JS，HTML骨架，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/0.png">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/1.png">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/2.png">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/3.png">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/4.png">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/5.png">
+<meta property="og:image" content="http://yoursite.com/images/爬虫入门/6.png">
+<meta property="og:updated_time" content="2023-02-09T14:55:51.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫入门">
+<meta name="twitter:description" content="爬虫概述数据的来源： 企业生产的用户数据 数据管理咨询公司 政府/机构公开数据 第三方购买数据 爬虫获取网络数据 基本用途 获取数据分析/人工智能的数据 爬取其他社区用户信息，作为社交软件的冷启动 舆情监控 监控商业竞争对手 12306抢票 选课 刷票 短信轰炸 理论上浏览器能做的爬虫都能做  设计思路网页的三大特征：  唯一的URL 都使用HTML来描述页面信息(还有CSS/JS，HTML骨架，">
+<meta name="twitter:image" content="http://yoursite.com/images/爬虫入门/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/01/18/爬虫入门/">
+
+
+
+
+
+  <title>爬虫入门 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/18/爬虫入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-18T06:05:32+08:00">
+                2023-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术工具/" itemprop="url" rel="index">
+                    <span itemprop="name">技术工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="爬虫概述"><a href="#爬虫概述" class="headerlink" title="爬虫概述"></a>爬虫概述</h1><p>数据的来源：</p>
+<p>企业生产的用户数据</p>
+<p>数据管理咨询公司</p>
+<p>政府/机构公开数据</p>
+<p>第三方购买数据</p>
+<p>爬虫获取网络数据</p>
+<h2 id="基本用途"><a href="#基本用途" class="headerlink" title="基本用途"></a>基本用途</h2><ul>
+<li>获取数据分析/人工智能的数据</li>
+<li>爬取其他社区用户信息，作为社交软件的冷启动</li>
+<li>舆情监控</li>
+<li>监控商业竞争对手</li>
+<li>12306抢票</li>
+<li>选课</li>
+<li>刷票</li>
+<li>短信轰炸</li>
+<li>理论上浏览器能做的爬虫都能做</li>
+</ul>
+<h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2><p>网页的三大特征：</p>
+<ul>
+<li>唯一的URL</li>
+<li>都使用HTML来描述页面信息(还有CSS/JS，HTML骨架，CSS皮肤，JS功能)</li>
+<li>都使用HTTP/HTTPS来传输HTML信息</li>
+</ul>
+<p>爬虫：</p>
+<ul>
+<li>确定要爬的URL地址(网页分为静态——没有任何交互，和动态——数据是通过进一步请求获取到)</li>
+<li>通过HTTP/HTTPS协议获取界面</li>
+<li>从界面中筛选有用的数据</li>
+</ul>
+<h2 id="两类爬虫"><a href="#两类爬虫" class="headerlink" title="两类爬虫"></a>两类爬虫</h2><p>通用爬虫针对于搜索引擎，聚焦爬虫针对于某个网站</p>
+<p>聚焦爬虫向指定的urllist发生请求，得到响应，提取深层url直到找到想要的数据，之后筛选信息并存储</p>
+<p>也可以按照是否获取数据分为功能性爬虫和获取数据的爬虫</p>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><h2 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h2><p>安装apt-get curl，依赖openssl，openssl-dev</p>
+<p>直接使用curl + url发送请求：</p>
+<p>url是你想要请求的网址，可以简单理解为一个在命令行里的浏览器</p>
+<p><img src="/images/爬虫入门/0.png" alt></p>
+<p>在浏览器的网络一栏可以看到详细的请求信息</p>
+<p>使用curl时，默认发起的是get请求</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>-A 设置user-agent，即设置使用的浏览器种类</p>
+<p><img src="/images/爬虫入门/1.png" alt></p>
+<p>-X 设置使用的请求方法</p>
+<p>可以用httpbin.org来测试，是用于学习http的一个网站</p>
+<p><img src="/images/爬虫入门/2.png" alt></p>
+<p>-I 只返回请求的头信息</p>
+<p>-d 以POST方法请求url并发送相应的参数</p>
+<p><img src="/images/爬虫入门/3.png" alt></p>
+<p>@文件名可以发送写入到文件里的参数</p>
+<p>-O参数，下载并以远程的文件名保存</p>
+<p>-o参数，以自定义的文件名保存</p>
+<p><img src="/images/爬虫入门/4.png" alt></p>
+<p>-L参数，跟随重定向请求3xx跳转</p>
+<p>-H参数，指定接收的格式</p>
+<p><img src="/images/爬虫入门/5.png" alt></p>
+<p>-k参数，允许发起不安全的ssl请求</p>
+<p>-b参数，发起带cookie的请求</p>
+<p><img src="/images/爬虫入门/6.png" alt></p>
+<p>-v参数，显示连接过程中的所有信息</p>
+<h3 id="使用curl做简单的爬虫"><a href="#使用curl做简单的爬虫" class="headerlink" title="使用curl做简单的爬虫"></a>使用curl做简单的爬虫</h3><p>curl命令 | grep -E ‘正则表达式’</p>
+<p>获取自己的外网ip地址:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://httpbin.org/get | grep -P &apos;\d+\.\d+\.\d+\.\d+&apos; | cut -d &apos;&quot;&apos; -f 4</span><br></pre></td></tr></table></figure>
+<h4 id="alias命令——设置别名"><a href="#alias命令——设置别名" class="headerlink" title="alias命令——设置别名"></a>alias命令——设置别名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias myip=&quot;curl http://httpbin.org/get | grep -P &apos;\d+\.\d+\.\d+\.\d+&apos; | cut -d &apos;\&quot;&apos; -f 4&quot;</span><br></pre></td></tr></table></figure>
+<p>之后使用myip就可以了</p>
+<h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>专门下载的命令</p>
+<p>使用方法：wget 资源url路径</p>
+<p>以指定的文件名和格式下载：wget -O “指定文件名” 资源url路径</p>
+<p>限速下载：wget –limit-rate=速率(如20k，3m) ……</p>
+<blockquote>
+<p>Linux中–参数一般带值，-参数不带</p>
+</blockquote>
+<p>断点续传：wget -c(下载大文件防止重新来)</p>
+<p>后台下载：wget -b</p>
+<p>指定User-agent：wget -U “Chrome”</p>
+<p>只下载比本地更新的文件：wget -N</p>
+<p>下载页面中所有内联资源(图片等)：wget -p</p>
+<p>递归下载所有链接：wget -r -l 深度(数字，无限则是inf)</p>
+<p>镜像这个网站：wget –mirror，等于开启了时间戳，无限深度递归wget -r -N -l inf –no-remove-listing</p>
+<p>转换链接为本地链接：–convert-links</p>
+<p>不检查证书：–no-check-certificate </p>
+<p>下载网站到本地：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c --mirror -U &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36&quot; -p --convert-links --no-check-certificate &quot;jameci.github.io&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="httpie"><a href="#httpie" class="headerlink" title="httpie"></a>httpie</h2><p>To Be Complete</p>
+<h2 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h2><p>To Be Complete</p>
+<h1 id="Python爬虫"><a href="#Python爬虫" class="headerlink" title="Python爬虫"></a>Python爬虫</h1><h2 id="urllib-已弃坑"><a href="#urllib-已弃坑" class="headerlink" title="urllib(已弃坑)"></a>urllib(已弃坑)</h2><h3 id="最基本的请求"><a href="#最基本的请求" class="headerlink" title="最基本的请求"></a>最基本的请求</h3><p>使用urlopen请求一个对象，返回http.client.HTTPResponse类型的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from urllib.request import urlopen</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">r = urlopen(&quot;http://httpbin.org/get&quot;)</span><br><span class="line">test = r.read()</span><br><span class="line"></span><br><span class="line">print(r.status, r.reason)</span><br><span class="line"></span><br><span class="line">d = json.loads(test)</span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+<h3 id="更换User-Agent来请求"><a href="#更换User-Agent来请求" class="headerlink" title="更换User_Agent来请求"></a>更换User_Agent来请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line">from urllib.request import urlopen</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">user_agent = &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/109.0&apos;</span><br><span class="line">req = urllib.request.Request(&apos;http://httpbin.org/user-agent&apos;)</span><br><span class="line">req.add_header(&apos;User-Agent&apos;, user_agent)</span><br><span class="line"></span><br><span class="line"># 请求的参数可以是url，也可以是request对象</span><br><span class="line">r = urlopen(req)</span><br><span class="line"></span><br><span class="line"># 读取response的内容</span><br><span class="line">test = r.read()</span><br><span class="line"></span><br><span class="line"># http状态码和msg</span><br><span class="line">print(r.status, r.reason)</span><br><span class="line"></span><br><span class="line"># 返回的内容转成json</span><br><span class="line">d = json.loads(test)</span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line"># r.headers是一个HTTPMessage对象</span><br><span class="line">for k, v in r.headers._headers:</span><br><span class="line">    print(&apos;%s:%s&apos; % (k, v))</span><br></pre></td></tr></table></figure>
+<h3 id="Basic-Auth-没整明白"><a href="#Basic-Auth-没整明白" class="headerlink" title="Basic-Auth(没整明白)"></a>Basic-Auth(没整明白)</h3><p>HTTP是一个无状态协议，但有些网站是需要用户登录后操作的。客户端首次登录后，服务端会向客户端发送一个凭证，之后客户端的每个请求都会带着这个凭证</p>
+<p>以请求服务端上的一张图片为例，如果客户端发送请求时没有带凭证，服务端就会返回如下的response：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 401 Authorization Required</span><br><span class="line">www-Authenticate: Basic realm= &quot;org&quot;</span><br></pre></td></tr></table></figure>
+<p>在服务器返回的 Header 中会告诉客户端认证失败，获取 realm=org 的资源需要通过Basic Auth 的认证方式进行认证，也就是你要告诉服务器你是谁；这里面有几个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Basic：认证方式是 Basic Auth</span><br><span class="line">realm：当前用户访问的域</span><br></pre></td></tr></table></figure>
+<p>整个 www-Authenticate字段的值就是告诉客户端你要获取域为 org 下的图片需要通过 Basic auth的方式认证</p>
+<p>客户端收到响应时，就会按照Basic Auth 认证方式，添加认证信息到请求头，再次发送Request，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /org/cat.jpg  HTTP/1.1 Authorization: Basic</span><br><span class="line">U2h1c2hlbmcwMDcldUZGMUFzczAwNw==</span><br></pre></td></tr></table></figure>
+<p>其中，请求头中字段 Authorization的值就是账密信息，Basic Auth 通过如下的方式编码账密信息的：Base64(username:password)</p>
+<p>服务器收到请求之后就会验证，验证通过就会返回相应的资源</p>
+<p>HTTP Basic Auth 的优点很明显，就是简单，很容易就能够被支持</p>
+<p>缺点也很明显就是 Base64编码很容易就会被破解，所以只要拦截了请求就能够获取到用户的账号和密码，安全性差</p>
+<p>基本http认证示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">auth_handler = urllib.request.HTTPBasicAuthHandler()</span><br><span class="line">auth_handler.add_password(realm=&apos;PDQ Application&apos;,</span><br><span class="line">                          uri=&apos;https://mahler:8092/site-updates.py&apos;,</span><br><span class="line">                          user=&apos;klem&apos;,</span><br><span class="line">                          passwd=&apos;kadidd!ehopper&apos;)</span><br><span class="line">opener = urllib.request.build_opener(auth_handler)</span><br><span class="line"></span><br><span class="line">urllib.request.install_opener(opener)</span><br><span class="line">urllib.request.urlopen(&apos;http://www.example.com/login.html&apos;)</span><br></pre></td></tr></table></figure>
+<h2 id="Requests"><a href="#Requests" class="headerlink" title="Requests"></a>Requests</h2><p>内部的实现是用了urllib，对urllib做了封装</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/17/关于博客——23年的整理和更新/" rel="next" title="关于博客——23年的整理和更新">
+                <i class="fa fa-chevron-left"></i> 关于博客——23年的整理和更新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/02/10/C-常用库和代码/" rel="prev" title="C++常用库和代码">
+                C++常用库和代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#爬虫概述"><span class="nav-number">1.</span> <span class="nav-text">爬虫概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本用途"><span class="nav-number">1.1.</span> <span class="nav-text">基本用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计思路"><span class="nav-number">1.2.</span> <span class="nav-text">设计思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两类爬虫"><span class="nav-number">1.3.</span> <span class="nav-text">两类爬虫</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具"><span class="nav-number">2.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#curl"><span class="nav-number">2.1.</span> <span class="nav-text">curl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">2.1.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用curl做简单的爬虫"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用curl做简单的爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#alias命令——设置别名"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">alias命令——设置别名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wget"><span class="nav-number">2.2.</span> <span class="nav-text">wget</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#httpie"><span class="nav-number">2.3.</span> <span class="nav-text">httpie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Postman"><span class="nav-number">2.4.</span> <span class="nav-text">Postman</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python爬虫"><span class="nav-number">3.</span> <span class="nav-text">Python爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#urllib-已弃坑"><span class="nav-number">3.1.</span> <span class="nav-text">urllib(已弃坑)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最基本的请求"><span class="nav-number">3.1.1.</span> <span class="nav-text">最基本的请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更换User-Agent来请求"><span class="nav-number">3.1.2.</span> <span class="nav-text">更换User_Agent来请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-Auth-没整明白"><span class="nav-number">3.1.3.</span> <span class="nav-text">Basic-Auth(没整明白)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requests"><span class="nav-number">3.2.</span> <span class="nav-text">Requests</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="开始之前，我们先简单说一下keras，keras其实是一个框架，一个库，机器学习一些常用的工具都在这里面有实现。其特点就是比较强调层，用它写起模型来，层次鲜明 https://keras.io/zh/layers/recurrent/ 1234567891011121314151617181920212223import numpy as npfrom keras.models import Se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现LSTM">
+<meta property="og:url" content="http://yoursite.com/2023/04/23/实现LSTM/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="开始之前，我们先简单说一下keras，keras其实是一个框架，一个库，机器学习一些常用的工具都在这里面有实现。其特点就是比较强调层，用它写起模型来，层次鲜明 https://keras.io/zh/layers/recurrent/ 1234567891011121314151617181920212223import numpy as npfrom keras.models import Se">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/实现lstm/lstm单元.png">
+<meta property="og:image" content="http://yoursite.com/images/实现lstm/return_sequence.png">
+<meta property="og:image" content="http://yoursite.com/images/实现lstm/初步预测结果.png">
+<meta property="og:updated_time" content="2023-04-26T16:10:26.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现LSTM">
+<meta name="twitter:description" content="开始之前，我们先简单说一下keras，keras其实是一个框架，一个库，机器学习一些常用的工具都在这里面有实现。其特点就是比较强调层，用它写起模型来，层次鲜明 https://keras.io/zh/layers/recurrent/ 1234567891011121314151617181920212223import numpy as npfrom keras.models import Se">
+<meta name="twitter:image" content="http://yoursite.com/images/实现lstm/lstm单元.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/04/23/实现LSTM/">
+
+
+
+
+
+  <title>实现LSTM | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/04/23/实现LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现LSTM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-04-23T00:06:26+08:00">
+                2023-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>开始之前，我们先简单说一下keras，keras其实是一个框架，一个库，机器学习一些常用的工具都在这里面有实现。其特点就是比较强调层，用它写起模型来，层次鲜明</p>
+<p><a href="https://keras.io/zh/layers/recurrent/" target="_blank" rel="noopener">https://keras.io/zh/layers/recurrent/</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from keras.models import Sequential</span><br><span class="line">from keras.layers.core import Dense, Activation, Dropout</span><br><span class="line">from keras.layers import LSTM</span><br><span class="line"></span><br><span class="line">x=[[1],[2],[3]]#特征</span><br><span class="line">y=[2,4,6]#标签</span><br><span class="line">x = np.array( x )</span><br><span class="line">y_train = np.array(y )</span><br><span class="line">x_train = np.reshape( x, (x.shape[0], x.shape[1], 1) )#Lstm调用库函数必须要进行维度转换</span><br><span class="line">model = Sequential()</span><br><span class="line">model.add( LSTM( 100, input_shape=(x_train.shape[1], x_train.shape[2]), return_sequences=True) )</span><br><span class="line">model.add( LSTM( 20, return_sequences=False ) )</span><br><span class="line">model.add( Dropout( 0.2 ) )</span><br><span class="line">model.add( Dense( 1 ) )</span><br><span class="line">model.add( Activation( &apos;linear&apos; ) )</span><br><span class="line">model.compile( loss=&quot;mse&quot;, optimizer=&quot;rmsprop&quot; )</span><br><span class="line">model.fit( x_train, y_train, epochs=200, batch_size=1)#参数依次为特征，标签，训练循环次数，小批量（一次放入训练的数据个数）</span><br><span class="line">test=[[1.5]]</span><br><span class="line">test=np.array(test)</span><br><span class="line">test = np.reshape( test, (test.shape[0], test.shape[1], 1) )#维度转换</span><br><span class="line">res = model.predict( test )</span><br><span class="line">print( res )</span><br></pre></td></tr></table></figure>
+<p>上面是一段示例代码，还是一点点来分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from keras.models import Sequential</span><br><span class="line">from keras.layers.core import Dense, Activation, Dropout</span><br><span class="line">from keras.layers import LSTM</span><br></pre></td></tr></table></figure>
+<p>首先说调用的库，np就是数组库，没什么好说的，Sequential是什么呢？</p>
+<p>Sequential是个很重要的东西，类似于容器，一个模型一开始可以定义为一个空的Sequential，之后可以使用add方法往里面按顺序添加各层</p>
+<p>之后，Dense是全连接层，Activation是激活函数层，Dropout是dropout层，后面用上了细说</p>
+<p>LSTM就是我们要用的模型了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x=[[1],[2],[3]]#特征</span><br><span class="line">y=[2,4,6]#标签</span><br><span class="line">x = np.array( x )</span><br><span class="line">y_train = np.array(y)</span><br></pre></td></tr></table></figure>
+<p>x和y的定义，这个特征我不是很理解，标签我也不是很明白，从一般习惯上来说，x是输入，y是输出，之后就是把x和y转为array，倒是没什么好说的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x_train = np.reshape( x, (x.shape[0], x.shape[1], 1) )#Lstm调用库函数必须要进行维度转换</span><br></pre></td></tr></table></figure>
+<p>这句话啥意思？我可以确定的是x_train是在x的基础上加了一维，变成了3， 1， 1</p>
+<p>为啥必须要维度转换啊，我不是很懂</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">model = Sequential()</span><br><span class="line">model.add( LSTM( 100, input_shape=(x_train.shape[1], x_train.shape[2]), return_sequences=True) )</span><br><span class="line">model.add( LSTM( 20, return_sequences=False ) )</span><br><span class="line">model.add( Dropout( 0.2 ) )</span><br><span class="line">model.add( Dense( 1 ) )</span><br><span class="line">model.add( Activation( &apos;linear&apos; ) )</span><br></pre></td></tr></table></figure>
+<p>先说说怎么建立模型，首先建立一个Sequential，然后调用add方法往里加层</p>
+<p>至于顺序，就把Sequential理解为一个列表，先add进来的，进列表的底部</p>
+<p>然后是LSTM了，LSTM接收了三个参数，一个是数字100，另一个是input_shape，还有一个是return_sequence</p>
+<p>首先点开lstm类去看，它继承自RNN，我不是很懂python中的继承是怎么个用法，先去看了super的构造函数，return_sequence是直接传进去的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">def __init__(</span><br><span class="line">        self,</span><br><span class="line">        units,</span><br><span class="line">        activation=&quot;tanh&quot;,</span><br><span class="line">        recurrent_activation=&quot;hard_sigmoid&quot;,</span><br><span class="line">        use_bias=True,</span><br><span class="line">        kernel_initializer=&quot;glorot_uniform&quot;,</span><br><span class="line">        recurrent_initializer=&quot;orthogonal&quot;,</span><br><span class="line">        bias_initializer=&quot;zeros&quot;,</span><br><span class="line">        unit_forget_bias=True,</span><br><span class="line">        kernel_regularizer=None,</span><br><span class="line">        recurrent_regularizer=None,</span><br><span class="line">        bias_regularizer=None,</span><br><span class="line">        activity_regularizer=None,</span><br><span class="line">        kernel_constraint=None,</span><br><span class="line">        recurrent_constraint=None,</span><br><span class="line">        bias_constraint=None,</span><br><span class="line">        dropout=0.0,</span><br><span class="line">        recurrent_dropout=0.0,</span><br><span class="line">        return_sequences=False,</span><br><span class="line">        return_state=False,</span><br><span class="line">        go_backwards=False,</span><br><span class="line">        stateful=False,</span><br><span class="line">        unroll=False,</span><br><span class="line">        **kwargs</span><br><span class="line">    ):</span><br></pre></td></tr></table></figure>
+<p>我糙啊，为什么lstm就没有input_shape，我就当这个100是units了</p>
+<p>我去深挖一下，首先确认一下是不是调用了构造函数，答案是正确的，用类名+括号就是调用了构造函数</p>
+<p>只有一种可能，input_shape在**kwargs里面</p>
+<p>那么这个kwargs是个啥？原来，当我们指定一个函数的参数为不确定个时，哪些非指定的参数都会以字典的形式传到kwargs里面去</p>
+<p>找！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">implementation = kwargs.pop(&quot;implementation&quot;, 1)</span><br><span class="line">        if implementation == 0:</span><br><span class="line">            logging.warning(</span><br><span class="line">                &quot;`implementation=0` has been deprecated, &quot;</span><br><span class="line">                &quot;and now defaults to `implementation=1`.&quot;</span><br><span class="line">                &quot;Please update your layer call.&quot;</span><br><span class="line">            )</span><br><span class="line">        if &quot;enable_caching_device&quot; in kwargs:</span><br><span class="line">            cell_kwargs = &#123;</span><br><span class="line">                &quot;enable_caching_device&quot;: kwargs.pop(&quot;enable_caching_device&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        else:</span><br><span class="line">            cell_kwargs = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>上面就是对kwargs的处理了，看上去没什么关于input_shape的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">super().__init__(</span><br><span class="line">            cell,</span><br><span class="line">            return_sequences=return_sequences,</span><br><span class="line">            return_state=return_state,</span><br><span class="line">            go_backwards=go_backwards,</span><br><span class="line">            stateful=stateful,</span><br><span class="line">            unroll=unroll,</span><br><span class="line">            **kwargs</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<p>之后就把这个kwargs传到父类里了，就是这个super的kwargs</p>
+<p>我们再把super点开，果然找到了input_shape</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if &quot;input_shape&quot; not in kwargs and (</span><br><span class="line">            &quot;input_dim&quot; in kwargs or &quot;input_length&quot; in kwargs</span><br><span class="line">        ):</span><br><span class="line">            input_shape = (</span><br><span class="line">                kwargs.pop(&quot;input_length&quot;, None),</span><br><span class="line">                kwargs.pop(&quot;input_dim&quot;, None),</span><br><span class="line">            )</span><br><span class="line">            kwargs[&quot;input_shape&quot;] = input_shape</span><br></pre></td></tr></table></figure>
+<p>赢！还想绕晕我，不可能的</p>
+<p>那input_shape是个啥？网上搜是说输入张量的shape</p>
+<p>我这里输入的是啥东西呢，x_train，shape是个啥？3，1，1</p>
+<p>所以这里的shape调成了1，1</p>
+<p>那他是啥意思啊，为啥非得是二维的不可？</p>
+<p>这里就可以填上开头的一个坑了，为什么时序预测就得把x的shape给改了</p>
+<p>一般的预测都是2D输入的，也就是说，第一维是不同的输入样本，第二维是每个输入的不同特征</p>
+<p>时序预测是3D输入的，第二维的特征挪到第三维，第二维改成时间尺度</p>
+<p>所以对于一个输入样本来说，模型会接收到一个二维的矩阵</p>
+<p>相当于我这里给了三个输入，每个输入包含一个时间点，每个时间点包含一个特征</p>
+<p>那units是什么？人说是隐藏层的大小</p>
+<p>那什么是隐藏层呢？lstm里面的小框代表了一个经典网络的前馈连接层</p>
+<p>units就是这些层里面隐藏层的数量</p>
+<p><img src="/images/实现lstm/lstm单元.png" alt></p>
+<p>就是这上面图里小黄框内部的隐藏层</p>
+<p>然后就是这个ruturn_sequences了，如果该值为true，则返回所有步的输出成为一个序列，否则只输出最后一个序列的值</p>
+<p><img src="/images/实现lstm/return_sequence.png" alt></p>
+<p>看上面的图可以清楚地理解，最后一层的lstm是要输出结果的，所以return_sequences是false，前面一层只是作为中间处理，还是要把中间结果传给下一层，所以是true</p>
+<p>然后说一下Dropout层，首先，除了第一层之外，其它层的输入大小都是自动可以得出的，这里dropout在第二个lstm后面，我们可以知道它的输入和lstm的输出是一致的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.keras.layers.Dropout(rate, noise_shape=None, seed=None, **kwargs)</span><br></pre></td></tr></table></figure>
+<p>那它的输出是几维呢，我们打印网络的结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(model.summary())</span><br></pre></td></tr></table></figure>
+<p>得到这样的输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> Layer (type)                Output Shape              Param #</span><br><span class="line">=================================================================</span><br><span class="line"> lstm (LSTM)                 (None, 1, 100)            40800</span><br><span class="line"></span><br><span class="line"> lstm_1 (LSTM)               (None, 20)                9680</span><br><span class="line"></span><br><span class="line"> dropout (Dropout)           (None, 20)                0</span><br><span class="line"></span><br><span class="line"> dense (Dense)               (None, 1)                 21</span><br><span class="line"></span><br><span class="line"> activation (Activation)     (None, 1)                 0</span><br><span class="line"></span><br><span class="line">=================================================================</span><br><span class="line">Total params: 50,501</span><br><span class="line">Trainable params: 50,501</span><br><span class="line">Non-trainable params: 0</span><br><span class="line">_________________________________________________________________</span><br><span class="line">None</span><br></pre></td></tr></table></figure>
+<p>我们可以看到dropout的output_shape是(None, 20)，这个None代表的是批尺寸，None表示一次性把所有数据输入</p>
+<p>把一个数据集都输入到模型里面训练一遍叫做一次epoch，一般会把数据集分成若干个batch，每个batch的数据量叫做batch_size</p>
+<p>我们上面的代码没搞分批，如果是要把批大小为64的数据输进去，那么相当于一次有64个输入，这里的None就得改成64</p>
+<p>这又反过来使我们理解了为什么一般的机器学习模型输入都是2D的：</p>
+<p>一般机器学习的任务是一堆特征推出一个结果，是一维数组-&gt;一个点，然后为了训练，每次一批数据，就变成了一堆一维数组-&gt;一堆点</p>
+<p>这一堆一维数组就是二维数组，其第一维是批大小，第二维是特征</p>
+<p>时序呢，第一维仍然是批大小，但由于其输入是特征的序列，本身就是二维，所以变成了三维</p>
+<p>仔细看一下lstm，第一个lstm输出了每个中间时段，但因为输入是(3, 1, 1)，就一个中间时段，所以lstm第二维是1，第三维是隐藏层节点数100</p>
+<p>第二个lstm因为只输出最终结果，所以相当于去掉了时段这一维度，只剩下了隐藏层20</p>
+<p>dropout和激活函数层看样子都是不改变原来大小的</p>
+<p>Dense声明的时候只给了一个参数1，那么说明只需要给一个输出维度就行</p>
+<p>至此，上面的代码全都清楚了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.compile( loss=&quot;mse&quot;, optimizer=&quot;rmsprop&quot; )</span><br></pre></td></tr></table></figure>
+<p>这里是为了确定模型的损失函数和优化器，其实还有一个参数叫metric，这是评估函数的意思——意味着有的时候，损失函数和评估函数不一致</p>
+<p>上面的mes和rmsprop都是一些函数的代号，如果选择的话，库中还有其它一些函数</p>
+<p>优化器就是在深度学习反向传播过程中，指引损失函数（目标函数）的各个参数往正确的方向更新合适的大小，使得更新后的各个参数让损失函数（目标函数）值不断逼近全局最小</p>
+<p>其实原理都是梯度下降为基础的，但有很多非凸函数，为了应对，搞了很多策略上去(比如加惯性之类的)，导致优化器出现多种多样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit( x_train, y_train, epochs=200, batch_size=1)</span><br></pre></td></tr></table></figure>
+<p>搞好了一切，现在就开始训练吧，参数分别是输入，输出，训练次数，批大小</p>
+<p>我有点好奇，这里为什么没划分验证集呢，难道是自己划分的吗</p>
+<p>查了一下，fit函数有validation_split参数，是用于划分的，这个参数在0和1之间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test=[[1.5]]</span><br><span class="line">test=np.array(test)</span><br><span class="line">test = np.reshape( test, (test.shape[0], test.shape[1], 1) )#维度转换</span><br><span class="line">res = model.predict( test )</span><br><span class="line">print( res )</span><br></pre></td></tr></table></figure>
+<p>最后是搞了一个数据点来测试</p>
+<p>之后就是把风速的数据用来测试了</p>
+<p>想到这里我意识到，我的风速只有目标结果数据啊，根本没有输入，这该怎么办</p>
+<p>我就想拿学弟的看一看，这个b怎么用的jupyter啊</p>
+<p>就拿colab跑了一下</p>
+<p>然后出了一个乌龙——我在数据预处理的时候做了一个填补工作，本意是把缺失的数据用前后数据的加权平均值来替代，没想到不小心把序号填进去了</p>
+<p>然后loss一直100多万，降不下来</p>
+<p>找了一天才揪出这个错，之后就好起来了</p>
+<p>用96个点来预测96个点，MAPE为0.13</p>
+<p><img src="/images/实现lstm/初步预测结果.png" alt></p>
+<p>看上去还行，实际上好像结果也不咋样嘛</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from keras.models import Sequential</span><br><span class="line">from keras.layers.core import Dense, Activation, Dropout</span><br><span class="line">from keras.layers import LSTM, BatchNormalization</span><br><span class="line">import openpyxl</span><br><span class="line">import datetime as dt</span><br><span class="line">import pandas as pd</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line">prediction_len = 96</span><br><span class="line">epoch = 1000</span><br><span class="line"></span><br><span class="line">def loaddata(filename=&apos;data.xlsx&apos;):</span><br><span class="line">    workbook = openpyxl.load_workbook(filename)</span><br><span class="line">    sheet = workbook[&apos;Sheet1&apos;]</span><br><span class="line"></span><br><span class="line">    y = []</span><br><span class="line"></span><br><span class="line">    lst = -1</span><br><span class="line">    lstv = 0</span><br><span class="line">    for i in range(2, sheet.max_row + 1):</span><br><span class="line">        time_stamp = sheet[&apos;A&apos; + str(i)].value</span><br><span class="line">        time_idx = int((time_stamp - dt.datetime.strptime(&quot;2020-01-01 00:00:00&quot;, &quot;%Y-%m-%d %H:%M:%S&quot;)).total_seconds()) // 900</span><br><span class="line">        time_stamp = sheet[&apos;B&apos; + str(i)].value</span><br><span class="line"></span><br><span class="line">        if time_idx &lt;= lst:</span><br><span class="line">            continue</span><br><span class="line"></span><br><span class="line">        if time_idx != lst + 1:</span><br><span class="line">            for j in range(lst + 1, time_idx):</span><br><span class="line">                v = (lstv * (j - lst) + time_stamp * (time_idx - j)) / (time_idx - lst)</span><br><span class="line">                y.append(v)</span><br><span class="line"></span><br><span class="line">        y.append(time_stamp)</span><br><span class="line">        lst = time_idx</span><br><span class="line">        lstv = time_stamp</span><br><span class="line"></span><br><span class="line">    return y</span><br><span class="line"></span><br><span class="line">def diff(y):</span><br><span class="line">    x = []</span><br><span class="line">    for i in range(len(y) - 1):</span><br><span class="line">        x.append(y[i + 1] - y[i])</span><br><span class="line">    return x</span><br><span class="line"></span><br><span class="line">def split_data(y, encoder_len, val_len, test_len):</span><br><span class="line">    x = []</span><br><span class="line">    yy = []</span><br><span class="line">    for i in range(0, len(y) - encoder_len, encoder_len):</span><br><span class="line">        tx = []</span><br><span class="line">        ty = []</span><br><span class="line">        for j in range(i, i + encoder_len):</span><br><span class="line">            tx.append(y[j])</span><br><span class="line">        for j in range(i, i + prediction_len):</span><br><span class="line">            ty.append(y[j])</span><br><span class="line">        x.append(tx)</span><br><span class="line">        yy.append(ty)</span><br><span class="line"></span><br><span class="line">    x_train = x[:-val_len - test_len]</span><br><span class="line">    y_train = yy[:-val_len - test_len]</span><br><span class="line">    x_val = x[-val_len - test_len:-test_len]</span><br><span class="line">    y_val = yy[-val_len - test_len:-test_len]</span><br><span class="line">    x_test = x[-test_len:]</span><br><span class="line">    y_test = yy[-test_len:]</span><br><span class="line">    return x_train, y_train, x_val, y_val, x_test, y_test</span><br><span class="line"></span><br><span class="line">def train_lstm(x_train, y_train, x_val, y_val):</span><br><span class="line">    model = Sequential()</span><br><span class="line">    model.add(LSTM(100, dropout=0.1, input_shape=(x_train.shape[1], x_train.shape[2]), return_sequences=False))</span><br><span class="line">    model.add(Dense(100) )</span><br><span class="line">    model.add(Activation(&apos;relu&apos;))</span><br><span class="line">    model.add(Dense(96))</span><br><span class="line">    model.compile(loss=&apos;mse&apos;, optimizer=&quot;adam&quot; )</span><br><span class="line"></span><br><span class="line">    for i in range(epoch):</span><br><span class="line">        model.fit(x=x_train, y=y_train, epochs=1, shuffle=False, batch_size=128, validation_data=(x_val, y_val))#参数依次为特征，标签，训练循环次数，小批量（一次放入训练的数据个数）</span><br><span class="line">        model.reset_states()</span><br><span class="line"></span><br><span class="line">    return model</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def lstm_predict(model, x):</span><br><span class="line">    y = []</span><br><span class="line">    print(len(x))</span><br><span class="line">    for i in x:</span><br><span class="line">        yp = model.predict(np.reshape(i, (1, len(i), 1)), verbose=0)</span><br><span class="line">        print(yp.shape)</span><br><span class="line">        y.append(yp[0])</span><br><span class="line">        print(len(yp[0]))</span><br><span class="line">    return y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def plt_pic(yt, yp):</span><br><span class="line">    yyt = []</span><br><span class="line">    yyp = []</span><br><span class="line">    for i in range(len(yt)):</span><br><span class="line">        for j in range(len(yt[i])):</span><br><span class="line">            yyt.append(yt[i][j])</span><br><span class="line"></span><br><span class="line">    for i in range(len(yp)):</span><br><span class="line">        for j in range(len(yp[i])):</span><br><span class="line">            yyp.append(yp[i][j])</span><br><span class="line"></span><br><span class="line">    mape = 0</span><br><span class="line">    for i in range(len(yyt)):</span><br><span class="line">        mape += abs(yyt[i] - yyp[i]) / yyt[i]</span><br><span class="line">    print(mape / len(yyt))</span><br><span class="line"></span><br><span class="line">    x = [i for i in range(len(yyt))]</span><br><span class="line">    plt.plot(x, yyt)</span><br><span class="line">    plt.plot(x, yyp)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    encoder_len = 96</span><br><span class="line">    val_len = 140</span><br><span class="line">    test_len = 10</span><br><span class="line">    </span><br><span class="line">    y = loaddata()</span><br><span class="line"></span><br><span class="line">    x_train, y_train, x_val, y_val, x_test, y_test = split_data(y, encoder_len=encoder_len, val_len=val_len, test_len=test_len)</span><br><span class="line">    </span><br><span class="line">    x_train = np.array(x_train)</span><br><span class="line">    y_train = np.array(y_train)</span><br><span class="line"></span><br><span class="line">    x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))#Lstm调用库函数必须要进行维度转换</span><br><span class="line">    y_train = np.array(y_train)</span><br><span class="line"></span><br><span class="line">    print(x_train.shape)</span><br><span class="line">    print(y_train.shape)</span><br><span class="line"></span><br><span class="line">    model = train_lstm(x_train=x_train, y_train=y_train, x_val=x_val, y_val=y_val)</span><br><span class="line"></span><br><span class="line">    y_predict = lstm_predict(model, x_test)</span><br><span class="line">    print(y_predict)</span><br><span class="line">    plt_pic(y_test, y_predict)</span><br></pre></td></tr></table></figure>
+<p>之所以选择用96个点来预测96个点，是因为一般风速都是以一天为周期的</p>
+<p>然后我又想到一个问题，既然一天为周期，我为啥不直接用昨天同一时间点的风速来预测今天的风速？</p>
+<p>想到这里，我才明白了师弟模型的设计考量——他把一天的24个点看做是一天的特征，之所以不用值，而是用差分，也是为了从两天的差距中得到一个参考——理论上，同一时刻的两个点之间的差距应该是相关的</p>
+<p>等我把激活函数换成swish之后，loss居然进一步降到了0.2(训练1000次以上)</p>
+<p>下一步应该是增加其它特征了</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/14/时序预测方法/" rel="next" title="时序预测方法">
+                <i class="fa fa-chevron-left"></i> 时序预测方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/05/03/vscode文件是什么/" rel="prev" title=".vscode文件是什么">
+                .vscode文件是什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="写这篇之前，我想分享一件趣事：今天开组会的时候，师兄看到了我电脑上的Logisim，非常惊恐地问我：“你选组成原理了？”   我看出了他的潜台词，便有些不好意思：“嗯，是的”   因为我选课的时候，还真忘记这件事了——师兄当时提醒过我，还特意点了组成原理不要选，千万不要选，因为很难，很难很难   之后组会上就讲起了组成原理笑话，什么北航4大名挂之一啊，什么28个人里面只及格3个啊，什么实验是闯关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="北航高等体系结构">
+<meta property="og:url" content="http://yoursite.com/2023/03/04/北航高等体系结构/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="写这篇之前，我想分享一件趣事：今天开组会的时候，师兄看到了我电脑上的Logisim，非常惊恐地问我：“你选组成原理了？”   我看出了他的潜台词，便有些不好意思：“嗯，是的”   因为我选课的时候，还真忘记这件事了——师兄当时提醒过我，还特意点了组成原理不要选，千万不要选，因为很难，很难很难   之后组会上就讲起了组成原理笑话，什么北航4大名挂之一啊，什么28个人里面只及格3个啊，什么实验是闯关">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/解决问题的分层.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/多核环境下的性能下降现象.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/ISA.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/微体系结构.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/与两者都相关的属性.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/项目刚打开.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/MIPS指令集结构.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/ALU示意图.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/加法器.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/减法器.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/加上了标志位.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/ALU加了or.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/ALU加上了lui.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/ALU的封装.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第一次的ALU.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/PC自增.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/取指令.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/IFU.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/加了PC复位的IFU.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/IFU的封装.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第一次的IFU.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/GPR2.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/GPR4.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/GPR32.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/GPR.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第一次的GPR2.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第一次的GPR32.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第二次的GPR.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/文档里的总体设计图.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/EXT.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/EXT外观.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第一次的EXT.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/初步的CPU.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/真值表.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/Control.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改一次的Control.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/初步的CPU2.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/一条R型指令.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/连好线的CPU.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/settings.png">
+<meta property="og:image" content="http://yoursite.com/images/北航高等体系结构/修改第一次的CPU.png">
+<meta property="og:updated_time" content="2023-04-04T07:00:55.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="北航高等体系结构">
+<meta name="twitter:description" content="写这篇之前，我想分享一件趣事：今天开组会的时候，师兄看到了我电脑上的Logisim，非常惊恐地问我：“你选组成原理了？”   我看出了他的潜台词，便有些不好意思：“嗯，是的”   因为我选课的时候，还真忘记这件事了——师兄当时提醒过我，还特意点了组成原理不要选，千万不要选，因为很难，很难很难   之后组会上就讲起了组成原理笑话，什么北航4大名挂之一啊，什么28个人里面只及格3个啊，什么实验是闯关">
+<meta name="twitter:image" content="http://yoursite.com/images/北航高等体系结构/解决问题的分层.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/03/04/北航高等体系结构/">
+
+
+
+
+
+  <title>北航高等体系结构 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/04/北航高等体系结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jameci">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">北航高等体系结构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-03-04T04:44:38+08:00">
+                2023-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>写这篇之前，我想分享一件趣事：今天开组会的时候，师兄看到了我电脑上的Logisim，非常惊恐地问我：“你选组成原理了？”</p>
+</blockquote>
+<blockquote>
+<p>我看出了他的潜台词，便有些不好意思：“嗯，是的”</p>
+</blockquote>
+<blockquote>
+<p>因为我选课的时候，还真忘记这件事了——师兄当时提醒过我，还特意点了组成原理不要选，千万不要选，因为很难，很难很难</p>
+</blockquote>
+<blockquote>
+<p>之后组会上就讲起了组成原理笑话，什么北航4大名挂之一啊，什么28个人里面只及格3个啊，什么实验是闯关制做不完根本没法往下做啊</p>
+</blockquote>
+<blockquote>
+<p>然后师兄说，还记得2020年在图书馆的那个吗</p>
+</blockquote>
+<blockquote>
+<p>另一位师兄抢过话头，说他舍友就在现场，那人倒下的时候，电脑屏幕上显示的就是组成原理</p>
+</blockquote>
+<blockquote>
+<p>我挠挠头，张了张嘴，过了一会儿才说出这么一句：“真有那么难么”</p>
+</blockquote>
+<blockquote>
+<p>所有的师兄都看着我笑了起来</p>
+</blockquote>
+<blockquote>
+<p>老师也看着我笑了起来</p>
+</blockquote>
+<blockquote>
+<p>连师弟也笑起来了</p>
+</blockquote>
+<blockquote>
+<p>整个会议室充满了快活的空气</p>
+</blockquote>
+<h1 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h1><h2 id="第一节课"><a href="#第一节课" class="headerlink" title="第一节课"></a>第一节课</h2><p>感觉第一节课就讲了讲概要，考核方式</p>
+<p>体系结构其实也算老朋友了，毕竟核心课之一，当年大二学的时候还是学得挺扎实的(从指令集编码到CPU内存，除了最后一章cache没听)，但确实很硬核</p>
+<p>首先是一个问题：我们如何用计算机来解决一个具体问题？</p>
+<p>下面给出了一个具体的问题是如何被自顶而下地抽象成电子元件的结合：</p>
+<p><img src="/images/北航高等体系结构/解决问题的分层.png" alt></p>
+<p>他这里放了个运行时系统，这是一种介乎编译和解释的运行方式，由编译器首先将源代码编译为一种中间码，在执行时由运行时充当解释器对其解释，感觉不是所有语言都会这样</p>
+<p>再说一下体系结构和微体系结构，ISA是指令集体系结构，是软硬件的接口，规定了机器能实现的指令，不考虑硬件怎么实现；微体系结构是具体硬件的实现方式说明，其它的就不必多说了</p>
+<p>学过计算机的都知道，这样的分层和抽象是我们的老朋友了。分层和抽象的好处在于上层可以不管底层是怎么实现的，无需了解其技术细节，提高解决问题的效率</p>
+<p>那这门课要求我们了解底层，认识底层的原因是什么呢？一方面是为了设计硬件，另一方面是为了更好地写软件。设计硬件好理解，更好地写软件一方面是考虑到底层的东西，能更好地优化，精益求精，另一方面是万一遇到底层造成的错误，可以有解决的方向</p>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>其实这么一说感觉没啥说服力，所以给了例子：</p>
+<p><img src="/images/北航高等体系结构/多核环境下的性能下降现象.png" alt></p>
+<p>用双核机器运行gcc和matlab，相比单核情况下，matlab只是性能略有下降，而gcc性能却大幅下降</p>
+<p>原因是他们共用DRAM存储系统(内存)，其中有个行缓冲机制，matlab频繁使用数据，访存快，行命中率高，而gcc访存慢一些，行命中率低</p>
+<p>而行命中的情况下访存速度远远大于不命中</p>
+<p>这能得出什么呢？</p>
+<p>如果我们在不知道这个机制的情况下去分析为什么两者会出现如此显著的性能差别，我们可能会猜测操作系统对不同的进程之间有不同的优先级，而为了解决问题，我们把gcc的优先级调高</p>
+<p>可结果发现是徒劳的，我们可能就无计可施了</p>
+<p>再或者，我们可以写一些内存密集型的程序，来利用这种不公平性进行内存的拒绝服务攻击——导致别人的程序性能大幅度下降</p>
+<p>说了那么多，就是想证明，学这个是很有用的</p>
+<h3 id="ISA和微体系结构"><a href="#ISA和微体系结构" class="headerlink" title="ISA和微体系结构"></a>ISA和微体系结构</h3><p>ISA规定软硬件之间的接口，微体系结构是对软件开发者来说不可见的</p>
+<p><img src="/images/北航高等体系结构/ISA.png" alt></p>
+<p>其实我不是很明白，为什么ISA能实现功耗和温度管理，感觉这不是偏硬件的吗……</p>
+<p><img src="/images/北航高等体系结构/微体系结构.png" alt></p>
+<p>总感觉我分辨不出来</p>
+<p><img src="/images/北航高等体系结构/与两者都相关的属性.png" alt></p>
+<p>为啥加法指令的操作码和微体系结构有关？</p>
+<p>流水线又和ISA有啥关系？</p>
+<p>指令周期和ISA有啥关系？</p>
+<p>似乎寄存器堆指的是所有寄存器的集合，所以有几个端口可能会影响指令集怎么实现吧……</p>
+<h1 id="复习指令流水线"><a href="#复习指令流水线" class="headerlink" title="复习指令流水线"></a>复习指令流水线</h1><p>因为作业3里提到了指令流水线，这里我已经忘得只剩概念了——尽管可以直接抄，但是会留下隐患——期末怎么办呢。所以我决定趁此机会复习一下，反正用之前袁春风老师那本书的话，指令流水线就一章</p>
+<h1 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h1><h2 id="开发单周期MIPS处理器"><a href="#开发单周期MIPS处理器" class="headerlink" title="开发单周期MIPS处理器"></a>开发单周期MIPS处理器</h2><p>下载Logisim</p>
+<p><a href="https://sourceforge.net/projects/circuit/" target="_blank" rel="noopener">https://sourceforge.net/projects/circuit/</a></p>
+<p>项目刚刚打开是这样的</p>
+<p><img src="/images/北航高等体系结构/项目刚打开.png" alt></p>
+<p>教程</p>
+<p><a href="https://vlab.ustc.edu.cn/guide/doc_logisim.html" target="_blank" rel="noopener">https://vlab.ustc.edu.cn/guide/doc_logisim.html</a></p>
+<p>简单概况下教程学到的东西：</p>
+<p>如何新建与或非门，如何添加输入输出，怎么连接？</p>
+<p>如何修改输入输出？</p>
+<p>如何调节元件的位宽？</p>
+<p>如何把一个模块作为另外一个模块的构件？</p>
+<h2 id="复习MIPS指令结构"><a href="#复习MIPS指令结构" class="headerlink" title="复习MIPS指令结构"></a>复习MIPS指令结构</h2><p>MIPS指令是32位的，分为三种指令：R型，I型和J型</p>
+<p>R型就是两个操作数都在寄存器，并且指定结果去哪个寄存器</p>
+<p>op是操作码，对于所有的R型指令，操作码都是0，Rs，Rt是两个源操作数所在寄存器编号，Rd是目的寄存器</p>
+<p>Shamt仅仅在移位操作的时候有用，其它情况下都是0</p>
+<p>Func真正决定了R型指令的类型</p>
+<p>I型就是其中有一个操作数是16位立即数</p>
+<p>J型是带跳转的指令</p>
+<p><img src="/images/北航高等体系结构/MIPS指令集结构.png" alt></p>
+<p>addu的Func字段是100001，subu的是100011</p>
+<h2 id="ALU"><a href="#ALU" class="headerlink" title="ALU"></a>ALU</h2><p>找了很多本书，没找到ALU细致的描写，最后还是回到本科时候袁春风老师那本书找到的</p>
+<p><img src="/images/北航高等体系结构/ALU示意图.png" alt></p>
+<p>我们要实现的MIPS字长是32位，因此n=32</p>
+<p>ALU的操作数即图中的A和B，默认都看做补码运算</p>
+<h3 id="加法器"><a href="#加法器" class="headerlink" title="加法器"></a>加法器</h3><p>Logisim里面有自带的加法器，我们将其连接输入输出</p>
+<p><img src="/images/北航高等体系结构/加法器.png" alt></p>
+<h3 id="减法器"><a href="#减法器" class="headerlink" title="减法器"></a>减法器</h3><p>为实现补码减法，添加减法控制信号SUBctr，当该信号为1时，说明在做减法，否则就是做加法</p>
+<p>A-B等于A加上B的补，也就是A加上B的反再加1</p>
+<p>为此，SUBctr信号进行1扩展和B做异或运算，然后再把SUBctr信号连接到Cin上</p>
+<p><img src="/images/北航高等体系结构/减法器.png" alt></p>
+<h3 id="输出信号"><a href="#输出信号" class="headerlink" title="输出信号"></a>输出信号</h3><p>我们需要关注ALU的信号有三个，都是一位的数字信号：</p>
+<p>Zero，顾名思义，如果ALU运算的结果是0，该信号置1，否则为0</p>
+<p>Overflow，溢出，补码运算时，两个负数(符号位都是1)相加得到正数，或者两个正数(符号位是0)相加得到负数，Overflow置1，否则置0</p>
+<p>在无符号数运算时，Overflow是没有意义的</p>
+<p>Add-Carry，进位/借位，无符号数运算时才有意义，加法时可以把之前的Cout直接看做Add-Carry。减法时，可以推导出A若小于B，则A加上B的补码是不进位的，所以减法时需要把Cout取反</p>
+<p><img src="/images/北航高等体系结构/加上了标志位.png" alt></p>
+<p>此时addu和subu其实都可以运作了</p>
+<h3 id="ori运算"><a href="#ori运算" class="headerlink" title="ori运算"></a>ori运算</h3><p>为了实现ori，需要单独增加一个或门模块，再加一个2路选择器</p>
+<p>此时，为了识别运算到底是使用加法器还是或门，需要一个OPctr信号</p>
+<p><img src="/images/北航高等体系结构/ALU加了or.png" alt></p>
+<p>此时，OPctr是0，执行or运算，是1则执行加减法</p>
+<h3 id="sw和lw"><a href="#sw和lw" class="headerlink" title="sw和lw"></a>sw和lw</h3><p>这两条是访存指令，一条读一条写，主要是计算地址，使用寄存器里的地址+立即数偏移量来算</p>
+<p>完全可以使用ALU中的加法器模块解决</p>
+<h3 id="lui"><a href="#lui" class="headerlink" title="lui"></a>lui</h3><p>将16位立即数存放至指定寄存器的高16位，并将其低16位置0</p>
+<p>同样完全将其定义为一种新运算，为此OPctr需要扩展到两位了</p>
+<p>以运算频率，OPctr为0，代表加减，1代表or，2代表lui</p>
+<p><img src="/images/北航高等体系结构/ALU加上了lui.png" alt></p>
+<h3 id="beq"><a href="#beq" class="headerlink" title="beq"></a>beq</h3><p>beq指令会比较两个寄存器的值，它们若相等，则发生转移</p>
+<p>转移发生时，立即数里的offset会左移两位加到pc里</p>
+<p>ALU只需要做相等的判断，可以靠减法实现</p>
+<h3 id="ALU的封装"><a href="#ALU的封装" class="headerlink" title="ALU的封装"></a>ALU的封装</h3><p><img src="/images/北航高等体系结构/ALU的封装.png" alt></p>
+<p>(土到极致就是潮！)</p>
+<p>至此，ALU设计完成</p>
+<h3 id="修改：把Sub信号混入ALUctr"><a href="#修改：把Sub信号混入ALUctr" class="headerlink" title="修改：把Sub信号混入ALUctr"></a>修改：把Sub信号混入ALUctr</h3><p>实际上，外界对ALU并不会单独输入一个SUB信号，我之前的设计是错的，这就需要重新设计一下ALU</p>
+<p>现在ALUctr控制0是加减，1是ori，2是lui</p>
+<p>我要改成0是加，1是减，2是ori，3是lui</p>
+<p><img src="/images/北航高等体系结构/修改第一次的ALU.png" alt></p>
+<p>这是最好改的方法，但不是最简单的，最简单的方法应该是再加一个减法器，不过所谓改革不是向着最好的方向改，而是向着阻力最小的方向，所以我觉得我改的没问题</p>
+<h2 id="IFU"><a href="#IFU" class="headerlink" title="IFU"></a>IFU</h2><h3 id="PC的自增"><a href="#PC的自增" class="headerlink" title="PC的自增"></a>PC的自增</h3><p><img src="/images/北航高等体系结构/PC自增.png" alt></p>
+<p>使用一个寄存器表示PC，用加法器满足PC随着时钟周期的自增</p>
+<h3 id="取指令"><a href="#取指令" class="headerlink" title="取指令"></a>取指令</h3><p><img src="/images/北航高等体系结构/取指令.png" alt></p>
+<p>倒是挺简单，加个ROM就可以了</p>
+<h3 id="实现分支"><a href="#实现分支" class="headerlink" title="实现分支"></a>实现分支</h3><p>指令分支的逻辑是PC加上4之后，再加上某个立即数左移两位后的值</p>
+<p>因此要再加个加法器，并且来个分支信号和零信号共同控制二路选择器</p>
+<p>之所以要分支和零信号共同控制，是因为beq指令就是同时有分支和零时才会跳转</p>
+<p><img src="/images/北航高等体系结构/IFU.png" alt></p>
+<h3 id="实现复位"><a href="#实现复位" class="headerlink" title="实现复位"></a>实现复位</h3><p><img src="/images/北航高等体系结构/加了PC复位的IFU.png" alt></p>
+<h3 id="封装IFU"><a href="#封装IFU" class="headerlink" title="封装IFU"></a>封装IFU</h3><p><img src="/images/北航高等体系结构/IFU的封装.png" alt></p>
+<h3 id="修改：IFU应该读出的是PC的值，而非下地址值"><a href="#修改：IFU应该读出的是PC的值，而非下地址值" class="headerlink" title="修改：IFU应该读出的是PC的值，而非下地址值"></a>修改：IFU应该读出的是PC的值，而非下地址值</h3><p><img src="/images/北航高等体系结构/修改第一次的IFU.png" alt></p>
+<blockquote>
+<p>今天一打开项目，发现很多线变成蓝色了，原因是有些元件把three-state打开了。关掉之后花费了很长时间</p>
+</blockquote>
+<h2 id="GPR"><a href="#GPR" class="headerlink" title="GPR"></a>GPR</h2><p>寄存器堆要求读写异步，看了一下好像不是什么难题——因为有支持异步读写的寄存器部件</p>
+<p>问题是怎么实现给个地址然后读写对应位置的寄存器</p>
+<p>一下子就想到了阵列——搞32个寄存器排开，然后把地址信号分线译码</p>
+<p>但太乱了，我又想到了更好的方法，如下：</p>
+<p>先用两个寄存器组成地址长度只有1的寄存器堆：</p>
+<p><img src="/images/北航高等体系结构/GPR2.png" alt></p>
+<p>之后用封装好的GPR2组成GPR4:</p>
+<p><img src="/images/北航高等体系结构/GPR4.png" alt></p>
+<p>以此类推，组成GPR32:</p>
+<p><img src="/images/北航高等体系结构/GPR32.png" alt></p>
+<p>然后封装一下，大功告成：</p>
+<p><img src="/images/北航高等体系结构/GPR.png" alt></p>
+<h3 id="修改：两个读信号"><a href="#修改：两个读信号" class="headerlink" title="修改：两个读信号"></a>修改：两个读信号</h3><p>由于是三总线结构，一开始设计的时候忘记了读信号有两个</p>
+<p>不过好在修改容易：只需要把每个读信号单元复制一下就好</p>
+<p>从GPR2开始改起</p>
+<p><img src="/images/北航高等体系结构/修改第一次的GPR2.png" alt></p>
+<p>然后一层一层改，改了俩小时终于改完了：</p>
+<p><img src="/images/北航高等体系结构/修改第一次的GPR32.png" alt></p>
+<h2 id="修改：Rd和Rt"><a href="#修改：Rd和Rt" class="headerlink" title="修改：Rd和Rt"></a>修改：Rd和Rt</h2><p>还是要集成RegDst信号的，实现Rd和Rt选择功能</p>
+<p><img src="/images/北航高等体系结构/修改第二次的GPR.png" alt></p>
+<h2 id="探针"><a href="#探针" class="headerlink" title="探针"></a>探针</h2><p>进度推到上面的时候，突然被打断了，万恶的讲论文占用了我两周的时间——这两周基本上都在看论文，理解方法，做PPT，讲论文，挨批的大循环里，循环了三次，根本无心去做别的事情</p>
+<p>时隔两周之后，终于有时间继续做了(为什么我想写作业还得拼命干活争取时间啊)</p>
+<p>我决定从文档的头开始，首先是这样的图：</p>
+<p><img src="/images/北航高等体系结构/文档里的总体设计图.png" alt></p>
+<p>首先映入眼帘的是探针，我还特地查了一下，探针只不过是检测线路值的工具罢了</p>
+<p>虚惊一场</p>
+<p>那么现在缺的是什么呢？</p>
+<p>好像只缺一个控制和连线了</p>
+<h2 id="Extender"><a href="#Extender" class="headerlink" title="Extender"></a>Extender</h2><p>还有一个extender，这里我有点不明白为什么extender需要一个控制信号，仔细一想或许懂了，可能ALU的B输入端要连一大堆这种，用到谁，谁就有输出吧</p>
+<p>又遇到难题了，立即数拓展是什么拓展来着？</p>
+<p>于是我去查了一下，ori是0拓展，而lw，sw则是符号拓展</p>
+<p>那么控制信号会不会是决定立即数怎么拓展的呢，我觉得很有可能</p>
+<p><img src="/images/北航高等体系结构/EXT.png" alt></p>
+<p>看了一下，果然是</p>
+<p>更改一下外观：</p>
+<p><img src="/images/北航高等体系结构/EXT外观.png" alt></p>
+<h3 id="修改：符号拓展"><a href="#修改：符号拓展" class="headerlink" title="修改：符号拓展"></a>修改：符号拓展</h3><p><img src="/images/北航高等体系结构/修改第一次的EXT.png" alt></p>
+<h2 id="Controler"><a href="#Controler" class="headerlink" title="Controler"></a>Controler</h2><p>之所以把它放在最后，当然是因为它最复杂</p>
+<p>首先应该把每个指令和其对应控制信号列一张表，这里干脆把实验报告相应部分写了</p>
+<p>查一下表<a href="https://ee.usc.edu/~redekopp/ee457/MIPS_Vol2.pdf，可以得到op和func的值" target="_blank" rel="noopener">https://ee.usc.edu/~redekopp/ee457/MIPS_Vol2.pdf，可以得到op和func的值</a></p>
+<p>之后是Ext，需要扩展的只有ori，lw和sw，其中ori是无符号拓展为0，剩下两个是1，其它为X</p>
+<p>然后是ALUctr，这里我注意到一个问题：示例里面是把加和减分开了，我没有，我使用了另外一个信号分的，我决定再去研究一下</p>
+<p>好像确实不应该另加一个信号，我需要改一下ALU了</p>
+<p>好，ALU已经改完了，现在00对应加，01对应减，10对应or，11对应lui</p>
+<p>然后是RegDst，这个信号表示写入寄存器的时候，目标寄存器是Rd还是Rt</p>
+<p>1表示Rd，0表示Rt，(这里我有点忘了，袁春风那本书自相矛盾，上面两张图是反的)，原因是R型指令是Rs，Rt-&gt;Rd，I型则是Rs，IMM-&gt;Rt，目标不一样</p>
+<p>写到这里，我意识到不对——我的寄存器堆写错了！</p>
+<p>寄存器堆应该能支持同时读取两个寄存器的数据！</p>
+<p>但仔细看了一下，好像也无妨，我只需要改一下，把寄存器堆的读口增加一个就好了，反正寄存器读数据是一直在读</p>
+<p>改了俩小时寄存器堆，改完了，继续写控制表</p>
+<p>addu和subu都是R型指令，存放到Rd里面，所以RegDst=1，而ori，lw，lui都是I型指令，RegDst=0，其它的指令用不到写寄存器，为X</p>
+<p>ALUSrc是控制是否使用立即数那个多选器的，R型和beq都不用为0，I型都要用为1</p>
+<p>现在已经可以初步连起组件</p>
+<p><img src="/images/北航高等体系结构/初步的CPU.png" alt></p>
+<p>MemtoReg，往寄存器里写东西时，如果写入的数据是来自数据存储器，则MemtoReg为1，否则来自ALU，则为0</p>
+<p>RegWrite，需要往寄存器里写东西则为1</p>
+<p>MemWrite，需要往数据存储器写东西则为1</p>
+<p>nPC_sel是分支指令，只有beq为1</p>
+<p>真值表如下：</p>
+<p><img src="/images/北航高等体系结构/真值表.png" alt></p>
+<p>接下来就是根据真值表去设计译码电路了</p>
+<p>最简单的是RegDst，凡是R型指令，RegDst=1，否则无脑0就行了</p>
+<p>ALUSrc只与op的最后一位有关</p>
+<p>MemtoReg第一位是1，第三位是0，此时可判断为1，否则都是0</p>
+<p>RegWrite只有sw和beq是0，有些复杂，sw可以用MemWrite的反，beq的特点是第四位是1，第三位是0</p>
+<p>MemWrite单独判断sw，只需要第一第三位是1则为1</p>
+<p>nPC_sel单独判断beq</p>
+<p>extOp这里其实只需要sw和lw是1即可，然后又想到一个问题，即使是sw和lw，也只是符号拓展，但我的ext好像此时是1拓展</p>
+<p>赶紧去改</p>
+<p>第一位和最后一位都是1，则extOp=1</p>
+<p>ALUctr是最有意思的，首先看ALUctr的第一位，只有op第三第四位同时为1才会是1</p>
+<p>ALUctr的第二位是比较复杂的，分两种情况</p>
+<p>如果是R型指令，则与func的倒数第二位一样</p>
+<p>若不是，则beq和lui指令时为1，可以把nPC_sel单独接过来</p>
+<p>lui最后三位全是1，也接过来</p>
+<p><img src="/images/北航高等体系结构/Control.png" alt></p>
+<p>这里想了想，还是把ALUctr弄成二位的</p>
+<p><img src="/images/北航高等体系结构/修改一次的Control.png" alt></p>
+<p>上面的ALUSrc就是ALUctr，这里忘改了</p>
+<h2 id="组装"><a href="#组装" class="headerlink" title="组装"></a>组装</h2><p>把对应的信号都组装好，得到下图：</p>
+<p><img src="/images/北航高等体系结构/初步的CPU2.png" alt></p>
+<p>蓝色和红色应该是还没练好导致的吧，现在还差一个东西，就是译码Rd，Rs和Rt的东西，译码后连到GPR的相应位置，之后Mem操作那些我也没管</p>
+<p>下午回来再弄吧</p>
+<h3 id="分离三个寄存器地址"><a href="#分离三个寄存器地址" class="headerlink" title="分离三个寄存器地址"></a>分离三个寄存器地址</h3><p><img src="/images/北航高等体系结构/一条R型指令.png" alt></p>
+<p>这是一条R型指令，rs和rt应该分别对应了寄存器的两个读地址1readaddr和2readaddr</p>
+<p>用分线器去分，连到对应端口就好</p>
+<p><img src="/images/北航高等体系结构/连好线的CPU.png" alt></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>去找这个该死的Mars，看看到底是个什么东西</p>
+<p><a href="http://courses.missouristate.edu/kenvollmar/mars/" target="_blank" rel="noopener">http://courses.missouristate.edu/kenvollmar/mars/</a></p>
+<p>download一波</p>
+<p>不会用哎……</p>
+<p>然后突然发现IFU错了，改一下</p>
+<p>发微信问了那个老师，老师说其实就是为了生成机器码用的，和自己手搓也没啥区别</p>
+<p>那我就明白了，我试着先照他实验报告去设置一下Memory Configuration</p>
+<p>真让我找到了，就在Setting里</p>
+<p><img src="/images/北航高等体系结构/settings.png" alt></p>
+<p>然后发现搞了半天，根本就没有需要设置的东西</p>
+<p>这样的话，就搞几个测试样例吧</p>
+<h3 id="Test1"><a href="#Test1" class="headerlink" title="Test1"></a>Test1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">	a:5</span><br><span class="line">.text</span><br><span class="line">	lw $t1, a</span><br><span class="line">	lw $t2, a</span><br><span class="line">	addu $t3, $t2, $t1</span><br><span class="line">	sw $t3, a</span><br></pre></td></tr></table></figure>
+<p>编译后的机器码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3c011001</span><br><span class="line">8c290000</span><br><span class="line">3c011001</span><br><span class="line">8c2a0000</span><br><span class="line">01495821</span><br><span class="line">3c011001</span><br><span class="line">ac2b0000</span><br></pre></td></tr></table></figure>
+<p>把这些机器码复制到IFU里面</p>
+<p>数据段：把地址为0处的地方认为是a，赋值5</p>
+<p>检查对不对的方式：先reset一下IFU，然后按clock执行，看最后地址为0的地方是不是变成了10(16进制a)</p>
+<h3 id="Test2"><a href="#Test2" class="headerlink" title="Test2"></a>Test2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">	a:5</span><br><span class="line">    b:10</span><br><span class="line">.text</span><br><span class="line">	lw $t1, a</span><br><span class="line">	lw $t2, b</span><br><span class="line">	addu $t3, $t2, $t1</span><br><span class="line">	ori $t3, 16</span><br><span class="line">    sw $t1, b</span><br><span class="line">    sw $t3, a</span><br></pre></td></tr></table></figure>
+<p>内存00为5，01为10，最后检查00应该变成31,01变成5</p>
+<p>这里测出来一个问题：数据段地址是00之后04(8bit)，而我的内存是32bit的，所以要改一下</p>
+<p><img src="/images/北航高等体系结构/修改第一次的CPU.png" alt></p>
+<p>只改了进内存的那个分线器</p>
+<p>然后样例过了</p>
+<h3 id="Test3"><a href="#Test3" class="headerlink" title="Test3"></a>Test3</h3><p>上述样例已经测试了addu，ori，lui(sw和lw会自带lui，具体可以看看Test1的机器码为什么多了两条，多的就是lui)，sw和lw，还差beq和subu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">	a:5</span><br><span class="line">	b:10</span><br><span class="line">.text</span><br><span class="line">	lw $t1, a</span><br><span class="line">	lw $t2, b</span><br><span class="line">	L1:</span><br><span class="line">	subu $t3, $t2, $t1</span><br><span class="line">	sw $t3, b</span><br><span class="line">	lw $t2, b</span><br><span class="line">	beq $t3, $t1, L1</span><br><span class="line">	sw $t1, a</span><br><span class="line">	sw $t3, b</span><br></pre></td></tr></table></figure>
+<p>这个程序会让t2和t1相减得到t3，此时t1=t3=5</p>
+<p>然后把t3的值更新b，并重新加载到t2里，得到t2=5</p>
+<p>beq时会发现t1和t3相等，进入L1，此时再减会得到t3=0</p>
+<p>更新后，t2=b=0</p>
+<p>最后结果是a=5，b=0</p>
+<p>也成功了，可以写报告了</p>
+<h3 id="Test4"><a href="#Test4" class="headerlink" title="Test4"></a>Test4</h3><p>报告说要设计20行以上的汇编程序来验证</p>
+<p>所以缝合了一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">	a:5</span><br><span class="line">	b:10</span><br><span class="line">   c:0</span><br><span class="line">.text</span><br><span class="line">	lw $t1, a				#将a的值加载进t1，此时t1为5</span><br><span class="line">	lw $t2, b				#将b的值加载进t2，此时t2为10</span><br><span class="line">	L1:</span><br><span class="line">	subu $t3, $t2, $t1		#t3 = t2 - t1</span><br><span class="line">	lw $t4, c				#此时t4 = c = 0</span><br><span class="line">	addu $t2, $t4, $t3		#t2 = t3 + t4 = t3</span><br><span class="line">	beq $t3, $t1, L1		#如果t3和t1相等，回到L1</span><br><span class="line">#程序第一次执行到这里时，t1和t3相等，第二次t3为0，t1为5，跳出循环</span><br><span class="line">	sw $t1, a				#a = t1 = 5</span><br><span class="line">	sw $t3, b				#b = t3 = 0</span><br><span class="line">	subu $t2, $t1, $t1		#t2 = t1 - t1 = 0</span><br><span class="line">	addu $t3, $t2, $t1		#t3 = t2 + t1 = 5</span><br><span class="line">	ori $t3, 16			#t3 = t3 or 16 = 21</span><br><span class="line">   sw $t1, b				#b = t1 = 5</span><br><span class="line">   sw $t3, a				#a = t3 = 21</span><br><span class="line">   lui $t4, 100			#t4 = lui(100)</span><br><span class="line">   lw $t2, c				#t2 = c = 0</span><br><span class="line">   sw $t4, c				#c = t4 = lui(100)</span><br><span class="line">   L2:</span><br><span class="line">   lw $t1, c				#t1 = c</span><br><span class="line">   addu $t3, $t2, $t1		#t3 = t2 + t1</span><br><span class="line">   ori $t2, 1				#t2 = t2 or 1</span><br><span class="line">   beq $t3, $t4, L2		#如果t3和t4相等，回到L2</span><br><span class="line">#程序第一次执行到这里时，t1 = c = lui(100)，t3 = t1 + t2 = lui(100)，和t4相等，第二次时，t2已经变为1，则不相等，跳出循环</span><br><span class="line">   sw $t2, c				#c = t2 = 1</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/02/10/Python基本语法/" rel="next" title="Python基本语法">
+                <i class="fa fa-chevron-left"></i> Python基本语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/03/16/群智能算法/" rel="prev" title="群智能算法">
+                群智能算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jameci</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#课程内容"><span class="nav-number">1.</span> <span class="nav-text">课程内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一节课"><span class="nav-number">1.1.</span> <span class="nav-text">第一节课</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个例子"><span class="nav-number">1.1.1.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISA和微体系结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">ISA和微体系结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复习指令流水线"><span class="nav-number">2.</span> <span class="nav-text">复习指令流水线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发单周期MIPS处理器"><span class="nav-number">3.1.</span> <span class="nav-text">开发单周期MIPS处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复习MIPS指令结构"><span class="nav-number">3.2.</span> <span class="nav-text">复习MIPS指令结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALU"><span class="nav-number">3.3.</span> <span class="nav-text">ALU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加法器"><span class="nav-number">3.3.1.</span> <span class="nav-text">加法器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减法器"><span class="nav-number">3.3.2.</span> <span class="nav-text">减法器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出信号"><span class="nav-number">3.3.3.</span> <span class="nav-text">输出信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ori运算"><span class="nav-number">3.3.4.</span> <span class="nav-text">ori运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sw和lw"><span class="nav-number">3.3.5.</span> <span class="nav-text">sw和lw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lui"><span class="nav-number">3.3.6.</span> <span class="nav-text">lui</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beq"><span class="nav-number">3.3.7.</span> <span class="nav-text">beq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALU的封装"><span class="nav-number">3.3.8.</span> <span class="nav-text">ALU的封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改：把Sub信号混入ALUctr"><span class="nav-number">3.3.9.</span> <span class="nav-text">修改：把Sub信号混入ALUctr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IFU"><span class="nav-number">3.4.</span> <span class="nav-text">IFU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PC的自增"><span class="nav-number">3.4.1.</span> <span class="nav-text">PC的自增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取指令"><span class="nav-number">3.4.2.</span> <span class="nav-text">取指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现分支"><span class="nav-number">3.4.3.</span> <span class="nav-text">实现分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现复位"><span class="nav-number">3.4.4.</span> <span class="nav-text">实现复位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装IFU"><span class="nav-number">3.4.5.</span> <span class="nav-text">封装IFU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改：IFU应该读出的是PC的值，而非下地址值"><span class="nav-number">3.4.6.</span> <span class="nav-text">修改：IFU应该读出的是PC的值，而非下地址值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPR"><span class="nav-number">3.5.</span> <span class="nav-text">GPR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改：两个读信号"><span class="nav-number">3.5.1.</span> <span class="nav-text">修改：两个读信号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改：Rd和Rt"><span class="nav-number">3.6.</span> <span class="nav-text">修改：Rd和Rt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探针"><span class="nav-number">3.7.</span> <span class="nav-text">探针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extender"><span class="nav-number">3.8.</span> <span class="nav-text">Extender</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改：符号拓展"><span class="nav-number">3.8.1.</span> <span class="nav-text">修改：符号拓展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controler"><span class="nav-number">3.9.</span> <span class="nav-text">Controler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组装"><span class="nav-number">3.10.</span> <span class="nav-text">组装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分离三个寄存器地址"><span class="nav-number">3.10.1.</span> <span class="nav-text">分离三个寄存器地址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.11.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Test1"><span class="nav-number">3.11.1.</span> <span class="nav-text">Test1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test2"><span class="nav-number">3.11.2.</span> <span class="nav-text">Test2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test3"><span class="nav-number">3.11.3.</span> <span class="nav-text">Test3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test4"><span class="nav-number">3.11.4.</span> <span class="nav-text">Test4</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
