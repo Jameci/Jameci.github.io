@@ -1,37 +1,835 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="容器," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="K8s全称为Kubernetes，也称Kube 容器技术容器技术是一种虚拟化技术。 虚拟机的缺点在早期，人们普遍使用虚拟机来进行远程服务器上资源的共享。虚拟机有一个特点，即每个虚拟机实例都能够运行任何其所支持的操作系统，而不受其他实例的影响。这导致了所有虚拟机必须加载操作系统的完整副本和其中大量的应用程序。 这严重影响了性能。如每种操作系统和应用程序堆栈都需要使用DRAM。对于多个运行简单应用程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容器技术">
+<meta property="og:url" content="https://jameci.github.io/2023/01/17/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="K8s全称为Kubernetes，也称Kube 容器技术容器技术是一种虚拟化技术。 虚拟机的缺点在早期，人们普遍使用虚拟机来进行远程服务器上资源的共享。虚拟机有一个特点，即每个虚拟机实例都能够运行任何其所支持的操作系统，而不受其他实例的影响。这导致了所有虚拟机必须加载操作系统的完整副本和其中大量的应用程序。 这严重影响了性能。如每种操作系统和应用程序堆栈都需要使用DRAM。对于多个运行简单应用程序">
+<meta property="og:locale">
+<meta property="og:image" content="https://jameci.github.io/images/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/0.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/1.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/2.png">
+<meta property="article:published_time" content="2023-01-17T05:55:17.000Z">
+<meta property="article:modified_time" content="2023-02-09T14:27:57.668Z">
+<meta property="article:author" content="Jameci">
+<meta property="article:tag" content="容器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jameci.github.io/images/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jameci.github.io/2023/01/17/容器技术/"/>
+
+
+
+
+
+  <title>容器技术 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jameci.github.io/2023/01/17/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">容器技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-17T13:55:17+08:00">
+                2023-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">技术工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>K8s全称为Kubernetes，也称Kube</p>
+<h1 id="容器技术"><a href="#容器技术" class="headerlink" title="容器技术"></a>容器技术</h1><p>容器技术是一种虚拟化技术。</p>
+<h2 id="虚拟机的缺点"><a href="#虚拟机的缺点" class="headerlink" title="虚拟机的缺点"></a>虚拟机的缺点</h2><p>在早期，人们普遍使用虚拟机来进行远程服务器上资源的共享。虚拟机有一个特点，即每个虚拟机实例都能够运行任何其所支持的操作系统，而不受其他实例的影响。这导致了所有虚拟机必须加载操作系统的完整副本和其中大量的应用程序。</p>
+<p>这严重影响了性能。如每种操作系统和应用程序堆栈都需要使用DRAM。对于多个运行简单应用程序的小型虚拟机实例来说，这种方式可能产生很大的系统开销，降低性能表现。加载并卸载这些堆栈镜像需要花费很长时间，并且还会增加容器技术服务器的网络连接数量。对于极端情况来说，如果用户在上午9点同时启动上千台虚拟桌面，还有可能导致网络风暴的发生。</p>
+<p>部署虚拟服务器的目的之一在于快速创建新的虚拟机实例。然而从网络存储当中复制镜像需要花费大量时间，这些操作会延长启动过程，无疑会限制系统灵活性。</p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>一个容器镜像是一个可运行的软件包，其中包含了一个完整的可执行程序，包括代码和运行时需要应用、系统库和全部重要设置的默认值。</p>
+<p>应用程序通过使用容器与底层的宿主机架构解耦。如下图所示，我们可以利用底层机器在容器引擎之上运行多个容器。这促进了容器在各种操作系统和云场景中的部署。</p>
+<p><img src="/images/容器技术/0.png" alt=""></p>
+<p>容器技术的核心就是通过对资源的限制和隔离把进程运行在一个沙盒中。并且这个沙盒可以被打包成容器镜像（Image），移植到另一台机器上可以直接运行，不需要任何的多余配置。其中docker是容器技术的事实标准。</p>
+<p><img src="/images/容器技术/1.png" alt=""></p>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>Docker是PaaS提供商dotCloud开源的一个基于LXC（一种内核虚拟化技术，可提供轻量级的虚拟化）的高级容器引擎，源代码托管在Github上, 基于go语言并遵从Apache2.0协议开源。</p>
+<p>Docker使用客户端-服务器(C/S)架构模式，使用远程API来管理和创建Docker容器。Docker容器通过Docker镜像来创建。容器与镜像的关系类似于面向对象编程中的对象与类。</p>
+<p>Docker采用C/S架构Docker daemon作为服务端接受来自客户的请求，并处理这些请求（创建、运行、分发容器）。客户端和服务端既可以运行在一个机器上，也可通过socket或者RESTful API来进行通信。</p>
+<p>Docker daemon一般在宿主主机后台运行，等待接收来自客户端的消息。Docker客户端则为用户提供一系列可执行命令，用户用这些命令实现跟Docker daemon交互。</p>
+<h2 id="容器编排和K8s"><a href="#容器编排和K8s" class="headerlink" title="容器编排和K8s"></a>容器编排和K8s</h2><p>举一个例子：如果两个应用调用关系比较紧密，那么我们希望运行时将它们部署在同一台机器上，从而提升服务之间的通信效率。</p>
+<p>在应用和容器较多的情况下，自然希望这一工作能够由某个管理程序自动执行。这就是容器编排。</p>
+<p>Docker镜像一举解决了应用打包和发布的技术难题。但Docker作为单一的容器技术工具并不能很好地定义容器的“组织方式”和“管理规范”，难以独立地支撑起生产级大规模容器化部署的要求。</p>
+<p>容器编排是Kubernetes的核心技术能力，Pod是Kubernetes中最基础的编排对象，Pod运行在一个被称为节点（Node）的环境中，这个节点既可以是物理机，也可以是私有云或者公有云中的一个虚拟机，通常一个节点上运行几百个Pod。在每个Pod中都运行着一个特殊的被称为Pause的容器，其他容器则为业务容器，这些业务容器共享Pause容器的网络栈和Volume挂载卷，因此它们之间的通信和数据交换更为高效，在设计时我们可以利用这一特性把密切相关的服务进程放入同一个Pod中。</p>
+<p>一般来说，Docker被视作容器引擎，而Kubernetes则属于较上层的编排调度层。但实际上，Kubernetes也支持其它的容器实现工具，并不完全依赖Docker。</p>
+<p>标准的一个K8S集群最多可以管理大概5000台服务器，平均每台服务器上跑着30-40个容器，算下来差不多20万个容器。</p>
+<h1 id="K8s介绍"><a href="#K8s介绍" class="headerlink" title="K8s介绍"></a>K8s介绍</h1><h2 id="K8s架构"><a href="#K8s架构" class="headerlink" title="K8s架构"></a>K8s架构</h2><h3 id="控制平面-Control-Plane"><a href="#控制平面-Control-Plane" class="headerlink" title="控制平面(Control Plane)"></a>控制平面(Control Plane)</h3><p>控制平面组件会为集群做出全局决策，比如资源的调度、检测和响应集群事件。</p>
+<p>分为四部分</p>
+<h4 id="kube-apiserver"><a href="#kube-apiserver" class="headerlink" title="kube-apiserver"></a>kube-apiserver</h4><p>提供与Kubernetes 集群交互的API</p>
+<h4 id="kube-scheduler"><a href="#kube-scheduler" class="headerlink" title="kube-scheduler"></a>kube-scheduler</h4><p>集群状况是否良好？如果需要创建新的容器，要将它们放在哪里？这些是调度程序需要关注的问题。</p>
+<p>scheduler调度程序会考虑容器集的资源需求（例如 CPU 或内存）以及集群的运行状况。随后，它会将容器集安排到适当的计算节点。</p>
+<h4 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h4><p>etcd是一个键值对数据库，用于存储配置数据和集群状态信息。</p>
+<h4 id="kube-controller-manager"><a href="#kube-controller-manager" class="headerlink" title="kube-controller-manager"></a>kube-controller-manager</h4><p>控制器负责实际运行集群，controller-manager控制器管理器则是将多个控制器功能合而为一，降低了程序的复杂性。</p>
+<p>controller-manager包含了这些控制器：</p>
+<p>● 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应</p>
+<p>● 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成</p>
+<p>● 端点控制器（Endpoints Controller）：填充端点（Endpoints）对象（即加入 Service 与 Pod）</p>
+<p>● 服务帐户和令牌控制器（Service Account &amp; Token Controllers）：为新的命名空间创建默认帐户和 API 访问令牌</p>
+<h3 id="Node组件"><a href="#Node组件" class="headerlink" title="Node组件"></a>Node组件</h3><p>节点上就两个组件</p>
+<h4 id="kubelet"><a href="#kubelet" class="headerlink" title="kubelet"></a>kubelet</h4><p>kubelet 会在集群中每个节点（node）上运行。 它保证容器（containers）都运行在 Pod 中。</p>
+<p>当控制平面需要在节点中执行某个操作时，kubelet 就会执行该操作。</p>
+<h4 id="kube-proxy"><a href="#kube-proxy" class="headerlink" title="kube-proxy"></a>kube-proxy</h4><p>kube-proxy 是集群中每个节点（node）上运行的网络代理，是实现 Kubernetes 服务（Service） 概念的一部分。</p>
+<p>kube-proxy 维护节点网络规则和转发流量，实现从集群内部或外部的网络与 Pod 进行网络通信。</p>
+<p><img src="/images/容器技术/2.png" alt=""></p>
+<h1 id="kubeadm配置简单model"><a href="#kubeadm配置简单model" class="headerlink" title="kubeadm配置简单model"></a>kubeadm配置简单model</h1><h2 id="先装docker"><a href="#先装docker" class="headerlink" title="先装docker"></a>先装docker</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt full-upgrade</span><br><span class="line">sudo apt-get install docker.io -y</span><br><span class="line"># 启动docker  </span><br><span class="line">sudo systemctl start docker</span><br><span class="line"># 设置开机启动docker</span><br><span class="line">sudo systemctl enable docker</span><br></pre></td></tr></table></figure>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 禁用交换分区(在旧版的 k8s 中 kubelet 都要求关闭 swapoff ，但最新版的 kubelet 其实已经支持 swap ，因此这一步其实可以不做。)</span><br><span class="line">sudo swapoff -a</span><br><span class="line"># 永久禁用，打开/etc/fstab注释掉swap那一行。  </span><br><span class="line">sudo vim /etc/fstab</span><br><span class="line"># 修改内核参数(首先确认你的系统已经加载了 br_netfilter 模块，默认是没有该模块的，需要你先安装 bridge-utils)</span><br><span class="line">apt-get install -y bridge-utils</span><br><span class="line"># 开机自动加载br_netfilter模块，是linux的一个命令，可向内核载入指定的个别模块，或是载入一组相依的模块</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">lsmod | grep br_netfilter</span><br><span class="line"># 如果报错找不到包，需要先更新 apt-get update -y</span><br></pre></td></tr></table></figure>
+<h2 id="Master节点的配置"><a href="#Master节点的配置" class="headerlink" title="Master节点的配置"></a>Master节点的配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 安装基础环境</span><br><span class="line">apt-get install -y ca-certificates curl software-properties-common apt-transport-https curl</span><br><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -</span><br><span class="line"># 执行配置k8s阿里云源  </span><br><span class="line">vim /etc/apt/sources.list.d/kubernetes.list</span><br><span class="line">#加入以下内容</span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main</span><br><span class="line"># 执行更新</span><br><span class="line">apt-get update -y</span><br><span class="line"># 安装kubeadm、kubectl、kubelet  </span><br><span class="line">apt-get install -y kubelet=1.23.1-00 kubeadm=1.23.1-00 kubectl=1.23.1-00</span><br><span class="line"># 阻止自动更新(apt upgrade时忽略)。所以更新的时候先unhold，更新完再hold。</span><br><span class="line">apt-mark hold kubelet kubeadm kubectl</span><br></pre></td></tr></table></figure>
+<h2 id="部署Master"><a href="#部署Master" class="headerlink" title="部署Master"></a>部署Master</h2><h3 id="创建kubeadm-config-yaml"><a href="#创建kubeadm-config-yaml" class="headerlink" title="创建kubeadm-config.yaml"></a>创建kubeadm-config.yaml</h3><p>kubeadm config print init-defaults  &gt; kubeadm-config.yaml</p>
+<p>改了这些地方：</p>
+<p>advertiseAddress: 改成本机ip</p>
+<p>name: 改成了master</p>
+<p>imageRepository: 改成了registry.cn-hangzhou.aliyuncs.com/google_containers</p>
+<h3 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h3><p>docker pull用来拉取镜像，docker tag用于打标签</p>
+<p>先试试kubeadm config images pull能不能成功，这用来测试和”k8s.gcr.io”, “gcr.io”, “quay.io”的连接</p>
+<p>若不行，首先查看kubeadm config 依赖的images有哪些：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查看kubeadm config所需的镜像</span><br><span class="line">kubeadm config images list</span><br><span class="line">#执行结果如下</span><br><span class="line">k8s.gcr.io/kube-apiserver:v1.23.8</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.23.8</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.23.8</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.23.8</span><br><span class="line">k8s.gcr.io/pause:3.6</span><br><span class="line">k8s.gcr.io/etcd:3.5.1-0</span><br><span class="line">k8s.gcr.io/coredns/coredns:v1.8.6</span><br></pre></td></tr></table></figure>
+<p>然后从国内镜像拉取这些镜像（有些是可以直接拉取的，比如 k8s.gcr.io/coredns/coredns:v1.8.6）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#从国内镜像拉取</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver:v1.23.8</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager:v1.23.8</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.23.8</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy:v1.23.8</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.6</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.5.1-0</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.8.6</span><br><span class="line">````</span><br><span class="line"></span><br><span class="line">然后根据依赖对这些镜像进行重命名（这里要注意重命名的版本号有的是带v的，有的是不带的）注意看清楚。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>#将拉取下来的images重命名为kubeadm config所需的镜像名字<br>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiserver:v1.23.8 k8s.gcr.io/kube-apiserver:v1.23.8<br>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-controller-manager:v1.23.8 k8s.gcr.io/kube-controller-manager:v1.23.8<br>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.23.8 k8s.gcr.io/kube-scheduler:v1.23.8<br>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy:v1.23.8 k8s.gcr.io/kube-proxy:v1.23.8<br>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.6 k8s.gcr.io/pause:3.6<br>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.5.1-0 k8s.gcr.io/etcd:3.5.1-0<br>docker tag coredns/coredns:1.8.6 k8s.gcr.io/coredns/coredns:v1.8.6<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 初始化</span><br><span class="line"></span><br><span class="line">kubeadm init --config kubeadm-config.yaml</span><br><span class="line"></span><br><span class="line">mkdir -p $HOME/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME/.kube/config</span><br><span class="line"></span><br><span class="line">记住node加入集群的命令 上面kubeadm init执行成功后会返回给你node节点加入集群的命令，等会要在node节点上执行，需要保存下来，如果忘记了，可以使用如下命令获取。</span><br><span class="line"></span><br><span class="line">kubeadm token create --print-join-command</span><br><span class="line"></span><br><span class="line">## 部署节点</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="安装基础环境"><a href="#安装基础环境" class="headerlink" title="安装基础环境"></a>安装基础环境</h1><p>apt-get install -y ca-certificates curl software-properties-common apt-transport-https curl<br>curl -s <a href="https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg">https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg</a> | sudo apt-key add -</p>
+<h1 id="执行配置k8s阿里云源"><a href="#执行配置k8s阿里云源" class="headerlink" title="执行配置k8s阿里云源"></a>执行配置k8s阿里云源</h1><p>vim /etc/apt/sources.list.d/kubernetes.list</p>
+<p>#加入以下内容<br>deb <a href="https://mirrors.aliyun.com/kubernetes/apt/">https://mirrors.aliyun.com/kubernetes/apt/</a> kubernetes-xenial main</p>
+<h1 id="执行更新"><a href="#执行更新" class="headerlink" title="执行更新"></a>执行更新</h1><p>apt-get update -y</p>
+<h1 id="安装kubeadm、kubectl、kubelet"><a href="#安装kubeadm、kubectl、kubelet" class="headerlink" title="安装kubeadm、kubectl、kubelet"></a>安装kubeadm、kubectl、kubelet</h1><p>apt-get install -y kubelet=1.23.1-00 kubeadm=1.23.1-00 kubectl=1.23.1-00</p>
+<h1 id="阻止自动更新-apt-upgrade时忽略-。所以更新的时候先unhold，更新完再hold。"><a href="#阻止自动更新-apt-upgrade时忽略-。所以更新的时候先unhold，更新完再hold。" class="headerlink" title="阻止自动更新(apt upgrade时忽略)。所以更新的时候先unhold，更新完再hold。"></a>阻止自动更新(apt upgrade时忽略)。所以更新的时候先unhold，更新完再hold。</h1><p>apt-mark hold kubelet kubeadm kubectl<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> 这里加入集群的命令每个人都不一样，可以登录master节点，使用kubeadm token create --print-join-command 来获取。获取后执行如下。</span><br><span class="line"></span><br><span class="line">kubeadm join 172.31.186.200:6443 --token fmty0x.5v15q0m9nzwd8lcy     --discovery-token-ca-cert-hash sha256:604205e4fd92840baa05977e1770cefcd45ebae251761d94144572f66b1f4e1d</span><br><span class="line"></span><br><span class="line">        如果此处报错，则需要重启 即可</span><br><span class="line"></span><br><span class="line">kubeadm reset</span><br><span class="line"></span><br><span class="line">加入成功后，可以在master节点上使用kubectl get nodes命令查看到加入的节点</span><br><span class="line">五、部署 Calico（master机器）</span><br><span class="line"></span><br><span class="line">        以上步骤安装完后，机器搭建起来了，但状态还是NotReady状态，如下图，master机器需要安装Calico。</span><br><span class="line"></span><br><span class="line">kubectl apply -f https://docs.projectcalico.org/v3.21/manifests/calico.yaml</span><br><span class="line"></span><br><span class="line">安装完成后需要等待k8s重新拉起节点</span><br><span class="line">六、完成</span><br><span class="line"></span><br><span class="line">在master执行，即可看到节点已为Ready状态</span><br><span class="line"></span><br><span class="line">kubectl get nodes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 手动配置一个简单的model</span><br><span class="line"></span><br><span class="line">预先准备了两台机器</span><br><span class="line"></span><br><span class="line">hz01ddd，计划让hz01为master节点，ddd为普通node</span><br><span class="line"></span><br><span class="line">## 配置服务端环境</span><br><span class="line"></span><br><span class="line">### 安装ETCD</span><br><span class="line"></span><br><span class="line">第一步，准备证书</span><br><span class="line"></span><br><span class="line">(要用到哪些证书 https://kubernetes.io/zh-cn/docs/setup/best-practices/certificates/)</span><br><span class="line"></span><br><span class="line">#### 数字证书的作用</span><br><span class="line"></span><br><span class="line">证书是可信任的机构颁发的，即CA认证中心，不同的CA认证中心结构类似于树形。根CA认证中心可以授权多个二级的CA认证中心，同理二级CA认证中心也可以授权多个3级的CA认证中心</span><br><span class="line"></span><br><span class="line">父CA认证中心会给子认证中心发一个数字证书，和属于自己的公钥私钥</span><br><span class="line"></span><br><span class="line">数字证书就是网络上数字实体的身份证，其它实体通过验证数字证书来确认该实体的可靠性(通过向发给该实体证书的CA认证)</span><br><span class="line"></span><br><span class="line">之后发报文时，数字证书用来给报文签名，确保每个报文都是该实体发的</span><br><span class="line"></span><br><span class="line">证书所有者自己保存私钥，把公钥放在自己的数字证书内</span><br><span class="line"></span><br><span class="line">发送报文时，发送方用一个哈希函数从报文文本中生成报文摘要，然后用发送方的私钥对这个摘要进行加密，这个加密后的摘要将作为报文的数字签名和报文一起发送给接收方，接收方首先用与发送方一样的哈希函数从接收到的原始报文中计算出报文摘要，接着再公钥来对报文附加的数字签名进行解密，如果这两个摘要相同、那么接收方就能确认该报文是发送方的</span><br><span class="line"></span><br><span class="line">#### 怎么生成数字证书</span><br><span class="line"></span><br><span class="line">证书有四种类型</span><br><span class="line"></span><br><span class="line">自签名证书：又称为根证书，是自己颁发给自己的证书，即证书中的颁发者和主体名相同。申请者无法向CA申请本地证书时，可以通过设备生成自签名证书，可以实现简单证书颁发功能。设备不支持对其生成的自签名证书进行生命周期管理（如证书更新、证书撤销等）</span><br><span class="line"></span><br><span class="line">CA证书： CA自身的证书。如果PKI系统中没有多层级CA，CA证书就是自签名证书；如果有多层级CA，则会形成一个CA层次结构，最上层的CA是根CA，它拥有一个CA“自签名”的证书。申请者通过验证CA的数字签名从而信任CA，任何申请者都可以得到CA的证书（含公钥），用以验证它所颁发的本地证书。</span><br><span class="line"></span><br><span class="line">本地证书：CA颁发给申请者的证书。</span><br><span class="line"></span><br><span class="line">设备本地证书：设备根据CA证书给自己颁发的证书，证书中的颁发者名称是CA服务器的名称。申请者无法向CA申请本地证书时，可以通过设备生成设备本地证书，可以实现简单证书颁发功能。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">要确保：</span><br><span class="line"></span><br><span class="line">所有操作全部用root使用者进行</span><br><span class="line"></span><br><span class="line">所有节点彼此网络互通</span><br><span class="line"></span><br><span class="line">master1 SSH 登入其他节点为 passwdless，在任何一个机器或者任何一个user下使用命令ssh-keygen -t rsa生成一个秘钥对，$user_home/.ssh/id_rsa &amp; id_rsa.pub,然后将id_rsa.pub里面的内容拷贝你想无密码登录到的机器和用户下的.ssh/authorized_keys文件里，并且chmod700，你就可以无密码登录了。结论就是不管这对秘钥对（私钥、公钥）是在哪里生成的，只要生成了，你就可以在任何地方使用它</span><br><span class="line"></span><br><span class="line">所有防火墙与 SELinux 已关闭。如 CentOS：</span><br><span class="line"></span><br><span class="line"># K8s新建pod</span><br><span class="line"></span><br><span class="line">## 新建pod</span><br><span class="line"></span><br><span class="line">查看pod的命令：</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>kubectl get pod -n default<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">首先写一个资源清单：</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line"></span><br><span class="line">testpod.yaml</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>apiVersion: v1<br>kind: Pod<br>metadata:<br>  name: pod1<br>spec:<br>  containers: </p>
+<ul>
+<li>name: nginx-containers<br>image: nginx:latest<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然后执行命令：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+kubectl apply -f testpod.yaml<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">正常情况下就创建成功了</span><br><span class="line"></span><br><span class="line">## 在pod里执行命令</span><br><span class="line"></span><br><span class="line">查看pod信息</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<code>$ kubectl describe pods/&lt;pod-name&gt;</code><br><code>$ kubectl describe pods &lt;pod-name&gt;</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>执行Pod的data命令，默认是用Pod中的第一个容器执行<br><code>$ kubectl exec &lt;pod-name&gt; data</code> </li>
+<li>指定Pod中某个容器执行data命令<br><code>$ kubectl exec &lt;pod-name&gt; -c &lt;container-name&gt; data</code> </li>
+<li>通过bash获得Pod中某个容器的TTY(终端？)，相当于登录容器<br><code>$ kubectl exec -it &lt;pod-name&gt; -c &lt;container-name&gt; bash</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># docker</span><br><span class="line"></span><br><span class="line">## 镜像</span><br><span class="line"></span><br><span class="line">Docker 主机安装之后，本地并没有镜像。</span><br><span class="line"></span><br><span class="line">docker image pull 是下载镜像的命令。镜像从远程镜像仓库服务的仓库中下载。</span><br><span class="line"></span><br><span class="line">默认情况下，镜像会从 Docker Hub 的仓库中拉取。docker image pull alpine:latest 命令会从 Docker Hub 的 alpine 仓库中拉取标签为 latest 的镜像。</span><br><span class="line"></span><br><span class="line">Linux Docker 主机本地镜像仓库通常位于 /var/lib/docker/&lt;storage-driver&gt;，Windows Docker 主机则是 C:\ProgramData\docker\windowsfilter。</span><br><span class="line"></span><br><span class="line">可以使用以下命令检查 Docker 主机的本地仓库中是否包含镜像。</span><br><span class="line"></span><br><span class="line">$ docker image ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">只需要给出镜像的名字和标签，就能在官方仓库中定位一个镜像（采用“:”分隔）。从官方仓库拉取镜像时，docker image pull 命令的格式如下。</span><br><span class="line"></span><br><span class="line">docker image pull &lt;repository&gt;:&lt;tag&gt;</span><br><span class="line"></span><br><span class="line">## docker登录到容器中</span><br><span class="line"></span><br><span class="line">登录命令</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+docker attach <ContainerID><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">登录之后就可以在容器里进行任何操作</span><br><span class="line"></span><br><span class="line">ctrl+p+q，就可以安全退出了</span><br><span class="line"></span><br><span class="line">其缺陷是所有人都只能用一个，别人输的命令你也能看到</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+docker exec<br><code>`</code></li>
+</ol>
+</li>
+</ul>
+<p>执行一条命令，可以用–help查看其详细信息，可以执行/bin/bash来运行命令，不存在attach的问题</p>
+<p>如果运行的容器中开启了ssh服务，也可以用远程ssh的方式</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/17/%E6%9C%AC%E7%A7%91%E7%AE%97%E6%B3%95%E6%AF%94%E8%B5%9B%E8%AE%B0%E5%BD%95/" rel="next" title="本科算法比赛记录">
+                <i class="fa fa-chevron-left"></i> 本科算法比赛记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/01/17/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/" rel="prev" title="本科网络安全课实验">
+                本科网络安全课实验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF"><span class="nav-number">1.</span> <span class="nav-text">容器技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟机的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">1.3.</span> <span class="nav-text">Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92%E5%92%8CK8s"><span class="nav-number">1.4.</span> <span class="nav-text">容器编排和K8s</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K8s%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">K8s介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#K8s%E6%9E%B6%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">K8s架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2-Control-Plane"><span class="nav-number">2.1.1.</span> <span class="nav-text">控制平面(Control Plane)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-apiserver"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">kube-apiserver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-scheduler"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">kube-scheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#etcd"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-controller-manager"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">kube-controller-manager</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node%E7%BB%84%E4%BB%B6"><span class="nav-number">2.1.2.</span> <span class="nav-text">Node组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kubelet"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">kubelet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kube-proxy"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">kube-proxy</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubeadm%E9%85%8D%E7%BD%AE%E7%AE%80%E5%8D%95model"><span class="nav-number">3.</span> <span class="nav-text">kubeadm配置简单model</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E8%A3%85docker"><span class="nav-number">3.1.</span> <span class="nav-text">先装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Master%E8%8A%82%E7%82%B9%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.</span> <span class="nav-text">Master节点的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2Master"><span class="nav-number">3.4.</span> <span class="nav-text">部署Master</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAkubeadm-config-yaml"><span class="nav-number">3.4.1.</span> <span class="nav-text">创建kubeadm-config.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F"><span class="nav-number">3.4.2.</span> <span class="nav-text">拉取镜像</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83"><span class="nav-number">4.</span> <span class="nav-text">安装基础环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E9%85%8D%E7%BD%AEk8s%E9%98%BF%E9%87%8C%E4%BA%91%E6%BA%90"><span class="nav-number">5.</span> <span class="nav-text">执行配置k8s阿里云源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%9B%B4%E6%96%B0"><span class="nav-number">6.</span> <span class="nav-text">执行更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85kubeadm%E3%80%81kubectl%E3%80%81kubelet"><span class="nav-number">7.</span> <span class="nav-text">安装kubeadm、kubectl、kubelet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%BB%E6%AD%A2%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-apt-upgrade%E6%97%B6%E5%BF%BD%E7%95%A5-%E3%80%82%E6%89%80%E4%BB%A5%E6%9B%B4%E6%96%B0%E7%9A%84%E6%97%B6%E5%80%99%E5%85%88unhold%EF%BC%8C%E6%9B%B4%E6%96%B0%E5%AE%8C%E5%86%8Dhold%E3%80%82"><span class="nav-number">8.</span> <span class="nav-text">阻止自动更新(apt upgrade时忽略)。所以更新的时候先unhold，更新完再hold。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

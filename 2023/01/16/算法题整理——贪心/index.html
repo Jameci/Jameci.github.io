@@ -1,37 +1,827 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="有时局部最优就是全局最优，当前最好就是最好，这就是贪心 贪心的难点在于什么时候能用，怎么用。其关键在于——局部最优能保证全局最优吗，如何证明 有时候，衡量局部最优并非用最终求解的问题来衡量，可能推导出其它标准——甚至我根本算不出来当前的局部最优解是多少，但我能证明一种状态总比另一种好，因此我能总选用一种状态 CH0701_国王游戏描述在国庆日，国王打算玩这样的游戏：国王和大臣们在自己的左右手上各写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法题整理——贪心">
+<meta property="og:url" content="https://jameci.github.io/2023/01/16/%E7%AE%97%E6%B3%95%E9%A2%98%E6%95%B4%E7%90%86%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="有时局部最优就是全局最优，当前最好就是最好，这就是贪心 贪心的难点在于什么时候能用，怎么用。其关键在于——局部最优能保证全局最优吗，如何证明 有时候，衡量局部最优并非用最终求解的问题来衡量，可能推导出其它标准——甚至我根本算不出来当前的局部最优解是多少，但我能证明一种状态总比另一种好，因此我能总选用一种状态 CH0701_国王游戏描述在国庆日，国王打算玩这样的游戏：国王和大臣们在自己的左右手上各写">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-01-16T04:09:07.000Z">
+<meta property="article:modified_time" content="2023-01-17T10:22:55.251Z">
+<meta property="article:author" content="Jameci">
+<meta property="article:tag" content="基础算法">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jameci.github.io/2023/01/16/算法题整理——贪心/"/>
+
+
+
+
+
+  <title>算法题整理——贪心 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jameci.github.io/2023/01/16/%E7%AE%97%E6%B3%95%E9%A2%98%E6%95%B4%E7%90%86%E2%80%94%E2%80%94%E8%B4%AA%E5%BF%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法题整理——贪心</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-16T12:09:07+08:00">
+                2023-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">基础算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>有时局部最优就是全局最优，当前最好就是最好，这就是贪心</p>
+<p>贪心的难点在于什么时候能用，怎么用。其关键在于——局部最优能保证全局最优吗，如何证明</p>
+<p>有时候，衡量局部最优并非用最终求解的问题来衡量，可能推导出其它标准——甚至我根本算不出来当前的局部最优解是多少，但我能证明一种状态总比另一种好，因此我能总选用一种状态</p>
+<h1 id="CH0701-国王游戏"><a href="#CH0701-国王游戏" class="headerlink" title="CH0701_国王游戏"></a>CH0701_国王游戏</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>在国庆日，国王打算玩这样的游戏：国王和大臣们在自己的左右手上各写一个正整数，然后站成一排，国王必定站在最前面，之后，国王会根据这些数字和大臣们站的顺序来赏赐他们。</p>
+<p>赏赐的方法是这样的：国王用金币来赏赐大臣，每个人得到的金币个数等于他前面所有人左手上的数字乘积除以他自己右手上的数字。</p>
+<p>现在，国王不希望任何一个大臣拿到格外多的赏赐，所以，国王打算在大臣写好数字之后再根据他们手上的数字亲自给他们排队。</p>
+<p>已知国王和每个大臣左右手的数字，求得到赏赐最大的大臣获得的最少金币数。</p>
+<h2 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围"></a>数据范围</h2><p>大臣数目1 &lt; n &lt; 1000</p>
+<p>写在手上的数字1 &lt; a,b &lt; 1e5</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>如何确定两个大臣的先后顺序？</p>
+<p>假设大臣i和j相邻，假设他们得到的赏金是si和sj，那么：</p>
+<p>如果i = j + 1，有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">si = k * l[j] / r[i]</span><br><span class="line">sj = k / r[j]</span><br></pre></td></tr></table></figure>
+<p>如果j = i + 1，有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sj = k * l[i] / r[j]</span><br><span class="line">si = k / r[i]</span><br></pre></td></tr></table></figure>
+<p>其中k是i，j前面的人左手数的乘积，相当于公共项，l，r分别表示左，右手上的数字。</p>
+<p>我们假设i在j前面比j在i前面好，那么对于情况1，我们知道需要满足的条件是：</p>
+<p><code>max(k * l[i] / r[j], k / r[i]) &lt; max(k * l[j] / r[i], k / r[j])</code></p>
+<p>简单推导一下逻辑关系，可以得到关键在于：</p>
+<p><code>l[i] / r[j] &lt; l[j] / r[i]</code></p>
+<p>即：</p>
+<p><code>l[i] * r[i] &lt; l[j] * r[j]</code></p>
+<p>那么我们计算出每个大臣左右手数字的积并排序，从小到大的顺序就是最优情况。</p>
+<h2 id="大数乘除"><a href="#大数乘除" class="headerlink" title="大数乘除"></a>大数乘除</h2><p>这个题恶心的地方在于，它的解是会超过int64的上限的。我们不得不手写一个大数乘法除法。</p>
+<p>思路比较简单，用数组模拟即可。</p>
+<p>但要把它写对可真不容易啊。</p>
+<p>我用long long数组模拟一个大整数，数组每个存4位十进制位。并使用额外的变量来存储其数位。</p>
+<p>大整数乘long long型整数的实现：遍历数组每一位都乘一遍long long型整数，然后进位。</p>
+<p>除法的实现：额外使用一个变量来存储余数，从最高位开始除，要注意的是余数的维护。</p>
+<p>比较大小：先比较长度，再按位比较。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000</span> + <span class="number">5</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">long</span> <span class="type">long</span> M = <span class="number">1e4</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> a, b;</span><br><span class="line"><span class="type">long</span> <span class="type">long</span> l[N], r[N], v[N];</span><br><span class="line"><span class="type">int</span> id[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> v[i] &lt; v[j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen(&quot;input&quot;, &quot;r&quot;, stdin);</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld&quot;</span>, &amp;l[i], &amp;r[i]);</span><br><span class="line">		v[i] = l[i] * r[i];</span><br><span class="line">		id[i] = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">sort</span>(id, id + n, cmp);</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> maxx[<span class="number">1000</span>];</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> ret[<span class="number">1000</span>];</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> temp[<span class="number">1000</span>];</span><br><span class="line">	<span class="built_in">memset</span>(maxx, <span class="number">0</span>, <span class="built_in">sizeof</span>(maxx));</span><br><span class="line">	<span class="built_in">memset</span>(ret, <span class="number">0</span>, <span class="built_in">sizeof</span>(ret));</span><br><span class="line">	<span class="built_in">memset</span>(temp, <span class="number">0</span>, <span class="built_in">sizeof</span>(temp));</span><br><span class="line">	<span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> lent = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> lenm = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(a)&#123;</span><br><span class="line">		ret[len++] = a % M;</span><br><span class="line">		a /= M;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">		<span class="type">int</span> ii = id[i];</span><br><span class="line">		<span class="type">long</span> <span class="type">long</span> div = r[ii];</span><br><span class="line">		<span class="type">long</span> <span class="type">long</span> eta = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">		lent = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(temp, <span class="number">0</span>, <span class="built_in">sizeof</span>(temp));</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = len - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j)&#123;</span><br><span class="line">			eta *= M;</span><br><span class="line">			<span class="keyword">if</span>((ret[j] + eta) / div == <span class="number">0</span>)&#123;</span><br><span class="line">				eta += ret[j];</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			temp[j] = (ret[j] + eta) / div;</span><br><span class="line">			eta = (ret[j] + eta) % div;</span><br><span class="line">			<span class="keyword">if</span>(lent == <span class="number">0</span>) lent = j + <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> flag = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(lent &gt; lenm) flag = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(lent == lenm)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j = lent - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j)&#123;</span><br><span class="line">				<span class="keyword">if</span>(temp[j] &gt; maxx[j])&#123;</span><br><span class="line">					flag = <span class="number">1</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(flag)&#123;</span><br><span class="line">			lenm = lent;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; lent; ++j) maxx[j] = temp[j];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; len; ++j)&#123;</span><br><span class="line">			ret[j] *= l[ii];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt; len; ++j)&#123;</span><br><span class="line">			ret[j] += (ret[j - <span class="number">1</span>] / M);</span><br><span class="line">			ret[j - <span class="number">1</span>] %= M;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(ret[len - <span class="number">1</span>] &gt;= M)&#123;</span><br><span class="line">			ret[len] = ret[len - <span class="number">1</span>] / M;</span><br><span class="line">			ret[len - <span class="number">1</span>] %= M;</span><br><span class="line">			++len;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//printf(&quot;%d %lld\n&quot;, ii, mmax);</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(lenm == <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;0\n&quot;</span>);</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, maxx[lenm - <span class="number">1</span>]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = lenm - <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(maxx[i] &gt;= <span class="number">1e3</span>) <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>, maxx[i]);</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(maxx[i] &gt;= <span class="number">1e2</span>) <span class="built_in">printf</span>(<span class="string">&quot;0%lld&quot;</span>, maxx[i]);</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(maxx[i] &gt;= <span class="number">1e1</span>) <span class="built_in">printf</span>(<span class="string">&quot;00%lld&quot;</span>, maxx[i]);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;000%lld&quot;</span>, maxx[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="POJ1328-Radar-Installation"><a href="#POJ1328-Radar-Installation" class="headerlink" title="POJ1328_Radar Installation"></a>POJ1328_Radar Installation</h1><h2 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h2><p>在平面直角坐标系里，有一些岛屿的坐标（岛屿被看成是一个点）在x轴的上面，现在要在x轴上修建一些雷达，每个雷达的覆盖范围是半径为R的圆形，要求实现对岛屿的雷达全覆盖，问最少修建的雷达数目是多少。</p>
+<h2 id="数据范围-1"><a href="#数据范围-1" class="headerlink" title="数据范围"></a>数据范围</h2><p>岛屿数量1 &lt; n &lt; 1000</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>对于每个岛屿，我们可以计算出一个范围，使得在这个范围内的任意一个雷达都可以覆盖这个岛屿（勾股定理就可以算出来）。</p>
+<p>这样，我们对于每个岛屿的范围的最左点进行排序，然后从左到右进行遍历。我们记录上一个修建的雷达的横坐标是pos，一开始pos是负无穷。</p>
+<p>对于每个岛屿，有两个选择：</p>
+<p>1.新建一个雷达，覆盖这个岛屿。</p>
+<p>2.使用已经有的雷达来覆盖这个岛屿。</p>
+<p>我们的策略是：如果可以选择2，那么我们不会选择1。</p>
+<p>下面我们证明：</p>
+<p>如果我们可以选择2，却新建了一个雷达来覆盖该岛屿。那么我们的雷达只能建在这个岛屿的被管辖范围内。但如果我们调整了已有雷达，那么我们可以新建一个任意位置的雷达，至少也不会比上面的选择差。</p>
+<p>所以，对于每个点i，我们看pos能不能移动来覆盖当前的点。</p>
+<p>如果<code>pos &lt; l[i]</code>，说明上一个雷达无法覆盖到当前岛屿，我们需要新建一个。我们新建雷达的位置要尽量靠右，使得尽量覆盖后面的岛屿，所以这时有：</p>
+<p><code>pos = r[i]</code></p>
+<p>如果<code>pos &gt; l[i]</code>，说明上一个雷达可以覆盖到当前岛屿，但有一种情况是同时有<code>pos &gt; r[i]</code>说明，上一个雷达太靠右了，我们需要往左移动一点，最小限度的往左移动是移动到<code>r[i]</code>，但是，我们往左移动会不会影响到之前的点呢？我们说不会，因为往左移动的最大限度就是<code>l[i]</code>，但<code>l[i]</code>已经排过序了，再移动也不会移出之前的范围之外。</p>
+<p>但我们不能向右移动，因为始终至少有一个岛屿的覆盖范围的右端等于pos，一旦向右移动，这个岛将不会被覆盖到。</p>
+<h2 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">double</span> x[N], y[N], l[N], r[N];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> ind[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> l[i] &lt; l[j];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> con = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> n, d;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;d);</span><br><span class="line">	<span class="keyword">while</span>(n || d)&#123;</span><br><span class="line">		<span class="type">int</span> flag = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			ind[i] = i;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">&quot;%lf %lf&quot;</span>, &amp;x[i], &amp;y[i]);</span><br><span class="line">			<span class="keyword">if</span>(d &lt; y[i])&#123;</span><br><span class="line">				flag = <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			l[i] = x[i] - <span class="built_in">sqrt</span>(d * d - y[i] * y[i]);</span><br><span class="line">			r[i] = x[i] + <span class="built_in">sqrt</span>(d * d - y[i] * y[i]);</span><br><span class="line">			<span class="comment">//printf(&quot;%lf %lf\n&quot;, l[i], r[i]);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">sort</span>(ind, ind + n, cmp);</span><br><span class="line">			<span class="type">double</span> pos = l[ind[<span class="number">0</span>]] - <span class="number">1</span>; </span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">				<span class="type">int</span> id = ind[i];</span><br><span class="line">				<span class="keyword">if</span>(pos &lt; l[id])&#123;</span><br><span class="line">					pos = r[id];</span><br><span class="line">					++ret;</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					pos = <span class="built_in">min</span>(pos, r[id]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;Case %d: %d\n&quot;</span>, ++con, flag ? <span class="number">-1</span> : ret);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;d);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="POJ3190-Stall-Reservations"><a href="#POJ3190-Stall-Reservations" class="headerlink" title="POJ3190_Stall Reservations"></a>POJ3190_Stall Reservations</h1><h2 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h2><p>有n头奶牛，它们每头都有一个确定的挤奶时间段。在某头牛的挤奶时间段内，它需要一个牛棚单独挤奶。现在求至少需要的牛棚数目。</p>
+<h2 id="数据范围-2"><a href="#数据范围-2" class="headerlink" title="数据范围"></a>数据范围</h2><p>1 &lt; n &lt; 50000</p>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>按照挤奶开始时间对奶牛排序，然后从早到晚地取一头牛，如果在它的挤奶开始时间点有空闲的牛棚，就把它安排到编号最小的牛棚里，如果没有，则为它新建一个牛棚。</p>
+<p>下面证明这样的策略一定是需要牛棚最少的：</p>
+<p>假设最开始就已经有一定数量的牛棚，数量是m。</p>
+<p>对于任意的一个时间点x，每头牛有三种状态：</p>
+<p>1.正在被挤奶</p>
+<p>2.挤奶完成</p>
+<p>3.还未被挤奶</p>
+<p>那么对于第i头牛，在它开始需要被挤奶的时间点，所有开始时间比i早的牛只能处于1，2两种状态。</p>
+<p>已经处于状态1的牛对第i头牛是没有影响的，显然，处于状态3的牛由于未到开始挤奶时间，对第i头牛也是没有影响的。</p>
+<p>对i来说，需要考虑的就是有多少处于状态2的牛，假设有y头，那么，i有m-y个牛棚可以选择。</p>
+<p>对第i头牛来说，前面的牛被安排到哪个牛棚实际上是不重要的。因为无论安排到哪个牛棚，前面的牛只要满足其结束时间大于等于第i头牛的开始时间，就一定会占用一个牛棚。</p>
+<p>所以i被安排到哪个牛棚，对后面的牛来说也没有影响，唯一有影响的是i的结束时间。</p>
+<p>所以我们不妨把i安排到编号最小的牛棚。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">50000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cow</span>&#123;</span><br><span class="line">	<span class="type">int</span> s;</span><br><span class="line">	<span class="type">int</span> e;</span><br><span class="line">&#125; cows[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">stall</span>&#123;</span><br><span class="line">	<span class="type">int</span> e;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">&#125; stalls[N];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> ind[N];</span><br><span class="line"><span class="type">int</span> rets[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp1</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> cows[i].s &lt; cows[j].s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cmp2</span>&#123;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(stall a, stall b)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> a.e &gt; b.e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n, ret = <span class="number">0</span>, con = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;cows[i].s, &amp;cows[i].e);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) ind[i] = i;</span><br><span class="line">	<span class="built_in">sort</span>(ind, ind + n, cmp1);</span><br><span class="line">	priority_queue&lt;stall, vector&lt;stall&gt;, cmp2&gt; q;</span><br><span class="line">	<span class="keyword">if</span>(n)&#123;</span><br><span class="line">		stall temp;</span><br><span class="line">		temp.id = ++con;</span><br><span class="line">		temp.e = cows[ind[<span class="number">0</span>]].e;</span><br><span class="line">		q.<span class="built_in">push</span>(temp);</span><br><span class="line">		rets[ind[<span class="number">0</span>]] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</span><br><span class="line">			temp = q.<span class="built_in">top</span>();</span><br><span class="line">			<span class="keyword">if</span>(temp.e &lt; cows[ind[i]].s)&#123;</span><br><span class="line">				<span class="comment">//printf(&quot;%d %d\n&quot;, temp.e, cows[ind[i]].s);</span></span><br><span class="line">				q.<span class="built_in">pop</span>();</span><br><span class="line">				temp.e = cows[ind[i]].e;</span><br><span class="line">				q.<span class="built_in">push</span>(temp);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				temp.id = ++con;</span><br><span class="line">				temp.e = cows[ind[i]].e;</span><br><span class="line">				q.<span class="built_in">push</span>(temp);</span><br><span class="line">			&#125;</span><br><span class="line">			rets[ind[i]] = temp.id;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, q.<span class="built_in">size</span>());</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, rets[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h1 id="POJ3614-Sunscreen"><a href="#POJ3614-Sunscreen" class="headerlink" title="POJ3614_Sunscreen"></a>POJ3614_Sunscreen</h1><h2 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h2><p>有c头奶牛在晒日光浴，每头都需要涂防晒霜，每种防晒霜有不同的spf数。对于每头奶牛，它们能接受的SPF指数在一个区间<code>[minspf, maxspf]</code>内，现在给出每头奶牛能接受的spf指数区间，每种防晒霜的spf指数和瓶数（防晒霜一共有l种，每头奶牛需要用整整一瓶的防晒霜），求最多能让多少头奶牛晒日光浴（如果没有合适的防晒霜，那么这头奶牛只能放弃晒日光浴了）。</p>
+<h2 id="数据范围-3"><a href="#数据范围-3" class="headerlink" title="数据范围"></a>数据范围</h2><p>1 &lt;= c , l &lt;= 2500</p>
+<h2 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h2><p>考虑每头奶牛所能接受的最低spf指数，按照最低的spf指数从大到小对奶牛们排序。</p>
+<p>然后遍历奶牛，对每头奶牛，在剩下的防晒霜里找到它能用的，且spf指数最高的防晒霜给它用。使用这种策略所能满足的奶牛总数就是最大值。</p>
+<p>下面证明：</p>
+<p>首先，由于奶牛是按照最低spf指数排序的，那么假设对于奶牛ci来说，有两瓶防晒霜可以用，spf指数分别是x和y，且y&gt;x，那么对于排在ci后面的cj说，只会出现三种情况：能用x，y；不能用x，y；能用x，不能用y；所以ci尽可能地选择spf指数大的防晒霜一定是最优的。</p>
+<h2 id="解决-2"><a href="#解决-2" class="headerlink" title="解决"></a>解决</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2500</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">lotion</span>&#123;</span><br><span class="line">	<span class="type">int</span> spfs;</span><br><span class="line">	<span class="type">int</span> cover;</span><br><span class="line">&#125; lotions[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">cow</span>&#123;</span><br><span class="line">	<span class="type">int</span> maxspf;</span><br><span class="line">	<span class="type">int</span> minspf;</span><br><span class="line">&#125; cows[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmpcow</span><span class="params">(cow i, cow j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(i.minspf == j.minspf) <span class="keyword">return</span> i.maxspf &gt; j.maxspf;</span><br><span class="line">	<span class="keyword">return</span> i.minspf &gt; j.minspf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmplotion</span><span class="params">(lotion i, lotion j)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> i.spfs &gt; j.spfs;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> c, l;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;c, &amp;l);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; c; ++i) <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;cows[i].minspf, &amp;cows[i].maxspf);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; l; ++i) <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;lotions[i].spfs, &amp;lotions[i].cover);</span><br><span class="line">	<span class="built_in">sort</span>(cows, cows + c, cmpcow);</span><br><span class="line">	<span class="built_in">sort</span>(lotions, lotions + l, cmplotion);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//for(int i = 0; i &lt; c; ++i) printf(&quot;%d %d\n&quot;, cows[i].minspf, cows[i].maxspf);</span></span><br><span class="line">	<span class="comment">//for(int i = 0; i &lt; l; ++i) printf(&quot;%d %d\n&quot;, lotions[i].spfs, lotions[i].cover);</span></span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> con = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; c; ++i)&#123;</span><br><span class="line">		<span class="type">int</span> maxlotion_spfs = <span class="number">-1</span>;</span><br><span class="line">		<span class="type">int</span> maxpos = <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; l; ++j)&#123;</span><br><span class="line">			<span class="keyword">if</span>(lotions[j].spfs &gt;= cows[i].minspf &amp;&amp; lotions[j].spfs &lt;= cows[i].maxspf &amp;&amp; lotions[j].cover &amp;&amp; lotions[j].spfs &gt; maxlotion_spfs)&#123;</span><br><span class="line">				maxlotion_spfs = lotions[j].spfs;</span><br><span class="line">				maxpos = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(maxpos != <span class="number">-1</span>)&#123;</span><br><span class="line">			++ret;</span><br><span class="line">			--lotions[maxpos].cover;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ret);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag"># 基础算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/16/%E7%AE%97%E6%B3%95%E9%A2%98%E6%95%B4%E7%90%86%E2%80%94%E2%80%94%E9%98%9F%E5%88%97/" rel="next" title="算法题整理——队列">
+                <i class="fa fa-chevron-left"></i> 算法题整理——队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/01/16/%E7%AE%97%E6%B3%95%E9%A2%98%E6%95%B4%E7%90%86%E2%80%94%E2%80%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="prev" title="算法题整理——动态规划">
+                算法题整理——动态规划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CH0701-%E5%9B%BD%E7%8E%8B%E6%B8%B8%E6%88%8F"><span class="nav-number">1.</span> <span class="nav-text">CH0701_国王游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4"><span class="nav-number">1.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E4%B9%98%E9%99%A4"><span class="nav-number">1.4.</span> <span class="nav-text">大数乘除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">1.5.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POJ1328-Radar-Installation"><span class="nav-number">2.</span> <span class="nav-text">POJ1328_Radar Installation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-1"><span class="nav-number">2.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3-1"><span class="nav-number">2.4.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POJ3190-Stall-Reservations"><span class="nav-number">3.</span> <span class="nav-text">POJ3190_Stall Reservations</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-2"><span class="nav-number">3.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-number">3.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.4.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POJ3614-Sunscreen"><span class="nav-number">4.</span> <span class="nav-text">POJ3614_Sunscreen</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-3"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4-3"><span class="nav-number">4.2.</span> <span class="nav-text">数据范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="nav-number">4.3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3-2"><span class="nav-number">4.4.</span> <span class="nav-text">解决</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

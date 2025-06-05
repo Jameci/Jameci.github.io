@@ -1,37 +1,822 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="准备工作想要运行Python，只需要下载一个Python解释器就可以了，如果使用的是Linux系统，那一般是自带Python的 运行python程序1.打开终端直接输入python3，进入python的shell，在这里可以直接运行python指令 2.写好的名为xxx的python程序可以在命令行里使用python xxx的命令来运行 3.在程序前加入#!&#x2F;解释器路径，然后在命令行里可以直接输入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基本语法">
+<meta property="og:url" content="https://jameci.github.io/2023/02/09/Python%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Jameci&#39;s Blog">
+<meta property="og:description" content="准备工作想要运行Python，只需要下载一个Python解释器就可以了，如果使用的是Linux系统，那一般是自带Python的 运行python程序1.打开终端直接输入python3，进入python的shell，在这里可以直接运行python指令 2.写好的名为xxx的python程序可以在命令行里使用python xxx的命令来运行 3.在程序前加入#!&#x2F;解释器路径，然后在命令行里可以直接输入">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-02-09T13:08:56.000Z">
+<meta property="article:modified_time" content="2023-04-19T07:48:30.354Z">
+<meta property="article:author" content="Jameci">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://jameci.github.io/2023/02/09/Python基本语法/"/>
+
+
+
+
+
+  <title>Python基本语法 | Jameci's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jameci's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下雷行，物与无妄。先王以茂对时，育万物。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jameci.github.io/2023/02/09/Python%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jameci's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python基本语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-02-09T21:08:56+08:00">
+                2023-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>想要运行Python，只需要下载一个Python解释器就可以了，如果使用的是Linux系统，那一般是自带Python的</p>
+<h1 id="运行python程序"><a href="#运行python程序" class="headerlink" title="运行python程序"></a>运行python程序</h1><p>1.打开终端直接输入python3，进入python的shell，在这里可以直接运行python指令</p>
+<p>2.写好的名为xxx的python程序可以在命令行里使用python xxx的命令来运行</p>
+<p>3.在程序前加入#!/解释器路径，然后在命令行里可以直接输入程序名来运行</p>
+<p>Python有五种基本变量——字符串，数字，列表，元组，字典</p>
+<h1 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h1><p>即数学中的数字，主要有整数，浮点数，复数和布尔型</p>
+<h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><p>除了数学上的+，-，*，/和%取模之外，Python以**表示取幂</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3**2 = 9</span><br><span class="line">2**3 = 8</span><br></pre></td></tr></table></figure>
+<p>//表示整除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">9 // 2 = 4</span><br><span class="line">26 // 3 = 8</span><br></pre></td></tr></table></figure>
+<p>优先级以幂最高，其次为乘除取模整除，最后为加减</p>
+<h2 id="复数"><a href="#复数" class="headerlink" title="复数"></a>复数</h2><p>复数即为数学上的复数，python中的虚数单位用j表示。分别用.real和.imag来得到虚数的实部和虚部：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a = 1 + 2j</span><br><span class="line">&gt;&gt;&gt;a.real</span><br><span class="line">1.0</span><br><span class="line">&gt;&gt;&gt;a.imag</span><br><span class="line">2.0</span><br></pre></td></tr></table></figure>
+<h2 id="布尔"><a href="#布尔" class="headerlink" title="布尔"></a>布尔</h2><p>Python中的布尔型必须大写首字母，即True和False，三种逻辑运算符为and，or和not</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;a = True</span><br><span class="line">&gt;&gt;&gt;b = False</span><br><span class="line">&gt;&gt;&gt;a and b</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt;a or b</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt;not a</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+<h2 id="x进制"><a href="#x进制" class="headerlink" title="x进制"></a>x进制</h2><p>Python中用0b开头的01字符串来表示二进制数，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;0b1111</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+<p>二进制运算符和C语言基本一致</p>
+<p>除此之外，Python中0x表示16进制，0o表示八进制</p>
+<h2 id="比较和赋值运算符"><a href="#比较和赋值运算符" class="headerlink" title="比较和赋值运算符"></a>比较和赋值运算符</h2><p>和C语言基本一致</p>
+<p>注意python中没有自增和自减运算，a++，a–这种写法是错误的</p>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>字符串用单引号，双引号或者三引号包裹起来，使用+可以将两个字符串合并，*可以重复输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;str1 = &#x27;hello&#x27;</span><br><span class="line">&gt;&gt;&gt;str2 = &quot;world&quot;</span><br><span class="line">&gt;&gt;&gt;str1 + &#x27;&#x27;&#x27; &#x27;&#x27;&#x27; + str2</span><br><span class="line">hello world</span><br><span class="line">&gt;&gt;&gt;&#x27;hello&#x27; * 2</span><br><span class="line">hellohello</span><br></pre></td></tr></table></figure>
+<p>字符串可以直接使用==来比较</p>
+<h1 id="数值转换"><a href="#数值转换" class="headerlink" title="数值转换"></a>数值转换</h1><p>整数int，浮点数float，复数complex，字符串str，二进制bin，八进制oct，十六进制hex，ASCII字符chr，把字符转为十进制数ord</p>
+<p>用法是直接函数调用，如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;int(3.2)</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>整数的二元组可以直接转换为复数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;complex(2,2)</span><br><span class="line">(2+2j)</span><br></pre></td></tr></table></figure>
+<h1 id="元组和列表"><a href="#元组和列表" class="headerlink" title="元组和列表"></a>元组和列表</h1><p>元组使用小括号表示，元组是静态的，无法更改</p>
+<p>列表用中括号表示，可以更改其长度，也可以更改内部元素的值</p>
+<h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><p>创建一个字典：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d = dict(</span><br><span class="line">	age = 20,</span><br><span class="line">    sex = &#x27;女&#x27;,</span><br><span class="line">    name = &#x27;天音&#x27;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1 id="其它常用函数"><a href="#其它常用函数" class="headerlink" title="其它常用函数"></a>其它常用函数</h1><h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><p>‘hello’[0:2] = ‘he’</p>
+<p>‘hello’[-4:-1] = ‘ell’</p>
+<p>‘hello’[::2] = ‘hlo’</p>
+<h2 id="len"><a href="#len" class="headerlink" title="len()"></a>len()</h2><p>返回一个字符串，元组，列表或者字典的长度</p>
+<h2 id="r或R"><a href="#r或R" class="headerlink" title="r或R"></a>r或R</h2><p>在字符串前加r或者R，意义为将字符串原样输出，特殊转义字符将不起作用</p>
+<h2 id="del"><a href="#del" class="headerlink" title="del()"></a>del()</h2><p>删除变量，如del(x)之后，再访问x将会出错</p>
+<h2 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h2><p>和C语言的格式化稍有不同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;print(&#x27;Today is %d %d %d&#x27; % (2022, 4, 26))</span><br><span class="line">Today is 2022 4 26</span><br></pre></td></tr></table></figure>
+<h1 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h1><h2 id="np-arange"><a href="#np-arange" class="headerlink" title="np.arange"></a>np.arange</h2><p>类似range，但它能和其它numpy的库函数联动</p>
+<h2 id="np-tile"><a href="#np-tile" class="headerlink" title="np.tile"></a>np.tile</h2><p>表示将一个列表沿着某个轴重复</p>
+<p>轴是什么呢？先来个简单的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = [1, 2, 3]</span><br><span class="line">np.tile(a, 2) = [1, 2, 3, 1, 2, 3]</span><br></pre></td></tr></table></figure>
+<p>对一维列表来说，其实就是简单的重复而已</p>
+<p>对多维列表，可以进行复杂的操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">b = [[1, 2], [3, 4]]</span><br><span class="line">np.tile(b, (2, 3)) =  [</span><br><span class="line">[1 2 1 2 1 2]</span><br><span class="line">[3 4 3 4 3 4]</span><br><span class="line">[1 2 1 2 1 2]</span><br><span class="line">[3 4 3 4 3 4]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>元组第一个元素表示如何处置最外层的大列表，第二个元素作用于次外层，以此层层深入</p>
+<p>好像列表内部必须是规整的：每个列表的元素之间长度必须相等</p>
+<h2 id="np-repeat"><a href="#np-repeat" class="headerlink" title="np.repeat"></a>np.repeat</h2><p>重复，和np.tile不同，tile会以整个数组为单位重复，repeat则是以元素为单位</p>
+<p>np.repeat([1, 2], 3) = [1, 1, 1, 2, 2, 2]</p>
+<h2 id="np-array"><a href="#np-array" class="headerlink" title="np.array"></a>np.array</h2><p>数组，可以由列表转换而来，目的是用np库里的东西与之联动</p>
+<h1 id="处理excel"><a href="#处理excel" class="headerlink" title="处理excel"></a>处理excel</h1><p><a href="https://blog.csdn.net/weixin_44288604/article/details/120731317">https://blog.csdn.net/weixin_44288604/article/details/120731317</a></p>
+<p>使用python的openpyxl库，打开文件和表的方法如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import openpyxl</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    path = r&#x27;C:\Users\gk\Desktop&#x27;</span><br><span class="line">    os.chdir(path)</span><br><span class="line"></span><br><span class="line">    workbook = openpyxl.load_workbook(&#x27;北京市气温.xlsx&#x27;)</span><br><span class="line">    sheet = workbook[&#x27;Sheet1&#x27;]</span><br></pre></td></tr></table></figure>
+<p>字母是行，数字是列</p>
+<p>想要知道几行几列使用sheet.dimensions，返回的是一个数组</p>
+<p>如果想要返回数字的几行几列，可以使用sheet.max_column等</p>
+<p>使用坐标可以获得表中元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in range(2, sheet.max_row + 1):</span><br><span class="line">    time = sheet[&#x27;A&#x27; + str(i)].value</span><br><span class="line">    tem = sheet[&#x27;B&#x27; + str(i)].value</span><br><span class="line">    print(time, tem)</span><br></pre></td></tr></table></figure>
+<p>除了直接sheet[A2]这种方式，也可以用sheet.cell(row=1, column=2)这种</p>
+<p>想要改值的话，直接sheet[‘A1’]=……</p>
+<p>然后workbook.save(文件名)</p>
+<p>或者用cell函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for i in range(2, 33):</span><br><span class="line">    sheet2.cell(1, i, i - 1)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/02/09/C-%E5%B8%B8%E7%94%A8%E5%BA%93%E5%92%8C%E4%BB%A3%E7%A0%81/" rel="next" title="C++常用库和代码">
+                <i class="fa fa-chevron-left"></i> C++常用库和代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/03/03/%E5%8C%97%E8%88%AA%E9%AB%98%E7%AD%89%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="prev" title="北航高等体系结构">
+                北航高等体系结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cpython%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">运行python程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">数字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.1.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">复数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B0%94"><span class="nav-number">3.3.</span> <span class="nav-text">布尔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#x%E8%BF%9B%E5%88%B6"><span class="nav-number">3.4.</span> <span class="nav-text">x进制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%92%8C%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.5.</span> <span class="nav-text">比较和赋值运算符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">4.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E8%BD%AC%E6%8D%A2"><span class="nav-number">5.</span> <span class="nav-text">数值转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8"><span class="nav-number">6.</span> <span class="nav-text">元组和列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E5%85%B8"><span class="nav-number">7.</span> <span class="nav-text">字典</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">其它常用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E7%89%87"><span class="nav-number">8.1.</span> <span class="nav-text">切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#len"><span class="nav-number">8.2.</span> <span class="nav-text">len()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#r%E6%88%96R"><span class="nav-number">8.3.</span> <span class="nav-text">r或R</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#del"><span class="nav-number">8.4.</span> <span class="nav-text">del()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">8.5.</span> <span class="nav-text">格式化字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#numpy"><span class="nav-number">9.</span> <span class="nav-text">numpy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#np-arange"><span class="nav-number">9.1.</span> <span class="nav-text">np.arange</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#np-tile"><span class="nav-number">9.2.</span> <span class="nav-text">np.tile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#np-repeat"><span class="nav-number">9.3.</span> <span class="nav-text">np.repeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#np-array"><span class="nav-number">9.4.</span> <span class="nav-text">np.array</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%84%E7%90%86excel"><span class="nav-number">10.</span> <span class="nav-text">处理excel</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jameci</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
